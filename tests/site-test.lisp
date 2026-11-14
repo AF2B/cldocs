@@ -190,3 +190,25 @@
        (let ((first (cldocs/site:build-site output))
              (second (cldocs/site:build-site output)))
          (is (= first second)))))))
+
+(defun node-available-p ()
+  "Return true when a node executable is on the PATH."
+  (zerop (nth-value 2 (uiop:run-program '("sh" "-c" "command -v node")
+                                        :output nil
+                                        :ignore-error-status t))))
+
+(test client-side-search-ranking-passes-its-node-tests
+  (if (not (node-available-p))
+      (skip "node is not installed; search ranking was NOT verified.")
+      (multiple-value-bind (output error-output code)
+          (uiop:run-program
+           (list "node" "--test" "tests/")
+           :directory (asdf:system-relative-pathname "cldocs" "")
+           :environment (list (format nil "CLDOCS_INDEX=~A"
+                                      (namestring
+                                       (merge-pathnames "assets/search-index.json"
+                                                        (built-site)))))
+           :output :string
+           :error-output :string
+           :ignore-error-status t)
+        (is (zerop code) "node tests failed:~%~A~%~A" output error-output))))
