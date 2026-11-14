@@ -12,7 +12,11 @@
            #:package-not-found-name
            #:malformed-data-file
            #:malformed-data-file-pathname
-           #:malformed-data-file-reason))
+           #:malformed-data-file-reason
+           #:design-system-missing
+           #:design-system-missing-pathname
+           #:output-directory-not-empty
+           #:output-directory-not-empty-pathname))
 
 (in-package #:cldocs/conditions)
 
@@ -72,3 +76,23 @@
                      (malformed-data-file-pathname condition)
                      (malformed-data-file-reason condition))))
   (:documentation "Signalled when a versioned data file is missing or malformed."))
+
+(define-condition design-system-missing (cldocs-error)
+  ((pathname :initarg :pathname
+             :initform (error "PATHNAME is required.")
+             :reader design-system-missing-pathname
+             :documentation "Directory where the Borba Design System was expected."))
+  (:report (lambda (condition stream)
+             (format stream "Borba Design System not found at ~A; refusing to improvise a style."
+                     (design-system-missing-pathname condition))))
+  (:documentation "Signalled when the design system assets cannot be located."))
+
+(define-condition output-directory-not-empty (cldocs-error)
+  ((pathname :initarg :pathname
+             :initform (error "PATHNAME is required.")
+             :reader output-directory-not-empty-pathname
+             :documentation "Directory that was refused as build output."))
+  (:report (lambda (condition stream)
+             (format stream "Refusing to overwrite ~A: it is not a CLDocs site directory."
+                     (output-directory-not-empty-pathname condition))))
+  (:documentation "Signalled when the site output directory holds foreign files."))

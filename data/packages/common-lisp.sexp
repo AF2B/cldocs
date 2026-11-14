@@ -1000,7 +1000,7 @@ the importation, then a correctable error is signalled." :ORIGIN :SBCL :CLHS-PAG
   (:NAME "IN-PACKAGE" :KIND :MACRO :LAMBDA-LIST "(string-designator)" :ORIGIN :SBCL :CLHS-PAGE "Body/m_in_pkg.htm")
   (:NAME "INCF" :KIND :MACRO :LAMBDA-LIST "(place &optional (delta 1))" :DOCSTRING "The first argument is some location holding a number. This number is
 incremented by the second argument, DELTA, which defaults to 1." :ORIGIN :SBCL :CLHS-PAGE "Body/m_incf_.htm")
-  (:NAME "INITIALIZE-INSTANCE" :KIND :GENERIC-FUNCTION :LAMBDA-LIST "(instance &rest initargs &key cipher padding key mode tweak initialization-vector system other-systems name initform initfunction type allocation initargs documentation readers writers lambda-list argument-precedence-order &allow-other-keys)" :ORIGIN :SBCL :CLHS-PAGE "Body/f_init_i.htm")
+  (:NAME "INITIALIZE-INSTANCE" :KIND :GENERIC-FUNCTION :LAMBDA-LIST "(instance &rest initargs &key &allow-other-keys)" :ORIGIN :SBCL :CLHS-PAGE "Body/f_init_i.htm")
   (:NAME "INLINE" :KIND :SYMBOL :ORIGIN :SBCL :CLHS-PAGE "Body/d_inline.htm")
   (:NAME "INPUT-STREAM-P" :KIND :GENERIC-FUNCTION :LAMBDA-LIST "(stream)" :DOCSTRING "Can STREAM perform input operations?" :ORIGIN :SBCL :CLHS-PAGE "Body/f_in_stm.htm")
   (:NAME "INSPECT" :KIND :FUNCTION :LAMBDA-LIST "(object)" :ORIGIN :SBCL :CLHS-PAGE "Body/f_inspec.htm")
@@ -1641,7 +1641,7 @@ types for the Common Lisp expression reader." :ORIGIN :SBCL :CLHS-PAGE "Body/t_r
   (:NAME "REALP" :KIND :FUNCTION :LAMBDA-LIST "(object)" :DOCSTRING "Return true if OBJECT is a REAL, and NIL otherwise." :ORIGIN :SBCL :CLHS-PAGE "Body/f_realp.htm")
   (:NAME "REALPART" :KIND :FUNCTION :LAMBDA-LIST "(number)" :DOCSTRING "Extract the real part of a number." :ORIGIN :SBCL :CLHS-PAGE "Body/f_realpa.htm")
   (:NAME "REDUCE" :KIND :FUNCTION :LAMBDA-LIST "(function sequence &rest args &key key from-end (start 0) end (initial-value nil ivp))" :ORIGIN :SBCL :CLHS-PAGE "Body/f_reduce.htm")
-  (:NAME "REINITIALIZE-INSTANCE" :KIND :GENERIC-FUNCTION :LAMBDA-LIST "(instance &rest initargs &key key direct-superclasses lambda-list argument-precedence-order &allow-other-keys)" :ORIGIN :SBCL :CLHS-PAGE "Body/f_reinit.htm")
+  (:NAME "REINITIALIZE-INSTANCE" :KIND :GENERIC-FUNCTION :LAMBDA-LIST "(instance &rest initargs &key &allow-other-keys)" :ORIGIN :SBCL :CLHS-PAGE "Body/f_reinit.htm")
   (:NAME "REM" :KIND :FUNCTION :LAMBDA-LIST "(number divisor)" :DOCSTRING "Return second result of TRUNCATE." :ORIGIN :SBCL :CLHS-PAGE "Body/f_mod_r.htm")
   (:NAME "REMF" :KIND :MACRO :LAMBDA-LIST "(place indicator)" :DOCSTRING "Place may be any place expression acceptable to SETF, and is expected
 to hold a property list or (). This list is destructively altered to
@@ -1758,7 +1758,7 @@ PACKAGE, then the existing symbol is placed in the shadowing symbols list if
 it is not already present." :ORIGIN :SBCL :CLHS-PAGE "Body/f_shadow.htm")
   (:NAME "SHADOWING-IMPORT" :KIND :FUNCTION :LAMBDA-LIST "(symbols &optional (package (sane-package)))" :DOCSTRING "Import SYMBOLS into package, disregarding any name conflict. If
 a symbol of the same name is present, then it is uninterned." :ORIGIN :SBCL :CLHS-PAGE "Body/f_shdw_i.htm")
-  (:NAME "SHARED-INITIALIZE" :KIND :GENERIC-FUNCTION :LAMBDA-LIST "(instance slot-names &rest initargs &key digest info block-count additional-key additional-data key cipher-name initialization-vector cipher mac tweak tag mode padding protocol type direct-superclasses direct-slots direct-default-initargs name allocation allocation-class qualifiers lambda-list specializers function documentation slot-name slot-definition ((method-cell method-cell)) argument-precedence-order declarations method-class method-combination &allow-other-keys)" :ORIGIN :SBCL :CLHS-PAGE "Body/f_shared.htm")
+  (:NAME "SHARED-INITIALIZE" :KIND :GENERIC-FUNCTION :LAMBDA-LIST "(instance slot-names &rest initargs &key &allow-other-keys)" :ORIGIN :SBCL :CLHS-PAGE "Body/f_shared.htm")
   (:NAME "SHIFTF" :KIND :MACRO :LAMBDA-LIST "(&rest args)" :DOCSTRING "One or more SETF-style place expressions, followed by a single
 value expression. Evaluates all of the expressions in turn, then
 assigns the value of each expression to the place on its left,

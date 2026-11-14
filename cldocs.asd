@@ -6,9 +6,11 @@
   :author "André Borba"
   :license "MIT"
   :depends-on ("alexandria"
+               "com.inuoe.jzon"
                "ironclad"
                "sb-cltl2"
-               "sb-introspect")
+               "sb-introspect"
+               "spinneret")
   :pathname "src"
   :serial t
   :components ((:file "conditions")
@@ -20,6 +22,11 @@
                (:file "introspect")
                (:file "manifest")
                (:file "ingest")
+               (:file "urls")
+               (:file "model")
+               (:file "render")
+               (:file "search-index")
+               (:file "site")
                (:file "cldocs"))
   :in-order-to ((test-op (test-op "cldocs/tests"))))
 
@@ -35,6 +42,7 @@
                (:file "store-test")
                (:file "introspect-test")
                (:file "ingest-test")
+               (:file "site-test")
                (:file "cldocs-test"))
   :perform (test-op (operation component)
              (declare (ignore operation component))

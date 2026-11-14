@@ -69,3 +69,17 @@
            (mapcar #'cldocs/definition:definition->plist
                    (cldocs/introspect:ingest-package :common-lisp))))
     (is (equal (snapshot) (snapshot)))))
+
+(defclass pollution-probe ()
+  ()
+  (:documentation "Class whose only purpose is to add a method to a CL generic."))
+
+(defmethod initialize-instance :after ((object pollution-probe)
+                                       &key polluting-key)
+  (declare (ignore object polluting-key)))
+
+(test generic-function-lambda-lists-ignore-methods-from-loaded-code
+  (let* ((definitions (cldocs/introspect:symbol-definitions 'initialize-instance))
+         (lambda-list (cldocs/definition:definition-lambda-list (first definitions))))
+    (is (string= "(instance &rest initargs &key &allow-other-keys)" lambda-list))
+    (is (not (search "polluting-key" lambda-list)))))

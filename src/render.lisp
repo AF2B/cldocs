@@ -1,0 +1,316 @@
+;;;; render.lisp --- HTML for every page of the static site.
+;;;;
+;;;; Every function returns a string. Text is escaped by Spinneret, so
+;;;; docstrings and symbol names can never inject markup.
+
+(defpackage #:cldocs/render
+  (:use #:cl)
+  (:import-from #:cldocs/clhs
+                #:clhs-url)
+  (:import-from #:cldocs/definition
+                #:definition-clhs-page
+                #:definition-docstring
+                #:definition-kind
+                #:definition-lambda-list
+                #:definition-name
+                #:definition-origin)
+  (:import-from #:cldocs/model
+                #:docstring-summary
+                #:kind-label
+                #:signature
+                #:symbol-entry-definitions
+                #:symbol-entry-kinds
+                #:symbol-entry-name
+                #:symbol-entry-package
+                #:symbol-entry-summary)
+  (:import-from #:cldocs/urls
+                #:+about-path+
+                #:+home-path+
+                #:+search-index-path+
+                #:package-path
+                #:root-prefix
+                #:site-href
+                #:symbol-path)
+  (:import-from #:spinneret
+                #:with-html-string)
+  (:export #:render-home
+           #:render-package
+           #:render-symbol
+           #:render-about
+           #:render-not-found
+           #:*toolchain-note*))
+
+(in-package #:cldocs/render)
+
+(defparameter *site-name* "CLDocs"
+  "Name shown in the header and in page titles.")
+
+(defparameter *tagline* "Community reference for Common Lisp."
+  "One-line description of the site.")
+
+(defparameter *toolchain-note* nil
+  "Text describing the SBCL and Quicklisp versions the data came from, or NIL.")
+
+(defparameter *search-placeholder* "Search symbols: car, mapcar, *print-base*"
+  "Hint shown inside the empty search box.")
+
+(defparameter *hyperspec-notice*
+  "The Common Lisp HyperSpec is copyright LispWorks Ltd. CLDocs links to it and never copies its text or images."
+  "Legal notice shown in the footer of every page.")
+
+(defparameter *no-docstring-notice*
+  "No documentation string is available in the implementation."
+  "Shown when a definition carries no docstring.")
+
+(setf spinneret:*always-quote* t)
+
+(defun page-title (title)
+  "Return the document title for a page called TITLE.
+
+- TITLE: the page name, or NIL for the home page."
+  (if title
+      (format nil "~A | ~A" title *site-name*)
+      (format nil "~A | ~A" *site-name* *tagline*)))
+
+(defun header-html (root)
+  "Return the site header with the search form.
+
+- ROOT: relative prefix leading to the site root."
+  (with-html-string
+    (:header :class "site-header"
+      (:div :class "container"
+        (:a :class "logo" :href (site-href root +home-path+)
+            "CLDocs" (:span :class "dot" "."))
+        (:form :class "search" :role "search" :action "#"
+          (:input :id "search-input"
+                  :type "search"
+                  :name "q"
+                  :placeholder *search-placeholder*
+                  :autocomplete "off"
+                  :aria-label "Search symbols"
+                  :data-index (site-href root +search-index-path+)
+                  :data-root root)
+          (:ul :id "search-results" :class "search-results" :hidden t))
+        (:nav :class "site-nav" :aria-label "Main"
+          (:a :href (concatenate 'string (site-href root +home-path+) "#packages")
+              "Packages")
+          (:a :href (site-href root +about-path+) "About"))))))
+
+(defun footer-html (root)
+  "Return the site footer with the legal notices.
+
+- ROOT: relative prefix leading to the site root."
+  (with-html-string
+    (:footer :class "site-footer"
+      (:div :class "container"
+        (:p *hyperspec-notice*)
+        (:p "Docstrings come from the documented implementation under its own license. "
+            (:a :href (site-href root +about-path+) "Licensing details"))
+        (when *toolchain-note*
+          (:p *toolchain-note*))))))
+
+(defun layout-html (&key
+                      title
+                      description
+                      root
+                      body)
+  "Wrap BODY, an HTML string, in the shared page layout.
+
+- TITLE: page name, or NIL for the home page.
+- DESCRIPTION: text for the description meta tag.
+- ROOT: relative prefix leading to the site root.
+- BODY: the already rendered main content."
+  (with-html-string
+    (:doctype)
+    (:html :lang "en"
+      (:head
+        (:meta :charset "utf-8")
+        (:meta :name "viewport" :content "width=device-width, initial-scale=1")
+        (:title (page-title title))
+        (:meta :name "description" :content description)
+        (:link :rel "stylesheet" :href (site-href root "assets/tokens.css"))
+        (:link :rel "stylesheet" :href (site-href root "assets/site.css"))
+        (:script :src (site-href root "assets/search.js") :defer t))
+      (:body
+        (:raw (header-html root))
+        (:main :class "container" (:raw body))
+        (:raw (footer-html root))))))
+
+(defun definition-html (definition)
+  "Return the section describing one DEFINITION of a symbol.
+
+- DEFINITION: a DEFINITION record."
+  (let ((docstring (definition-docstring definition))
+        (clhs-page (definition-clhs-page definition))
+        (origin (definition-origin definition)))
+    (with-html-string
+      (:section :class "definition"
+                :id (string-downcase (symbol-name (definition-kind definition)))
+        (:div :class "definition-head"
+          (:h2 :class "label" (kind-label (definition-kind definition)))
+          (when clhs-page
+            (:a :class "btn"
+                :href (clhs-url clhs-page)
+                :rel "noopener noreferrer"
+                "HyperSpec")))
+        (:pre :class "code"
+              (signature (definition-name definition)
+                         (definition-lambda-list definition)))
+        (if docstring
+            (:p :class "docstring" docstring)
+            (:p :class "docstring-missing" *no-docstring-notice*))
+        (unless (eq origin :sbcl)
+          (:p :class "attribution" (format nil "From system ~A" origin)))))))
+
+(defun symbol-link-html (root package-name symbol-name)
+  "Return a link chip pointing to another symbol page.
+
+- ROOT: relative prefix leading to the site root.
+- PACKAGE-NAME: package of the target symbol.
+- SYMBOL-NAME: name of the target symbol."
+  (with-html-string
+    (:li (:a :href (site-href root (symbol-path package-name symbol-name))
+             (string-downcase symbol-name)))))
+
+(defun render-symbol (entry
+                      &key
+                        examples-html
+                        related)
+  "Return the page of one symbol.
+
+- ENTRY: a SYMBOL-ENTRY.
+- EXAMPLES-HTML: pre-rendered examples section, or NIL.
+- RELATED: list of (package-name . symbol-name) conses to show as See also."
+  (let* ((package-name (symbol-entry-package entry))
+         (name (symbol-entry-name entry))
+         (root (root-prefix (symbol-path package-name name)))
+         (body (with-html-string
+                 (:article :class "symbol"
+                   (:p :class "label"
+                     (:a :href (site-href root (package-path package-name))
+                         package-name))
+                   (:h1 :class "symbol-name" (string-downcase name))
+                   (:ul :class "badges"
+                     (dolist (kind (symbol-entry-kinds entry))
+                       (:li :class "badge" (kind-label kind))))
+                   (dolist (definition (symbol-entry-definitions entry))
+                     (:raw (definition-html definition)))
+                   (:section :class "block" :id "examples"
+                     (:h2 "Examples")
+                     (if examples-html
+                         (:raw examples-html)
+                         (:p :class "empty" "No examples yet.")))
+                   (when related
+                     (:section :class "block" :id "see-also"
+                       (:h2 "See also")
+                       (:ul :class "see-also"
+                         (loop for (related-package . related-name) in related
+                               do (:raw (symbol-link-html root
+                                                          related-package
+                                                          related-name))))))))))
+    (layout-html :title (string-downcase name)
+                 :description (let ((summary (symbol-entry-summary entry)))
+                                (if (string= summary "")
+                                    (format nil "~A in package ~A." (string-downcase name) package-name)
+                                    summary))
+                 :root root
+                 :body body)))
+
+(defun package-section-html (root heading entries)
+  "Return a heading followed by a grid of links to ENTRIES.
+
+- ROOT: relative prefix leading to the site root.
+- HEADING: the section title, a string.
+- ENTRIES: the SYMBOL-ENTRY records listed in the section."
+  (with-html-string
+    (:section :class "block"
+      (:h2 heading)
+      (:ul :class "symbol-list"
+        (dolist (entry entries)
+          (:li (:a :href (site-href root (symbol-path (symbol-entry-package entry)
+                                                      (symbol-entry-name entry)))
+                   (:span :class "name" (string-downcase (symbol-entry-name entry)))
+                   (:span :class "summary" (symbol-entry-summary entry)))))))))
+
+(defun render-package (package-name entries kinds)
+  "Return the page listing every symbol of a package, grouped by kind.
+
+- PACKAGE-NAME: package name, a string.
+- ENTRIES: every SYMBOL-ENTRY of the package, sorted by name.
+- KINDS: the kinds to show as sections, in display order."
+  (let* ((root (root-prefix (package-path package-name)))
+         (body (with-html-string
+                 (:p :class "label" "Package")
+                 (:h1 :class "symbol-name" package-name)
+                 (:p :class "lede"
+                     (format nil "~D symbols." (length entries)))
+                 (dolist (kind kinds)
+                   (let ((members (remove-if-not
+                                   (lambda (entry)
+                                     (find kind (symbol-entry-kinds entry)))
+                                   entries)))
+                     (when members
+                       (:raw (package-section-html root
+                                                   (format nil "~A (~D)"
+                                                           (kind-label kind)
+                                                           (length members))
+                                                   members))))))))
+    (layout-html :title package-name
+                 :description (format nil "Every exported symbol of package ~A." package-name)
+                 :root root
+                 :body body)))
+
+(defun render-home (packages)
+  "Return the home page.
+
+- PACKAGES: list of (package-name . symbol-count) conses to advertise."
+  (let* ((root (root-prefix +home-path+))
+         (body (with-html-string
+                 (:h1 "CLDocs" (:span :class "dot" "."))
+                 (:p :class "lede"
+                     "Every symbol of Common Lisp on its own page: signature, documentation, examples and cross references.")
+                 (:section :class "block" :id "packages"
+                   (:h2 "Packages")
+                   (:ul :class "package-list"
+                     (loop for (package-name . count) in packages
+                           do (:li (:a :href (site-href root (package-path package-name))
+                                       (:span :class "name" package-name)
+                                       (:span :class "summary"
+                                              (format nil "~D symbols" count))))))))))
+    (layout-html :title nil
+                 :description *tagline*
+                 :root root
+                 :body body)))
+
+(defun render-about ()
+  "Return the about and licensing page."
+  (let* ((root (root-prefix +about-path+))
+         (body (with-html-string
+                 (:p :class "label" "About")
+                 (:h1 "Licensing")
+                 (:section :class "block"
+                   (:h2 "Common Lisp HyperSpec")
+                   (:p *hyperspec-notice*
+                       " Each HyperSpec button on a symbol page leads to the official copy hosted by LispWorks."))
+                 (:section :class "block"
+                   (:h2 "Signatures and documentation strings")
+                   (:p "Extracted by introspection from SBCL, which is in the public domain apart from some files under BSD-style licenses. Library docstrings keep the license of their system, shown on each page."))
+                 (:section :class "block"
+                   (:h2 "Examples")
+                   (:p "Examples written for CLDocs are dedicated to the public domain under CC0 1.0. Each one is executed in SBCL by the test suite and its printed results are checked.")))))
+    (layout-html :title "Licensing"
+                 :description "Licenses and attribution for CLDocs content."
+                 :root root
+                 :body body)))
+
+(defun render-not-found ()
+  "Return the page served for unknown paths."
+  (let* ((root "")
+         (body (with-html-string
+                 (:p :class "label" "404")
+                 (:h1 "Not found")
+                 (:p :class "lede" "No such page. Try the search box above."))))
+    (layout-html :title "Not found"
+                 :description "Page not found."
+                 :root root
+                 :body body)))

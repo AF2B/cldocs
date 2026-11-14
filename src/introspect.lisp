@@ -105,8 +105,13 @@ Dotted tails and (quote x) forms are rendered readably.
 - SYMBOL: the symbol being documented.
 - KIND: the definition kind being rendered."
   (case kind
-    ((:function :generic-function)
+    (:function
      (render-lambda-list (sb-introspect:function-lambda-list symbol)))
+    (:generic-function
+     ;; SB-INTROSPECT would add the &key arguments of every loaded method,
+     ;; leaking whatever libraries happen to be in the image.
+     (render-lambda-list
+      (sb-mop:generic-function-lambda-list (fdefinition symbol))))
     (:macro
      (render-lambda-list
       (sb-introspect:function-lambda-list (macro-function symbol))))))
