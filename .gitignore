@@ -1,0 +1,5 @@
+*.fasl
+.env
+.env.*
+/build/
+/node_modules/
