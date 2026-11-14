@@ -6,7 +6,13 @@
            #:ingestion-error
            #:ingestion-error-system-name
            #:system-load-failure
-           #:system-load-failure-reason))
+           #:system-load-failure-reason
+           #:system-without-license
+           #:package-not-found
+           #:package-not-found-name
+           #:malformed-data-file
+           #:malformed-data-file-pathname
+           #:malformed-data-file-reason))
 
 (in-package #:cldocs/conditions)
 
@@ -34,3 +40,35 @@
                      (ingestion-error-system-name condition)
                      (system-load-failure-reason condition))))
   (:documentation "Signalled when an ASDF system fails to load during ingestion."))
+
+(define-condition system-without-license (ingestion-error)
+  ()
+  (:report (lambda (condition stream)
+             (format stream "System ~A declares no license; refusing to ingest it."
+                     (ingestion-error-system-name condition))))
+  (:documentation "Signalled when a system has no redistributable license."))
+
+(define-condition package-not-found (cldocs-error)
+  ((name :initarg :name
+         :initform (error "NAME is required.")
+         :reader package-not-found-name
+         :documentation "Designator of the package that does not exist."))
+  (:report (lambda (condition stream)
+             (format stream "Package ~A does not exist."
+                     (package-not-found-name condition))))
+  (:documentation "Signalled when a package to ingest is not present in the image."))
+
+(define-condition malformed-data-file (cldocs-error)
+  ((pathname :initarg :pathname
+             :initform (error "PATHNAME is required.")
+             :reader malformed-data-file-pathname
+             :documentation "Data file that could not be used.")
+   (reason :initarg :reason
+           :initform "unknown"
+           :reader malformed-data-file-reason
+           :documentation "Why the file was rejected."))
+  (:report (lambda (condition stream)
+             (format stream "Data file ~A is unusable: ~A"
+                     (malformed-data-file-pathname condition)
+                     (malformed-data-file-reason condition))))
+  (:documentation "Signalled when a versioned data file is missing or malformed."))

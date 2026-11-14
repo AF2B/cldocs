@@ -5,11 +5,21 @@
   :version "0.1.0"
   :author "André Borba"
   :license "MIT"
-  :depends-on ("alexandria")
+  :depends-on ("alexandria"
+               "ironclad"
+               "sb-cltl2"
+               "sb-introspect")
   :pathname "src"
   :serial t
   :components ((:file "conditions")
                (:file "kinds")
+               (:file "slug")
+               (:file "definition")
+               (:file "store")
+               (:file "clhs")
+               (:file "introspect")
+               (:file "manifest")
+               (:file "ingest")
                (:file "cldocs"))
   :in-order-to ((test-op (test-op "cldocs/tests"))))
 
@@ -21,6 +31,10 @@
   :components ((:file "suite")
                (:file "conditions-test")
                (:file "kinds-test")
+               (:file "slug-test")
+               (:file "store-test")
+               (:file "introspect-test")
+               (:file "ingest-test")
                (:file "cldocs-test"))
   :perform (test-op (operation component)
              (declare (ignore operation component))
