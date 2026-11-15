@@ -2,6 +2,9 @@
 
 (defpackage #:cldocs/model
   (:use #:cl)
+  (:import-from #:cldocs/i18n
+                #:tr
+                #:translated-summary)
   (:import-from #:cldocs/definition
                 #:definition-docstring
                 #:definition-kind
@@ -27,18 +30,18 @@
 (defparameter *ellipsis* "…"
   "Marks a truncated summary.")
 
-(defparameter *kind-labels*
-  '((:function . "Function")
-    (:generic-function . "Generic function")
-    (:macro . "Macro")
-    (:special-operator . "Special operator")
-    (:variable . "Variable")
-    (:constant . "Constant")
-    (:class . "Class")
-    (:condition . "Condition")
-    (:type . "Type")
-    (:symbol . "Symbol"))
-  "Display label of every definition kind.")
+(defparameter *kind-message-keys*
+  '((:function . :kind-function)
+    (:generic-function . :kind-generic-function)
+    (:macro . :kind-macro)
+    (:special-operator . :kind-special-operator)
+    (:variable . :kind-variable)
+    (:constant . :kind-constant)
+    (:class . :kind-class)
+    (:condition . :kind-condition)
+    (:type . :kind-type)
+    (:symbol . :kind-symbol))
+  "Message key of the display label of every definition kind.")
 
 (defstruct (symbol-entry (:copier nil))
   "Everything documented about one symbol of one package.
@@ -54,8 +57,10 @@
   "Return the display label of the definition KIND.
 
 - KIND: a keyword from CLDOCS/KINDS:+DEFINITION-KINDS+."
-  (or (cdr (assoc kind *kind-labels*))
-      (error "No label for definition kind ~S." kind)))
+  (let ((key (cdr (assoc kind *kind-message-keys*))))
+    (unless key
+      (error "No label for definition kind ~S." kind))
+    (tr key)))
 
 (defun symbol-entry-kinds (entry)
   "Return the kinds of every definition of ENTRY, in display order.
@@ -78,14 +83,18 @@
             line))))
 
 (defun symbol-entry-summary (entry)
-  "Return the one-line summary of ENTRY taken from its first documented definition.
+  "Return the one-line summary of ENTRY in the current locale.
+
+A translated summary wins; otherwise the first documented definition's
+docstring is used.
 
 - ENTRY: a SYMBOL-ENTRY."
-  (let ((documented (find-if #'definition-docstring
-                             (symbol-entry-definitions entry))))
-    (if documented
-        (docstring-summary (definition-docstring documented))
-        "")))
+  (or (translated-summary (symbol-entry-package entry) (symbol-entry-name entry))
+      (let ((documented (find-if #'definition-docstring
+                                 (symbol-entry-definitions entry))))
+        (if documented
+            (docstring-summary (definition-docstring documented))
+            ""))))
 
 (defun group-definitions (definitions)
   "Group DEFINITIONS by symbol and return SYMBOL-ENTRY records sorted by name.

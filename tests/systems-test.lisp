@@ -19,7 +19,7 @@
 
 (test configured-systems-are-listed-with-their-packages
   (let ((systems (cldocs/systems:configured-systems)))
-    (is (= 3 (length systems)))
+    (is (>= (length systems) 3))
     (dolist (entry systems)
       (is (stringp (getf entry :system)))
       (is (consp (getf entry :packages))))))

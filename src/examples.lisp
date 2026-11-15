@@ -26,6 +26,9 @@
                 #:read-data-file)
   (:export #:example
            #:make-example
+           #:example-author
+           #:source-author
+           #:*step-timeout-seconds*
            #:example-package
            #:example-name
            #:example-uses
@@ -67,6 +70,12 @@
 (defparameter *no-values-line* ";; => (no values)"
   "Result line shown for a step that returns no values.")
 
+(defparameter *step-timeout-seconds* 10
+  "Longest a single step may run before it is recorded as a TIMEOUT error.")
+
+(defparameter *author-marker* ";;; author:"
+  "Comment line that names the GitHub login of a community example file.")
+
 (defstruct (example (:copier nil))
   "A runnable example for one symbol.
 
@@ -74,11 +83,13 @@
 - NAME: name of the documented symbol, a string.
 - USES: names of extra packages the example package uses.
 - SYSTEM: ASDF system to load before running, or NIL.
+- AUTHOR: GitHub login of a community contributor, or NIL for seeded examples.
 - STEPS: list of step plists (:form TEXT [:silent T] [:values ..] [:output ..] [:error ..])."
   (package "COMMON-LISP" :type string :read-only t)
   (name "" :type string :read-only t)
   (uses '() :type list :read-only t)
   (system nil :type (or null string) :read-only t)
+  (author nil :type (or null string) :read-only t)
   (steps '() :type list :read-only t))
 
 ;;; Parsing the authoring format
@@ -162,11 +173,25 @@ still parse. Signals MALFORMED-EXAMPLE-SOURCE on unbalanced input.
                 :system system))
         (list :package "COMMON-LISP" :name symbol-spec :uses '() :system system))))
 
+(defun source-author (text)
+  "Return the GitHub login named by the \";;; author:\" line of TEXT, or NIL.
+
+- TEXT: the contents of an authoring file."
+  (let ((line (find-if (lambda (candidate)
+                         (uiop:string-prefix-p *author-marker* candidate))
+                       (uiop:split-string text :separator '(#\Newline)))))
+    (when line
+      (let ((login (string-trim " " (subseq line (length *author-marker*)))))
+        (and (string/= login "") login)))))
+
 (defun parse-examples-source (text)
   "Parse the authoring TEXT into a list of EXAMPLE records without results.
 
-- TEXT: the contents of a data/examples-src file."
+The author, when TEXT names one, is recorded on every example.
+
+- TEXT: the contents of an authoring file."
   (let ((examples '())
+        (author (source-author text))
         (header nil)
         (block-lines '()))
     (flet ((finish ()
@@ -176,6 +201,7 @@ still parse. Signals MALFORMED-EXAMPLE-SOURCE on unbalanced input.
                       :name (getf header :name)
                       :uses (getf header :uses)
                       :system (getf header :system)
+                      :author author
                       :steps (parse-steps (format nil "~{~A~%~}" (reverse block-lines))))
                      examples))
              (setf block-lines '())))
@@ -227,7 +253,9 @@ printed) and :ERROR (type name) when the form signalled an error.
       (handler-case
           (setf values
                 (handler-bind ((warning #'muffle-warning))
-                  (multiple-value-list (eval (read-from-string text)))))
+                  (multiple-value-list
+                   (sb-ext:with-timeout *step-timeout-seconds*
+                     (eval (read-from-string text))))))
         (serious-condition (condition)
           (setf failure (condition-type-name condition)))))
     (let ((output (get-output-stream-string captured)))

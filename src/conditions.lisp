@@ -35,7 +35,10 @@
            #:insecure-configuration-reason
            #:oauth-failure
            #:oauth-failure-reason
-           #:unauthenticated))
+           #:unauthenticated
+           #:community-example-invalid
+           #:community-example-invalid-pathname
+           #:community-example-invalid-problems))
 
 (in-package #:cldocs/conditions)
 
@@ -210,3 +213,18 @@
              (declare (ignore condition))
              (write-string "Sign in required." stream)))
   (:documentation "Signalled when an action needs a signed-in user."))
+
+(define-condition community-example-invalid (cldocs-error)
+  ((pathname :initarg :pathname
+             :initform (error "PATHNAME is required.")
+             :reader community-example-invalid-pathname
+             :documentation "The community file that failed validation.")
+   (problems :initarg :problems
+             :initform (error "PROBLEMS is required.")
+             :reader community-example-invalid-problems
+             :documentation "Human readable list of everything wrong with the file."))
+  (:report (lambda (condition stream)
+             (format stream "Invalid community example ~A:~{~%  - ~A~}"
+                     (community-example-invalid-pathname condition)
+                     (community-example-invalid-problems condition))))
+  (:documentation "Signalled when a contributed example file breaks the rules."))

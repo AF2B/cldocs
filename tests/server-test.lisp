@@ -696,7 +696,7 @@ than rebound.
 (test the-terms-page-states-the-license-and-matches-the-recorded-version
   (let ((html (cldocs/tests/site:read-site-file "terms/index.html")))
     (is (search "CC0 1.0" html))
-    (is (search "moderator" html))
+    (is (search "maintainer" html))
     (is (search cldocs/contributions:+terms-version+ html)))
   (let ((footer (cldocs/tests/site:read-site-file "index.html")))
     (is (search "terms/" footer))))

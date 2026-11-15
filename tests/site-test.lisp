@@ -81,7 +81,9 @@
                        (char= (char path (1- (length path))) #\/))
                    (concatenate 'string path "index.html")
                    path)))
-    (probe-file (merge-pathnames file page-directory))))
+    (if (and (plusp (length file)) (char= (char file 0) #\/))
+        (probe-file (merge-pathnames (string-left-trim "/" file) (built-site)))
+        (probe-file (merge-pathnames file page-directory)))))
 
 (defun broken-links ()
   "Return a list of (page . link) conses whose target file does not exist."
@@ -221,3 +223,28 @@
       (is (search "BORBA" html) "wordmark missing on ~A" path)
       (is (search "<span class=dot>.</span>" html) "blue period missing on ~A" path)
       (is (search "logo-product" html)))))
+
+(test vendored-design-system-matches-its-source-when-the-source-is-present
+  (let ((source (merge-pathnames "Documents/borba-design-system/" (user-homedir-pathname)))
+        (vendored (asdf:system-relative-pathname "cldocs" "vendor/borba-design-system/")))
+    (if (not (probe-file (merge-pathnames "tokens.css" source)))
+        (skip "The design system source is not on this machine.")
+        (dolist (file '("tokens.css" "tipografia.md"))
+          (is (string= (uiop:read-file-string (merge-pathnames file source))
+                       (uiop:read-file-string (merge-pathnames file vendored)))
+              "~A drifted from the source of truth; run scripts/sync-design-system.sh" file)))))
+
+(test contribution-buttons-need-a-repository-and-prefill-the-file
+  (let* ((definition (cldocs/definition:make-definition :package "COMMON-LISP"
+                                                        :name "CAR"
+                                                        :kind :function))
+         (entry (cldocs/model:make-symbol-entry :package "COMMON-LISP"
+                                                :name "CAR"
+                                                :definitions (list definition))))
+    (is (not (search "id=contribute" (cldocs/render:render-symbol entry))))
+    (let ((html (let ((cldocs/render:*repository-url* "https://github.com/example/cldocs"))
+                  (cldocs/render:render-symbol entry))))
+      (is (search "id=contribute" html))
+      (is (search "https://github.com/example/cldocs/new/main?filename=community%2Fexamples%2Fcommon-lisp%2Fcar.txt" html))
+      (is (search "author%3A%20YOUR-GITHUB-LOGIN" html))
+      (is (search "CONTRIBUTING.md" html)))))

@@ -2,7 +2,7 @@
 
 (defsystem "cldocs"
   :description "Community reference for Common Lisp symbols."
-  :version "0.1.0"
+  :version "1.0.0"
   :author "André Borba"
   :license "MIT"
   :depends-on ("alexandria"
@@ -19,13 +19,16 @@
                (:file "definition")
                (:file "store")
                (:file "systems")
+               (:file "i18n")
                (:file "clhs")
                (:file "introspect")
                (:file "manifest")
                (:file "ingest")
                (:file "examples")
+               (:file "community")
                (:file "urls")
                (:file "model")
+               (:file "trails")
                (:file "related")
                (:file "render")
                (:file "search-index")
@@ -66,6 +69,9 @@
                (:file "introspect-test")
                (:file "ingest-test")
                (:file "site-test")
+               (:file "i18n-test")
+               (:file "trails-test")
+               (:file "community-test")
                (:file "examples-test")
                (:file "systems-test")
                (:file "contributions-test")

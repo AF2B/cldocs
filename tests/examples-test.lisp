@@ -165,7 +165,9 @@ Returns the regenerated file text.
          (uiop:read-file-string (cldocs/examples:examples-pathname package-name)))))))
 
 (test checked-in-examples-are-regenerated-byte-for-byte-from-the-source
-  (dolist (package-name '("COMMON-LISP" "ALEXANDRIA" "CL-PPCRE" "BORDEAUX-THREADS"))
+  (dolist (package-name (cons *common-lisp*
+                              (loop for entry in (cldocs/systems:configured-systems)
+                                    append (getf entry :packages))))
     (is (string= (uiop:read-file-string
                   (cldocs/examples:examples-pathname package-name))
                  (regenerate-examples package-name))

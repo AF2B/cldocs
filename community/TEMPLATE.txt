@@ -1,0 +1,8 @@
+;;; author: YOUR-GITHUB-LOGIN
+;;; license: CC0-1.0
+== MAPCAR
+(mapcar (lambda (x) (* x x)) '(1 2 3))
+-- silent
+(defun double (n)
+  (* 2 n))
+(mapcar #'double '(1 2 3))

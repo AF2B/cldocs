@@ -5,9 +5,16 @@
   (:import-from #:cldocs/conditions
                 #:design-system-missing
                 #:output-directory-not-empty)
+  (:import-from #:cldocs/community
+                #:load-community-examples)
   (:import-from #:cldocs/examples
                 #:example-name
+                #:example-package
                 #:read-examples)
+  (:import-from #:cldocs/i18n
+                #:*locale*
+                #:+locales+
+                #:tr)
   (:import-from #:cldocs/kinds
                 #:+definition-kinds+)
   (:import-from #:cldocs/manifest
@@ -17,6 +24,9 @@
   (:import-from #:cldocs/related
                 #:build-related-index)
   (:import-from #:cldocs/render
+                #:*base-path*
+                #:*live-api-p*
+                #:*repository-url*
                 #:*toolchain-note*
                 #:render-about
                 #:render-examples
@@ -24,7 +34,12 @@
                 #:render-not-found
                 #:render-package
                 #:render-symbol
-                #:render-terms)
+                #:render-terms
+                #:render-trail
+                #:render-trails-index)
+  (:import-from #:cldocs/trails
+                #:load-trails
+                #:trail-slug)
   (:import-from #:cldocs/search-index
                 #:build-search-index)
   (:import-from #:cldocs/store
@@ -35,10 +50,13 @@
                 #:+about-path+
                 #:+home-path+
                 #:+not-found-file+
-                #:+search-index-path+
                 #:+terms-path+
+                #:+trails-path+
+                #:localized-path
                 #:package-path
-                #:symbol-path)
+                #:search-index-file
+                #:symbol-path
+                #:trail-path)
   (:export #:build-site
            #:design-system-directory))
 
@@ -47,8 +65,8 @@
 (defparameter *design-system-variable* "CLDOCS_DESIGN_SYSTEM"
   "Environment variable that overrides the design system location.")
 
-(defparameter *default-design-system* "Documents/borba-design-system/"
-  "Design system location below the user's home directory.")
+(defparameter *vendored-design-system* "vendor/borba-design-system/"
+  "Snapshot of the design system kept in this repository.")
 
 (defparameter *tokens-file* "tokens.css"
   "Design token stylesheet inside the design system.")
@@ -68,13 +86,13 @@
 (defun design-system-directory ()
   "Return the directory of the Borba Design System.
 
-Uses the CLDOCS_DESIGN_SYSTEM environment variable when set, otherwise
-~/Documents/borba-design-system/."
+Uses the CLDOCS_DESIGN_SYSTEM environment variable when set, otherwise the
+snapshot in vendor/borba-design-system/."
   (let ((override (uiop:getenv *design-system-variable*)))
     (uiop:ensure-directory-pathname
      (if (and override (string/= override ""))
          override
-         (merge-pathnames *default-design-system* (user-homedir-pathname))))))
+         (asdf:system-relative-pathname "cldocs" *vendored-design-system*)))))
 
 (defun write-text-file (pathname text)
   "Write TEXT to PATHNAME as UTF-8, creating parent directories.
@@ -144,11 +162,11 @@ Signals OUTPUT-DIRECTORY-NOT-EMPTY for any other non-empty directory.
                         target)))))
 
 (defun toolchain-note ()
-  "Return the footer sentence naming the tools the data was produced with."
+  "Return the footer sentence naming the tools the data was produced with, in the current locale."
   (let ((manifest (read-manifest)))
-    (format nil "Data extracted with SBCL ~A, Quicklisp dist ~A."
-            (getf manifest :sbcl-version)
-            (getf manifest :quicklisp-dist))))
+    (tr :toolchain-note
+        (getf manifest :sbcl-version)
+        (getf manifest :quicklisp-dist))))
 
 (defparameter *first-package* "COMMON-LISP"
   "Package listed first on the home page; the others follow alphabetically.")
@@ -168,24 +186,32 @@ Signals OUTPUT-DIRECTORY-NOT-EMPTY for any other non-empty directory.
                   :system (read-package-system package-name)))
           (ordered-package-names)))
 
-(defun examples-by-name (package-name)
-  "Return a table from symbol name to the recorded examples of that symbol.
+(defun examples-by-name (package-name community)
+  "Return a table from symbol name to the examples shown for that symbol.
 
-- PACKAGE-NAME: the documented package, a string."
+Seeded examples come first, then the community's, in file order.
+
+- PACKAGE-NAME: the documented package, a string.
+- COMMUNITY: every loaded community EXAMPLE, of any package."
   (let ((table (make-hash-table :test #'equal)))
-    (dolist (example (read-examples package-name) table)
+    (dolist (example (append (read-examples package-name)
+                             (remove-if-not (lambda (example)
+                                              (string= (example-package example) package-name))
+                                            community))
+                     table)
       (setf (gethash (example-name example) table)
             (append (gethash (example-name example) table) (list example))))))
 
-(defun emit-package-pages (emit package)
-  "Emit the package page and every symbol page of one package.
+(defun emit-package-pages (emit package community)
+  "Emit the package page and every symbol page of one package in the current locale.
 
-- EMIT: function of a path and an HTML string that writes and counts a page.
-- PACKAGE: a plist (:name :entries :system) as returned by ALL-PACKAGES."
+- EMIT: function of an unlocalized path and an HTML string that writes and counts a page.
+- PACKAGE: a plist (:name :entries :system) as returned by ALL-PACKAGES.
+- COMMUNITY: every loaded community EXAMPLE."
   (let* ((package-name (getf package :name))
          (entries (getf package :entries))
          (system (getf package :system))
-         (examples (examples-by-name package-name))
+         (examples (examples-by-name package-name community))
          (related (build-related-index package-name entries)))
     (funcall emit
              (package-path package-name)
@@ -201,39 +227,82 @@ Signals OUTPUT-DIRECTORY-NOT-EMPTY for any other non-empty directory.
                                                    (cons package-name related-name))
                                                  (gethash name related))))))))
 
+(defun entries-by-symbol (packages)
+  "Return a table from (package . name) to the SYMBOL-ENTRY documenting it.
+
+- PACKAGES: the plists returned by ALL-PACKAGES."
+  (let ((table (make-hash-table :test #'equal)))
+    (dolist (package packages table)
+      (dolist (entry (getf package :entries))
+        (setf (gethash (cons (getf package :name) (cldocs/model:symbol-entry-name entry)) table)
+              entry)))))
+
+(defun emit-locale-pages (emit packages trails community)
+  "Emit every page of the current locale.
+
+- EMIT: function of an unlocalized path and an HTML string that writes and counts a page.
+- PACKAGES: the plists returned by ALL-PACKAGES.
+- TRAILS: the loaded TRAIL records.
+- COMMUNITY: every loaded community EXAMPLE."
+  (let ((*toolchain-note* (toolchain-note))
+        (by-symbol (entries-by-symbol packages)))
+    (funcall emit +home-path+
+             (render-home (mapcar (lambda (package)
+                                    (list (getf package :name)
+                                          (length (getf package :entries))
+                                          (getf package :system)))
+                                  packages)))
+    (funcall emit +about-path+ (render-about))
+    (funcall emit +terms-path+ (render-terms))
+    (funcall emit +trails-path+ (render-trails-index trails))
+    (dolist (trail trails)
+      (funcall emit (trail-path (trail-slug trail)) (render-trail trail by-symbol)))
+    (dolist (package packages)
+      (emit-package-pages emit package community))))
+
+(defun environment-flag (name)
+  "Return true when the environment variable NAME is set to a non-empty value.
+
+- NAME: the variable name."
+  (let ((value (uiop:getenv name)))
+    (and value (string/= value ""))))
+
 (defun build-site (output
                    &key
                      (design-system (design-system-directory)))
   "Generate the whole static site into OUTPUT and return the number of pages.
 
-Signals DESIGN-SYSTEM-MISSING when tokens or fonts cannot be found, and
-OUTPUT-DIRECTORY-NOT-EMPTY when OUTPUT holds files that are not a CLDocs site.
+Reads CLDOCS_REPOSITORY (enables contribution buttons), CLDOCS_BASE_PATH (the
+path the site is served under, for the 404 page) and CLDOCS_API (adds the
+optional live community section). Signals DESIGN-SYSTEM-MISSING when tokens or
+fonts cannot be found, OUTPUT-DIRECTORY-NOT-EMPTY when OUTPUT holds files that
+are not a CLDocs site, and COMMUNITY-EXAMPLE-INVALID for a broken contribution.
 
 - OUTPUT: directory that will receive the site.
 - DESIGN-SYSTEM: directory of the Borba Design System."
   (let* ((output (uiop:ensure-directory-pathname output))
          (packages (all-packages))
+         (trails (load-trails))
+         (community (load-community-examples))
          (pages 0)
-         (*toolchain-note* (toolchain-note)))
-    (flet ((emit (path html)
-             (write-page output path html)
-             (incf pages)))
-      (require-design-file design-system *tokens-file*)
-      (prepare-output-directory output)
-      (copy-assets output design-system)
-      (emit +home-path+
-            (render-home (mapcar (lambda (package)
-                                   (list (getf package :name)
-                                         (length (getf package :entries))
-                                         (getf package :system)))
-                                 packages)))
-      (emit +about-path+ (render-about))
-      (emit +terms-path+ (render-terms))
+         (*repository-url* (let ((url (uiop:getenv "CLDOCS_REPOSITORY")))
+                             (and url (string/= url "") (string-right-trim "/" url))))
+         (*base-path* (let ((path (uiop:getenv "CLDOCS_BASE_PATH")))
+                        (if (and path (string/= path "")) path "/")))
+         (*live-api-p* (environment-flag "CLDOCS_API")))
+    (require-design-file design-system *tokens-file*)
+    (prepare-output-directory output)
+    (copy-assets output design-system)
+    (dolist (locale +locales+)
+      (let ((*locale* locale))
+        (flet ((emit (path html)
+                 (write-page output (localized-path path) html)
+                 (incf pages)))
+          (emit-locale-pages #'emit packages trails community))
+        (write-text-file (merge-pathnames (search-index-file) output)
+                         (build-search-index (loop for package in packages
+                                                   append (getf package :entries))))))
+    (let ((*locale* :en))
       (write-text-file (merge-pathnames +not-found-file+ output)
-                       (render-not-found))
-      (dolist (package packages)
-        (emit-package-pages #'emit package))
-      (write-text-file (merge-pathnames +search-index-path+ output)
-                       (build-search-index (loop for package in packages
-                                                 append (getf package :entries)))))
+                       (render-not-found)))
     pages))
