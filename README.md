@@ -1,66 +1,76 @@
 # CLDocs
 
 Community reference for Common Lisp: one page per symbol with signature,
-documentation string, executable examples, "see also" links and community
-contributions. Inspired by ClojureDocs. Styled with the Borba Design System.
+documentation, executable examples, "see also" links and guided trails, in English
+and Brazilian Portuguese. Inspired by ClojureDocs, styled with the Borba Design System.
 
-Built with SBCL, ASDF and Quicklisp. References: CLHS, CLtL2, the SBCL manual
-(`sb-introspect`, `sb-cltl2`), the ASDF manual and Quicklisp.
+It is a **static site** built from versioned data and published on GitHub Pages.
+Anyone extends it with a pull request; nothing needs a server, a database or HTTPS.
+
+References: CLHS, CLtL2, the SBCL manual (`sb-introspect`, `sb-cltl2`), the ASDF manual
+and Quicklisp.
+
+## Contribute
+
+Press **Add an example** on any symbol page, or read [CONTRIBUTING.md](CONTRIBUTING.md).
+An example is one small text file; a check runs it and a maintainer reviews it.
 
 ## Quick start
 
 ```bash
-sbcl --non-interactive --load scripts/check.lisp        # load without warnings + all tests
-sbcl --non-interactive --load scripts/ingest.lisp       # regenerate data/ from SBCL and libraries
-sbcl --non-interactive --load scripts/record-examples.lisp
-sbcl --non-interactive --load scripts/build-site.lisp   # static site into build/site/
-sbcl --non-interactive --load scripts/serve.lisp        # site + community API on :8080
+sbcl --non-interactive --load scripts/check.lisp            # load without warnings + all tests
+sbcl --non-interactive --load scripts/check-community.lisp  # only the contributed examples
+sbcl --non-interactive --load scripts/build-site.lisp       # site into build/site/
+sbcl --non-interactive --load scripts/ingest.lisp           # regenerate data/ from SBCL and libraries
+sbcl --non-interactive --load scripts/record-examples.lisp  # re-run seeded examples and store results
 ```
 
-`check.lisp` fails on any `WARNING` or `STYLE-WARNING` raised by project code
-and on any failing test (Lisp suite, plus Node tests for the browser scripts).
+`check.lisp` fails on any `WARNING` or `STYLE-WARNING` from project code and on any failing
+test (Lisp suite plus Node tests for the browser scripts). The data was recorded with SBCL
+2.6.9 and Quicklisp dist 2026-01-01; `scripts/ci-setup.sh` installs exactly those.
+
+Local preview: `cd build/site && python3 -m http.server 8765`, then open
+`http://localhost:8765/` (English) or `/pt-br/` (Português).
 
 ## What is in the box
 
 | Part | Where | Notes |
 |---|---|---|
-| Ingestion | `src/introspect.lisp`, `src/ingest.lisp` | Kinds, lambda lists and docstrings from the live SBCL image; libraries each in a child image with a time limit; systems without a license are refused |
-| Versioned data | `data/packages/*.sexp`, `data/MANIFEST.sexp` | Human readable, diff friendly, with SBCL and Quicklisp versions and SHA-256 digests |
-| HyperSpec links | `data/clhs-map.sexp` | Only the symbol-name to page-name facts; HyperSpec text and images are never copied |
-| Examples | `data/examples-src/*.txt`, `data/examples/*.sexp` | CC0; every example is executed in SBCL and its recorded results are re-checked by the tests |
-| See also | `data/see-also/`, `src/related.lisp` | Curated groups plus symbols sharing a HyperSpec page |
-| Static site | `src/site.lisp`, `src/render.lisp`, `assets/` | One page per symbol, package pages, client-side search (`/` to focus) |
-| Community API | `src/server/` | GitHub sign-in, SQLite, moderation queue, flags, rate limit |
+| Ingestion | `src/introspect.lisp`, `src/ingest.lisp` | Kinds, lambda lists and docstrings from the live SBCL image; each library in its own child image with a time limit; systems without a license are refused |
+| Versioned data | `data/packages/*.sexp`, `data/MANIFEST.sexp` | Human readable and diff friendly, with SBCL and Quicklisp versions and SHA-256 digests |
+| HyperSpec links | `data/clhs-map.sexp` | Only symbol-name to page-name facts; HyperSpec text and images are never copied |
+| Seeded examples | `data/examples-src/*.txt`, `data/examples/*.sexp` | CC0; every example runs in SBCL and its recorded results are re-checked by the tests |
+| Community examples | `community/examples/` | Validated, executed with a timeout and credited to their author |
+| Trails | `data/trails/*.sexp` | 15 reading paths by theme |
+| Translations | `data/i18n/` | Interface strings and Portuguese summaries, as plain data |
+| Static site | `src/site.lisp`, `src/render.lisp`, `assets/` | Pages in both languages, client-side search (`/` focuses it) |
+| Live server (optional, experimental) | `src/server/` | GitHub sign-in, SQLite and a moderation queue; not used by the Pages deployment |
 
-Documented today: `COMMON-LISP`, `ALEXANDRIA`, `BORDEAUX-THREADS`, `CL-PPCRE`
-(add systems in `data/systems.sexp`).
+Documented packages: `COMMON-LISP`, `ALEXANDRIA`, `ANAPHORA`, `BABEL`, `BORDEAUX-THREADS`,
+`CL-PPCRE`, `ITERATE`, `SPLIT-SEQUENCE`, `STR` (add systems in `data/systems.sexp`).
 
-## Server configuration
+## Deploying to GitHub Pages
 
-Environment variables only; secrets never go in files.
+1. Push the repository to GitHub and enable **Settings → Pages → Source: GitHub Actions**.
+2. The `Pages` workflow builds and publishes on every push to `main`.
+3. For a custom domain or a user site (`<user>.github.io`) set `CLDOCS_BASE_PATH` to `/` in
+   `.github/workflows/pages.yml`.
 
-| Variable | Meaning |
-|---|---|
-| `CLDOCS_BASE_URL` | Public address (default `http://localhost:8080`); `https://` turns on Secure cookies and HSTS |
-| `CLDOCS_PORT`, `CLDOCS_DATABASE`, `CLDOCS_SITE_DIRECTORY` | Listen port, SQLite file, generated site (default `build/site/`) |
-| `CLDOCS_GITHUB_CLIENT_ID`, `CLDOCS_GITHUB_CLIENT_SECRET` | GitHub OAuth app; callback is `<base>/oauth/callback`; no scopes are requested |
-| `CLDOCS_MODERATORS` | Comma separated GitHub logins allowed to use `/admin` |
-| `CLDOCS_DEV_LOGIN` | Enables `/dev-login?as=name`; refused unless the base URL is localhost |
+The `CI` workflow runs the full check on pull requests. Both workflows install the pinned
+SBCL from `scripts/ci-setup.sh`; verify that download URL on the first run.
 
 ## Security model
 
-- Contributions are never executed and stay `pending` until a moderator approves them.
-- Strict CSP (`default-src 'none'`, scripts and styles from `self` only), `nosniff`, `X-Frame-Options: DENY`.
-- User text is escaped by Spinneret on the server and written with `textContent` in the browser.
-- Sessions: random tokens, only their SHA-256 is stored; HttpOnly, SameSite=Lax cookies.
-- State changes need a CSRF token bound to the session; OAuth uses a verified `state` cookie.
-- Limits: 4000 characters, at most 2 links, 10 submissions per hour per user, 16 KB request bodies.
-- Three distinct flags send a published item back to review. Authors can withdraw their own items.
-- SQL always uses bound parameters.
+- Contributions are reviewed by a maintainer and executed only on ephemeral CI runners
+  without secrets. The Pages build job has read-only permissions.
+- The static rules in `src/community.lisp` (author and CC0 line, known symbol, forbidden
+  constructs, file access under `/tmp/cldocs-`, 10 second step timeout) are defence in
+  depth, not a sandbox; read every file before merging. See `SECURITY.md`.
+- User text is escaped by Spinneret; the optional live server adds a strict CSP, hashed
+  sessions and CSRF tokens (see `src/server/`).
 
 ## Legal
 
-The Common Lisp HyperSpec is copyright LispWorks Ltd. CLDocs links to it and
-never copies its text or images. Docstrings are shown under the license of the
-system that provides them. Contribution terms: `/terms/` (version in
-`cldocs/render:+terms-version+`).
+The Common Lisp HyperSpec is copyright LispWorks Ltd. CLDocs links to it and never copies
+its text or images. Code is MIT (`LICENSE`); examples and translations are CC0; docstrings
+keep the license of the system that provides them. Details in `NOTICE.md`.

@@ -1,0 +1,54 @@
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  SBCL_VERSION: "2.6.9"
+  QUICKLISP_DIST: "2026-01-01"
+  # Project sites live under /<repository>/. Use "/" for a custom domain or a user site.
+  CLDOCS_BASE_PATH: /${{ github.event.repository.name }}/
+  CLDOCS_REPOSITORY: https://github.com/${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # No write permissions: this job executes merged, reviewed community examples.
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.local/sbcl
+            ~/quicklisp
+          key: sbcl-${{ env.SBCL_VERSION }}-ql-${{ env.QUICKLISP_DIST }}
+      - name: Install SBCL and Quicklisp
+        run: scripts/ci-setup.sh
+      - name: Build the site
+        run: sbcl --noinform --non-interactive --load scripts/build-site.lisp
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

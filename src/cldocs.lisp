@@ -7,7 +7,7 @@
 
 (in-package #:cldocs)
 
-(alexandria:define-constant +version+ "0.1.0"
+(alexandria:define-constant +version+ "1.0.0"
   :test #'string=
   :documentation "Current CLDocs version; keep in sync with cldocs.asd.")
 

@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  SBCL_VERSION: "2.6.9"
+  QUICKLISP_DIST: "2026-01-01"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.local/sbcl
+            ~/quicklisp
+          key: sbcl-${{ env.SBCL_VERSION }}-ql-${{ env.QUICKLISP_DIST }}
+      - name: Install SBCL and Quicklisp
+        run: scripts/ci-setup.sh
+      - name: Validate community examples
+        run: sbcl --noinform --non-interactive --load scripts/check-community.lisp
+      - name: Full check
+        run: sbcl --noinform --non-interactive --load scripts/check.lisp
