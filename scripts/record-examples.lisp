@@ -15,7 +15,7 @@
    (uiop:pathname-directory-pathname *load-truename*))
   "Root directory of the CLDocs checkout.")
 
-(defparameter *packages* '("COMMON-LISP")
+(defparameter *packages* '("COMMON-LISP" "ALEXANDRIA" "CL-PPCRE" "BORDEAUX-THREADS")
   "Packages whose example sources are recorded.")
 
 (defun main ()

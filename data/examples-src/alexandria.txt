@@ -1,0 +1,159 @@
+== ALEXANDRIA:IOTA @ alexandria
+(iota 5)
+(iota 3 :start 10 :step 5)
+
+== ALEXANDRIA:FLATTEN @ alexandria
+(flatten '(1 (2 (3 4)) 5))
+
+== ALEXANDRIA:CURRY @ alexandria
+(funcall (curry #'+ 10) 5)
+(mapcar (curry #'* 2) '(1 2 3))
+
+== ALEXANDRIA:COMPOSE @ alexandria
+(funcall (compose #'1+ #'abs) -5)
+(funcall (compose #'list #'+) 1 2)
+
+== ALEXANDRIA:CONJOIN @ alexandria
+(remove-if-not (conjoin #'integerp #'evenp) '(1 2 3.0 4))
+
+== ALEXANDRIA:DISJOIN @ alexandria
+(remove-if-not (disjoin #'zerop #'minusp) '(-1 0 1))
+
+== ALEXANDRIA:ENSURE-LIST @ alexandria
+(ensure-list 1)
+(ensure-list '(1 2))
+
+== ALEXANDRIA:ALIST-HASH-TABLE @ alexandria
+(gethash 'b (alist-hash-table '((a . 1) (b . 2))))
+
+== ALEXANDRIA:HASH-TABLE-ALIST @ alexandria
+(sort (hash-table-alist (alist-hash-table '((a . 1) (b . 2))))
+      #'string<
+      :key #'car)
+
+== ALEXANDRIA:HASH-TABLE-KEYS @ alexandria
+(sort (hash-table-keys (alist-hash-table '((3 . c) (1 . a) (2 . b)))) #'<)
+
+== ALEXANDRIA:HASH-TABLE-VALUES @ alexandria
+(sort (hash-table-values (alist-hash-table '((a . 3) (b . 1) (c . 2)))) #'<)
+
+== ALEXANDRIA:COPY-HASH-TABLE @ alexandria
+(let* ((original (alist-hash-table '((x . 1))))
+       (copy (copy-hash-table original)))
+  (setf (gethash 'x copy) 99)
+  (list (gethash 'x original) (gethash 'x copy)))
+
+== ALEXANDRIA:ALIST-PLIST @ alexandria
+(alist-plist '((a . 1) (b . 2)))
+
+== ALEXANDRIA:PLIST-ALIST @ alexandria
+(plist-alist '(:a 1 :b 2))
+
+== ALEXANDRIA:STARTS-WITH-SUBSEQ @ alexandria
+(starts-with-subseq "he" "hello")
+(starts-with-subseq '(1 2) '(1 2 3))
+
+== ALEXANDRIA:ENDS-WITH-SUBSEQ @ alexandria
+(ends-with-subseq "lo" "hello")
+(ends-with-subseq "he" "hello")
+
+== ALEXANDRIA:FIRST-ELT @ alexandria
+(first-elt #(10 20 30))
+
+== ALEXANDRIA:LAST-ELT @ alexandria
+(last-elt '(1 2 3))
+(last-elt #(10 20 30))
+
+== ALEXANDRIA:LASTCAR @ alexandria
+(lastcar '(1 2 3))
+
+== ALEXANDRIA:CLAMP @ alexandria
+(clamp 15 0 10)
+(clamp -3 0 10)
+(clamp 5 0 10)
+
+== ALEXANDRIA:LERP @ alexandria
+(lerp 0.5 10 20)
+
+== ALEXANDRIA:MEAN @ alexandria
+(mean '(1 2 3 4))
+
+== ALEXANDRIA:MEDIAN @ alexandria
+(median '(3 1 2))
+
+== ALEXANDRIA:FACTORIAL @ alexandria
+(factorial 5)
+
+== ALEXANDRIA:BINOMIAL-COEFFICIENT @ alexandria
+(binomial-coefficient 5 2)
+
+== ALEXANDRIA:EMPTYP @ alexandria
+(emptyp nil)
+(emptyp "")
+(emptyp '(1))
+
+== ALEXANDRIA:LENGTH= @ alexandria
+(length= '(1 2 3) #(a b c))
+(length= '(1 2) '(1 2 3))
+
+== ALEXANDRIA:MAPPEND @ alexandria
+(mappend (lambda (x) (list x x)) '(1 2))
+
+== ALEXANDRIA:MAKE-KEYWORD @ alexandria
+(values (make-keyword "HELLO"))
+(values (make-keyword "hello"))
+
+== ALEXANDRIA:IF-LET @ alexandria
+(if-let ((found (find 2 '(1 2 3))))
+  (* found 10)
+  :none)
+(if-let ((found (find 9 '(1 2 3))))
+  (* found 10)
+  :none)
+
+== ALEXANDRIA:ONCE-ONLY @ alexandria
+-- silent
+(defmacro square-once (x)
+  (once-only (x)
+    `(* ,x ,x)))
+(let ((n 3))
+  (square-once (incf n)))
+
+== ALEXANDRIA:DESTRUCTURING-CASE @ alexandria
+(destructuring-case '(:add 1 2)
+  ((:add a b) (+ a b))
+  ((:negate a) (- a)))
+
+== ALEXANDRIA:MAXF @ alexandria
+(let ((best 3))
+  (maxf best 10)
+  best)
+
+== ALEXANDRIA:MINF @ alexandria
+(let ((best 3))
+  (minf best 1)
+  best)
+
+== ALEXANDRIA:APPENDF @ alexandria
+(let ((items (list 1)))
+  (appendf items '(2 3))
+  items)
+
+== ALEXANDRIA:DOPLIST @ alexandria
+(let ((pairs '()))
+  (doplist (key value '(:a 1 :b 2) (nreverse pairs))
+    (push (list key value) pairs)))
+
+== ALEXANDRIA:EXTREMUM @ alexandria
+(extremum '(3 1 2) #'<)
+(extremum '("pear" "fig" "apple") #'> :key #'length)
+
+== ALEXANDRIA:MAP-PRODUCT @ alexandria
+(map-product #'list '(1 2) '(a b))
+
+== ALEXANDRIA:MAP-COMBINATIONS @ alexandria
+(let ((combinations '()))
+  (map-combinations (lambda (pair) (push pair combinations))
+                    '(1 2 3)
+                    :length 2)
+  (sort combinations #'< :key #'first))

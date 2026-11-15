@@ -147,26 +147,39 @@
        (signals cldocs/conditions:example-step-failed
          (cldocs/examples:record-examples *common-lisp*))))))
 
-(test checked-in-examples-are-regenerated-byte-for-byte-from-the-source
-  (let ((checked-in (uiop:read-file-string
-                     (cldocs/examples:examples-pathname *common-lisp*)))
-        (source (uiop:read-file-string
-                 (cldocs/examples:examples-source-pathname *common-lisp*))))
+(defun regenerate-examples (package-name)
+  "Re-record PACKAGE-NAME from its source inside a temporary data directory.
+
+Returns the regenerated file text.
+
+- PACKAGE-NAME: a documented package, a string."
+  (let ((source (uiop:read-file-string
+                 (cldocs/examples:examples-source-pathname package-name))))
     (cldocs/tests/store:call-with-temporary-data-directory
      (lambda ()
-       (let ((source-copy (cldocs/examples:examples-source-pathname *common-lisp*)))
+       (let ((source-copy (cldocs/examples:examples-source-pathname package-name)))
          (ensure-directories-exist source-copy)
          (with-open-file (out source-copy :direction :output :if-exists :supersede)
            (write-string source out))
-         (cldocs/examples:record-examples *common-lisp*)
-         (is (string= checked-in
-                      (uiop:read-file-string
-                       (cldocs/examples:examples-pathname *common-lisp*)))))))))
+         (cldocs/examples:record-examples package-name)
+         (uiop:read-file-string (cldocs/examples:examples-pathname package-name)))))))
+
+(test checked-in-examples-are-regenerated-byte-for-byte-from-the-source
+  (dolist (package-name '("COMMON-LISP" "ALEXANDRIA" "CL-PPCRE" "BORDEAUX-THREADS"))
+    (is (string= (uiop:read-file-string
+                  (cldocs/examples:examples-pathname package-name))
+                 (regenerate-examples package-name))
+        "~A examples differ from their source" package-name)))
 
 ;;; Checked-in data
 
+(defun all-recorded-examples ()
+  "Return every recorded EXAMPLE of every stored package."
+  (loop for package-name in (cldocs/store:stored-package-names)
+        append (cldocs/examples:read-examples package-name)))
+
 (test every-recorded-example-still-produces-its-recorded-results
-  (let ((failures (loop for example in (cldocs/examples:read-examples *common-lisp*)
+  (let ((failures (loop for example in (all-recorded-examples)
                         for problems = (cldocs/examples:verify-example example)
                         when problems
                           collect (cons (cldocs/examples:example-name example) problems))))
@@ -180,17 +193,18 @@
     (is (>= (length names) *minimum-documented-symbols*))))
 
 (test every-example-documents-a-real-symbol-and-shows-a-result
-  (let ((stored (mapcar #'cldocs/definition:definition-name
-                        (cldocs/store:read-package-data *common-lisp*))))
-    (dolist (example (cldocs/examples:read-examples *common-lisp*))
-      (is (member (cldocs/examples:example-name example) stored :test #'string=)
-          "~A is not a stored symbol" (cldocs/examples:example-name example))
-      (is (documented-steps example)
-          "~A has no visible step" (cldocs/examples:example-name example)))))
+  (dolist (package-name (cldocs/store:stored-package-names))
+    (let ((stored (mapcar #'cldocs/definition:definition-name
+                          (cldocs/store:read-package-data package-name))))
+      (dolist (example (cldocs/examples:read-examples package-name))
+        (is (member (cldocs/examples:example-name example) stored :test #'string=)
+            "~A is not a stored symbol of ~A" (cldocs/examples:example-name example) package-name)
+        (is (documented-steps example)
+            "~A has no visible step" (cldocs/examples:example-name example))))))
 
 (test no-recorded-step-signals-an-unexpected-error
   (let ((expected-error-symbols '("ERROR")))
-    (dolist (example (cldocs/examples:read-examples *common-lisp*))
+    (dolist (example (all-recorded-examples))
       (unless (member (cldocs/examples:example-name example) expected-error-symbols
                       :test #'string=)
         (dolist (step (cldocs/examples:example-steps example))

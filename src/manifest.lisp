@@ -7,7 +7,8 @@
                 #:package-data-pathname
                 #:read-data-file
                 #:stored-package-names)
-  (:export #:build-manifest
+  (:export #:quicklisp-dist-version
+           #:build-manifest
            #:write-manifest
            #:read-manifest
            #:manifest-stale-packages))

@@ -132,13 +132,15 @@ Dotted tails and (quote x) forms are rendered readably.
 (defun symbol-definitions (symbol
                            &key
                              (origin :sbcl)
-                             clhs-page)
+                             clhs-page
+                             package-name)
   "Return the DEFINITION records of SYMBOL, ordered by kind.
 
 - SYMBOL: the symbol to inspect.
 - ORIGIN: :SBCL for the image itself, otherwise the ASDF system name.
-- CLHS-PAGE: HyperSpec page for SYMBOL, or NIL."
-  (let ((package-name (package-name (symbol-package symbol))))
+- CLHS-PAGE: HyperSpec page for SYMBOL, or NIL.
+- PACKAGE-NAME: package the page belongs to; defaults to the home package."
+  (let ((package-name (or package-name (package-name (symbol-package symbol)))))
     (mapcar (lambda (kind)
               (make-definition :package package-name
                                :name (symbol-name symbol)
@@ -176,5 +178,6 @@ Signals PACKAGE-NOT-FOUND when the package does not exist.
       (loop for symbol in (external-symbols package)
             append (symbol-definitions symbol
                                        :origin origin
+                                       :package-name (package-name package)
                                        :clhs-page (when linked-p
                                                     (clhs-page (symbol-name symbol))))))))

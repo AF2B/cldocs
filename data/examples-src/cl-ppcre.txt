@@ -1,0 +1,43 @@
+== CL-PPCRE:SCAN @ cl-ppcre
+(scan "b+" "aabbbcc")
+(scan "z" "aabbbcc")
+
+== CL-PPCRE:SCAN-TO-STRINGS @ cl-ppcre
+(scan-to-strings "(\\d+)-(\\d+)" "tel 555-1234")
+
+== CL-PPCRE:ALL-MATCHES-AS-STRINGS @ cl-ppcre
+(all-matches-as-strings "\\d+" "a1b22c333")
+
+== CL-PPCRE:ALL-MATCHES @ cl-ppcre
+(all-matches "a" "banana")
+
+== CL-PPCRE:COUNT-MATCHES @ cl-ppcre
+(count-matches "a" "banana")
+
+== CL-PPCRE:REGEX-REPLACE @ cl-ppcre
+(regex-replace "a" "banana" "o")
+
+== CL-PPCRE:REGEX-REPLACE-ALL @ cl-ppcre
+(regex-replace-all "\\s+" "a   b  c" " ")
+(regex-replace-all "(\\w+)@(\\w+)" "ada@lovelace" "\\2 at \\1")
+
+== CL-PPCRE:SPLIT @ cl-ppcre
+(split "\\s*,\\s*" "a , b,c")
+
+== CL-PPCRE:REGISTER-GROUPS-BIND @ cl-ppcre
+(register-groups-bind (year month) ("(\\d+)-(\\d+)" "2024-05")
+  (list year month))
+(register-groups-bind (n) ("(\\d+)" "no digits")
+  n)
+
+== CL-PPCRE:CREATE-SCANNER @ cl-ppcre
+(scan (create-scanner "hello" :case-insensitive-mode t) "Say HELLO")
+
+== CL-PPCRE:DO-MATCHES-AS-STRINGS @ cl-ppcre
+(let ((words '()))
+  (do-matches-as-strings (word "\\w+" "to be or not")
+    (push word words))
+  (nreverse words))
+
+== CL-PPCRE:QUOTE-META-CHARS @ cl-ppcre
+(quote-meta-chars "1+1=2?")

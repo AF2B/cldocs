@@ -28,6 +28,7 @@
                 #:build-search-index)
   (:import-from #:cldocs/store
                 #:read-package-data
+                #:read-package-system
                 #:stored-package-names)
   (:import-from #:cldocs/urls
                 #:+about-path+
@@ -147,14 +148,23 @@ Signals OUTPUT-DIRECTORY-NOT-EMPTY for any other non-empty directory.
             (getf manifest :sbcl-version)
             (getf manifest :quicklisp-dist))))
 
-(defun all-entries ()
-  "Return the symbol entries of every stored package, keyed by package name.
+(defparameter *first-package* "COMMON-LISP"
+  "Package listed first on the home page; the others follow alphabetically.")
 
-The result is an alist of (package-name . entries)."
+(defun ordered-package-names ()
+  "Return the stored package names with COMMON-LISP first."
+  (let ((names (stored-package-names)))
+    (if (member *first-package* names :test #'string=)
+        (cons *first-package* (remove *first-package* names :test #'string=))
+        names)))
+
+(defun all-packages ()
+  "Return a plist (:name :entries :system) for every stored package, in display order."
   (mapcar (lambda (package-name)
-            (cons package-name
-                  (group-definitions (read-package-data package-name))))
-          (stored-package-names)))
+            (list :name package-name
+                  :entries (group-definitions (read-package-data package-name))
+                  :system (read-package-system package-name)))
+          (ordered-package-names)))
 
 (defun examples-by-name (package-name)
   "Return a table from symbol name to the recorded examples of that symbol.
@@ -165,23 +175,26 @@ The result is an alist of (package-name . entries)."
       (setf (gethash (example-name example) table)
             (append (gethash (example-name example) table) (list example))))))
 
-(defun emit-package-pages (emit package-name entries)
+(defun emit-package-pages (emit package)
   "Emit the package page and every symbol page of one package.
 
 - EMIT: function of a path and an HTML string that writes and counts a page.
-- PACKAGE-NAME: the documented package, a string.
-- ENTRIES: its SYMBOL-ENTRY records."
-  (let ((examples (examples-by-name package-name))
-        (related (build-related-index package-name entries)))
+- PACKAGE: a plist (:name :entries :system) as returned by ALL-PACKAGES."
+  (let* ((package-name (getf package :name))
+         (entries (getf package :entries))
+         (system (getf package :system))
+         (examples (examples-by-name package-name))
+         (related (build-related-index package-name entries)))
     (funcall emit
              (package-path package-name)
-             (render-package package-name entries +definition-kinds+))
+             (render-package package-name entries +definition-kinds+ :system system))
     (dolist (entry entries)
       (let ((name (cldocs/model:symbol-entry-name entry)))
         (funcall emit
                  (symbol-path package-name name)
                  (render-symbol entry
                                 :examples-html (render-examples (gethash name examples))
+                                :system system
                                 :related (mapcar (lambda (related-name)
                                                    (cons package-name related-name))
                                                  (gethash name related))))))))
@@ -197,7 +210,7 @@ OUTPUT-DIRECTORY-NOT-EMPTY when OUTPUT holds files that are not a CLDocs site.
 - OUTPUT: directory that will receive the site.
 - DESIGN-SYSTEM: directory of the Borba Design System."
   (let* ((output (uiop:ensure-directory-pathname output))
-         (groups (all-entries))
+         (packages (all-packages))
          (pages 0)
          (*toolchain-note* (toolchain-note)))
     (flet ((emit (path html)
@@ -207,15 +220,17 @@ OUTPUT-DIRECTORY-NOT-EMPTY when OUTPUT holds files that are not a CLDocs site.
       (prepare-output-directory output)
       (copy-assets output design-system)
       (emit +home-path+
-            (render-home (mapcar (lambda (group)
-                                   (cons (car group) (length (cdr group))))
-                                 groups)))
+            (render-home (mapcar (lambda (package)
+                                   (list (getf package :name)
+                                         (length (getf package :entries))
+                                         (getf package :system)))
+                                 packages)))
       (emit +about-path+ (render-about))
       (write-text-file (merge-pathnames +not-found-file+ output)
                        (render-not-found))
-      (dolist (group groups)
-        (emit-package-pages #'emit (car group) (cdr group)))
+      (dolist (package packages)
+        (emit-package-pages #'emit package))
       (write-text-file (merge-pathnames +search-index-path+ output)
-                       (build-search-index (loop for group in groups
-                                                 append (cdr group)))))
+                       (build-search-index (loop for package in packages
+                                                 append (getf package :entries)))))
     pages))

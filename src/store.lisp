@@ -14,6 +14,7 @@
            #:package-data-pathname
            #:write-package-data
            #:read-package-data
+           #:read-package-system
            #:read-data-file
            #:stored-package-names))
 
@@ -66,13 +67,18 @@ Signals MALFORMED-DATA-FILE when the file is missing or unreadable.
     (end-of-file ()
       (error 'malformed-data-file :pathname pathname :reason "empty file"))))
 
-(defun write-package-data (package-name definitions)
+(defun write-package-data (package-name
+                           definitions
+                           &key
+                             system)
   "Write DEFINITIONS of PACKAGE-NAME to its data file and return the pathname.
 
 DEFINITIONS are written in the order given, one per line, so diffs stay small.
 
 - PACKAGE-NAME: the package name as a string.
-- DEFINITIONS: a list of DEFINITION records."
+- DEFINITIONS: a list of DEFINITION records.
+- SYSTEM: metadata plist (:name :version :license) of the providing ASDF
+  system, or NIL for the SBCL image."
   (let ((pathname (package-data-pathname package-name)))
     (ensure-directories-exist pathname)
     (with-standard-io-syntax
@@ -81,23 +87,27 @@ DEFINITIONS are written in the order given, one per line, so diffs stay small.
                              :direction :output
                              :if-exists :supersede
                              :external-format :utf-8)
-          (write-package-form out package-name definitions))))
+          (write-package-form out package-name definitions system))))
     pathname))
 
-(defun write-package-form (out package-name definitions)
+(defun write-package-form (out
+                           package-name
+                           definitions
+                           system)
   "Print the package data form for DEFINITIONS onto the stream OUT.
 
 - OUT: an output character stream.
 - PACKAGE-NAME: the package name as a string.
-- DEFINITIONS: a list of DEFINITION records."
+- DEFINITIONS: a list of DEFINITION records.
+- SYSTEM: metadata plist of the providing system, or NIL."
   (format out "~A~%" *generated-header*)
-  (format out "(:package ~S~% :definitions~% (" package-name)
+  (format out "(:package ~S~% :system ~S~% :definitions~% (" package-name system)
   (dolist (definition definitions)
     (format out "~%  ~S" (definition->plist definition)))
   (format out ")~% )~%"))
 
-(defun read-package-data (package-name)
-  "Return the list of DEFINITION records stored for PACKAGE-NAME.
+(defun read-package-form (package-name)
+  "Return the form stored for PACKAGE-NAME after checking it belongs to it.
 
 - PACKAGE-NAME: the package name as a string."
   (let* ((pathname (package-data-pathname package-name))
@@ -106,8 +116,20 @@ DEFINITIONS are written in the order given, one per line, so diffs stay small.
       (error 'malformed-data-file
              :pathname pathname
              :reason "package name does not match file"))
-    (mapcar (lambda (plist) (plist->definition plist package-name))
-            (getf form :definitions))))
+    form))
+
+(defun read-package-data (package-name)
+  "Return the list of DEFINITION records stored for PACKAGE-NAME.
+
+- PACKAGE-NAME: the package name as a string."
+  (mapcar (lambda (plist) (plist->definition plist package-name))
+          (getf (read-package-form package-name) :definitions)))
+
+(defun read-package-system (package-name)
+  "Return the metadata plist of the system providing PACKAGE-NAME, or NIL for SBCL.
+
+- PACKAGE-NAME: the package name as a string."
+  (getf (read-package-form package-name) :system))
 
 (defun stored-package-names ()
   "Return the names of every package with a data file, sorted alphabetically."

@@ -1,0 +1,38 @@
+== BORDEAUX-THREADS:MAKE-THREAD @ bordeaux-threads
+(join-thread (make-thread (lambda () (+ 1 2))))
+
+== BORDEAUX-THREADS:JOIN-THREAD @ bordeaux-threads
+(let ((thread (make-thread (lambda () (* 6 7)))))
+  (join-thread thread))
+
+== BORDEAUX-THREADS:THREAD-NAME @ bordeaux-threads
+(let ((thread (make-thread (lambda () :done) :name "worker")))
+  (join-thread thread)
+  (thread-name thread))
+
+== BORDEAUX-THREADS:THREAD-ALIVE-P @ bordeaux-threads
+(let ((thread (make-thread (lambda () 1))))
+  (join-thread thread)
+  (thread-alive-p thread))
+
+== BORDEAUX-THREADS:THREADP @ bordeaux-threads
+(threadp (current-thread))
+(threadp 42)
+
+== BORDEAUX-THREADS:WITH-LOCK-HELD @ bordeaux-threads
+(let* ((lock (make-lock "counter"))
+       (counter 0)
+       (threads (loop repeat 4
+                      collect (make-thread
+                               (lambda ()
+                                 (dotimes (i 100)
+                                   (with-lock-held (lock)
+                                     (incf counter))))))))
+  (mapc #'join-thread threads)
+  counter)
+
+== BORDEAUX-THREADS:MAKE-LOCK @ bordeaux-threads
+(lock-p (make-lock "demo"))
+
+== BORDEAUX-THREADS:*SUPPORTS-THREADS-P* @ bordeaux-threads
+*supports-threads-p*

@@ -19,6 +19,8 @@
                 #:malformed-example-source)
   (:import-from #:cldocs/slug
                 #:slugify)
+  (:import-from #:cldocs/systems
+                #:ensure-system-loaded)
   (:import-from #:cldocs/store
                 #:data-directory
                 #:read-data-file)
@@ -236,15 +238,6 @@ printed) and :ERROR (type name) when the form signalled an error.
                   (list :values (print-values values package)))
               (when (string/= output "")
                 (list :output output))))))
-
-(defun ensure-system-loaded (system)
-  "Load the ASDF SYSTEM through Quicklisp when present, otherwise ASDF.
-
-- SYSTEM: the system name, or NIL for nothing to load."
-  (when system
-    (if (find-package '#:ql)
-        (uiop:symbol-call '#:ql '#:quickload system :silent t)
-        (asdf:load-system system))))
 
 (defun call-with-example-package (example function)
   "Call FUNCTION with a fresh package for EXAMPLE, deleting it afterwards.

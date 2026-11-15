@@ -98,11 +98,13 @@
     broken))
 
 (test site-has-one-page-per-symbol
-  (let ((pages (length (directory (merge-pathnames "sym/*/*/index.html" (built-site))))))
+  (let ((pages (length (directory (merge-pathnames "sym/common-lisp/*/index.html" (built-site))))))
     (is (= *common-lisp-symbol-count* pages))))
 
 (test site-has-the-fixed-pages
   (dolist (path '("index.html" "about/index.html" "404.html" "pkg/common-lisp/index.html"
+                  "pkg/alexandria/index.html" "pkg/cl-ppcre/index.html"
+                  "pkg/bordeaux-threads/index.html"
                   "assets/site.css" "assets/tokens.css" "assets/search-index.json"
                   "assets/fonts/Inter.ttf" "assets/fonts/JetBrainsMono.ttf"))
     (is (probe-file (merge-pathnames path (built-site))) "missing ~A" path)))

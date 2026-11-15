@@ -12,8 +12,7 @@
                 #:definition-docstring
                 #:definition-kind
                 #:definition-lambda-list
-                #:definition-name
-                #:definition-origin)
+                #:definition-name)
   (:import-from #:cldocs/examples
                 #:example-steps
                 #:step-result-lines)
@@ -145,8 +144,7 @@
 
 - DEFINITION: a DEFINITION record."
   (let ((docstring (definition-docstring definition))
-        (clhs-page (definition-clhs-page definition))
-        (origin (definition-origin definition)))
+        (clhs-page (definition-clhs-page definition)))
     (with-html-string
       (:section :class "definition"
                 :id (string-downcase (symbol-name (definition-kind definition)))
@@ -162,9 +160,17 @@
                          (definition-lambda-list definition)))
         (if docstring
             (:p :class "docstring" docstring)
-            (:p :class "docstring-missing" *no-docstring-notice*))
-        (unless (eq origin :sbcl)
-          (:p :class "attribution" (format nil "From system ~A" origin)))))))
+            (:p :class "docstring-missing" *no-docstring-notice*))))))
+
+(defun system-note (system)
+  "Return the attribution sentence for SYSTEM, or NIL for the SBCL image.
+
+- SYSTEM: metadata plist (:name :version :license) or NIL."
+  (when system
+    (format nil "Documentation from ~A ~A, licensed ~A."
+            (getf system :name)
+            (getf system :version)
+            (getf system :license))))
 
 (defun span-html (class text)
   "Return a span of CLASS holding the escaped TEXT, with no extra whitespace.
@@ -218,12 +224,14 @@ inside the preformatted element.
 (defun render-symbol (entry
                       &key
                         examples-html
-                        related)
+                        related
+                        system)
   "Return the page of one symbol.
 
 - ENTRY: a SYMBOL-ENTRY.
 - EXAMPLES-HTML: pre-rendered examples section, or NIL.
-- RELATED: list of (package-name . symbol-name) conses to show as See also."
+- RELATED: list of (package-name . symbol-name) conses to show as See also.
+- SYSTEM: metadata plist of the providing ASDF system, or NIL for SBCL."
   (let* ((package-name (symbol-entry-package entry))
          (name (symbol-entry-name entry))
          (root (root-prefix (symbol-path package-name name)))
@@ -238,6 +246,8 @@ inside the preformatted element.
                        (:li :class "badge" (kind-label kind))))
                    (dolist (definition (symbol-entry-definitions entry))
                      (:raw (definition-html definition)))
+                   (when (system-note system)
+                     (:p :class "attribution" (system-note system)))
                    (:section :class "block" :id "examples"
                      (:h2 "Examples")
                      (if examples-html
@@ -275,18 +285,25 @@ inside the preformatted element.
                    (:span :class "name" (string-downcase (symbol-entry-name entry)))
                    (:span :class "summary" (symbol-entry-summary entry)))))))))
 
-(defun render-package (package-name entries kinds)
+(defun render-package (package-name
+                       entries
+                       kinds
+                       &key
+                         system)
   "Return the page listing every symbol of a package, grouped by kind.
 
 - PACKAGE-NAME: package name, a string.
 - ENTRIES: every SYMBOL-ENTRY of the package, sorted by name.
-- KINDS: the kinds to show as sections, in display order."
+- KINDS: the kinds to show as sections, in display order.
+- SYSTEM: metadata plist of the providing ASDF system, or NIL for SBCL."
   (let* ((root (root-prefix (package-path package-name)))
          (body (with-html-string
                  (:p :class "label" "Package")
                  (:h1 :class "symbol-name" package-name)
                  (:p :class "lede"
                      (format nil "~D symbols." (length entries)))
+                 (when (system-note system)
+                   (:p :class "attribution" (system-note system)))
                  (dolist (kind kinds)
                    (let ((members (remove-if-not
                                    (lambda (entry)
@@ -306,7 +323,8 @@ inside the preformatted element.
 (defun render-home (packages)
   "Return the home page.
 
-- PACKAGES: list of (package-name . symbol-count) conses to advertise."
+- PACKAGES: list of (package-name symbol-count system) lists to advertise;
+  SYSTEM is the metadata plist of the providing system, or NIL for SBCL."
   (let* ((root (root-prefix +home-path+))
          (body (with-html-string
                  (:h1 "CLDocs" (:span :class "dot" "."))
@@ -315,11 +333,16 @@ inside the preformatted element.
                  (:section :class "block" :id "packages"
                    (:h2 "Packages")
                    (:ul :class "package-list"
-                     (loop for (package-name . count) in packages
+                     (loop for (package-name count system) in packages
                            do (:li (:a :href (site-href root (package-path package-name))
                                        (:span :class "name" package-name)
                                        (:span :class "summary"
-                                              (format nil "~D symbols" count))))))))))
+                                              (if system
+                                                  (format nil "~D symbols · ~A ~A"
+                                                          count
+                                                          (getf system :name)
+                                                          (getf system :version))
+                                                  (format nil "~D symbols · SBCL" count)))))))))))
     (layout-html :title nil
                  :description *tagline*
                  :root root
