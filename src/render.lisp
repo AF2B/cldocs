@@ -98,7 +98,9 @@
     (:header :class "site-header"
       (:div :class "container"
         (:a :class "logo" :href (site-href root +home-path+)
-            "CLDocs" (:span :class "dot" "."))
+            :aria-label "CLDocs home"
+            (:span :class "logo-mark" "BORBA" (:span :class "dot" "."))
+            (:span :class "logo-product" "CLDocs"))
         (:form :class "search" :role "search" :action "#"
           (:input :id "search-input"
                   :type "search"

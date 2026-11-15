@@ -214,3 +214,10 @@
            :error-output :string
            :ignore-error-status t)
         (is (zerop code) "node tests failed:~%~A~%~A" output error-output))))
+
+(test every-header-shows-the-borba-wordmark-with-the-blue-period
+  (dolist (path '("index.html" "sym/common-lisp/car/index.html" "404.html"))
+    (let ((html (read-site-file path)))
+      (is (search "BORBA" html) "wordmark missing on ~A" path)
+      (is (search "<span class=dot>.</span>" html) "blue period missing on ~A" path)
+      (is (search "logo-product" html)))))
