@@ -29,6 +29,7 @@
                 #:+about-path+
                 #:+home-path+
                 #:+search-index-path+
+                #:+terms-path+
                 #:package-path
                 #:root-prefix
                 #:site-href
@@ -42,10 +43,16 @@
            #:render-about
            #:render-not-found
            #:render-message
+           #:render-terms
            #:layout-html
+           #:+terms-version+
            #:*toolchain-note*))
 
 (in-package #:cldocs/render)
+
+(alexandria:define-constant +terms-version+ "2026-11"
+  :test #'string=
+  :documentation "Version of the contribution terms; bump it when the terms change.")
 
 (defparameter *site-name* "CLDocs"
   "Name shown in the header and in page titles.")
@@ -116,7 +123,9 @@
       (:div :class "container"
         (:p *hyperspec-notice*)
         (:p "Docstrings come from the documented implementation under its own license. "
-            (:a :href (site-href root +about-path+) "Licensing details"))
+            (:a :href (site-href root +about-path+) "Licensing details")
+            " · "
+            (:a :href (site-href root +terms-path+) "Contribution terms"))
         (when *toolchain-note*
           (:p *toolchain-note*))))))
 
@@ -414,5 +423,31 @@ Links use absolute paths because the page may be served from any URL.
                  (:p :class "lede" message))))
     (layout-html :title title
                  :description message
+                 :root root
+                 :body body)))
+
+(defun render-terms ()
+  "Return the contribution terms page."
+  (let* ((root (root-prefix +terms-path+))
+         (body (with-html-string
+                 (:p :class "label" (format nil "Version ~A" +terms-version+))
+                 (:h1 "Contribution terms")
+                 (:section :class "block"
+                   (:h2 "What you give")
+                   (:p "Anything you submit, an example or a note, is dedicated to the public domain under CC0 1.0. You must be the author, or have the right to dedicate it. Do not submit code or text copied from the HyperSpec, from books or from projects whose license forbids it."))
+                 (:section :class "block"
+                   (:h2 "Review")
+                   (:p "Every contribution waits for a moderator before it appears. Moderators may reject or hide anything that is spam, advertising, abusive, misleading, unsafe or off topic. Readers can flag published items; enough flags send an item back to review. Contributions are never executed by CLDocs."))
+                 (:section :class "block"
+                   (:h2 "Limits")
+                   (:p "Contributions are limited to 4000 characters and a few links, and each account can submit ten per hour."))
+                 (:section :class "block"
+                   (:h2 "Your data")
+                   (:p "Signing in with GitHub gives CLDocs your public GitHub account number and login. No other profile data, and no GitHub permissions, are requested. A session cookie keeps you signed in for seven days; there are no analytics or advertising cookies. Your login is shown next to what you publish."))
+                 (:section :class "block"
+                   (:h2 "Taking things back")
+                   (:p "You can withdraw anything you published, which removes it from public view. Because contributions are public domain, copies others made stay theirs.")))))
+    (layout-html :title "Contribution terms"
+                 :description "Terms for contributing examples and notes to CLDocs."
                  :root root
                  :body body)))

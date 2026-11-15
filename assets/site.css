@@ -511,6 +511,27 @@ section.community[hidden] {
   color: hsl(var(--secondary));
 }
 
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.contribute input[type="text"] {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  border: 1px solid hsl(var(--input));
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+.contribute input[type="text"]:focus {
+  outline: none;
+  border-color: hsl(var(--ring));
+}
+
 .form-status {
   margin: 0;
   font-size: 0.875rem;

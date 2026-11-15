@@ -11,6 +11,8 @@
                 #:invalid-contribution
                 #:not-allowed
                 #:rate-limited)
+  (:import-from #:cldocs/render
+                #:+terms-version+)
   (:import-from #:cldocs/db
                 #:call-with-transaction
                 #:db-execute
@@ -31,6 +33,7 @@
            #:submit-contribution
            #:approved-contributions
            #:pending-contributions
+           #:recent-approved-contributions
            #:contribution-status
            #:moderate-contribution
            #:flag-contribution
@@ -38,10 +41,6 @@
            #:moderation-log))
 
 (in-package #:cldocs/contributions)
-
-(alexandria:define-constant +terms-version+ "2026-11"
-  :test #'string=
-  :documentation "Version of the contribution terms a submitter accepted.")
 
 (alexandria:define-constant +max-body-length+ 4000
   :test #'eql
@@ -333,6 +332,19 @@ user submitted too much recently.
                                    JOIN users u ON u.id = c.author_id
                                   WHERE c.status = 'pending'
                                   ORDER BY c.created_at, c.id
+                                  LIMIT ~D"
+                            *contribution-columns* *list-limit*))))
+
+(defun recent-approved-contributions (database)
+  "Return the most recently approved contributions, newest first, for moderators.
+
+- DATABASE: a DATABASE."
+  (mapcar #'row->contribution
+          (db-query database
+                    (format nil "SELECT ~A FROM contributions c
+                                   JOIN users u ON u.id = c.author_id
+                                  WHERE c.status = 'approved'
+                                  ORDER BY c.updated_at DESC, c.id DESC
                                   LIMIT ~D"
                             *contribution-columns* *list-limit*))))
 

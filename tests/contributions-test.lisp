@@ -327,3 +327,18 @@
          (is (eq :withdrawn (cldocs/contributions:withdraw-contribution
                              database owner id +start-time+)))
          (is (null (approved-ids database))))))))
+
+(test recently-approved-contributions-list-newest-first
+  (call-with-memory-database
+   (lambda (database)
+     (let* ((author (make-test-user database "ada"))
+            (moderator (make-test-user database "mod" :moderator t))
+            (first (submit-valid database author :body "first"))
+            (second (submit-valid database author :body "second")))
+       (cldocs/contributions:moderate-contribution database moderator first :approve nil
+                                                   +start-time+)
+       (cldocs/contributions:moderate-contribution database moderator second :approve nil
+                                                   (1+ +start-time+))
+       (is (equal (list second first)
+                  (mapcar (lambda (item) (getf item :id))
+                          (cldocs/contributions:recent-approved-contributions database))))))))

@@ -23,7 +23,8 @@
                 #:render-home
                 #:render-not-found
                 #:render-package
-                #:render-symbol)
+                #:render-symbol
+                #:render-terms)
   (:import-from #:cldocs/search-index
                 #:build-search-index)
   (:import-from #:cldocs/store
@@ -35,6 +36,7 @@
                 #:+home-path+
                 #:+not-found-file+
                 #:+search-index-path+
+                #:+terms-path+
                 #:package-path
                 #:symbol-path)
   (:export #:build-site
@@ -226,6 +228,7 @@ OUTPUT-DIRECTORY-NOT-EMPTY when OUTPUT holds files that are not a CLDocs site.
                                          (getf package :system)))
                                  packages)))
       (emit +about-path+ (render-about))
+      (emit +terms-path+ (render-terms))
       (write-text-file (merge-pathnames +not-found-file+ output)
                        (render-not-found))
       (dolist (package packages)

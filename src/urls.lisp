@@ -6,6 +6,7 @@
                 #:slugify)
   (:export #:+home-path+
            #:+about-path+
+           #:+terms-path+
            #:+not-found-file+
            #:+search-index-path+
            #:symbol-path
@@ -22,6 +23,10 @@
 (alexandria:define-constant +about-path+ "about/"
   :test #'string=
   :documentation "Path of the about and legal page.")
+
+(alexandria:define-constant +terms-path+ "terms/"
+  :test #'string=
+  :documentation "Path of the contribution terms page.")
 
 (alexandria:define-constant +not-found-file+ "404.html"
   :test #'string=

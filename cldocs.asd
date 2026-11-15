@@ -42,6 +42,7 @@
                "dexador"
                "hunchentoot"
                "ironclad"
+               "spinneret"
                "sqlite")
   :pathname "src/server"
   :serial t
@@ -49,6 +50,7 @@
                (:file "db")
                (:file "contributions")
                (:file "auth")
+               (:file "admin")
                (:file "web")))
 
 (defsystem "cldocs/tests"

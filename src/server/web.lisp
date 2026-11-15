@@ -7,6 +7,8 @@
 
 (defpackage #:cldocs/web
   (:use #:cl)
+  (:import-from #:cldocs/admin
+                #:render-admin)
   (:import-from #:cldocs/auth
                 #:authorize-url
                 #:complete-oauth
@@ -40,10 +42,14 @@
   (:import-from #:cldocs/contributions
                 #:approved-contributions
                 #:flag-contribution
+                #:moderate-contribution
+                #:pending-contributions
+                #:recent-approved-contributions
                 #:submit-contribution
                 #:upsert-user
                 #:user-id
                 #:user-login
+                #:user-moderator-p
                 #:user-role
                 #:withdraw-contribution)
   (:import-from #:cldocs/db
@@ -553,6 +559,54 @@ Negative ids can never collide with real GitHub accounts.
 
 ;;; Routing
 
+(defun form-parameter (name)
+  "Return the POST form parameter NAME, or NIL.
+
+- NAME: the parameter name."
+  (hunchentoot:post-parameter name))
+
+(defun handle-admin ()
+  "Show the moderation queue to moderators and refuse everyone else."
+  (let ((user (current-user)))
+    (cond ((null user)
+           (respond-page 401 "Sign in required" "Sign in with a moderator account."))
+          ((not (user-moderator-p user))
+           (respond-page 403 "Forbidden" "This page is for moderators."))
+          (t
+           (respond 200 *html-type*
+                    (render-admin (pending-contributions (app-database *app*))
+                                  (recent-approved-contributions (app-database *app*))
+                                  (csrf-token (session-token))))))))
+
+(defun parse-action (text)
+  "Return the moderation action keyword named by TEXT, or NIL.
+
+- TEXT: \"approve\", \"reject\" or \"hide\"."
+  (cond ((equal text "approve") :approve)
+        ((equal text "reject") :reject)
+        ((equal text "hide") :hide)))
+
+(defun handle-admin-moderate ()
+  "Apply a moderation decision posted from the admin page."
+  (let ((user (require-user)))
+    (require-csrf (form-parameter "csrf"))
+    (let ((id (ignore-errors (parse-integer (or (form-parameter "id") "")))))
+      (handler-case
+          (progn
+            (unless id
+              (reject :bad-id))
+            (moderate-contribution (app-database *app*)
+                                   user
+                                   id
+                                   (parse-action (form-parameter "action"))
+                                   (form-parameter "reason")
+                                   (now))
+            (redirect "/admin"))
+        (invalid-contribution (condition)
+          (respond-page 400 "Cannot do that"
+                        (format nil "Rejected: ~(~A~)."
+                                (invalid-contribution-reason condition))))))))
+
 (defparameter *routes*
   '((:get "/api/me" handle-me)
     (:get "/api/contributions" handle-list-contributions)
@@ -563,6 +617,8 @@ Negative ids can never collide with real GitHub accounts.
     (:get "/login" handle-login)
     (:get "/oauth/callback" handle-oauth-callback)
     (:get "/dev-login" handle-dev-login)
+    (:get "/admin" handle-admin)
+    (:post "/admin/moderate" handle-admin-moderate)
     (:get "/healthz" handle-health))
   "Exact-match routes: method, path and handler function name.")
 

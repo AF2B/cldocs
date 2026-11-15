@@ -572,3 +572,131 @@ than rebound.
                                            :cookies author-cookies
                                            :headers (json-headers author-csrf)
                                            :content (json-text "id" 99999))))))))))
+
+;;; Moderation
+
+(defun form-post (server
+                  path
+                  fields
+                  &key
+                    cookies)
+  "Post URL-encoded FIELDS the way a browser form does.
+
+- SERVER: the running SERVER.
+- PATH: the request path.
+- FIELDS: an alist of field names and string values.
+- COOKIES: the session cookies."
+  (http server :post path
+        :cookies cookies
+        :headers '(("Content-Type" . "application/x-www-form-urlencoded"))
+        :content (format nil "~{~A~^&~}"
+                         (loop for (name . value) in fields
+                               collect (format nil "~A=~A" name (hunchentoot:url-encode value))))))
+
+(defun moderate (server
+                 cookies
+                 csrf
+                 id
+                 action
+                 &optional
+                   (reason ""))
+  "Post a moderation decision from the admin page.
+
+- SERVER: the running SERVER.
+- COOKIES: the moderator's session cookies.
+- CSRF: the moderator's CSRF token.
+- ID: the contribution id.
+- ACTION: \"approve\", \"reject\" or \"hide\".
+- REASON: the reason text."
+  (form-post server "/admin/moderate"
+             `(("csrf" . ,csrf)
+               ("id" . ,(princ-to-string id))
+               ("action" . ,action)
+               ("reason" . ,reason))
+             :cookies cookies))
+
+(test the-admin-page-is-for-moderators-only
+  (call-with-server
+   (lambda (server)
+     (is (= 401 (response-status (http server :get "/admin"))))
+     (is (= 403 (response-status (http server :get "/admin" :cookies (sign-in server "ada")))))
+     (let ((page (http server :get "/admin" :cookies (sign-in server "mod"))))
+       (is (= 200 (response-status page)))
+       (is (search "Review queue" (response-body page)))))))
+
+(test pending-contributions-appear-escaped-in-the-queue-with-csrf-forms
+  (call-with-server
+   (lambda (server)
+     (multiple-value-bind (cookies csrf) (sign-in server "ada")
+       (submit server cookies csrf :body "<script>alert('x')</script>" :kind "note")
+       (multiple-value-bind (mod-cookies mod-csrf) (sign-in server "mod")
+         (let ((html (response-body (http server :get "/admin" :cookies mod-cookies))))
+           (is (search "&lt;script&gt;alert(" html))
+           (is (not (search "<script>alert" html)))
+           (is (search mod-csrf html))
+           (is (search "Pending (1)" html))))))))
+
+(test moderators-publish-reject-and-hide-through-the-forms
+  (call-with-server
+   (lambda (server)
+     (multiple-value-bind (cookies csrf) (sign-in server "ada")
+       (let ((first (gethash "id" (json-of (submit server cookies csrf :body "one"))))
+             (second (gethash "id" (json-of (submit server cookies csrf :body "two")))))
+         (multiple-value-bind (mod-cookies mod-csrf) (sign-in server "mod")
+           (let ((approved (moderate server mod-cookies mod-csrf first "approve")))
+             (is (= 303 (response-status approved)))
+             (is (string= "/admin" (header approved "location"))))
+           (is (equal '("one") (listed-bodies server)))
+           (is (= 400 (response-status (moderate server mod-cookies mod-csrf second "reject"))))
+           (is (= 303 (response-status (moderate server mod-cookies mod-csrf second
+                                                 "reject" "not an example"))))
+           (is (= 400 (response-status (moderate server mod-cookies mod-csrf first "hide"))))
+           (is (= 303 (response-status (moderate server mod-cookies mod-csrf first
+                                                 "hide" "outdated"))))
+           (is (null (listed-bodies server)))
+           (let ((database (cldocs/web:app-database (cldocs/web:server-app server))))
+             (is (equal '("approve" "hide")
+                        (mapcar #'first (cldocs/contributions:moderation-log database first))))
+             (is (equal '("reject")
+                        (mapcar #'first (cldocs/contributions:moderation-log database second)))))))))))
+
+(test the-moderation-endpoint-checks-role-csrf-and-input
+  (call-with-server
+   (lambda (server)
+     (multiple-value-bind (cookies csrf) (sign-in server "ada")
+       (let ((id (gethash "id" (json-of (submit server cookies csrf)))))
+         (is (= 403 (response-status (moderate server cookies csrf id "approve"))))
+         (multiple-value-bind (mod-cookies mod-csrf) (sign-in server "mod")
+           (is (= 403 (response-status (moderate server mod-cookies "forged" id "approve"))))
+           (is (= 400 (response-status (moderate server mod-cookies mod-csrf "abc" "approve"))))
+           (is (= 400 (response-status (moderate server mod-cookies mod-csrf id "delete"))))
+           (is (= 404 (response-status (moderate server mod-cookies mod-csrf 99999 "approve"))))
+           (is (null (listed-bodies server)))))
+       (is (= 401 (response-status (form-post server "/admin/moderate"
+                                              '(("id" . "1") ("action" . "approve"))))))))))
+
+(test enough-flags-return-a-published-item-to-the-queue
+  (call-with-server
+   (lambda (server)
+     (multiple-value-bind (cookies csrf) (sign-in server "ada")
+       (let ((id (gethash "id" (json-of (submit server cookies csrf :body "flag me")))))
+         (approve-all-pending server)
+         (is (equal '("flag me") (listed-bodies server)))
+         (dolist (login '("f1" "f2" "f3"))
+           (multiple-value-bind (flagger-cookies flagger-csrf) (sign-in server login)
+             (is (= 200 (response-status (http server :post "/api/flags"
+                                               :cookies flagger-cookies
+                                               :headers (json-headers flagger-csrf)
+                                               :content (json-text "id" id "reason" "spam")))))))
+         (is (null (listed-bodies server)))
+         (let ((html (response-body (http server :get "/admin" :cookies (sign-in server "mod")))))
+           (is (search "Pending (1)" html))
+           (is (search "flag me" html))))))))
+
+(test the-terms-page-states-the-license-and-matches-the-recorded-version
+  (let ((html (cldocs/tests/site:read-site-file "terms/index.html")))
+    (is (search "CC0 1.0" html))
+    (is (search "moderator" html))
+    (is (search cldocs/contributions:+terms-version+ html)))
+  (let ((footer (cldocs/tests/site:read-site-file "index.html")))
+    (is (search "terms/" footer))))
