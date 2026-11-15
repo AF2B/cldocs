@@ -15,7 +15,7 @@
    (uiop:pathname-directory-pathname *load-truename*))
   "Root directory of the CLDocs checkout.")
 
-(defparameter *project-systems* '("cldocs" "cldocs/tests")
+(defparameter *project-systems* '("cldocs" "cldocs/server" "cldocs/tests")
   "Systems whose compilation must be free of warnings.")
 
 (defvar *warnings* '()

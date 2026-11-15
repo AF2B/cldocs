@@ -41,6 +41,8 @@
            #:render-examples
            #:render-about
            #:render-not-found
+           #:render-message
+           #:layout-html
            #:*toolchain-note*))
 
 (in-package #:cldocs/render)
@@ -60,6 +62,12 @@
 (defparameter *hyperspec-notice*
   "The Common Lisp HyperSpec is copyright LispWorks Ltd. CLDocs links to it and never copies its text or images."
   "Legal notice shown in the footer of every page.")
+
+(defparameter *api-path* "/api"
+  "Where the community API lives, on the same origin as the site.")
+
+(defparameter *community-script* "assets/community.js"
+  "Script that loads and submits community contributions.")
 
 (defparameter *no-docstring-notice*
   "No documentation string is available in the implementation."
@@ -116,13 +124,15 @@
                       title
                       description
                       root
-                      body)
+                      body
+                      scripts)
   "Wrap BODY, an HTML string, in the shared page layout.
 
 - TITLE: page name, or NIL for the home page.
 - DESCRIPTION: text for the description meta tag.
 - ROOT: relative prefix leading to the site root.
-- BODY: the already rendered main content."
+- BODY: the already rendered main content.
+- SCRIPTS: extra script paths below the site root, loaded after search.js."
   (with-html-string
     (:doctype)
     (:html :lang "en"
@@ -133,7 +143,9 @@
         (:meta :name "description" :content description)
         (:link :rel "stylesheet" :href (site-href root "assets/tokens.css"))
         (:link :rel "stylesheet" :href (site-href root "assets/site.css"))
-        (:script :src (site-href root "assets/search.js") :defer t))
+        (:script :src (site-href root "assets/search.js") :defer t)
+        (dolist (script scripts)
+          (:script :src (site-href root script) :defer t)))
       (:body
         (:raw (header-html root))
         (:main :class "container" (:raw body))
@@ -253,6 +265,13 @@ inside the preformatted element.
                      (if examples-html
                          (:raw examples-html)
                          (:p :class "empty" "No examples yet.")))
+                   (:section :class "block community" :id "community" :hidden t
+                             :data-api *api-path*
+                             :data-package package-name
+                             :data-symbol name
+                     (:h2 "Community")
+                     (:div :id "community-list")
+                     (:div :id "community-form"))
                    (when related
                      (:section :class "block" :id "see-also"
                        (:h2 "See also")
@@ -267,7 +286,8 @@ inside the preformatted element.
                                     (format nil "~A in package ~A." (string-downcase name) package-name)
                                     summary))
                  :root root
-                 :body body)))
+                 :body body
+                 :scripts (list *community-script*))))
 
 (defun package-section-html (root heading entries)
   "Return a heading followed by a grid of links to ENTRIES.
@@ -378,5 +398,21 @@ inside the preformatted element.
                  (:p :class "lede" "No such page. Try the search box above."))))
     (layout-html :title "Not found"
                  :description "Page not found."
+                 :root root
+                 :body body)))
+
+(defun render-message (title message)
+  "Return a small page with a heading and one sentence, for server responses.
+
+Links use absolute paths because the page may be served from any URL.
+
+- TITLE: the heading.
+- MESSAGE: the sentence shown below it."
+  (let* ((root "/")
+         (body (with-html-string
+                 (:h1 title)
+                 (:p :class "lede" message))))
+    (layout-html :title title
+                 :description message
                  :root root
                  :body body)))

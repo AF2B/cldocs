@@ -33,9 +33,27 @@
                (:file "cldocs"))
   :in-order-to ((test-op (test-op "cldocs/tests"))))
 
+(defsystem "cldocs/server"
+  :description "Community API, sign-in and web server for CLDocs."
+  :depends-on ("alexandria"
+               "bordeaux-threads"
+               "cldocs"
+               "com.inuoe.jzon"
+               "dexador"
+               "hunchentoot"
+               "ironclad"
+               "sqlite")
+  :pathname "src/server"
+  :serial t
+  :components ((:file "config")
+               (:file "db")
+               (:file "contributions")
+               (:file "auth")
+               (:file "web")))
+
 (defsystem "cldocs/tests"
   :description "Test suite for CLDocs."
-  :depends-on ("cldocs" "fiveam")
+  :depends-on ("cldocs" "cldocs/server" "dexador" "fiveam")
   :pathname "tests"
   :serial t
   :components ((:file "suite")
@@ -48,6 +66,9 @@
                (:file "site-test")
                (:file "examples-test")
                (:file "systems-test")
+               (:file "contributions-test")
+               (:file "auth-test")
+               (:file "server-test")
                (:file "cldocs-test"))
   :perform (test-op (operation component)
              (declare (ignore operation component))

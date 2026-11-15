@@ -199,9 +199,9 @@
                                         :output nil
                                         :ignore-error-status t))))
 
-(test client-side-search-ranking-passes-its-node-tests
+(test client-side-scripts-pass-their-node-tests
   (if (not (node-available-p))
-      (skip "node is not installed; search ranking was NOT verified.")
+      (skip "node is not installed; client-side scripts were NOT verified.")
       (multiple-value-bind (output error-output code)
           (uiop:run-program
            (list "node" "--test" "tests/")

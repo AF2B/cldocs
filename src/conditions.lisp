@@ -21,7 +21,21 @@
            #:malformed-example-source-reason
            #:example-step-failed
            #:example-step-failed-form
-           #:example-step-failed-reason))
+           #:example-step-failed-reason
+           #:invalid-contribution
+           #:invalid-contribution-reason
+           #:invalid-contribution-detail
+           #:rate-limited
+           #:rate-limited-retry-after
+           #:not-allowed
+           #:not-allowed-action
+           #:contribution-not-found
+           #:contribution-not-found-id
+           #:insecure-configuration
+           #:insecure-configuration-reason
+           #:oauth-failure
+           #:oauth-failure-reason
+           #:unauthenticated))
 
 (in-package #:cldocs/conditions)
 
@@ -126,3 +140,73 @@
                      (example-step-failed-form condition)
                      (example-step-failed-reason condition))))
   (:documentation "Signalled when a silent example step fails while recording."))
+
+(define-condition invalid-contribution (cldocs-error)
+  ((reason :initarg :reason
+           :initform (error "REASON is required.")
+           :reader invalid-contribution-reason
+           :documentation "Keyword naming the rule that was broken.")
+   (detail :initarg :detail
+           :initform nil
+           :reader invalid-contribution-detail
+           :documentation "Human readable explanation, or NIL."))
+  (:report (lambda (condition stream)
+             (format stream "Invalid contribution (~(~A~))~@[: ~A~]"
+                     (invalid-contribution-reason condition)
+                     (invalid-contribution-detail condition))))
+  (:documentation "Signalled when a submitted contribution breaks a content rule."))
+
+(define-condition rate-limited (cldocs-error)
+  ((retry-after :initarg :retry-after
+                :initform (error "RETRY-AFTER is required.")
+                :reader rate-limited-retry-after
+                :documentation "Seconds until the user may submit again."))
+  (:report (lambda (condition stream)
+             (format stream "Too many submissions; retry in ~D seconds."
+                     (rate-limited-retry-after condition))))
+  (:documentation "Signalled when a user exceeds the submission quota."))
+
+(define-condition not-allowed (cldocs-error)
+  ((action :initarg :action
+           :initform (error "ACTION is required.")
+           :reader not-allowed-action
+           :documentation "What the user tried to do."))
+  (:report (lambda (condition stream)
+             (format stream "Not allowed: ~A" (not-allowed-action condition))))
+  (:documentation "Signalled when a user lacks the permission for an action."))
+
+(define-condition contribution-not-found (cldocs-error)
+  ((id :initarg :id
+       :initform (error "ID is required.")
+       :reader contribution-not-found-id
+       :documentation "Identifier that matched no contribution."))
+  (:report (lambda (condition stream)
+             (format stream "No contribution with id ~A."
+                     (contribution-not-found-id condition))))
+  (:documentation "Signalled when a contribution id does not exist."))
+
+(define-condition insecure-configuration (cldocs-error)
+  ((reason :initarg :reason
+           :initform (error "REASON is required.")
+           :reader insecure-configuration-reason
+           :documentation "Why the configuration was refused."))
+  (:report (lambda (condition stream)
+             (format stream "Refusing to start: ~A"
+                     (insecure-configuration-reason condition))))
+  (:documentation "Signalled when the server configuration would be unsafe."))
+
+(define-condition oauth-failure (cldocs-error)
+  ((reason :initarg :reason
+           :initform (error "REASON is required.")
+           :reader oauth-failure-reason
+           :documentation "Why the sign-in could not complete."))
+  (:report (lambda (condition stream)
+             (format stream "Sign-in failed: ~A" (oauth-failure-reason condition))))
+  (:documentation "Signalled when the GitHub OAuth exchange fails."))
+
+(define-condition unauthenticated (cldocs-error)
+  ()
+  (:report (lambda (condition stream)
+             (declare (ignore condition))
+             (write-string "Sign in required." stream)))
+  (:documentation "Signalled when an action needs a signed-in user."))

@@ -60,7 +60,7 @@
 (defparameter *index-file* "index.html"
   "File name of every page inside its own directory.")
 
-(defparameter *own-assets* '("site.css" "search.js")
+(defparameter *own-assets* '("site.css" "search.js" "community.js")
   "Static files that live in this repository's assets/ directory.")
 
 (defun design-system-directory ()

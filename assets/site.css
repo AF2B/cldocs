@@ -432,6 +432,90 @@ section.block {
   color: #000510;
 }
 
+/* Community */
+
+section.community[hidden] {
+  display: none;
+}
+
+.contribution {
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+  border: 1px solid hsl(var(--border));
+}
+
+.contribution .label {
+  margin: 0 0 0.5rem;
+  color: hsl(var(--secondary));
+}
+
+.contribution pre {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  background: var(--terminal-bg);
+  color: hsl(var(--accent));
+  border: 1px solid hsl(var(--border));
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  white-space: pre-wrap;
+}
+
+.contribution .note {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.contribution .btn {
+  margin-top: 0.75rem;
+  cursor: pointer;
+}
+
+.contribute {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 40rem;
+}
+
+.contribute select,
+.contribute textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  border: 1px solid hsl(var(--input));
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+.contribute textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.contribute select:focus,
+.contribute textarea:focus {
+  outline: none;
+  border-color: hsl(var(--ring));
+}
+
+.contribute label {
+  font-size: 0.875rem;
+}
+
+.contribute .terms {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  color: hsl(var(--secondary));
+}
+
+.form-status {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
 /* Footer */
 
 .site-footer {
