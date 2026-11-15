@@ -14,6 +14,9 @@
                 #:definition-lambda-list
                 #:definition-name
                 #:definition-origin)
+  (:import-from #:cldocs/examples
+                #:example-steps
+                #:step-result-lines)
   (:import-from #:cldocs/model
                 #:docstring-summary
                 #:kind-label
@@ -36,6 +39,7 @@
   (:export #:render-home
            #:render-package
            #:render-symbol
+           #:render-examples
            #:render-about
            #:render-not-found
            #:*toolchain-note*))
@@ -161,6 +165,45 @@
             (:p :class "docstring-missing" *no-docstring-notice*))
         (unless (eq origin :sbcl)
           (:p :class "attribution" (format nil "From system ~A" origin)))))))
+
+(defun span-html (class text)
+  "Return a span of CLASS holding the escaped TEXT, with no extra whitespace.
+
+- CLASS: the CSS class name.
+- TEXT: the text shown inside the span."
+  (with-html-string
+    (:span :class class text)))
+
+(defun example-html (example position)
+  "Return one example as a terminal-style code block with its recorded results.
+
+The block is assembled as one string so the browser sees no layout whitespace
+inside the preformatted element.
+
+- EXAMPLE: a recorded EXAMPLE.
+- POSITION: its 1-based number among the examples of the symbol."
+  (let* ((lines (loop for step in (example-steps example)
+                      append (cons (span-html "form" (getf step :form))
+                                   (mapcar (lambda (line)
+                                             (span-html "result" line))
+                                           (step-result-lines step)))))
+         (text (format nil "~{~A~^~%~}" lines)))
+    (with-html-string
+      (:div :class "example"
+        (:p :class "label" (format nil "Example ~D" position))
+        (:pre (:raw text))))))
+
+(defun render-examples (examples)
+  "Return the Examples section body for EXAMPLES, or NIL when there are none.
+
+- EXAMPLES: recorded EXAMPLE records of one symbol."
+  (when examples
+    (with-html-string
+      (loop for example in examples
+            for position from 1
+            do (:raw (example-html example position)))
+      (:p :class "attribution"
+          "Examples are dedicated to the public domain (CC0 1.0) and checked by running them in SBCL."))))
 
 (defun symbol-link-html (root package-name symbol-name)
   "Return a link chip pointing to another symbol page.

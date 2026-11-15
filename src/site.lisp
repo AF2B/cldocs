@@ -5,15 +5,21 @@
   (:import-from #:cldocs/conditions
                 #:design-system-missing
                 #:output-directory-not-empty)
+  (:import-from #:cldocs/examples
+                #:example-name
+                #:read-examples)
   (:import-from #:cldocs/kinds
                 #:+definition-kinds+)
   (:import-from #:cldocs/manifest
                 #:read-manifest)
   (:import-from #:cldocs/model
                 #:group-definitions)
+  (:import-from #:cldocs/related
+                #:build-related-index)
   (:import-from #:cldocs/render
                 #:*toolchain-note*
                 #:render-about
+                #:render-examples
                 #:render-home
                 #:render-not-found
                 #:render-package
@@ -150,6 +156,36 @@ The result is an alist of (package-name . entries)."
                   (group-definitions (read-package-data package-name))))
           (stored-package-names)))
 
+(defun examples-by-name (package-name)
+  "Return a table from symbol name to the recorded examples of that symbol.
+
+- PACKAGE-NAME: the documented package, a string."
+  (let ((table (make-hash-table :test #'equal)))
+    (dolist (example (read-examples package-name) table)
+      (setf (gethash (example-name example) table)
+            (append (gethash (example-name example) table) (list example))))))
+
+(defun emit-package-pages (emit package-name entries)
+  "Emit the package page and every symbol page of one package.
+
+- EMIT: function of a path and an HTML string that writes and counts a page.
+- PACKAGE-NAME: the documented package, a string.
+- ENTRIES: its SYMBOL-ENTRY records."
+  (let ((examples (examples-by-name package-name))
+        (related (build-related-index package-name entries)))
+    (funcall emit
+             (package-path package-name)
+             (render-package package-name entries +definition-kinds+))
+    (dolist (entry entries)
+      (let ((name (cldocs/model:symbol-entry-name entry)))
+        (funcall emit
+                 (symbol-path package-name name)
+                 (render-symbol entry
+                                :examples-html (render-examples (gethash name examples))
+                                :related (mapcar (lambda (related-name)
+                                                   (cons package-name related-name))
+                                                 (gethash name related))))))))
+
 (defun build-site (output
                    &key
                      (design-system (design-system-directory)))
@@ -178,11 +214,7 @@ OUTPUT-DIRECTORY-NOT-EMPTY when OUTPUT holds files that are not a CLDocs site.
       (write-text-file (merge-pathnames +not-found-file+ output)
                        (render-not-found))
       (dolist (group groups)
-        (emit (package-path (car group))
-              (render-package (car group) (cdr group) +definition-kinds+))
-        (dolist (entry (cdr group))
-          (emit (symbol-path (car group) (cldocs/model:symbol-entry-name entry))
-                (render-symbol entry))))
+        (emit-package-pages #'emit (car group) (cdr group)))
       (write-text-file (merge-pathnames +search-index-path+ output)
                        (build-search-index (loop for group in groups
                                                  append (cdr group)))))

@@ -16,7 +16,12 @@
            #:design-system-missing
            #:design-system-missing-pathname
            #:output-directory-not-empty
-           #:output-directory-not-empty-pathname))
+           #:output-directory-not-empty-pathname
+           #:malformed-example-source
+           #:malformed-example-source-reason
+           #:example-step-failed
+           #:example-step-failed-form
+           #:example-step-failed-reason))
 
 (in-package #:cldocs/conditions)
 
@@ -96,3 +101,28 @@
              (format stream "Refusing to overwrite ~A: it is not a CLDocs site directory."
                      (output-directory-not-empty-pathname condition))))
   (:documentation "Signalled when the site output directory holds foreign files."))
+
+(define-condition malformed-example-source (cldocs-error)
+  ((reason :initarg :reason
+           :initform (error "REASON is required.")
+           :reader malformed-example-source-reason
+           :documentation "What is wrong with the example source."))
+  (:report (lambda (condition stream)
+             (format stream "Malformed example source: ~A"
+                     (malformed-example-source-reason condition))))
+  (:documentation "Signalled when an example source file cannot be parsed."))
+
+(define-condition example-step-failed (cldocs-error)
+  ((form :initarg :form
+         :initform (error "FORM is required.")
+         :reader example-step-failed-form
+         :documentation "Source text of the step that failed.")
+   (reason :initarg :reason
+           :initform (error "REASON is required.")
+           :reader example-step-failed-reason
+           :documentation "Type of the condition the step signalled."))
+  (:report (lambda (condition stream)
+             (format stream "Setup step ~A signalled ~A."
+                     (example-step-failed-form condition)
+                     (example-step-failed-reason condition))))
+  (:documentation "Signalled when a silent example step fails while recording."))
