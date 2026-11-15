@@ -1,5 +1,8 @@
+
 == CL-PPCRE:SCAN @ cl-ppcre
 (scan "b+" "aabbbcc")
+
+== CL-PPCRE:SCAN @ cl-ppcre
 (scan "z" "aabbbcc")
 
 == CL-PPCRE:SCAN-TO-STRINGS @ cl-ppcre
@@ -19,6 +22,8 @@
 
 == CL-PPCRE:REGEX-REPLACE-ALL @ cl-ppcre
 (regex-replace-all "\\s+" "a   b  c" " ")
+
+== CL-PPCRE:REGEX-REPLACE-ALL @ cl-ppcre
 (regex-replace-all "(\\w+)@(\\w+)" "ada@lovelace" "\\2 at \\1")
 
 == CL-PPCRE:SPLIT @ cl-ppcre
@@ -27,6 +32,8 @@
 == CL-PPCRE:REGISTER-GROUPS-BIND @ cl-ppcre
 (register-groups-bind (year month) ("(\\d+)-(\\d+)" "2024-05")
   (list year month))
+
+== CL-PPCRE:REGISTER-GROUPS-BIND @ cl-ppcre
 (register-groups-bind (n) ("(\\d+)" "no digits")
   n)
 
@@ -41,3 +48,148 @@
 
 == CL-PPCRE:QUOTE-META-CHARS @ cl-ppcre
 (quote-meta-chars "1+1=2?")
+
+== CL-PPCRE:CREATE-OPTIMIZED-TEST-FUNCTION @ cl-ppcre
+(functionp (create-optimized-test-function "x"))
+
+== CL-PPCRE:CREATE-OPTIMIZED-TEST-FUNCTION @ cl-ppcre
+(functionp (create-optimized-test-function #\a))
+
+== CL-PPCRE:PARSE-STRING @ cl-ppcre
+(parse-string "a")
+
+== CL-PPCRE:PARSE-STRING @ cl-ppcre
+(parse-string "a|b")
+
+== CL-PPCRE:PARSE-STRING @ cl-ppcre
+(parse-string "(a)b*")
+
+== CL-PPCRE:PARSE-TREE-SYNONYM @ cl-ppcre
+(parse-tree-synonym 'not-defined-synonym)
+
+== CL-PPCRE:PARSE-TREE-SYNONYM @ cl-ppcre
+(progn
+  (define-parse-tree-synonym year (:sequence :digit-class :digit-class :digit-class :digit-class))
+  (parse-tree-synonym 'year))
+
+== CL-PPCRE:DEFINE-PARSE-TREE-SYNONYM @ cl-ppcre
+(define-parse-tree-synonym digits (:greedy-repetition 1 nil :digit-class))
+(scan-to-strings 'digits "abc123def")
+(all-matches-as-strings 'digits "a1b22c333")
+
+== CL-PPCRE:REGEX-APROPOS @ cl-ppcre
+(regex-apropos "^SCAN-TO")
+
+== CL-PPCRE:REGEX-APROPOS-LIST @ cl-ppcre
+(sort (regex-apropos-list "^ALL-MATCHES") #'string< :key #'symbol-name)
+
+== CL-PPCRE:REGEX-APROPOS-LIST @ cl-ppcre
+(> (length (regex-apropos-list "^DO-")) 3)
+
+== CL-PPCRE:DO-MATCHES @ cl-ppcre
+(let ((positions '()))
+  (do-matches (start end "\\d+" "a12b345")
+    (push (list start end) positions))
+  (nreverse positions))
+
+== CL-PPCRE:DO-MATCHES @ cl-ppcre
+(let ((total 0))
+  (do-matches (start end "x" "xaxbx" total)
+    (incf total))
+  total)
+
+== CL-PPCRE:DO-REGISTER-GROUPS @ cl-ppcre
+(let ((pairs '()))
+  (do-register-groups (key value) ("(\\w)=(\\d)" "a=1,b=2,c=3")
+    (push (cons key value) pairs))
+  (nreverse pairs))
+
+== CL-PPCRE:DO-SCANS @ cl-ppcre
+(let ((spans '()))
+  (do-scans (match-start match-end register-starts register-ends "(\\d)" "a1b2")
+    (push (list match-start match-end) spans))
+  (nreverse spans))
+
+== CL-PPCRE:PPCRE-SYNTAX-ERROR-POS @ cl-ppcre
+(let ((pattern "("))
+  (handler-case (scan pattern "x")
+    (ppcre-syntax-error (condition)
+      (ppcre-syntax-error-pos condition))))
+
+== CL-PPCRE:PPCRE-SYNTAX-ERROR-STRING @ cl-ppcre
+(let ((pattern "a("))
+  (handler-case (scan pattern "x")
+    (ppcre-syntax-error (condition)
+      (ppcre-syntax-error-string condition))))
+
+== CL-PPCRE:PPCRE-ERROR @ cl-ppcre
+(let ((pattern "("))
+  (handler-case (scan pattern "x")
+    (ppcre-error () :regex-error)))
+
+== CL-PPCRE:PPCRE-ERROR @ cl-ppcre
+(subtypep 'ppcre-error 'error)
+
+== CL-PPCRE:PPCRE-SYNTAX-ERROR @ cl-ppcre
+(let ((pattern "["))
+  (handler-case (scan pattern "x")
+    (ppcre-syntax-error () :bad-syntax)))
+
+== CL-PPCRE:PPCRE-SYNTAX-ERROR @ cl-ppcre
+(subtypep 'ppcre-syntax-error 'ppcre-error)
+
+== CL-PPCRE:PPCRE-INVOCATION-ERROR @ cl-ppcre
+(subtypep 'ppcre-invocation-error 'ppcre-error)
+
+== CL-PPCRE:PPCRE-INVOCATION-ERROR @ cl-ppcre
+(handler-case (scan "a" "abc" :start 10)
+  (error () :bad-call))
+
+== CL-PPCRE:*ALLOW-QUOTING* @ cl-ppcre
+(let ((*allow-quoting* t))
+  (multiple-value-list (scan "\\Q.\\E" "a.b")))
+
+== CL-PPCRE:*ALLOW-QUOTING* @ cl-ppcre
+(let ((*allow-quoting* nil))
+  (typep *allow-quoting* 'boolean))
+
+== CL-PPCRE:*ALLOW-NAMED-REGISTERS* @ cl-ppcre
+(let ((*allow-named-registers* t)
+      (pattern "(?<year>\\d+)-(?<month>\\d+)"))
+  (scan-to-strings pattern "on 2024-05"))
+
+== CL-PPCRE:*ALLOW-NAMED-REGISTERS* @ cl-ppcre
+(typep *allow-named-registers* 'boolean)
+
+== CL-PPCRE:*LOOK-AHEAD-FOR-SUFFIX* @ cl-ppcre
+(typep *look-ahead-for-suffix* 'boolean)
+
+== CL-PPCRE:*LOOK-AHEAD-FOR-SUFFIX* @ cl-ppcre
+(let ((*look-ahead-for-suffix* nil))
+  (scan "b+" "aabbb"))
+
+== CL-PPCRE:*OPTIMIZE-CHAR-CLASSES* @ cl-ppcre
+(typep *optimize-char-classes* '(or boolean (member :charset :hash-table)))
+
+== CL-PPCRE:*OPTIMIZE-CHAR-CLASSES* @ cl-ppcre
+(let ((*optimize-char-classes* nil))
+  (scan "[a-c]+" "xxabcxx"))
+
+== CL-PPCRE:*PROPERTY-RESOLVER* @ cl-ppcre
+(typep *property-resolver* '(or null function symbol))
+
+== CL-PPCRE:*PROPERTY-RESOLVER* @ cl-ppcre
+(null *property-resolver*)
+
+== CL-PPCRE:*REGEX-CHAR-CODE-LIMIT* @ cl-ppcre
+(integerp *regex-char-code-limit*)
+
+== CL-PPCRE:*REGEX-CHAR-CODE-LIMIT* @ cl-ppcre
+(plusp *regex-char-code-limit*)
+
+== CL-PPCRE:*USE-BMH-MATCHERS* @ cl-ppcre
+(typep *use-bmh-matchers* 'boolean)
+
+== CL-PPCRE:*USE-BMH-MATCHERS* @ cl-ppcre
+(let ((*use-bmh-matchers* nil))
+  (scan "needle" "haystack with needle inside"))

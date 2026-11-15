@@ -1,17 +1,26 @@
+
 == CAR
 (car '(a b c))
+
+== CAR
 (car '())
 
 == CDR
 (cdr '(a b c))
+
+== CDR
 (cdr '(a))
 
 == CONS
 (cons 1 2)
+
+== CONS
 (cons 1 '(2 3))
 
 == LIST
 (list 1 2 3)
+
+== LIST
 (list)
 
 == LIST*
@@ -19,10 +28,14 @@
 
 == APPEND
 (append '(1 2) '(3) '(4 5))
+
+== APPEND
 (append '(1) nil)
 
 == REVERSE
 (reverse '(1 2 3))
+
+== REVERSE
 (reverse "abc")
 
 == NREVERSE
@@ -30,10 +43,14 @@
 
 == LENGTH
 (length '(a b c))
+
+== LENGTH
 (length "hello")
 
 == NTH
 (nth 0 '(a b c))
+
+== NTH
 (nth 5 '(a b c))
 
 == FIRST
@@ -44,6 +61,8 @@
 
 == LAST
 (last '(1 2 3))
+
+== LAST
 (last '(1 2 3) 2)
 
 == BUTLAST
@@ -51,15 +70,23 @@
 
 == MEMBER
 (member 2 '(1 2 3))
+
+== MEMBER
 (member 'x '(a b))
+
+== MEMBER
 (member "b" '("a" "b" "c") :test #'string=)
 
 == ASSOC
 (assoc 'b '((a . 1) (b . 2)))
+
+== ASSOC
 (assoc "b" '(("a" . 1) ("b" . 2)) :test #'string=)
 
 == MAPCAR
 (mapcar #'1+ '(1 2 3))
+
+== MAPCAR
 (mapcar #'+ '(1 2 3) '(10 20 30))
 
 == MAPC
@@ -72,10 +99,14 @@
 
 == MAP
 (map 'list #'+ '(1 2) '(10 20))
+
+== MAP
 (map 'string #'char-upcase "abc")
 
 == REMOVE
 (remove 2 '(1 2 3 2))
+
+== REMOVE
 (remove #\a "banana")
 
 == REMOVE-IF
@@ -92,7 +123,11 @@
 
 == FIND
 (find 3 '(1 2 3 4))
+
+== FIND
 (find 'z '(a b))
+
+== FIND
 (find 2 '((1 . a) (2 . b)) :key #'car)
 
 == FIND-IF
@@ -100,6 +135,8 @@
 
 == POSITION
 (position #\c "abcd")
+
+== POSITION
 (position 9 '(1 2 3))
 
 == COUNT
@@ -107,23 +144,35 @@
 
 == SORT
 (sort (list 3 1 2) #'<)
+
+== SORT
 (sort (vector "pear" "fig" "apple") #'string<)
 
 == SUBSEQ
 (subseq "hello world" 6)
+
+== SUBSEQ
 (subseq '(a b c d) 1 3)
 
 == REDUCE
 (reduce #'+ '(1 2 3 4))
+
+== REDUCE
 (reduce #'list '(1 2 3) :from-end t)
+
+== REDUCE
 (reduce #'+ '() :initial-value 100)
 
 == EVERY
 (every #'numberp '(1 2 3))
+
+== EVERY
 (every #'numberp '(1 a 3))
 
 == SOME
 (some #'evenp '(1 3 5))
+
+== SOME
 (some #'evenp '(1 2))
 
 == PUSH
@@ -144,6 +193,8 @@
 
 == ADJOIN
 (adjoin 1 '(2 3))
+
+== ADJOIN
 (adjoin 2 '(2 3))
 
 == UNION
@@ -163,10 +214,14 @@
 
 == ELT
 (elt '(a b c) 1)
+
+== ELT
 (elt "abc" 2)
 
 == GETF
 (getf '(:a 1 :b 2) :b)
+
+== GETF
 (getf '(:a 1) :z :none)
 
 == LET
@@ -191,14 +246,20 @@
 
 == IF
 (if (> 3 2) 'yes 'no)
+
+== IF
 (if nil 'yes)
 
 == WHEN
 (when (> 3 2) 'a 'b)
+
+== WHEN
 (when nil 'a)
 
 == UNLESS
 (unless (> 3 2) 'a)
+
+== UNLESS
 (unless nil 'a 'b)
 
 == COND
@@ -214,14 +275,20 @@
 
 == AND
 (and 1 2 3)
+
+== AND
 (and 1 nil 3)
 
 == OR
 (or nil 2 3)
+
+== OR
 (or nil nil)
 
 == NOT
 (not nil)
+
+== NOT
 (not 3)
 
 == PROGN
@@ -229,6 +296,8 @@
 
 == LAMBDA
 (funcall (lambda (x y) (+ x y)) 1 2)
+
+== LAMBDA
 (mapcar (lambda (x) (* x x)) '(1 2 3))
 
 == FUNCALL
@@ -239,10 +308,14 @@
 
 == FUNCTION
 (funcall (function car) '(1 2))
+
+== FUNCTION
 (mapcar #'cdr '((a . 1) (b . 2)))
 
 == QUOTE
 (quote (a b))
+
+== QUOTE
 '(1 . 2)
 
 == DEFUN
@@ -277,6 +350,8 @@
 (let ((l (list 1 2 3)))
   (setf (second l) 20)
   l)
+
+== SETF
 (let ((h (make-hash-table)))
   (setf (gethash :a h) 1)
   (gethash :a h))
@@ -300,7 +375,11 @@
 
 == LOOP
 (loop for i from 1 to 5 collect (* i i))
+
+== LOOP
 (loop for x in '(1 2 3) sum x)
+
+== LOOP
 (loop for i below 3 do (format t "~D " i))
 
 == DOTIMES
@@ -325,7 +404,11 @@
 
 == VALUES
 (values 1 2 3)
+
+== VALUES
 (values)
+
+== VALUES
 (multiple-value-list (values :a :b))
 
 == BLOCK
@@ -357,6 +440,8 @@
 (let ((table (make-hash-table)))
   (setf (gethash 'k table) nil)
   (multiple-value-list (gethash 'k table)))
+
+== GETHASH
 (let ((table (make-hash-table)))
   (multiple-value-list (gethash 'k table)))
 
@@ -385,10 +470,14 @@
 
 == MAKE-ARRAY
 (make-array 3 :initial-element 0)
+
+== MAKE-ARRAY
 (make-array '(2 2) :initial-contents '((1 2) (3 4)))
 
 == AREF
 (aref #(10 20 30) 1)
+
+== AREF
 (aref #2A((1 2) (3 4)) 1 0)
 
 == VECTOR
@@ -397,11 +486,17 @@
 == FORMAT
 (format nil "~A and ~S" "x" "y")
 (format nil "~{~A~^, ~}" '(1 2 3))
+
+== FORMAT
 (format t "Hello, ~A!~%" "world")
+
+== FORMAT
 (format nil "~5,2F" 3.14159)
 
 == STRING=
 (string= "abc" "abc")
+
+== STRING=
 (string= "abc" "ABC")
 
 == STRING-UPCASE
@@ -415,24 +510,36 @@
 
 == CONCATENATE
 (concatenate 'string "foo" "bar")
+
+== CONCATENATE
 (concatenate 'list '(1) #(2 3))
 
 == SEARCH
 (search "lo" "hello")
+
+== SEARCH
 (search "zz" "hello")
 
 == PARSE-INTEGER
 (parse-integer "42")
+
+== PARSE-INTEGER
 (parse-integer "ff" :radix 16)
+
+== PARSE-INTEGER
 (handler-case (parse-integer "x")
   (parse-error () :not-a-number))
 
 == PRIN1-TO-STRING
 (prin1-to-string "hi")
+
+== PRIN1-TO-STRING
 (prin1-to-string '(1 "two" :three))
 
 == PRINC-TO-STRING
 (princ-to-string "hi")
+
+== PRINC-TO-STRING
 (princ-to-string '(1 "two" :three))
 
 == CHAR
@@ -451,6 +558,8 @@
 
 == READ-FROM-STRING
 (read-from-string "(1 2 3)")
+
+== READ-FROM-STRING
 (read-from-string "foo bar")
 
 == SYMBOL-NAME
@@ -458,31 +567,47 @@
 
 == +
 (+ 1 2 3)
+
+== +
 (+)
 
 == -
 (- 10)
+
+== -
 (- 10 3 2)
 
 == *
 (* 2 3 4)
+
+== *
 (*)
 
 == /
 (/ 6 3)
+
+== /
 (/ 1 3)
+
+== /
 (/ 1.0 4)
 
 == MOD
 (mod 7 3)
+
+== MOD
 (mod -7 3)
 
 == REM
 (rem 7 3)
+
+== REM
 (rem -7 3)
 
 == FLOOR
 (floor 7 2)
+
+== FLOOR
 (floor -7 2)
 
 == CEILING
@@ -490,10 +615,14 @@
 
 == ROUND
 (round 2.5)
+
+== ROUND
 (round 3.5)
 
 == TRUNCATE
 (truncate 7 2)
+
+== TRUNCATE
 (truncate -7 2)
 
 == MAX
@@ -507,10 +636,14 @@
 
 == EXPT
 (expt 2 10)
+
+== EXPT
 (expt 2 100)
 
 == SQRT
 (sqrt 16)
+
+== SQRT
 (sqrt 2)
 
 == GCD
@@ -521,6 +654,8 @@
 
 == EVENP
 (evenp 4)
+
+== EVENP
 (evenp 3)
 
 == ODDP
@@ -528,6 +663,8 @@
 
 == ZEROP
 (zerop 0)
+
+== ZEROP
 (zerop 0.0)
 
 == 1+
@@ -538,11 +675,17 @@
 
 == =
 (= 1 1 1)
+
+== =
 (= 1 2)
+
+== =
 (= 1 1.0)
 
 == <
 (< 1 2 3)
+
+== <
 (< 1 3 2)
 
 == >
@@ -550,46 +693,68 @@
 
 == PI
 pi
+
+== PI
 (* 2 pi)
 
 == TYPEP
 (typep 3 'integer)
+
+== TYPEP
 (typep "a" '(or string symbol))
 
 == TYPE-OF
 (type-of 'a)
+
+== TYPE-OF
 (type-of 1.5)
 
 == ATOM
 (atom 'a)
+
+== ATOM
 (atom '(1))
 
 == CONSP
 (consp '(1))
+
+== CONSP
 (consp nil)
 
 == LISTP
 (listp nil)
+
+== LISTP
 (listp 3)
 
 == NULL
 (null nil)
+
+== NULL
 (null '(1))
 
 == EQ
 (eq 'a 'a)
+
+== EQ
 (eq (list 1) (list 1))
 
 == EQL
 (eql 1.0 1.0)
+
+== EQL
 (eql 1 1.0)
 
 == EQUAL
 (equal "a" "a")
+
+== EQUAL
 (equal '(1 (2)) '(1 (2)))
 
 == EQUALP
 (equalp "ABC" "abc")
+
+== EQUALP
 (equalp #(1 2) #(1 2))
 
 == DEFCLASS
@@ -664,11 +829,15 @@ pi
 == HANDLER-CASE
 (handler-case (/ 1 0)
   (division-by-zero () :div0))
+
+== HANDLER-CASE
 (handler-case (error "boom ~A" 1)
   (error (condition) (princ-to-string condition)))
 
 == ERROR
 (error "Something went wrong: ~A" 42)
+
+== ERROR
 (handler-case (error "bad ~A" 'thing)
   (simple-error (condition) (princ-to-string condition)))
 
@@ -704,10 +873,14 @@ pi
 == IGNORE-ERRORS
 (multiple-value-bind (value condition) (ignore-errors (parse-integer "x"))
   (list value (typep condition 'error)))
+
+== IGNORE-ERRORS
 (ignore-errors (parse-integer "7"))
 
 == ASSERT
 (assert (= 1 1))
+
+== ASSERT
 (handler-case (assert (plusp -1))
   (error () :failed))
 
@@ -727,10 +900,14 @@ pi
 
 == MACROEXPAND-1
 (macroexpand-1 '(when a b))
+
+== MACROEXPAND-1
 (macroexpand-1 '(incf x))
 
 == GENSYM
 (symbolp (gensym))
+
+== GENSYM
 (eq (gensym) (gensym))
 
 == DESTRUCTURING-BIND
@@ -746,14 +923,20 @@ pi
 
 == PRINT
 (print 42)
+
+== PRINT
 (print "hello")
 
 == PRIN1
 (prin1 "a")
+
+== PRIN1
 (prin1 'symbol)
 
 == PRINC
 (princ "a")
+
+== PRINC
 (princ '(1 "two"))
 
 == IDENTITY
@@ -764,3 +947,6426 @@ pi
 
 == COMPLEMENT
 (remove-if (complement #'evenp) '(1 2 3 4))
+
+== CAR
+(car (cons 1 2))
+(let ((pairs '((a . 1) (b . 2))))
+  (mapcar #'car pairs))
+
+== CAR
+(setf (car (list 1 2)) 99)
+
+== CDR
+(cdr (cons 1 2))
+(mapcar #'cdr '((a . 1) (b . 2)))
+
+== CDR
+(let ((cell (list 1 2 3)))
+  (setf (cdr cell) '(:x))
+  cell)
+
+== CONS
+(cons 'a (cons 'b nil))
+(mapcar #'cons '(1 2 3) '(a b c))
+
+== CONS
+(reduce (lambda (acc x) (cons x acc)) '(1 2 3) :initial-value nil)
+
+== LIST
+(list 'a (+ 1 2) "three")
+(mapcar #'list '(1 2) '(a b))
+
+== LIST
+(let ((n 3))
+  (list n (* n n) (* n n n)))
+
+== LIST*
+(list* 'a 'b 'c)
+
+== LIST*
+(list* 1 '(2 3))
+
+== APPEND
+(let ((original (list 1 2)))
+  (append original '(3))
+  original)
+(apply #'append '((1) (2 3) () (4)))
+
+== APPEND
+(reduce #'append '((a) (b) (c)))
+
+== REVERSE
+(reverse '(1 (2 3) 4))
+(let ((original (list 1 2 3)))
+  (reverse original)
+  original)
+
+== REVERSE
+(reverse #(1 2 3))
+
+== LENGTH
+(length '())
+(length #(1 2 3 4))
+
+== LENGTH
+(mapcar #'length '("a" "bb" "ccc"))
+
+== NTH
+(nth 2 '(a b c d))
+
+== NTH
+(let ((items (list 1 2 3)))
+  (setf (nth 1 items) :two)
+  items)
+
+== FIRST
+(first nil)
+
+== FIRST
+(mapcar #'first '((1 2) (3 4) (5 6)))
+
+== REST
+(rest '(1))
+
+== REST
+(rest nil)
+
+== REST
+(loop for tail = '(1 2 3) then (rest tail)
+      while tail
+      collect (length tail))
+
+== LAST
+(last '(1 2 3) 0)
+(last nil)
+
+== LAST
+(car (last '(a b c)))
+
+== MEMBER
+(member 3 '(1 2 3 4) :key #'1+)
+(member-if #'evenp '(1 3 4 5))
+(if (member :b '(:a :b :c)) 'present 'absent)
+
+== ASSOC
+(assoc 'c '((a . 1) (b . 2)))
+(cdr (assoc 'b '((a . 1) (b . 2))))
+
+== ASSOC
+(assoc 2 '((1 . one) (2 . two)) :key #'identity)
+
+== MAPCAR
+(mapcar (lambda (x) (* x x)) '(1 2 3 4))
+-- silent
+(defun double (n)
+  (* 2 n))
+(mapcar #'double '(1 2 3))
+(mapcar (lambda (name age) (list name age)) '(ada grace) '(36 45))
+
+== MAPC
+-- silent
+(defun collect-square (n)
+  (* n n))
+(mapc #'collect-square '(1 2 3))
+(let ((total 0))
+  (mapc (lambda (x) (incf total x)) '(1 2 3))
+  total)
+
+== MAPCAN
+(mapcan #'list '(1 2 3) '(a b c))
+-- silent
+(defun duplicate (x)
+  (list x x))
+(mapcan #'duplicate '(1 2 3))
+
+== MAP
+(map 'vector #'1+ '(1 2 3))
+(map 'list (lambda (a b) (* a b)) #(1 2 3) '(4 5 6))
+-- silent
+(defun shout (char)
+  (char-upcase char))
+(map 'string #'shout "lisp")
+
+== REMOVE
+(remove 3 #(1 2 3 4 3))
+(remove "b" '("a" "b" "c") :test #'string=)
+
+== REMOVE
+(remove 2 '(1 2 3 2) :count 1)
+
+== REMOVE-IF
+(remove-if (lambda (n) (> n 2)) '(1 2 3 4))
+-- silent
+(defun small-p (n)
+  (< n 3))
+(remove-if #'small-p '(1 2 3 4 5))
+(remove-if #'upper-case-p "Hello World")
+
+== REMOVE-IF-NOT
+(remove-if-not (lambda (s) (> (length s) 2)) '("a" "abc" "ab" "abcd"))
+-- silent
+(defun positive-p (n)
+  (> n 0))
+(remove-if-not #'positive-p '(-1 2 -3 4))
+(remove-if-not #'alpha-char-p "a1b2c3")
+
+== REMOVE-DUPLICATES
+(remove-duplicates "mississippi")
+
+== REMOVE-DUPLICATES
+(remove-duplicates '("a" "B" "A") :test #'string-equal)
+
+== REMOVE-DUPLICATES
+(remove-duplicates '(1 2 1 3 2) :from-end t)
+
+== SUBSTITUTE
+(substitute #\- #\Space "a b c")
+
+== SUBSTITUTE
+(substitute 0 3 '(1 2 3 4 3))
+
+== FIND
+(find #\b "abc")
+(find "b" '("a" "b") :test #'string=)
+(find-if #'oddp '(2 4 5 6))
+
+== FIND-IF
+(find-if (lambda (s) (> (length s) 3)) '("ab" "abcd" "xyz"))
+-- silent
+(defun big-p (n)
+  (> n 100))
+(find-if #'big-p '(5 50 500 5000))
+(find-if #'digit-char-p "ab3d")
+
+== POSITION
+(position 'c '(a b c d))
+(position-if #'evenp '(1 3 4 5))
+
+== POSITION
+(position #\a "banana" :from-end t)
+
+== COUNT
+(count #\a "banana")
+
+== COUNT
+(count-if #'evenp '(1 2 3 4))
+
+== COUNT
+(count 3 '((1 . a) (3 . b) (3 . c)) :key #'car)
+
+== SORT
+(sort (list "b" "c" "a") #'string<)
+(sort (list 3 1 2) #'>)
+-- silent
+(defun by-length (a b)
+  (< (length a) (length b)))
+(sort (list "ccc" "a" "bb") #'by-length)
+(sort (list '(b 2) '(a 1)) #'< :key #'second)
+
+== SUBSEQ
+(subseq '(a b c d e) 2)
+(subseq "abcdef" 1 4)
+
+== SUBSEQ
+(let ((v (vector 1 2 3 4)))
+  (setf (subseq v 0 2) #(9 9))
+  v)
+
+== REDUCE
+(reduce (lambda (a b) (+ a b)) '(1 2 3 4))
+-- silent
+(defun larger (a b)
+  (if (> a b) a b))
+(reduce #'larger '(3 9 2 7))
+(reduce #'+ '(1 2 3) :initial-value 10)
+(reduce #'max #(4 8 1) :key #'abs)
+
+== EVERY
+(every (lambda (x) (> x 0)) '(1 2 3))
+-- silent
+(defun short-p (s)
+  (< (length s) 4))
+(every #'short-p '("ab" "abc"))
+(every #'< '(1 2 3) '(2 3 4))
+
+== SOME
+(some (lambda (x) (and (> x 2) x)) '(1 2 3 4))
+(some #'zerop '(1 2 0))
+
+== SOME
+(some #'< '(5 1) '(3 9))
+
+== PUSH
+(let ((list (list 2 3)))
+  (push 1 list)
+  list)
+
+== PUSH
+(let ((table (list (cons :a 1))))
+  (push (cons :b 2) table)
+  table)
+
+== POP
+(let ((stack (list :a :b)))
+  (pop stack)
+  stack)
+
+== POP
+(let ((stack nil))
+  (pop stack))
+
+== ADJOIN
+(adjoin "a" '("a") :test #'string=)
+
+== ADJOIN
+(adjoin 3 '(1 2))
+
+== UNION
+(sort (union '("a" "b") '("b" "c") :test #'string=) #'string<)
+
+== UNION
+(sort (union '(3 1) '(2 1)) #'<)
+
+== INTERSECTION
+(intersection '(a b c) '(d e))
+
+== INTERSECTION
+(sort (intersection '("x" "y") '("y" "z" "x") :test #'string=) #'string<)
+
+== SET-DIFFERENCE
+(set-difference '(1 2) '(1 2))
+
+== SET-DIFFERENCE
+(sort (set-difference '(5 3 1) '(3)) #'<)
+
+== NCONC
+(nconc (list 1) (list 2) (list 3))
+
+== NCONC
+(nconc nil (list :only))
+
+== ELT
+(elt #(10 20 30) 0)
+
+== ELT
+(let ((v (vector 1 2 3)))
+  (setf (elt v 1) :x)
+  v)
+
+== GETF
+(let ((plist (list :a 1)))
+  (setf (getf plist :b) 2)
+  plist)
+
+== GETF
+(getf '(:name "Ada" :born 1815) :born)
+
+== LET
+(let ((x 1))
+  (let ((x 2))
+    x))
+
+== LET
+(let (a b)
+  (list a b))
+
+== LET*
+(let* ((a 2) (b (* a a)) (c (+ a b)))
+  (list a b c))
+
+== FLET
+(flet ((square (n) (* n n))
+       (cube (n) (* n n n)))
+  (list (square 3) (cube 3)))
+
+== FLET
+(flet ((add (x &optional (y 10)) (+ x y)))
+  (list (add 1) (add 1 2)))
+
+== LABELS
+(labels ((even-p (n) (if (zerop n) t (odd-p (1- n))))
+         (odd-p (n) (if (zerop n) nil (even-p (1- n)))))
+  (list (even-p 10) (odd-p 10)))
+
+== LABELS
+(labels ((count-down (n acc)
+           (if (zerop n)
+               (reverse acc)
+               (count-down (1- n) (cons n acc)))))
+  (count-down 5 nil))
+
+== IF
+(if (evenp 4) "even" "odd")
+
+== IF
+(if (member 3 '(1 2 3)) (list :found) (list :missing))
+
+== WHEN
+(when (member :x '(:x :y))
+  :found)
+
+== WHEN
+(let ((n 5))
+  (when (> n 3) (incf n) (* n 2)))
+
+== UNLESS
+(unless (zerop 5) :nonzero)
+
+== UNLESS
+(unless t :never)
+
+== COND
+(cond ((> 5 10) :big) ((> 5 3) :medium) (t :small))
+
+== COND
+(cond ((assoc 'b '((a . 1) (b . 2))))
+      (t :none))
+
+== COND
+(cond (nil :never))
+
+== CASE
+(case :b (:a 1) (:b 2) (otherwise 3))
+
+== CASE
+(case 'x ((a b) :ab) ((x y) :xy))
+
+== CASE
+(case 99 (1 :one))
+
+== AND
+(and)
+
+== AND
+(and (> 3 2) (< 3 5) 'ok)
+
+== OR
+(or)
+
+== OR
+(or (find 9 '(1 2)) (find 2 '(1 2)))
+
+== NOT
+(not '())
+
+== NOT
+(mapcar #'not '(nil t 0))
+
+== LAMBDA
+(funcall (lambda () :no-arguments))
+(funcall (lambda (&rest args) (length args)) 1 2 3)
+
+== LAMBDA
+(funcall (lambda (a &optional (b 2)) (list a b)) 1)
+(mapcar (lambda (pair) (+ (car pair) (cdr pair))) '((1 . 2) (3 . 4)))
+
+== FUNCALL
+(funcall 'list 1 2)
+(funcall (lambda (x) (* x 3)) 7)
+-- silent
+(defun twice (f x)
+  (funcall f (funcall f x)))
+(twice #'1+ 5)
+
+== APPLY
+(apply 'list 1 2 '(3))
+(apply (lambda (a b c) (+ a b c)) '(1 2 3))
+-- silent
+(defun sum-all (&rest numbers)
+  (apply #'+ numbers))
+(sum-all 1 2 3 4)
+
+== DEFUN
+-- silent
+(defun greet (name &optional (greeting "Hello"))
+  (format nil "~A, ~A!" greeting name))
+(greet "Ada")
+(greet "Ada" "Hi")
+-- silent
+(defun factorial (n)
+  (if (<= n 1) 1 (* n (factorial (1- n)))))
+(factorial 10)
+
+== LOOP
+(loop for x in '(1 2 3) collect (* x 10))
+(loop for i from 0 below 10 by 3 collect i)
+(loop for (key . value) in '((a . 1) (b . 2)) collect (list key value))
+(loop with total = 0 for n in '(1 2 3) do (incf total n) finally (return total))
+
+== DOTIMES
+(let ((squares '()))
+  (dotimes (i 5 (nreverse squares))
+    (push (* i i) squares)))
+
+== DOTIMES
+(dotimes (i 3 :done))
+
+== DOLIST
+(let ((seen '()))
+  (dolist (x '(a b c) (nreverse seen))
+    (push x seen)))
+
+== DOLIST
+(dolist (x nil :empty))
+
+== DO
+(do ((i 0 (1+ i))) ((= i 3) :finished))
+
+== DO
+(do ((a 0 b) (b 1 (+ a b)) (n 0 (1+ n))) ((= n 6) a))
+
+== VALUES
+(multiple-value-bind (a b c) (values 1 2) (list a b c))
+(floor 7 2)
+(let ((x (values 1 2 3))) x)
+
+== MULTIPLE-VALUE-BIND
+(multiple-value-bind (whole fraction) (truncate 3.75)
+  (list whole fraction))
+
+== MULTIPLE-VALUE-BIND
+(multiple-value-bind (a b) (values :only-one)
+  (list a b))
+
+== FORMAT
+(format nil "~D items" 3)
+(format nil "~A" '(1 "two" :three))
+(format nil "~S" '(1 "two" :three))
+(format nil "~{[~A]~}" '(a b c))
+
+== MAKE-HASH-TABLE
+(let ((table (make-hash-table)))
+  (setf (gethash :k table) :v)
+  (hash-table-count table))
+
+== MAKE-HASH-TABLE
+(hash-table-test (make-hash-table :test #'equal))
+
+== MAKE-ARRAY
+(make-array 4 :initial-element :x)
+(make-array 3 :element-type 'character :initial-element #\z)
+
+== MAKE-ARRAY
+(let ((v (make-array 0 :adjustable t :fill-pointer 0)))
+  (vector-push-extend 1 v)
+  (vector-push-extend 2 v)
+  v)
+
+== STRING=
+(string= "abc" "abd" :end1 2 :end2 2)
+
+== STRING=
+(string= 'foo "FOO")
+
+== STRING-UPCASE
+(string-upcase "straße")
+
+== STRING-UPCASE
+(string-upcase 'sym)
+
+== STRING-UPCASE
+(string-upcase "hello world" :start 6)
+
+== STRING-DOWNCASE
+(string-downcase "ABC" :end 1)
+
+== CONCATENATE
+(concatenate 'vector #(1) '(2) "a")
+
+== CONCATENATE
+(apply #'concatenate 'string '("a" "b" "c"))
+
+== SEARCH
+(search '(2 3) '(1 2 3 4))
+
+== SEARCH
+(search "A" "banana" :from-end t :test #'char-equal)
+
+== PARSE-INTEGER
+(parse-integer "  42  ")
+(parse-integer "-17")
+(parse-integer "12abc" :junk-allowed t)
+
+== TYPEP
+(typep nil 'null)
+(typep 5 '(integer 1 10))
+
+== TYPEP
+(typep 'a '(member a b))
+(mapcar (lambda (x) (typep x 'number)) '(1 a 2.5))
+
+== EQL
+(eql 'a 'a)
+(eql "a" "a")
+
+== EQL
+(eql 2/3 2/3)
+
+== EQUAL
+(equal "a" 'a)
+(equal #(1) #(1))
+
+== EQUAL
+(equal (list 1 2) (list 1 2))
+
+== HANDLER-CASE
+(handler-case (parse-integer "zz") (parse-error () :bad))
+(handler-case (+ 1 2) (error () :never) (:no-error (value) (* value 10)))
+
+== HANDLER-CASE
+(handler-case (car 5) (type-error (c) (type-error-datum c)))
+
+== ERROR
+(handler-case (error 'division-by-zero) (arithmetic-error () :arith))
+
+== ERROR
+(handler-case (error "n=~D" 7) (error (c) (princ-to-string c)))
+
+== UNWIND-PROTECT
+(let ((state :start))
+  (unwind-protect (setf state :worked) (setf state :cleaned))
+  state)
+
+== UNWIND-PROTECT
+(block done
+  (unwind-protect (return-from done :early) (print :cleanup)))
+
+== IGNORE-ERRORS
+(ignore-errors (/ 10 2))
+
+== IGNORE-ERRORS
+(nth-value 0 (ignore-errors (/ 1 0)))
+
+== ASSERT
+(let ((x 5))
+  (assert (> x 0) (x) "x must be positive")
+  x)
+
+== MACROEXPAND-1
+(macroexpand-1 '(unless a b))
+(macroexpand-1 '(incf x 2))
+
+== MACROEXPAND-1
+(macroexpand-1 '(return 5))
+
+== DESTRUCTURING-BIND
+(destructuring-bind (&key a (b 2)) '(:a 1) (list a b))
+
+== DESTRUCTURING-BIND
+(destructuring-bind (first . rest) '(1 2 3) (list first rest))
+
+== DESTRUCTURING-BIND
+(destructuring-bind ((a b) c) '((1 2) 3) (list a b c))
+
+== DEFSTRUCT
+-- silent
+(defstruct (person (:constructor new-person (name age)))
+  name
+  (age 0))
+(person-name (new-person "Ada" 36))
+(let ((p (new-person "Ada" 36)))
+  (incf (person-age p))
+  (person-age p))
+(person-p (new-person "X" 1))
+
+== DEFCLASS
+-- silent
+(defclass account ()
+  ((balance :initform 0 :accessor balance)))
+(let ((a (make-instance 'account)))
+  (incf (balance a) 50)
+  (balance a))
+(typep (make-instance 'account) 'account)
+
+== GENSYM
+(let ((a (gensym "TMP")))
+  (and (symbolp a) (null (symbol-package a))))
+
+== GENSYM
+(let ((counter-name (symbol-name (gensym "X"))))
+  (and (char= (char counter-name 0) #\X) t))
+
+== IDENTITY
+(mapcar #'identity '(1 2 3))
+
+== IDENTITY
+(remove-if-not #'identity '(1 nil 2 nil))
+
+== CONSTANTLY
+(funcall (constantly :same) 1 2 3)
+
+== CONSTANTLY
+(let ((always-zero (constantly 0)))
+  (map 'list always-zero "abc"))
+
+== COMPLEMENT
+(funcall (complement #'zerop) 5)
+-- silent
+(defun odd-length-p (s)
+  (oddp (length s)))
+(remove-if (complement #'odd-length-p) '("a" "bb" "ccc"))
+
+== ACONS
+(acons 'c 3 '((a . 1) (b . 2)))
+
+== ACONS
+(let ((table '()))
+  (setf table (acons "k" 1 table))
+  (setf table (acons "j" 2 table))
+  (assoc "k" table :test #'string=))
+
+== ASSOC-IF
+(assoc-if #'evenp '((1 . one) (2 . two) (4 . four)))
+(assoc-if (lambda (key) (eq key 'b)) '((a . 1) (b . 2)))
+-- silent
+(defun symbol-key-p (key)
+  (symbolp key))
+(assoc-if #'symbol-key-p '(("x" . 1) (y . 2)))
+
+== ASSOC-IF-NOT
+(assoc-if-not #'numberp '((1 . one) (:k . key)))
+
+== ASSOC-IF-NOT
+(assoc-if-not (lambda (key) (< key 3)) '((1 . a) (5 . b)))
+
+== RASSOC
+(rassoc 2 '((a . 1) (b . 2)))
+
+== RASSOC
+(rassoc "two" '((1 . "one") (2 . "two")) :test #'string=)
+
+== RASSOC-IF
+(rassoc-if #'evenp '((a . 1) (b . 2)))
+
+== RASSOC-IF
+(rassoc-if (lambda (v) (> v 5)) '((a . 1) (b . 9)))
+
+== RASSOC-IF-NOT
+(rassoc-if-not #'oddp '((a . 1) (b . 2)))
+
+== PAIRLIS
+(pairlis '(a b c) '(1 2 3))
+
+== PAIRLIS
+(assoc 'b (pairlis '(a b) '(1 2)))
+
+== COPY-ALIST
+(let* ((original (list (cons 'a 1)))
+       (copy (copy-alist original)))
+  (setf (cdr (first copy)) 99)
+  (list original copy))
+
+== COPY-LIST
+(let* ((a (list 1 2 3)) (b (copy-list a)))
+  (setf (first b) :changed)
+  (list a b))
+
+== COPY-LIST
+(copy-list '(1 2 . 3))
+
+== COPY-SEQ
+(copy-seq "abc")
+
+== COPY-SEQ
+(let* ((v (vector 1 2)) (w (copy-seq v)))
+  (setf (aref w 0) :x)
+  (list v w))
+
+== COPY-TREE
+(let* ((tree (list 1 (list 2 3)))
+       (copy (copy-tree tree)))
+  (setf (first (second copy)) :x)
+  (list tree copy))
+
+== COUNT-IF
+(count-if #'oddp '(1 2 3 4 5))
+(count-if (lambda (s) (> (length s) 1)) '("a" "bb" "ccc"))
+-- silent
+(defun vowel-p (char)
+  (find char "aeiou"))
+(count-if #'vowel-p "education")
+
+== COUNT-IF-NOT
+(count-if-not #'oddp '(1 2 3 4 5))
+
+== COUNT-IF-NOT
+(count-if-not #'alpha-char-p "a1b2")
+
+== DELETE
+(delete 2 (list 1 2 3 2))
+
+== DELETE
+(delete #\a (copy-seq "banana"))
+
+== DELETE-DUPLICATES
+(delete-duplicates (list 1 2 1 3 2))
+
+== DELETE-DUPLICATES
+(delete-duplicates (list "a" "A" "b") :test #'string-equal)
+
+== DELETE-IF
+(delete-if #'evenp (list 1 2 3 4))
+
+== DELETE-IF
+(delete-if (lambda (n) (> n 2)) (list 1 2 3 4))
+
+== DELETE-IF-NOT
+(delete-if-not #'evenp (list 1 2 3 4))
+
+== DELETE-IF-NOT
+(delete-if-not #'alpha-char-p (copy-seq "a1b2"))
+
+== SECOND
+(second '(a b c))
+
+== SECOND
+(second '(a))
+
+== THIRD
+(third '(a b c d))
+
+== FOURTH
+(fourth '(1 2 3 4 5))
+
+== FIFTH
+(fifth '(1 2 3 4 5 6))
+
+== SIXTH
+(sixth '(1 2 3 4 5 6 7))
+
+== SEVENTH
+(seventh '(1 2 3 4 5 6 7 8))
+
+== EIGHTH
+(eighth '(1 2 3 4 5 6 7 8 9))
+
+== NINTH
+(ninth '(1 2 3 4 5 6 7 8 9 10))
+
+== TENTH
+(tenth '(1 2 3 4 5 6 7 8 9 10 11))
+
+== TENTH
+(tenth '(1 2 3))
+
+== ENDP
+(endp '())
+
+== ENDP
+(endp '(1))
+
+== ENDP
+(loop for tail = '(a b c) then (cdr tail)
+      until (endp tail)
+      collect (car tail))
+
+== FILL
+(fill (make-list 3) :x)
+
+== FILL
+(let ((v (vector 1 2 3 4 5)))
+  (fill v 0 :start 1 :end 3)
+  v)
+
+== FIND-IF-NOT
+(find-if-not #'evenp '(2 4 5 6))
+
+== FIND-IF-NOT
+(find-if-not #'digit-char-p "123abc")
+
+== LDIFF
+(let ((list '(a b c d)))
+  (ldiff list (cddr list)))
+
+== LDIFF
+(ldiff '(1 2 3) '(1 2 3))
+
+== LIST-LENGTH
+(list-length '(a b c))
+
+== LIST-LENGTH
+(list-length '())
+
+== LIST-LENGTH
+(let ((circular (list 1 2)))
+  (setf (cdr (last circular)) circular)
+  (list-length circular))
+
+== MAKE-LIST
+(make-list 3)
+
+== MAKE-LIST
+(make-list 2 :initial-element 'x)
+
+== MAKE-SEQUENCE
+(make-sequence 'list 3 :initial-element 0)
+
+== MAKE-SEQUENCE
+(make-sequence 'string 3 :initial-element #\*)
+
+== MAKE-SEQUENCE
+(make-sequence 'vector 2 :initial-element :v)
+
+== MAP-INTO
+(let ((out (make-list 3)))
+  (map-into out #'1+ '(1 2 3))
+  out)
+(let ((out (vector 0 0 0)))
+  (map-into out (lambda (a b) (+ a b)) '(1 2 3) '(10 20 30))
+  out)
+-- silent
+(defun triple (n)
+  (* 3 n))
+(let ((out (make-list 3)))
+  (map-into out #'triple '(1 2 3)))
+
+== MAPL
+(let ((tails '()))
+  (mapl (lambda (tail) (push tail tails)) '(1 2 3))
+  (nreverse tails))
+
+== MAPL
+(let ((n 0))
+  (mapl (lambda (tail) (incf n (length tail))) '(a b c))
+  n)
+
+== MAPLIST
+(maplist #'identity '(a b c))
+(maplist (lambda (tail) (length tail)) '(a b c))
+-- silent
+(defun first-and-count (tail)
+  (list (car tail) (length tail)))
+(maplist #'first-and-count '(x y z))
+
+== MAPCON
+(mapcon #'list '(1 2 3))
+
+== MAPCON
+(mapcon (lambda (tail) (copy-list tail)) '(a b))
+
+== MEMBER-IF
+(member-if #'evenp '(1 3 4 5))
+(member-if (lambda (x) (> x 10)) '(1 2 3))
+-- silent
+(defun negative-p (n)
+  (< n 0))
+(member-if #'negative-p '(3 2 -1 5))
+
+== MEMBER-IF-NOT
+(member-if-not #'numberp '(1 2 a 3))
+
+== MEMBER-IF-NOT
+(member-if-not #'evenp '(2 4 5 6))
+
+== MERGE
+(merge 'list (list 1 3 5) (list 2 4 6) #'<)
+
+== MERGE
+(merge 'vector (vector 1 4) (vector 2 3) #'<)
+
+== MERGE
+(merge 'list (list "b" "d") (list "a" "c") #'string<)
+
+== MISMATCH
+(mismatch "abcd" "abxd")
+
+== MISMATCH
+(mismatch '(1 2 3) '(1 2 3))
+
+== MISMATCH
+(mismatch "abc" "abcde")
+
+== NBUTLAST
+(nbutlast (list 1 2 3 4))
+
+== NBUTLAST
+(nbutlast (list 1 2 3 4) 2)
+
+== NINTERSECTION
+(sort (nintersection (list 1 2 3) (list 2 3 4)) #'<)
+
+== NOTANY
+(notany #'evenp '(1 3 5))
+
+== NOTANY
+(notany (lambda (x) (> x 4)) '(1 5))
+
+== NOTEVERY
+(notevery #'evenp '(2 4 5))
+
+== NOTEVERY
+(notevery #'numberp '(1 2))
+
+== NRECONC
+(nreconc (list 3 2 1) (list 4 5))
+
+== NSET-DIFFERENCE
+(sort (nset-difference (list 1 2 3 4) (list 2 4)) #'<)
+
+== NSET-EXCLUSIVE-OR
+(sort (nset-exclusive-or (list 1 2 3) (list 3 4)) #'<)
+
+== NSUBLIS
+(nsublis '((a . 1) (b . 2)) (list 'a (list 'b 'c)))
+
+== NSUBST
+(nsubst 'x 'b (list 'a 'b (list 'b 'c)))
+
+== NSUBST-IF
+(nsubst-if :num #'numberp (list 1 'a (list 2 'b)))
+
+== NSUBST-IF-NOT
+(nsubst-if-not :other #'numberp (list 1 'a (list 2 'b)))
+
+== NSUBSTITUTE
+(nsubstitute 0 1 (list 1 2 1 3))
+
+== NSUBSTITUTE
+(nsubstitute #\- #\a (copy-seq "banana"))
+
+== NSUBSTITUTE-IF
+(nsubstitute-if 0 #'evenp (list 1 2 3 4))
+
+== NSUBSTITUTE-IF-NOT
+(nsubstitute-if-not 0 #'evenp (list 1 2 3 4))
+
+== NTHCDR
+(nthcdr 2 '(a b c d))
+
+== NTHCDR
+(nthcdr 0 '(a b))
+
+== NTHCDR
+(nthcdr 5 '(a b))
+
+== NUNION
+(sort (nunion (list 1 2) (list 2 3)) #'<)
+
+== POSITION-IF
+(position-if #'oddp '(2 4 5 6))
+(position-if (lambda (c) (char= c #\space)) "hello world")
+-- silent
+(defun big-p (n)
+  (> n 10))
+(position-if #'big-p '(1 5 20 30))
+
+== POSITION-IF-NOT
+(position-if-not #'digit-char-p "123abc")
+
+== POSITION-IF-NOT
+(position-if-not #'evenp '(2 4 5))
+
+== REPLACE
+(replace (copy-seq "abcde") "XY")
+
+== REPLACE
+(replace (copy-seq "abcde") "XY" :start1 3)
+
+== REPLACE
+(let ((v (vector 1 2 3 4)))
+  (replace v #(9 8) :start1 2)
+  v)
+
+== REVAPPEND
+(revappend '(3 2 1) '(4 5))
+
+== REVAPPEND
+(revappend '() '(a))
+
+== RPLACA
+(let ((cell (cons 1 2)))
+  (rplaca cell :new)
+  cell)
+
+== RPLACD
+(let ((cell (cons 1 2)))
+  (rplacd cell '(3))
+  cell)
+
+== SET-EXCLUSIVE-OR
+(sort (set-exclusive-or '(1 2 3) '(3 4 5)) #'<)
+
+== SET-EXCLUSIVE-OR
+(set-exclusive-or '(a) '(a))
+
+== STABLE-SORT
+(stable-sort (list '(1 . b) '(0 . a) '(1 . a)) #'< :key #'car)
+(stable-sort (list "bb" "a" "cc" "d") #'< :key #'length)
+-- silent
+(defun shorter-p (a b)
+  (< (length a) (length b)))
+(stable-sort (list "ccc" "a" "bbb" "d") #'shorter-p)
+
+== SUBLIS
+(sublis '((a . 1) (b . 2)) '(a (b c) a))
+
+== SUBLIS
+(sublis '((1 . one) (2 . two)) '(1 (2 3)))
+
+== SUBSETP
+(subsetp '(1 2) '(1 2 3))
+
+== SUBSETP
+(subsetp '(1 5) '(1 2 3))
+
+== SUBSETP
+(subsetp '("a") '("a" "b") :test #'string=)
+
+== SUBST
+(subst 'x 'b '(a b (b c)))
+
+== SUBST
+(subst 0 1 '(1 (1 2) 3))
+
+== SUBST
+(subst "new" "old" '("old" ("old")) :test #'equal)
+
+== SUBST-IF
+(subst-if :num #'numberp '(1 a (2 b)))
+
+== SUBST-IF
+(subst-if '* (lambda (x) (and (integerp x) (oddp x))) '(1 2 (3 4)))
+
+== SUBST-IF-NOT
+(subst-if-not :other #'numberp '(1 a (2 b)))
+
+== SUBSTITUTE-IF
+(substitute-if 0 #'evenp '(1 2 3 4))
+(substitute-if #\_ (lambda (c) (char= c #\space)) "a b c")
+-- silent
+(defun negative-p (n)
+  (< n 0))
+(substitute-if 0 #'negative-p '(3 -1 4 -5))
+
+== SUBSTITUTE-IF-NOT
+(substitute-if-not 0 #'evenp '(1 2 3 4))
+
+== SUBSTITUTE-IF-NOT
+(substitute-if-not #\? #'alpha-char-p "a1b2")
+
+== TAILP
+(let ((list '(a b c d)))
+  (tailp (cddr list) list))
+
+== TAILP
+(tailp '(c d) '(a b c d))
+
+== TREE-EQUAL
+(tree-equal '(1 (2 3)) '(1 (2 3)))
+
+== TREE-EQUAL
+(tree-equal '("a") '("a") :test #'string=)
+
+== TREE-EQUAL
+(tree-equal '(1 2) '(1 3))
+
+== VALUES-LIST
+(values-list '(1 2 3))
+
+== VALUES-LIST
+(multiple-value-list (values-list '(a b)))
+
+== MULTIPLE-VALUE-LIST
+(multiple-value-list (floor 7 2))
+
+== MULTIPLE-VALUE-LIST
+(multiple-value-list (values))
+
+== MULTIPLE-VALUE-LIST
+(multiple-value-list (gethash :missing (make-hash-table)))
+
+== NTH-VALUE
+(nth-value 1 (floor 7 2))
+
+== NTH-VALUE
+(nth-value 0 (values :a :b))
+
+== NTH-VALUE
+(nth-value 5 (values 1 2))
+
+== MULTIPLE-VALUE-SETQ
+(let (q r)
+  (multiple-value-setq (q r) (floor 17 5))
+  (list q r))
+
+== MULTIPLE-VALUE-CALL
+(multiple-value-call #'list (values 1 2) (values 3))
+
+== MULTIPLE-VALUE-CALL
+(multiple-value-call #'+ (floor 7 2) 10)
+
+== MULTIPLE-VALUE-PROG1
+(multiple-value-list (multiple-value-prog1 (values 1 2) (+ 10 20)))
+
+== GET
+(let ((sym (make-symbol "S")))
+  (setf (get sym 'color) :red)
+  (get sym 'color))
+
+== GET
+(let ((sym (make-symbol "S")))
+  (get sym 'missing :default))
+
+== REMPROP
+(let ((sym (make-symbol "S")))
+  (setf (get sym 'a) 1)
+  (list (remprop sym 'a) (remprop sym 'a) (get sym 'a)))
+
+== SYMBOL-PLIST
+(let ((sym (make-symbol "S")))
+  (setf (get sym 'a) 1 (get sym 'b) 2)
+  (symbol-plist sym))
+
+== GET-PROPERTIES
+(multiple-value-list (get-properties '(:a 1 :b 2 :c 3) '(:b :c)))
+
+== GET-PROPERTIES
+(multiple-value-list (get-properties '(:a 1) '(:z)))
+
+== REMF
+(let ((plist (list :a 1 :b 2)))
+  (list (remf plist :a) plist))
+
+== REMF
+(let ((plist (list :a 1)))
+  (remf plist :zz))
+
+== CLRHASH
+(let ((h (make-hash-table)))
+  (setf (gethash 1 h) 2)
+  (clrhash h)
+  (hash-table-count h))
+
+== HASH-TABLE-P
+(hash-table-p (make-hash-table))
+
+== HASH-TABLE-P
+(hash-table-p '((a . 1)))
+
+== HASH-TABLE-SIZE
+(integerp (hash-table-size (make-hash-table)))
+
+== HASH-TABLE-TEST
+(hash-table-test (make-hash-table))
+
+== HASH-TABLE-TEST
+(hash-table-test (make-hash-table :test 'equalp))
+
+== HASH-TABLE-REHASH-SIZE
+(realp (hash-table-rehash-size (make-hash-table)))
+
+== HASH-TABLE-REHASH-THRESHOLD
+(realp (hash-table-rehash-threshold (make-hash-table)))
+
+== SXHASH
+(= (sxhash "abc") (sxhash "abc"))
+
+== SXHASH
+(= (sxhash '(1 2)) (sxhash (list 1 2)))
+
+== SXHASH
+(integerp (sxhash 42))
+
+== WITH-HASH-TABLE-ITERATOR
+(let ((table (make-hash-table))
+      (pairs '()))
+  (setf (gethash :a table) 1)
+  (with-hash-table-iterator (next table)
+    (loop (multiple-value-bind (more key value) (next)
+            (unless more (return))
+            (push (list key value) pairs))))
+  pairs)
+
+== ADJUST-ARRAY
+(adjust-array (vector 1 2 3) 5 :initial-element 0)
+
+== ADJUST-ARRAY
+(let ((a (make-array 2 :adjustable t :initial-contents '(a b))))
+  (adjust-array a 3 :initial-element :new)
+  a)
+
+== ADJUSTABLE-ARRAY-P
+(adjustable-array-p (make-array 2 :adjustable t))
+
+== ADJUSTABLE-ARRAY-P
+(adjustable-array-p (make-array 2))
+
+== ARRAY-DIMENSION
+(array-dimension (make-array '(2 3)) 0)
+
+== ARRAY-DIMENSION
+(array-dimension (make-array '(2 3)) 1)
+
+== ARRAY-DIMENSIONS
+(array-dimensions (make-array '(2 3 4)))
+
+== ARRAY-DIMENSIONS
+(array-dimensions #(1 2 3))
+
+== ARRAY-DISPLACEMENT
+(let* ((base (make-array 5))
+       (view (make-array 2 :displaced-to base :displaced-index-offset 1)))
+  (multiple-value-bind (array offset) (array-displacement view)
+    (list (eq array base) offset)))
+
+== ARRAY-DISPLACEMENT
+(multiple-value-list (array-displacement (make-array 3)))
+
+== ARRAY-ELEMENT-TYPE
+(array-element-type (make-array 2))
+
+== ARRAY-ELEMENT-TYPE
+(array-element-type "abc")
+
+== ARRAY-ELEMENT-TYPE
+(array-element-type (make-array 2 :element-type 'bit))
+
+== ARRAY-HAS-FILL-POINTER-P
+(array-has-fill-pointer-p (make-array 3 :fill-pointer 0))
+
+== ARRAY-HAS-FILL-POINTER-P
+(array-has-fill-pointer-p (make-array 3))
+
+== ARRAY-IN-BOUNDS-P
+(array-in-bounds-p #(1 2 3) 2)
+
+== ARRAY-IN-BOUNDS-P
+(array-in-bounds-p #(1 2 3) 3)
+
+== ARRAY-IN-BOUNDS-P
+(array-in-bounds-p (make-array '(2 2)) 1 1)
+
+== ARRAY-RANK
+(array-rank #(1 2 3))
+
+== ARRAY-RANK
+(array-rank (make-array '(2 3 4)))
+
+== ARRAY-ROW-MAJOR-INDEX
+(array-row-major-index (make-array '(2 3)) 1 2)
+
+== ARRAY-ROW-MAJOR-INDEX
+(array-row-major-index (make-array '(2 3)) 0 0)
+
+== ARRAY-TOTAL-SIZE
+(array-total-size (make-array '(2 3 4)))
+
+== ARRAY-TOTAL-SIZE
+(array-total-size "hello")
+
+== ARRAYP
+(arrayp #(1 2))
+
+== ARRAYP
+(arrayp "abc")
+
+== ARRAYP
+(arrayp '(1 2))
+
+== ROW-MAJOR-AREF
+(row-major-aref #2A((1 2) (3 4)) 2)
+
+== ROW-MAJOR-AREF
+(let ((a (make-array '(2 2) :initial-element 0)))
+  (setf (row-major-aref a 3) :last)
+  a)
+
+== SVREF
+(svref #(a b c) 1)
+
+== SVREF
+(let ((v (vector 1 2 3)))
+  (setf (svref v 0) :x)
+  v)
+
+== VECTORP
+(vectorp #(1 2))
+
+== VECTORP
+(vectorp "abc")
+
+== VECTORP
+(vectorp (make-array '(2 2)))
+
+== SIMPLE-VECTOR-P
+(simple-vector-p #(1 2 3))
+
+== SIMPLE-VECTOR-P
+(simple-vector-p "abc")
+
+== VECTOR-PUSH
+(let ((v (make-array 2 :fill-pointer 0)))
+  (list (vector-push :a v) (vector-push :b v) (vector-push :c v) v))
+
+== VECTOR-PUSH-EXTEND
+(let ((v (make-array 1 :fill-pointer 0 :adjustable t)))
+  (dotimes (i 4)
+    (vector-push-extend i v))
+  v)
+
+== VECTOR-POP
+(let ((v (make-array 3 :fill-pointer 3 :initial-contents '(1 2 3))))
+  (list (vector-pop v) v))
+
+== FILL-POINTER
+(fill-pointer (make-array 5 :fill-pointer 2))
+
+== FILL-POINTER
+(let ((v (make-array 5 :fill-pointer 0)))
+  (setf (fill-pointer v) 3)
+  (length v))
+
+== BIT
+(bit #*1010 0)
+
+== BIT
+(let ((bits (make-array 3 :element-type 'bit :initial-element 0)))
+  (setf (bit bits 1) 1)
+  bits)
+
+== SBIT
+(sbit #*101 2)
+
+== SBIT
+(let ((bits (make-array 3 :element-type 'bit :initial-element 0)))
+  (setf (sbit bits 0) 1)
+  bits)
+
+== BIT-AND
+(bit-and #*1100 #*1010)
+
+== BIT-IOR
+(bit-ior #*1100 #*1010)
+
+== BIT-XOR
+(bit-xor #*1100 #*1010)
+
+== BIT-NOT
+(bit-not #*1010)
+
+== BIT-NAND
+(bit-nand #*1100 #*1010)
+
+== BIT-NOR
+(bit-nor #*1100 #*1010)
+
+== BIT-EQV
+(bit-eqv #*1100 #*1010)
+
+== BIT-ANDC1
+(bit-andc1 #*1100 #*1010)
+
+== BIT-ANDC2
+(bit-andc2 #*1100 #*1010)
+
+== BIT-ORC1
+(bit-orc1 #*1100 #*1010)
+
+== BIT-ORC2
+(bit-orc2 #*1100 #*1010)
+
+== BIT-VECTOR-P
+(bit-vector-p #*101)
+
+== BIT-VECTOR-P
+(bit-vector-p #(1 0 1))
+
+== SIMPLE-BIT-VECTOR-P
+(simple-bit-vector-p #*101)
+
+== SIMPLE-BIT-VECTOR-P
+(simple-bit-vector-p (make-array 3 :element-type 'bit :adjustable t))
+
+== UPGRADED-ARRAY-ELEMENT-TYPE
+(upgraded-array-element-type 'bit)
+
+== UPGRADED-ARRAY-ELEMENT-TYPE
+(upgraded-array-element-type 'character)
+
+== UPGRADED-ARRAY-ELEMENT-TYPE
+(upgraded-array-element-type '(integer 0 10))
+
+== UPGRADED-COMPLEX-PART-TYPE
+(upgraded-complex-part-type 'single-float)
+
+== UPGRADED-COMPLEX-PART-TYPE
+(upgraded-complex-part-type 'double-float)
+
+== CAAR
+(caar '((1 . 2) . (3 . 4)))
+
+== CADR
+(cadr '((5 . 6) . (7 . 8)))
+
+== CDAR
+(cdar '((9 . 10) . (11 . 12)))
+
+== CDDR
+(cddr '((13 . 14) . (15 . 16)))
+
+== CAAAR
+(caaar '(((17 . 18) . (19 . 20)) . ((21 . 22) . (23 . 24))))
+
+== CAADR
+(caadr '(((25 . 26) . (27 . 28)) . ((29 . 30) . (31 . 32))))
+
+== CADAR
+(cadar '(((33 . 34) . (35 . 36)) . ((37 . 38) . (39 . 40))))
+
+== CADDR
+(caddr '(((41 . 42) . (43 . 44)) . ((45 . 46) . (47 . 48))))
+
+== CDAAR
+(cdaar '(((49 . 50) . (51 . 52)) . ((53 . 54) . (55 . 56))))
+
+== CDADR
+(cdadr '(((57 . 58) . (59 . 60)) . ((61 . 62) . (63 . 64))))
+
+== CDDAR
+(cddar '(((65 . 66) . (67 . 68)) . ((69 . 70) . (71 . 72))))
+
+== CDDDR
+(cdddr '(((73 . 74) . (75 . 76)) . ((77 . 78) . (79 . 80))))
+
+== CAAAAR
+(caaaar '((((81 . 82) . (83 . 84)) . ((85 . 86) . (87 . 88))) . (((89 . 90) . (91 . 92)) . ((93 . 94) . (95 . 96)))))
+
+== CAAADR
+(caaadr '((((97 . 98) . (99 . 100)) . ((101 . 102) . (103 . 104))) . (((105 . 106) . (107 . 108)) . ((109 . 110) . (111 . 112)))))
+
+== CAADAR
+(caadar '((((113 . 114) . (115 . 116)) . ((117 . 118) . (119 . 120))) . (((121 . 122) . (123 . 124)) . ((125 . 126) . (127 . 128)))))
+
+== CAADDR
+(caaddr '((((129 . 130) . (131 . 132)) . ((133 . 134) . (135 . 136))) . (((137 . 138) . (139 . 140)) . ((141 . 142) . (143 . 144)))))
+
+== CADAAR
+(cadaar '((((145 . 146) . (147 . 148)) . ((149 . 150) . (151 . 152))) . (((153 . 154) . (155 . 156)) . ((157 . 158) . (159 . 160)))))
+
+== CADADR
+(cadadr '((((161 . 162) . (163 . 164)) . ((165 . 166) . (167 . 168))) . (((169 . 170) . (171 . 172)) . ((173 . 174) . (175 . 176)))))
+
+== CADDAR
+(caddar '((((177 . 178) . (179 . 180)) . ((181 . 182) . (183 . 184))) . (((185 . 186) . (187 . 188)) . ((189 . 190) . (191 . 192)))))
+
+== CADDDR
+(cadddr '((((193 . 194) . (195 . 196)) . ((197 . 198) . (199 . 200))) . (((201 . 202) . (203 . 204)) . ((205 . 206) . (207 . 208)))))
+
+== CDAAAR
+(cdaaar '((((209 . 210) . (211 . 212)) . ((213 . 214) . (215 . 216))) . (((217 . 218) . (219 . 220)) . ((221 . 222) . (223 . 224)))))
+
+== CDAADR
+(cdaadr '((((225 . 226) . (227 . 228)) . ((229 . 230) . (231 . 232))) . (((233 . 234) . (235 . 236)) . ((237 . 238) . (239 . 240)))))
+
+== CDADAR
+(cdadar '((((241 . 242) . (243 . 244)) . ((245 . 246) . (247 . 248))) . (((249 . 250) . (251 . 252)) . ((253 . 254) . (255 . 256)))))
+
+== CDADDR
+(cdaddr '((((257 . 258) . (259 . 260)) . ((261 . 262) . (263 . 264))) . (((265 . 266) . (267 . 268)) . ((269 . 270) . (271 . 272)))))
+
+== CDDAAR
+(cddaar '((((273 . 274) . (275 . 276)) . ((277 . 278) . (279 . 280))) . (((281 . 282) . (283 . 284)) . ((285 . 286) . (287 . 288)))))
+
+== CDDADR
+(cddadr '((((289 . 290) . (291 . 292)) . ((293 . 294) . (295 . 296))) . (((297 . 298) . (299 . 300)) . ((301 . 302) . (303 . 304)))))
+
+== CDDDAR
+(cdddar '((((305 . 306) . (307 . 308)) . ((309 . 310) . (311 . 312))) . (((313 . 314) . (315 . 316)) . ((317 . 318) . (319 . 320)))))
+
+== CDDDDR
+(cddddr '((((321 . 322) . (323 . 324)) . ((325 . 326) . (327 . 328))) . (((329 . 330) . (331 . 332)) . ((333 . 334) . (335 . 336)))))
+
+== CAAR
+(caar '((a b) (c d)))
+
+== CADR
+(cadr '(1 2 3))
+
+== CADR
+(mapcar #'cadr '((a b) (c d)))
+
+== CDAR
+(cdar '((a b) (c d)))
+
+== CDDR
+(cddr '(1 2 3 4))
+
+== CADDR
+(caddr '(1 2 3 4))
+
+== CADDR
+(mapcar #'caddr '((a b c) (d e f)))
+
+== CDDDR
+(cdddr '(1 2 3 4 5))
+
+== CADDDR
+(cadddr '(1 2 3 4 5))
+
+== /=
+(/= 1 2)
+
+== /=
+(/= 1 1)
+
+== /=
+(/= 1 2 3)
+
+== /=
+(/= 1 2 1)
+
+== <=
+(<= 1 2 2 3)
+
+== <=
+(<= 3 2)
+
+== <=
+(<= 1 1.0)
+
+== >=
+(>= 3 2 2 1)
+
+== >=
+(>= 1 2)
+
+== >=
+(>= 2 2)
+
+== ACOS
+(acos 1)
+
+== ACOS
+(acos 0)
+
+== ACOS
+(< (abs (- (acos 0.5) (/ pi 3))) 1d-6)
+
+== ACOSH
+(acosh 1)
+
+== ACOSH
+(< (abs (- (acosh 2) 1.3169579)) 1e-5)
+
+== ASIN
+(asin 0)
+
+== ASIN
+(< (abs (- (asin 1.0) (/ pi 2))) 1e-6)
+
+== ASINH
+(asinh 0)
+
+== ASINH
+(< (abs (- (asinh 1.0) 0.8813736)) 1e-5)
+
+== ATAN
+(atan 0)
+
+== ATAN
+(< (abs (- (atan 1.0) (/ pi 4))) 1e-6)
+
+== ATAN
+(< (abs (- (atan 1 -1) (* 3 (/ pi 4)))) 1e-6)
+
+== ATANH
+(atanh 0)
+
+== ATANH
+(< (abs (- (atanh 0.5) 0.54930615)) 1e-5)
+
+== SIN
+(sin 0)
+
+== SIN
+(< (abs (- (sin (/ pi 2)) 1)) 1d-9)
+
+== COS
+(cos 0)
+
+== COS
+(< (abs (cos (/ pi 2))) 1d-9)
+
+== TAN
+(tan 0)
+
+== TAN
+(< (abs (- (tan (/ pi 4)) 1)) 1d-9)
+
+== SINH
+(sinh 0)
+
+== SINH
+(< (abs (- (sinh 1.0) 1.1752012)) 1e-5)
+
+== COSH
+(cosh 0)
+
+== COSH
+(< (abs (- (cosh 1.0) 1.5430807)) 1e-5)
+
+== TANH
+(tanh 0)
+
+== TANH
+(< (abs (- (tanh 1.0) 0.7615942)) 1e-5)
+
+== EXP
+(exp 0)
+
+== EXP
+(< (abs (- (exp 1) 2.7182817)) 1e-5)
+
+== LOG
+(log 1)
+
+== LOG
+(log 8 2)
+
+== LOG
+(log 100 10)
+
+== LOG
+(< (abs (- (log (exp 3.0)) 3.0)) 1e-5)
+
+== ISQRT
+(isqrt 16)
+
+== ISQRT
+(isqrt 17)
+
+== ISQRT
+(isqrt 0)
+
+== SIGNUM
+(signum -5)
+
+== SIGNUM
+(signum 0)
+
+== SIGNUM
+(signum 2.5)
+
+== MINUSP
+(minusp -1)
+
+== MINUSP
+(minusp 0)
+
+== MINUSP
+(minusp 2)
+
+== PLUSP
+(plusp 1)
+
+== PLUSP
+(plusp 0)
+
+== PLUSP
+(plusp -2.5)
+
+== NUMBERP
+(numberp 3)
+
+== NUMBERP
+(numberp 2/3)
+
+== NUMBERP
+(numberp "3")
+
+== INTEGERP
+(integerp 3)
+
+== INTEGERP
+(integerp 3.0)
+
+== INTEGERP
+(integerp 6/3)
+
+== RATIONALP
+(rationalp 1/3)
+
+== RATIONALP
+(rationalp 0.5)
+
+== RATIONALP
+(rationalp 5)
+
+== REALP
+(realp 1.5)
+
+== REALP
+(realp #c(1 2))
+
+== REALP
+(realp 1/2)
+
+== FLOATP
+(floatp 1.5)
+
+== FLOATP
+(floatp 1)
+
+== FLOATP
+(floatp 1d0)
+
+== COMPLEXP
+(complexp #c(1 2))
+
+== COMPLEXP
+(complexp 5)
+
+== COMPLEXP
+(complexp #c(5 0))
+
+== NUMERATOR
+(numerator 6/4)
+
+== NUMERATOR
+(numerator 5)
+
+== DENOMINATOR
+(denominator 6/4)
+
+== DENOMINATOR
+(denominator 5)
+
+== RATIONAL
+(rational 0.5)
+
+== RATIONAL
+(rational 3)
+
+== RATIONAL
+(rational 0.25d0)
+
+== RATIONALIZE
+(rationalize 0.5)
+
+== RATIONALIZE
+(rationalize 0.333333333)
+
+== FLOAT
+(float 1/4)
+
+== FLOAT
+(float 3)
+
+== FLOAT
+(float 1/3 1d0)
+
+== FLOAT-DIGITS
+(float-digits 1.0)
+
+== FLOAT-DIGITS
+(float-digits 1d0)
+
+== FLOAT-PRECISION
+(float-precision 1.0)
+
+== FLOAT-PRECISION
+(float-precision 0.0)
+
+== FLOAT-RADIX
+(float-radix 1.0)
+
+== FLOAT-SIGN
+(float-sign -2.5)
+
+== FLOAT-SIGN
+(float-sign 2.5)
+
+== FLOAT-SIGN
+(float-sign -1.0 3.0)
+
+== DECODE-FLOAT
+(multiple-value-list (decode-float 8.0))
+
+== DECODE-FLOAT
+(multiple-value-list (decode-float -0.5))
+
+== INTEGER-DECODE-FLOAT
+(multiple-value-list (integer-decode-float 1.0))
+
+== INTEGER-DECODE-FLOAT
+(multiple-value-list (integer-decode-float 8.0))
+
+== SCALE-FLOAT
+(scale-float 1.0 3)
+
+== SCALE-FLOAT
+(scale-float 8.0 -2)
+
+== FFLOOR
+(multiple-value-list (ffloor 7.5))
+
+== FFLOOR
+(ffloor -2.5)
+
+== FCEILING
+(multiple-value-list (fceiling 7.2))
+
+== FCEILING
+(fceiling -2.5)
+
+== FTRUNCATE
+(multiple-value-list (ftruncate 7.9))
+
+== FTRUNCATE
+(ftruncate -7.9)
+
+== FROUND
+(fround 2.5)
+
+== FROUND
+(fround 3.5)
+
+== FROUND
+(fround 7.2)
+
+== CIS
+(cis 0)
+
+== CIS
+(let ((z (cis (/ pi 2))))
+  (and (< (abs (realpart z)) 1d-9) (< (abs (- (imagpart z) 1)) 1d-9)))
+
+== COMPLEX
+(complex 1 2)
+
+== COMPLEX
+(complex 3 0)
+
+== COMPLEX
+(complex 1.5 -2)
+
+== CONJUGATE
+(conjugate #c(1 2))
+
+== CONJUGATE
+(conjugate 5)
+
+== IMAGPART
+(imagpart #c(3 4))
+
+== IMAGPART
+(imagpart 5)
+
+== REALPART
+(realpart #c(3 4))
+
+== REALPART
+(realpart 5)
+
+== PHASE
+(phase 1)
+
+== PHASE
+(phase -1.0)
+
+== PHASE
+(< (abs (- (phase #c(0 1)) (/ pi 2))) 1e-6)
+
+== ASH
+(ash 1 10)
+
+== ASH
+(ash 1024 -3)
+
+== ASH
+(ash -8 -1)
+
+== LOGAND
+(logand 12 10)
+
+== LOGAND
+(logand #b1111 #b0101)
+
+== LOGAND
+(logand)
+
+== LOGIOR
+(logior 12 10)
+
+== LOGIOR
+(logior)
+
+== LOGXOR
+(logxor 12 10)
+
+== LOGXOR
+(logxor 5 5)
+
+== LOGNOT
+(lognot 0)
+
+== LOGNOT
+(lognot 5)
+
+== LOGNOT
+(lognot -1)
+
+== LOGANDC1
+(logandc1 12 10)
+
+== LOGANDC2
+(logandc2 12 10)
+
+== LOGEQV
+(logeqv 12 10)
+
+== LOGNAND
+(lognand 12 10)
+
+== LOGNOR
+(lognor 12 10)
+
+== LOGORC1
+(logorc1 12 10)
+
+== LOGORC2
+(logorc2 12 10)
+
+== LOGBITP
+(logbitp 0 5)
+
+== LOGBITP
+(logbitp 1 5)
+
+== LOGBITP
+(logbitp 2 5)
+
+== LOGCOUNT
+(logcount 7)
+
+== LOGCOUNT
+(logcount 255)
+
+== LOGCOUNT
+(logcount -1)
+
+== LOGTEST
+(logtest 12 3)
+
+== LOGTEST
+(logtest 12 4)
+
+== INTEGER-LENGTH
+(integer-length 0)
+
+== INTEGER-LENGTH
+(integer-length 255)
+
+== INTEGER-LENGTH
+(integer-length 256)
+
+== INTEGER-LENGTH
+(integer-length -1)
+
+== BYTE
+(byte-size (byte 4 2))
+
+== BYTE
+(byte-position (byte 4 2))
+
+== BYTE-SIZE
+(byte-size (byte 8 0))
+
+== BYTE-POSITION
+(byte-position (byte 8 16))
+
+== LDB
+(ldb (byte 4 0) #xAB)
+
+== LDB
+(ldb (byte 4 4) #xAB)
+
+== LDB-TEST
+(ldb-test (byte 1 3) 8)
+
+== LDB-TEST
+(ldb-test (byte 1 2) 8)
+
+== DPB
+(dpb 5 (byte 4 4) 0)
+
+== DPB
+(dpb 0 (byte 4 0) #xFF)
+
+== DEPOSIT-FIELD
+(deposit-field 255 (byte 4 4) 0)
+
+== DEPOSIT-FIELD
+(deposit-field #xFF (byte 4 0) #x00)
+
+== MASK-FIELD
+(mask-field (byte 4 4) #xAB)
+
+== MASK-FIELD
+(mask-field (byte 4 0) #xAB)
+
+== BOOLE
+(boole boole-and 12 10)
+
+== BOOLE
+(boole boole-ior 12 10)
+
+== BOOLE
+(boole boole-xor 12 10)
+
+== RANDOM
+(typep (random 10) '(integer 0 9))
+
+== RANDOM
+(typep (random 1.0) '(float 0.0 1.0))
+
+== RANDOM
+(let ((*random-state* (make-random-state nil)))
+  (typep (random 100) 'fixnum))
+
+== RANDOM-STATE-P
+(random-state-p *random-state*)
+
+== RANDOM-STATE-P
+(random-state-p 42)
+
+== MAKE-RANDOM-STATE
+(random-state-p (make-random-state t))
+
+== MAKE-RANDOM-STATE
+(let ((a (make-random-state *random-state*))
+      (b (make-random-state *random-state*)))
+  (= (random 1000000 a) (random 1000000 b)))
+
+== CONSTANTP
+(constantp 5)
+
+== CONSTANTP
+(constantp 'pi)
+
+== CONSTANTP
+(constantp '(+ 1 2))
+
+== CONSTANTP
+(constantp 'x)
+
+== MOST-POSITIVE-FIXNUM
+(typep most-positive-fixnum 'fixnum)
+
+== MOST-POSITIVE-FIXNUM
+(typep (1+ most-positive-fixnum) 'fixnum)
+
+== MOST-NEGATIVE-FIXNUM
+(typep most-negative-fixnum 'fixnum)
+
+== MOST-NEGATIVE-FIXNUM
+(= most-negative-fixnum (- (1+ most-positive-fixnum)))
+
+== ARRAY-DIMENSION-LIMIT
+(integerp array-dimension-limit)
+
+== ARRAY-DIMENSION-LIMIT
+(plusp array-dimension-limit)
+
+== ARRAY-RANK-LIMIT
+(>= array-rank-limit 8)
+
+== ARRAY-TOTAL-SIZE-LIMIT
+(integerp array-total-size-limit)
+
+== CALL-ARGUMENTS-LIMIT
+(>= call-arguments-limit 50)
+
+== LAMBDA-PARAMETERS-LIMIT
+(>= lambda-parameters-limit 50)
+
+== MULTIPLE-VALUES-LIMIT
+(>= multiple-values-limit 20)
+
+== CHAR-CODE-LIMIT
+(code-char (1- char-code-limit))
+
+== CHAR-CODE-LIMIT
+(integerp char-code-limit)
+
+== INTERNAL-TIME-UNITS-PER-SECOND
+(integerp internal-time-units-per-second)
+
+== INTERNAL-TIME-UNITS-PER-SECOND
+(plusp internal-time-units-per-second)
+
+== LAMBDA-LIST-KEYWORDS
+(member '&optional lambda-list-keywords)
+
+== LAMBDA-LIST-KEYWORDS
+(and (member '&key lambda-list-keywords) t)
+
+== SINGLE-FLOAT-EPSILON
+(typep single-float-epsilon 'single-float)
+
+== SINGLE-FLOAT-EPSILON
+(> (+ 1.0 single-float-epsilon) 1.0)
+
+== SINGLE-FLOAT-NEGATIVE-EPSILON
+(typep single-float-negative-epsilon 'single-float)
+
+== SINGLE-FLOAT-NEGATIVE-EPSILON
+(< (- 1.0 single-float-negative-epsilon) 1.0)
+
+== DOUBLE-FLOAT-EPSILON
+(typep double-float-epsilon 'double-float)
+
+== DOUBLE-FLOAT-EPSILON
+(> (+ 1d0 double-float-epsilon) 1d0)
+
+== DOUBLE-FLOAT-NEGATIVE-EPSILON
+(typep double-float-negative-epsilon 'double-float)
+
+== DOUBLE-FLOAT-NEGATIVE-EPSILON
+(< (- 1d0 double-float-negative-epsilon) 1d0)
+
+== SHORT-FLOAT-EPSILON
+(= short-float-epsilon single-float-epsilon)
+
+== SHORT-FLOAT-NEGATIVE-EPSILON
+(= short-float-negative-epsilon single-float-negative-epsilon)
+
+== LONG-FLOAT-EPSILON
+(= long-float-epsilon double-float-epsilon)
+
+== LONG-FLOAT-NEGATIVE-EPSILON
+(= long-float-negative-epsilon double-float-negative-epsilon)
+
+== MOST-POSITIVE-SINGLE-FLOAT
+(typep most-positive-single-float 'single-float)
+
+== MOST-POSITIVE-SINGLE-FLOAT
+(plusp most-positive-single-float)
+
+== MOST-NEGATIVE-SINGLE-FLOAT
+(minusp most-negative-single-float)
+
+== MOST-NEGATIVE-SINGLE-FLOAT
+(= most-negative-single-float (- most-positive-single-float))
+
+== MOST-POSITIVE-DOUBLE-FLOAT
+(typep most-positive-double-float 'double-float)
+
+== MOST-POSITIVE-DOUBLE-FLOAT
+(plusp most-positive-double-float)
+
+== MOST-NEGATIVE-DOUBLE-FLOAT
+(minusp most-negative-double-float)
+
+== MOST-NEGATIVE-DOUBLE-FLOAT
+(= most-negative-double-float (- most-positive-double-float))
+
+== MOST-POSITIVE-SHORT-FLOAT
+(= most-positive-short-float most-positive-single-float)
+
+== MOST-NEGATIVE-SHORT-FLOAT
+(= most-negative-short-float most-negative-single-float)
+
+== MOST-POSITIVE-LONG-FLOAT
+(= most-positive-long-float most-positive-double-float)
+
+== MOST-NEGATIVE-LONG-FLOAT
+(= most-negative-long-float most-negative-double-float)
+
+== LEAST-POSITIVE-SINGLE-FLOAT
+(plusp least-positive-single-float)
+
+== LEAST-POSITIVE-SINGLE-FLOAT
+(< least-positive-single-float least-positive-normalized-single-float)
+
+== LEAST-NEGATIVE-SINGLE-FLOAT
+(minusp least-negative-single-float)
+
+== LEAST-POSITIVE-DOUBLE-FLOAT
+(plusp least-positive-double-float)
+
+== LEAST-POSITIVE-DOUBLE-FLOAT
+(< least-positive-double-float least-positive-normalized-double-float)
+
+== LEAST-NEGATIVE-DOUBLE-FLOAT
+(minusp least-negative-double-float)
+
+== LEAST-POSITIVE-SHORT-FLOAT
+(= least-positive-short-float least-positive-single-float)
+
+== LEAST-NEGATIVE-SHORT-FLOAT
+(= least-negative-short-float least-negative-single-float)
+
+== LEAST-POSITIVE-LONG-FLOAT
+(= least-positive-long-float least-positive-double-float)
+
+== LEAST-NEGATIVE-LONG-FLOAT
+(= least-negative-long-float least-negative-double-float)
+
+== LEAST-POSITIVE-NORMALIZED-SINGLE-FLOAT
+(plusp least-positive-normalized-single-float)
+
+== LEAST-NEGATIVE-NORMALIZED-SINGLE-FLOAT
+(minusp least-negative-normalized-single-float)
+
+== LEAST-POSITIVE-NORMALIZED-DOUBLE-FLOAT
+(plusp least-positive-normalized-double-float)
+
+== LEAST-NEGATIVE-NORMALIZED-DOUBLE-FLOAT
+(minusp least-negative-normalized-double-float)
+
+== LEAST-POSITIVE-NORMALIZED-SHORT-FLOAT
+(= least-positive-normalized-short-float least-positive-normalized-single-float)
+
+== LEAST-NEGATIVE-NORMALIZED-SHORT-FLOAT
+(= least-negative-normalized-short-float least-negative-normalized-single-float)
+
+== LEAST-POSITIVE-NORMALIZED-LONG-FLOAT
+(= least-positive-normalized-long-float least-positive-normalized-double-float)
+
+== LEAST-NEGATIVE-NORMALIZED-LONG-FLOAT
+(= least-negative-normalized-long-float least-negative-normalized-double-float)
+
+== BOOLE-1
+(boole boole-1 12 10)
+
+== BOOLE-2
+(boole boole-2 12 10)
+
+== BOOLE-AND
+(boole boole-and 12 10)
+
+== BOOLE-ANDC1
+(boole boole-andc1 12 10)
+
+== BOOLE-ANDC2
+(boole boole-andc2 12 10)
+
+== BOOLE-C1
+(boole boole-c1 12 10)
+
+== BOOLE-C2
+(boole boole-c2 12 10)
+
+== BOOLE-CLR
+(boole boole-clr 12 10)
+
+== BOOLE-EQV
+(boole boole-eqv 12 10)
+
+== BOOLE-IOR
+(boole boole-ior 12 10)
+
+== BOOLE-NAND
+(boole boole-nand 12 10)
+
+== BOOLE-NOR
+(boole boole-nor 12 10)
+
+== BOOLE-ORC1
+(boole boole-orc1 12 10)
+
+== BOOLE-ORC2
+(boole boole-orc2 12 10)
+
+== BOOLE-SET
+(boole boole-set 12 10)
+
+== BOOLE-XOR
+(boole boole-xor 12 10)
+
+== NIL
+nil
+
+== NIL
+(eq nil '())
+
+== NIL
+(type-of nil)
+
+== NIL
+(list (null nil) (listp nil) (symbolp nil))
+
+== T
+t
+
+== T
+(eq t (not nil))
+
+== T
+(typep 42 t)
+
+== PLUSP
+(remove-if-not #'plusp '(-2 0 3 5))
+
+== ALPHA-CHAR-P
+(alpha-char-p #\a)
+
+== ALPHA-CHAR-P
+(alpha-char-p #\7)
+
+== ALPHA-CHAR-P
+(remove-if-not #'alpha-char-p "a1-b2")
+
+== ALPHANUMERICP
+(alphanumericp #\a)
+
+== ALPHANUMERICP
+(alphanumericp #\5)
+
+== ALPHANUMERICP
+(alphanumericp #\-)
+
+== BOTH-CASE-P
+(both-case-p #\a)
+
+== BOTH-CASE-P
+(both-case-p #\5)
+
+== LOWER-CASE-P
+(lower-case-p #\a)
+
+== LOWER-CASE-P
+(lower-case-p #\A)
+
+== LOWER-CASE-P
+(count-if #'lower-case-p "Hello World")
+
+== UPPER-CASE-P
+(upper-case-p #\A)
+
+== UPPER-CASE-P
+(upper-case-p #\a)
+
+== UPPER-CASE-P
+(remove-if-not #'upper-case-p "Hello World")
+
+== CHAR-UPCASE
+(char-upcase #\a)
+
+== CHAR-UPCASE
+(char-upcase #\5)
+
+== CHAR-UPCASE
+(map 'string #'char-upcase "lisp")
+
+== CHAR-DOWNCASE
+(char-downcase #\A)
+
+== CHAR-DOWNCASE
+(map 'string #'char-downcase "LISP")
+
+== CHAR-EQUAL
+(char-equal #\a #\A)
+
+== CHAR-EQUAL
+(char-equal #\a #\b)
+
+== CHAR-EQUAL
+(char-equal #\a #\A #\a)
+
+== CHAR-NOT-EQUAL
+(char-not-equal #\a #\b)
+
+== CHAR-NOT-EQUAL
+(char-not-equal #\a #\A)
+
+== CHAR-GREATERP
+(char-greaterp #\b #\A)
+
+== CHAR-GREATERP
+(char-greaterp #\a #\B)
+
+== CHAR-LESSP
+(char-lessp #\a #\B)
+
+== CHAR-LESSP
+(char-lessp #\b #\A)
+
+== CHAR-NOT-GREATERP
+(char-not-greaterp #\a #\B)
+
+== CHAR-NOT-GREATERP
+(char-not-greaterp #\c #\B)
+
+== CHAR-NOT-LESSP
+(char-not-lessp #\b #\A)
+
+== CHAR-NOT-LESSP
+(char-not-lessp #\a #\B)
+
+== CHAR=
+(char= #\a #\a)
+
+== CHAR=
+(char= #\a #\A)
+
+== CHAR=
+(char= #\a #\a #\a)
+
+== CHAR/=
+(char/= #\a #\b)
+
+== CHAR/=
+(char/= #\a #\a)
+
+== CHAR/=
+(char/= #\a #\b #\a)
+
+== CHAR<
+(char< #\a #\b)
+
+== CHAR<
+(char< #\a #\b #\c)
+
+== CHAR<
+(char< #\b #\a)
+
+== CHAR<=
+(char<= #\a #\a #\b)
+
+== CHAR<=
+(char<= #\b #\a)
+
+== CHAR>
+(char> #\b #\a)
+
+== CHAR>
+(char> #\c #\b #\a)
+
+== CHAR>=
+(char>= #\b #\b #\a)
+
+== CHAR>=
+(char>= #\a #\b)
+
+== CHARACTER
+(character "a")
+
+== CHARACTER
+(character 'x)
+
+== CHARACTER
+(character #\a)
+
+== CHARACTERP
+(characterp #\a)
+
+== CHARACTERP
+(characterp "a")
+
+== CHARACTERP
+(characterp 97)
+
+== CHAR-INT
+(char-int #\A)
+
+== CHAR-INT
+(= (char-int #\a) (char-code #\a))
+
+== CHAR-NAME
+(char-name #\Space)
+
+== CHAR-NAME
+(char-name #\Newline)
+
+== CHAR-NAME
+(char-name #\a)
+
+== NAME-CHAR
+(name-char "Space")
+
+== NAME-CHAR
+(name-char "Newline")
+
+== NAME-CHAR
+(name-char "NoSuchName")
+
+== DIGIT-CHAR
+(digit-char 7)
+
+== DIGIT-CHAR
+(digit-char 11 16)
+
+== DIGIT-CHAR
+(digit-char 11)
+
+== DIGIT-CHAR-P
+(digit-char-p #\7)
+
+== DIGIT-CHAR-P
+(digit-char-p #\a)
+
+== DIGIT-CHAR-P
+(digit-char-p #\a 16)
+
+== GRAPHIC-CHAR-P
+(graphic-char-p #\a)
+
+== GRAPHIC-CHAR-P
+(graphic-char-p #\Space)
+
+== GRAPHIC-CHAR-P
+(graphic-char-p #\Newline)
+
+== STANDARD-CHAR-P
+(standard-char-p #\a)
+
+== STANDARD-CHAR-P
+(standard-char-p #\Tab)
+
+== MAKE-STRING
+(make-string 3 :initial-element #\x)
+
+== MAKE-STRING
+(length (make-string 5))
+
+== MAKE-STRING
+(make-string 2 :initial-element #\-)
+
+== STRING
+(string 'symbol)
+
+== STRING
+(string #\a)
+
+== STRING
+(string "already")
+
+== STRINGP
+(stringp "abc")
+
+== STRINGP
+(stringp #\a)
+
+== STRINGP
+(stringp 'abc)
+
+== SIMPLE-STRING-P
+(simple-string-p "abc")
+
+== SIMPLE-STRING-P
+(simple-string-p (make-array 3 :element-type 'character :adjustable t))
+
+== STRING-CAPITALIZE
+(string-capitalize "hello wORLD")
+
+== STRING-CAPITALIZE
+(string-capitalize "foo-bar baz")
+
+== NSTRING-CAPITALIZE
+(nstring-capitalize (copy-seq "hello wORLD"))
+
+== NSTRING-DOWNCASE
+(nstring-downcase (copy-seq "HELLO"))
+
+== NSTRING-UPCASE
+(nstring-upcase (copy-seq "hello"))
+
+== NSTRING-UPCASE
+(let ((s (copy-seq "abc")))
+  (nstring-upcase s :start 1)
+  s)
+
+== STRING-EQUAL
+(string-equal "Lisp" "LISP")
+
+== STRING-EQUAL
+(string-equal "Lisp" "Lisps")
+
+== STRING-NOT-EQUAL
+(string-not-equal "abc" "abd")
+
+== STRING-NOT-EQUAL
+(string-not-equal "abc" "ABC")
+
+== STRING-LESSP
+(string-lessp "apple" "Banana")
+
+== STRING-LESSP
+(string-lessp "b" "A")
+
+== STRING-GREATERP
+(string-greaterp "banana" "Apple")
+
+== STRING-GREATERP
+(string-greaterp "a" "B")
+
+== STRING-NOT-LESSP
+(string-not-lessp "b" "A")
+
+== STRING-NOT-LESSP
+(string-not-lessp "a" "B")
+
+== STRING-NOT-GREATERP
+(string-not-greaterp "a" "B")
+
+== STRING-NOT-GREATERP
+(string-not-greaterp "c" "B")
+
+== STRING<
+(string< "apple" "banana")
+
+== STRING<
+(string< "b" "a")
+
+== STRING<
+(sort (list "pear" "fig" "apple") #'string<)
+
+== STRING<=
+(string<= "abc" "abc")
+
+== STRING<=
+(string<= "b" "a")
+
+== STRING>
+(string> "b" "a")
+
+== STRING>
+(sort (list "pear" "fig" "apple") #'string>)
+
+== STRING>=
+(string>= "b" "b")
+
+== STRING>=
+(string>= "a" "b")
+
+== STRING/=
+(string/= "abc" "abd")
+
+== STRING/=
+(string/= "abc" "abc")
+
+== STRING-LEFT-TRIM
+(string-left-trim " " "  hi  ")
+
+== STRING-LEFT-TRIM
+(string-left-trim "0" "000123")
+
+== STRING-RIGHT-TRIM
+(string-right-trim " " "  hi  ")
+
+== STRING-RIGHT-TRIM
+(string-right-trim '(#\. #\!) "done...!")
+
+== KEYWORDP
+(keywordp :a)
+
+== KEYWORDP
+(keywordp 'a)
+
+== KEYWORDP
+(keywordp "a")
+
+== SYMBOLP
+(symbolp 'a)
+
+== SYMBOLP
+(symbolp nil)
+
+== SYMBOLP
+(symbolp "a")
+
+== SYMBOLP
+(mapcar #'symbolp '(a :b 1))
+
+== SYMBOL-VALUE
+(progn (defvar *answer* 42) (symbol-value '*answer*))
+
+== SYMBOL-VALUE
+(let ((name '*answer*))
+  (setf (symbol-value name) 7)
+  *answer*)
+
+== SYMBOL-FUNCTION
+(funcall (symbol-function 'car) '(1 2))
+
+== SYMBOL-FUNCTION
+(functionp (symbol-function 'list))
+
+== SYMBOL-PACKAGE
+(package-name (symbol-package 'car))
+
+== SYMBOL-PACKAGE
+(package-name (symbol-package :keyword-symbol))
+
+== SYMBOL-PACKAGE
+(symbol-package (make-symbol "S"))
+
+== MAKE-SYMBOL
+(symbol-name (make-symbol "foo"))
+
+== MAKE-SYMBOL
+(eq (make-symbol "A") (make-symbol "A"))
+
+== MAKE-SYMBOL
+(symbol-package (make-symbol "A"))
+
+== COPY-SYMBOL
+(symbol-name (copy-symbol 'foo))
+
+== COPY-SYMBOL
+(eq (copy-symbol 'foo) 'foo)
+
+== COPY-SYMBOL
+(let ((a 'bar))
+  (defvar *bar* 1)
+  (boundp (copy-symbol a)))
+
+== GENTEMP
+(symbolp (gentemp))
+
+== GENTEMP
+(null (symbol-package (gensym)))
+
+== SET
+(set 'dynamic-var 10)
+(symbol-value 'dynamic-var)
+(let ((name 'another-var))
+  (set name :value)
+  (symbol-value name))
+
+== BOUNDP
+(boundp 'nothing-here-ever)
+
+== BOUNDP
+(boundp 'pi)
+
+== BOUNDP
+(progn (defvar *known* 1) (boundp '*known*))
+
+== MAKUNBOUND
+(progn
+  (defvar *temp* 1)
+  (makunbound '*temp*)
+  (boundp '*temp*))
+
+== FBOUNDP
+(and (fboundp 'car) t)
+
+== FBOUNDP
+(fboundp 'no-such-function-anywhere)
+
+== FBOUNDP
+(and (fboundp 'when) t)
+
+== FMAKUNBOUND
+-- silent
+(defun temporary-fn () :here)
+(and (fboundp 'temporary-fn) t)
+(progn (fmakunbound 'temporary-fn) (fboundp 'temporary-fn))
+
+== FDEFINITION
+(funcall (fdefinition 'car) '(7 8))
+-- silent
+(defun counter () 42)
+(funcall (fdefinition 'counter))
+
+== MACRO-FUNCTION
+(functionp (macro-function 'when))
+
+== MACRO-FUNCTION
+(macro-function 'car)
+
+== MACRO-FUNCTION
+(funcall (macro-function 'when) '(when a b) nil)
+
+== COMPILER-MACRO-FUNCTION
+(compiler-macro-function 'car)
+
+== COMPILER-MACRO-FUNCTION
+(functionp (compiler-macro-function 'nth))
+
+== SPECIAL-OPERATOR-P
+(special-operator-p 'if)
+
+== SPECIAL-OPERATOR-P
+(special-operator-p 'when)
+
+== SPECIAL-OPERATOR-P
+(special-operator-p 'car)
+
+== FUNCTIONP
+(functionp #'car)
+
+== FUNCTIONP
+(functionp 'car)
+
+== FUNCTIONP
+(functionp (lambda (x) x))
+
+== COMPILED-FUNCTION-P
+(compiled-function-p #'car)
+
+== COMPILED-FUNCTION-P
+(compiled-function-p (compile nil '(lambda (x) x)))
+
+== FUNCTION-LAMBDA-EXPRESSION
+(nth-value 2 (function-lambda-expression #'car))
+
+== FUNCTION-LAMBDA-EXPRESSION
+(consp (function-lambda-expression (lambda (x) x)))
+
+== COMPILE
+(funcall (compile nil '(lambda (x) (* x 2))) 21)
+-- silent
+(defun slow-add (a b)
+  (+ a b))
+(compile 'slow-add)
+(slow-add 1 2)
+
+== EVAL
+(eval '(+ 1 2 3))
+
+== EVAL
+(eval (list '* 6 7))
+
+== EVAL
+(let ((form '(list 'a 'b)))
+  (eval form))
+
+== INTERN
+(multiple-value-list (intern "FRESH-SYMBOL-1"))
+(multiple-value-list (intern "FRESH-SYMBOL-1"))
+(symbol-name (intern "mixed-Case"))
+
+== FIND-SYMBOL
+(multiple-value-list (find-symbol "CAR"))
+
+== FIND-SYMBOL
+(multiple-value-list (find-symbol "NEVER-INTERNED-ANYWHERE"))
+
+== FIND-SYMBOL
+(multiple-value-list (find-symbol "NEVER-INTERNED-KEYWORD-XYZ" "KEYWORD"))
+
+== UNINTERN
+(let ((sym (intern "TO-REMOVE")))
+  (list (unintern sym) (find-symbol "TO-REMOVE")))
+
+== PROCLAIM
+(progn (proclaim '(special *dyn*)) (boundp '*dyn*))
+
+== PROCLAIM
+(progn (proclaim '(optimize (speed 1))) :done)
+
+== MAKE-PACKAGE
+(let ((pkg (make-package "DEMO-MAKE" :use '("COMMON-LISP"))))
+  (prog1 (package-name pkg)
+    (delete-package pkg)))
+
+== MAKE-PACKAGE
+(let ((pkg (make-package "DEMO-NICK" :nicknames '("DN"))))
+  (prog1 (package-nicknames pkg)
+    (delete-package pkg)))
+
+== PACKAGEP
+(packagep *package*)
+
+== PACKAGEP
+(packagep "COMMON-LISP")
+
+== PACKAGEP
+(packagep (find-package "KEYWORD"))
+
+== PACKAGE-NAME
+(package-name (find-package "CL"))
+
+== PACKAGE-NAME
+(package-name :keyword)
+
+== PACKAGE-NAME
+(package-name (symbol-package 'car))
+
+== PACKAGE-NICKNAMES
+(package-nicknames (find-package "COMMON-LISP"))
+
+== PACKAGE-USE-LIST
+(null (package-use-list (find-package "KEYWORD")))
+
+== PACKAGE-USE-LIST
+(let ((pkg (make-package "DEMO-USE" :use '("COMMON-LISP"))))
+  (prog1 (mapcar #'package-name (package-use-list pkg))
+    (delete-package pkg)))
+
+== PACKAGE-USED-BY-LIST
+(let* ((lib (make-package "DEMO-LIB" :use '()))
+       (app (make-package "DEMO-APP" :use '("DEMO-LIB"))))
+  (prog1 (mapcar #'package-name (package-used-by-list lib))
+    (delete-package app)
+    (delete-package lib)))
+
+== PACKAGE-SHADOWING-SYMBOLS
+(let ((pkg (make-package "DEMO-SHADOW" :use '("COMMON-LISP"))))
+  (shadow "CAR" pkg)
+  (prog1 (mapcar #'symbol-name (package-shadowing-symbols pkg))
+    (delete-package pkg)))
+
+== FIND-PACKAGE
+(package-name (find-package "CL"))
+
+== FIND-PACKAGE
+(find-package "NO-SUCH-PACKAGE")
+
+== FIND-PACKAGE
+(eq (find-package :keyword) (find-package "KEYWORD"))
+
+== FIND-ALL-SYMBOLS
+(length (find-all-symbols "CAR"))
+
+== FIND-ALL-SYMBOLS
+(let ((pkg (make-package "DEMO-FAS" :use '())))
+  (intern "UNIQUE-DEMO-NAME" pkg)
+  (prog1 (mapcar (lambda (symbol) (package-name (symbol-package symbol)))
+                 (find-all-symbols "UNIQUE-DEMO-NAME"))
+    (delete-package pkg)))
+
+== LIST-ALL-PACKAGES
+(and (member (find-package "COMMON-LISP") (list-all-packages)) t)
+
+== LIST-ALL-PACKAGES
+(listp (list-all-packages))
+
+== EXPORT
+(let ((pkg (make-package "DEMO-EXPORT" :use '())))
+  (let ((sym (intern "PUBLIC" pkg)))
+    (export sym pkg)
+    (prog1 (nth-value 1 (find-symbol "PUBLIC" pkg))
+      (delete-package pkg))))
+
+== UNEXPORT
+(let ((pkg (make-package "DEMO-UNEXPORT" :use '())))
+  (let ((sym (intern "THING" pkg)))
+    (export sym pkg)
+    (unexport sym pkg)
+    (prog1 (nth-value 1 (find-symbol "THING" pkg))
+      (delete-package pkg))))
+
+== IMPORT
+(let ((pkg (make-package "DEMO-IMPORT" :use '())))
+  (import 'car pkg)
+  (prog1 (eq (find-symbol "CAR" pkg) 'car)
+    (delete-package pkg)))
+
+== SHADOW
+(let ((pkg (make-package "DEMO-SH" :use '("COMMON-LISP"))))
+  (shadow "LIST" pkg)
+  (prog1 (eq (find-symbol "LIST" pkg) 'list)
+    (delete-package pkg)))
+
+== SHADOWING-IMPORT
+(let ((pkg (make-package "DEMO-SI" :use '("COMMON-LISP"))))
+  (shadowing-import 'cons pkg)
+  (prog1 (eq (find-symbol "CONS" pkg) 'cons)
+    (delete-package pkg)))
+
+== USE-PACKAGE
+(let ((lib (make-package "DEMO-UP-LIB" :use '()))
+      (app (make-package "DEMO-UP-APP" :use '())))
+  (export (intern "TOOL" lib) lib)
+  (use-package lib app)
+  (prog1 (eq (find-symbol "TOOL" app) (find-symbol "TOOL" lib))
+    (delete-package app)
+    (delete-package lib)))
+
+== UNUSE-PACKAGE
+(let ((lib (make-package "DEMO-UU-LIB" :use '()))
+      (app (make-package "DEMO-UU-APP" :use '())))
+  (export (intern "TOOL" lib) lib)
+  (use-package lib app)
+  (unuse-package lib app)
+  (prog1 (find-symbol "TOOL" app)
+    (delete-package app)
+    (delete-package lib)))
+
+== RENAME-PACKAGE
+(let ((pkg (make-package "DEMO-OLD" :use '())))
+  (rename-package pkg "DEMO-NEW")
+  (prog1 (package-name pkg)
+    (delete-package pkg)))
+
+== DELETE-PACKAGE
+(let ((pkg (make-package "DEMO-DEL" :use '())))
+  (list (delete-package pkg) (find-package "DEMO-DEL")))
+
+== DEFPACKAGE
+(package-name (defpackage "DEMO-DEFPKG-1"
+               (:use "COMMON-LISP")
+               (:export "HELLO")))
+(let ((pkg (find-package "DEMO-DEFPKG-1")))
+  (prog1 (list (package-name pkg) (nth-value 1 (find-symbol "HELLO" pkg)))
+    (delete-package pkg)))
+
+== IN-PACKAGE
+(let ((*package* *package*))
+  (make-package "DEMO-IN" :use '("COMMON-LISP"))
+  (in-package "DEMO-IN")
+  (prog1 (package-name *package*)
+    (setf *package* (find-package "COMMON-LISP-USER"))
+    (delete-package "DEMO-IN")))
+
+== DO-SYMBOLS
+(let ((pkg (make-package "DEMO-DS" :use '())))
+  (intern "B" pkg)
+  (intern "A" pkg)
+  (let ((names '()))
+    (do-symbols (sym pkg)
+      (push (symbol-name sym) names))
+    (prog1 (sort names #'string<)
+      (delete-package pkg))))
+
+== DO-EXTERNAL-SYMBOLS
+(let ((pkg (make-package "DEMO-DES" :use '())))
+  (export (intern "PUBLIC" pkg) pkg)
+  (intern "PRIVATE" pkg)
+  (let ((names '()))
+    (do-external-symbols (sym pkg)
+      (push (symbol-name sym) names))
+    (prog1 names
+      (delete-package pkg))))
+
+== DO-ALL-SYMBOLS
+(let ((pkg (make-package "DEMO-DAS" :use '()))
+      (found nil))
+  (intern "VERY-UNIQUE-DEMO-SYMBOL" pkg)
+  (do-all-symbols (sym)
+    (when (string= (symbol-name sym) "VERY-UNIQUE-DEMO-SYMBOL")
+      (setf found t)))
+  (delete-package pkg)
+  found)
+
+== WITH-PACKAGE-ITERATOR
+(let ((pkg (make-package "DEMO-WPI" :use '()))
+      (names '()))
+  (intern "ONLY" pkg)
+  (with-package-iterator (next pkg :internal :external)
+    (loop (multiple-value-bind (more symbol) (next)
+            (unless more (return))
+            (push (symbol-name symbol) names))))
+  (delete-package pkg)
+  names)
+
+== *PACKAGE*
+(package-name *package*)
+
+== *PACKAGE*
+(let ((*package* (find-package "KEYWORD")))
+  (prin1-to-string 'sym))
+
+== *PACKAGE*
+(symbol-name (intern "S" *package*))
+
+== *MODULES*
+(listp *modules*)
+
+== *MODULES*
+(progn (provide "DEMO-MODULE") (and (member "DEMO-MODULE" *modules* :test #'string=) t))
+
+== PROVIDE
+(progn (provide "DEMO-PROVIDE") (and (member "DEMO-PROVIDE" *modules* :test #'string=) t))
+
+== REQUIRE
+(progn (provide "DEMO-REQUIRE") (require "DEMO-REQUIRE"))
+(and (member "DEMO-REQUIRE" *modules* :test #'string=) t)
+
+== MAKE-STRING-OUTPUT-STREAM
+(let ((out (make-string-output-stream)))
+  (write-string "abc" out)
+  (write-char #\d out)
+  (get-output-stream-string out))
+
+== MAKE-STRING-OUTPUT-STREAM
+(let ((out (make-string-output-stream)))
+  (format out "~D-~D" 1 2)
+  (get-output-stream-string out))
+
+== GET-OUTPUT-STREAM-STRING
+(let ((out (make-string-output-stream)))
+  (princ "first" out)
+  (list (get-output-stream-string out)
+        (get-output-stream-string out)))
+
+== MAKE-STRING-INPUT-STREAM
+(let ((in (make-string-input-stream "hello world")))
+  (list (read-char in) (read-char in) (read-line in)))
+
+== MAKE-STRING-INPUT-STREAM
+(read-line (make-string-input-stream "one
+two"))
+
+== MAKE-STRING-INPUT-STREAM
+(read (make-string-input-stream "(a b c)"))
+
+== WITH-INPUT-FROM-STRING
+(with-input-from-string (in "1 2 3")
+  (list (read in) (read in) (read in)))
+
+== WITH-INPUT-FROM-STRING
+(with-input-from-string (in "first
+second")
+  (loop for line = (read-line in nil)
+        while line
+        collect line))
+
+== WITH-INPUT-FROM-STRING
+(with-input-from-string (in "abcdef" :start 2)
+  (read-line in))
+
+== WITH-OPEN-STREAM
+(with-open-stream (out (make-string-output-stream))
+  (princ "inside" out)
+  (get-output-stream-string out))
+
+== WITH-OPEN-STREAM
+(with-open-stream (in (make-string-input-stream "x y"))
+  (read-line in))
+
+== STREAMP
+(streamp *standard-output*)
+
+== STREAMP
+(streamp (make-string-input-stream "x"))
+
+== STREAMP
+(streamp "stream")
+
+== READ
+(read-from-string "(1 2 3)")
+
+== READ
+(read (make-string-input-stream "#(1 2) rest"))
+
+== READ
+(read (make-string-input-stream "") nil :eof)
+
+== READ-LINE
+(multiple-value-list (read-line (make-string-input-stream "first
+second")))
+
+== READ-LINE
+(multiple-value-list (read-line (make-string-input-stream "no newline")))
+
+== READ-LINE
+(read-line (make-string-input-stream "") nil :at-end)
+
+== READ-CHAR
+(let ((in (make-string-input-stream "ab")))
+  (list (read-char in) (read-char in) (read-char in nil :eof)))
+
+== PEEK-CHAR
+(let ((in (make-string-input-stream "  x y")))
+  (list (peek-char t in) (read-char in)))
+
+== PEEK-CHAR
+(let ((in (make-string-input-stream "abc")))
+  (list (peek-char nil in) (peek-char nil in) (read-char in)))
+
+== PEEK-CHAR
+(peek-char #\c (make-string-input-stream "abcd"))
+
+== UNREAD-CHAR
+(let ((in (make-string-input-stream "xy")))
+  (let ((char (read-char in)))
+    (unread-char char in)
+    (list (read-char in) (read-char in))))
+
+== READ-CHAR-NO-HANG
+(read-char-no-hang (make-string-input-stream "z"))
+
+== READ-CHAR-NO-HANG
+(read-char-no-hang (make-string-input-stream "") nil :nothing)
+
+== LISTEN
+(listen (make-string-input-stream "x"))
+
+== LISTEN
+(listen (make-string-input-stream ""))
+
+== READ-DELIMITED-LIST
+(with-input-from-string (in "1 2 3) leftover")
+  (read-delimited-list #\) in))
+
+== READ-DELIMITED-LIST
+(with-input-from-string (in "a b ] c")
+  (read-delimited-list #\] in))
+
+== READ-PRESERVING-WHITESPACE
+(with-input-from-string (in "abc def")
+  (list (read-preserving-whitespace in) (read-char in)))
+
+== READ-PRESERVING-WHITESPACE
+(with-input-from-string (in "abc def")
+  (list (read in) (read-char in)))
+
+== READ-SEQUENCE
+(let ((buffer (make-string 3 :initial-element #\-)))
+  (list (read-sequence buffer (make-string-input-stream "abcdef")) buffer))
+
+== READ-SEQUENCE
+(let ((buffer (make-array 4 :initial-element 0)))
+  (list (read-sequence buffer (make-string-input-stream "")) buffer))
+
+== CLEAR-INPUT
+(clear-input (make-string-input-stream "abc"))
+
+== CLEAR-OUTPUT
+(clear-output (make-string-output-stream))
+
+== FINISH-OUTPUT
+(finish-output (make-string-output-stream))
+
+== FINISH-OUTPUT
+(progn (princ "x") (finish-output))
+
+== FORCE-OUTPUT
+(force-output (make-string-output-stream))
+
+== FORCE-OUTPUT
+(progn (princ "y") (force-output))
+
+== TERPRI
+(progn (princ "a") (terpri) (princ "b") :done)
+
+== TERPRI
+(with-output-to-string (s) (princ 1 s) (terpri s) (princ 2 s))
+
+== FRESH-LINE
+(progn (fresh-line) (princ "a") (fresh-line) (fresh-line) (princ "b") :done)
+
+== FRESH-LINE
+(with-output-to-string (s) (princ "x" s) (fresh-line s) (fresh-line s) (princ "y" s))
+
+== WRITE-CHAR
+(write-char #\A)
+
+== WRITE-CHAR
+(with-output-to-string (s) (write-char #\a s) (write-char #\b s))
+
+== WRITE-CHAR
+(map nil #'write-char "xyz")
+
+== WRITE-STRING
+(write-string "hello")
+
+== WRITE-STRING
+(with-output-to-string (s) (write-string "abcdef" s :start 2 :end 4))
+
+== WRITE-LINE
+(write-line "hello")
+
+== WRITE-LINE
+(with-output-to-string (s) (write-line "one" s) (write-line "two" s))
+
+== WRITE-SEQUENCE
+(write-sequence "abc" *standard-output*)
+
+== WRITE-SEQUENCE
+(with-output-to-string (s) (write-sequence '(#\x #\y) s))
+
+== WRITE-SEQUENCE
+(with-output-to-string (s) (write-sequence "hello" s :start 1 :end 3))
+
+== WRITE
+(write '(1 "two" :three))
+
+== WRITE
+(write "text" :escape nil)
+
+== WRITE
+(write 255 :base 16 :radix t)
+
+== WRITE
+(write-to-string 'Hello :case :downcase)
+
+== WRITE-TO-STRING
+(write-to-string '(1 "two"))
+
+== WRITE-TO-STRING
+(write-to-string 255 :base 2)
+
+== WRITE-TO-STRING
+(write-to-string "q" :escape nil)
+
+== WRITE-TO-STRING
+(write-to-string 1/3 :radix t)
+
+== PPRINT
+(pprint '(a b c))
+
+== PPRINT
+(let ((*print-right-margin* 20))
+  (pprint '(defun long-function-name (first-argument second-argument) (body))))
+
+== PPRINT-FILL
+(let ((*print-right-margin* 20))
+  (pprint-fill *standard-output* '(aaa bbb ccc ddd eee fff ggg hhh)))
+
+== PPRINT-LINEAR
+(let ((*print-right-margin* 20))
+  (pprint-linear *standard-output* '(aaa bbb ccc ddd eee fff ggg hhh)))
+
+== PPRINT-LINEAR
+(pprint-linear *standard-output* '(a b c))
+
+== PPRINT-TABULAR
+(let ((*print-right-margin* 24))
+  (pprint-tabular *standard-output* '(aa bb cc dd ee ff gg hh) t nil 6))
+
+== PPRINT-NEWLINE
+(pprint-logical-block (*standard-output* nil)
+  (princ "a")
+  (pprint-newline :mandatory)
+  (princ "b"))
+
+== PPRINT-NEWLINE
+(let ((*print-right-margin* 8))
+  (pprint-logical-block (*standard-output* nil)
+    (princ "abcdef")
+    (pprint-newline :fill)
+    (princ "ghijkl")))
+
+== PPRINT-INDENT
+(let ((*print-right-margin* 12))
+  (pprint-logical-block (*standard-output* nil :prefix "(" :suffix ")")
+    (princ "head")
+    (pprint-indent :block 2)
+    (pprint-newline :mandatory)
+    (princ "body")))
+
+== PPRINT-TAB
+(pprint-logical-block (*standard-output* nil)
+  (princ "ab")
+  (pprint-tab :line 6 1)
+  (princ "cd"))
+
+== PPRINT-TAB
+(pprint-logical-block (*standard-output* nil)
+  (princ "x")
+  (pprint-tab :section 4 1)
+  (princ "y"))
+
+== PPRINT-LOGICAL-BLOCK
+(pprint-logical-block (*standard-output* '(1 2 3) :prefix "[" :suffix "]")
+  (loop (princ (pprint-pop))
+        (pprint-exit-if-list-exhausted)
+        (write-char #\Space)))
+
+== PPRINT-LOGICAL-BLOCK
+(with-output-to-string (stream)
+  (pprint-logical-block (stream nil :prefix "<" :suffix ">")
+    (princ "inside" stream)))
+
+== PPRINT-POP
+(pprint-logical-block (*standard-output* '(a b))
+  (princ (pprint-pop))
+  (princ (pprint-pop)))
+
+== PPRINT-EXIT-IF-LIST-EXHAUSTED
+(pprint-logical-block (*standard-output* '(1 2))
+  (loop (pprint-exit-if-list-exhausted)
+        (princ (pprint-pop))
+        (princ "|")))
+
+== COPY-PPRINT-DISPATCH
+(let ((table (copy-pprint-dispatch)))
+  (functionp (pprint-dispatch 42 table)))
+
+== COPY-PPRINT-DISPATCH
+(typep (copy-pprint-dispatch nil) 'standard-object)
+
+== SET-PPRINT-DISPATCH
+(let ((*print-pprint-dispatch* (copy-pprint-dispatch))
+      (*print-pretty* t))
+  (set-pprint-dispatch 'integer
+                       (lambda (stream integer)
+                         (write-string (write-to-string integer :pretty nil) stream)
+                         (write-string "!" stream)))
+  (prin1-to-string '(1 2 3)))
+
+== PPRINT-DISPATCH
+(functionp (pprint-dispatch 42))
+
+== PPRINT-DISPATCH
+(let ((*print-pprint-dispatch* (copy-pprint-dispatch)))
+  (set-pprint-dispatch 'string (lambda (stream string) (write-string "STR" stream)))
+  (nth-value 1 (pprint-dispatch "x")))
+
+== *PRINT-PPRINT-DISPATCH*
+(typep *print-pprint-dispatch* 'standard-object)
+
+== *PRINT-PPRINT-DISPATCH*
+(let ((*print-pprint-dispatch* (copy-pprint-dispatch))
+      (*print-pretty* t))
+  (set-pprint-dispatch 'symbol
+                       (lambda (stream symbol)
+                         (write-string "<" stream)
+                         (write-string (symbol-name symbol) stream)
+                         (write-string ">" stream)))
+  (prin1-to-string 'sym))
+
+== FORMATTER
+(with-output-to-string (stream)
+  (funcall (formatter "~D items") stream 3))
+
+== FORMATTER
+(with-output-to-string (stream)
+  (funcall (formatter "~{~A~^, ~}") stream '(a b c)))
+
+== FORMATTER
+(format nil (formatter "~A-~A") 1 2)
+
+== PRINT-UNREADABLE-OBJECT
+(with-output-to-string (stream)
+  (print-unreadable-object ('(1 2) stream :type t)
+    (princ "payload" stream)))
+-- silent
+(defclass gadget () ((name :initarg :name :reader gadget-name)))
+-- silent
+(defmethod print-object ((object gadget) stream)
+  (print-unreadable-object (object stream)
+    (format stream "gadget ~A" (gadget-name object))))
+(prin1-to-string (make-instance 'gadget :name "gizmo"))
+
+== PRINT-OBJECT
+-- silent
+(defclass point ()
+  ((x :initarg :x :reader point-x)
+   (y :initarg :y :reader point-y)))
+-- silent
+(defmethod print-object ((point point) stream)
+  (format stream "#<point ~D,~D>" (point-x point) (point-y point)))
+(prin1-to-string (make-instance 'point :x 1 :y 2))
+(format nil "~A" (make-instance 'point :x 3 :y 4))
+
+== PRINT-NOT-READABLE-OBJECT
+(handler-case
+    (let ((*print-readably* t))
+      (prin1-to-string (make-hash-table)))
+  (print-not-readable (condition)
+    (type-of (print-not-readable-object condition))))
+
+== PRINT-NOT-READABLE-OBJECT
+(handler-case
+    (let ((*print-readably* t))
+      (prin1-to-string (make-symbol "X")))
+  (print-not-readable () :unreadable))
+
+== PRINT-NOT-READABLE-OBJECT
+(let ((*print-readably* t))
+  (prin1-to-string '(1 "two")))
+
+== *PRINT-ARRAY*
+(let ((*print-array* nil))
+  (and (search "SIMPLE-VECTOR" (prin1-to-string (make-array 3 :initial-element 0))) t))
+
+== *PRINT-ARRAY*
+(let ((*print-array* t))
+  (prin1-to-string (make-array 3 :initial-element 0)))
+
+== *PRINT-BASE*
+(let ((*print-base* 16))
+  (prin1-to-string 255))
+
+== *PRINT-BASE*
+(let ((*print-base* 2))
+  (prin1-to-string 10))
+
+== *PRINT-BASE*
+(let ((*print-base* 8))
+  (format nil "~D" 64))
+
+== *PRINT-RADIX*
+(let ((*print-radix* t) (*print-base* 16))
+  (prin1-to-string 255))
+
+== *PRINT-RADIX*
+(let ((*print-radix* t))
+  (prin1-to-string 10))
+
+== *PRINT-CASE*
+(let ((*print-case* :downcase))
+  (prin1-to-string 'hello))
+
+== *PRINT-CASE*
+(let ((*print-case* :capitalize))
+  (prin1-to-string '(hello world)))
+
+== *PRINT-CASE*
+(let ((*print-case* :upcase))
+  (prin1-to-string 'hello))
+
+== *PRINT-CIRCLE*
+(let ((*print-circle* t)
+      (cycle (list 1 2)))
+  (setf (cdr (last cycle)) cycle)
+  (prin1-to-string cycle))
+
+== *PRINT-CIRCLE*
+(let ((*print-circle* t)
+      (shared (list :x)))
+  (prin1-to-string (list shared shared)))
+
+== *PRINT-ESCAPE*
+(let ((*print-escape* nil))
+  (prin1-to-string "text"))
+
+== *PRINT-ESCAPE*
+(let ((*print-escape* t))
+  (prin1-to-string "text"))
+
+== *PRINT-ESCAPE*
+(let ((*print-escape* nil))
+  (prin1-to-string '(#\a "b")))
+
+== *PRINT-GENSYM*
+(let ((*print-gensym* t))
+  (prin1-to-string (make-symbol "G")))
+
+== *PRINT-GENSYM*
+(let ((*print-gensym* nil))
+  (prin1-to-string (make-symbol "G")))
+
+== *PRINT-LENGTH*
+(let ((*print-length* 3))
+  (prin1-to-string '(1 2 3 4 5 6)))
+
+== *PRINT-LENGTH*
+(let ((*print-length* 2))
+  (prin1-to-string #(1 2 3)))
+
+== *PRINT-LENGTH*
+(let ((*print-length* 0))
+  (prin1-to-string '(1 2)))
+
+== *PRINT-LEVEL*
+(let ((*print-level* 1))
+  (prin1-to-string '(1 (2 (3)))))
+
+== *PRINT-LEVEL*
+(let ((*print-level* 2))
+  (prin1-to-string '(1 (2 (3)))))
+
+== *PRINT-LINES*
+(let ((*print-lines* 2)
+      (*print-right-margin* 10)
+      (*print-pretty* t))
+  (write-to-string '(aaa bbb ccc ddd eee fff ggg hhh iii)))
+
+== *PRINT-MISER-WIDTH*
+(let ((*print-miser-width* 10))
+  *print-miser-width*)
+
+== *PRINT-MISER-WIDTH*
+(typep *print-miser-width* '(or null integer))
+
+== *PRINT-PRETTY*
+(let ((*print-pretty* nil))
+  (prin1-to-string '(a b c)))
+
+== *PRINT-PRETTY*
+(let ((*print-pretty* t)
+      (*print-right-margin* 10))
+  (prin1-to-string '(aaaa bbbb cccc dddd)))
+
+== *PRINT-READABLY*
+(let ((*print-readably* t))
+  (prin1-to-string "a\"b"))
+
+== *PRINT-READABLY*
+(let ((*print-readably* t))
+  (prin1-to-string 'sym))
+
+== *PRINT-RIGHT-MARGIN*
+(let ((*print-right-margin* 12)
+      (*print-pretty* t))
+  (prin1-to-string '(aaaa bbbb cccc dddd)))
+
+== *PRINT-RIGHT-MARGIN*
+(let ((*print-right-margin* 80)
+      (*print-pretty* t))
+  (prin1-to-string '(aaaa bbbb cccc dddd)))
+
+== *STANDARD-OUTPUT*
+(with-output-to-string (*standard-output*)
+  (princ "captured"))
+
+== *STANDARD-OUTPUT*
+(let ((*standard-output* (make-broadcast-stream)))
+  (princ "discarded")
+  :quiet)
+
+== *STANDARD-OUTPUT*
+(streamp *standard-output*)
+
+== *STANDARD-INPUT*
+(let ((*standard-input* (make-string-input-stream "typed text")))
+  (read-line))
+
+== *STANDARD-INPUT*
+(let ((*standard-input* (make-string-input-stream "42")))
+  (read))
+
+== *ERROR-OUTPUT*
+(with-output-to-string (*error-output*)
+  (format *error-output* "problem"))
+
+== *ERROR-OUTPUT*
+(let ((*error-output* (make-string-output-stream)))
+  (warn "careful")
+  (and (search "careful" (get-output-stream-string *error-output*)) t))
+
+== *TRACE-OUTPUT*
+(with-output-to-string (*trace-output*)
+  (format *trace-output* "tracing"))
+
+== *TRACE-OUTPUT*
+(streamp *trace-output*)
+
+== *DEBUG-IO*
+(streamp *debug-io*)
+
+== *DEBUG-IO*
+(typep *debug-io* 'stream)
+
+== *QUERY-IO*
+(streamp *query-io*)
+
+== *QUERY-IO*
+(let ((*query-io* (make-two-way-stream (make-string-input-stream "y") (make-broadcast-stream))))
+  (y-or-n-p "Proceed?"))
+
+== *TERMINAL-IO*
+(streamp *terminal-io*)
+
+== *TERMINAL-IO*
+(typep *terminal-io* 'two-way-stream)
+
+== Y-OR-N-P
+(let ((*query-io* (make-two-way-stream (make-string-input-stream "y")
+                                       (make-broadcast-stream))))
+  (y-or-n-p "Continue?"))
+
+== Y-OR-N-P
+(let ((*query-io* (make-two-way-stream (make-string-input-stream "n")
+                                       (make-broadcast-stream))))
+  (y-or-n-p "Continue?"))
+
+== YES-OR-NO-P
+(let ((*query-io* (make-two-way-stream (make-string-input-stream (format nil "yes~%"))
+                                       (make-broadcast-stream))))
+  (yes-or-no-p "Really?"))
+
+== YES-OR-NO-P
+(let ((*query-io* (make-two-way-stream (make-string-input-stream (format nil "no~%"))
+                                       (make-broadcast-stream))))
+  (yes-or-no-p "Really?"))
+
+== MAKE-BROADCAST-STREAM
+(let ((a (make-string-output-stream))
+      (b (make-string-output-stream)))
+  (let ((both (make-broadcast-stream a b)))
+    (princ "hi" both)
+    (list (get-output-stream-string a) (get-output-stream-string b))))
+
+== MAKE-BROADCAST-STREAM
+(let ((sink (make-broadcast-stream)))
+  (princ "nowhere" sink)
+  :ok)
+
+== BROADCAST-STREAM-STREAMS
+(let ((a (make-string-output-stream))
+      (b (make-string-output-stream)))
+  (equal (list a b) (broadcast-stream-streams (make-broadcast-stream a b))))
+
+== BROADCAST-STREAM-STREAMS
+(broadcast-stream-streams (make-broadcast-stream))
+
+== MAKE-CONCATENATED-STREAM
+(let ((in (make-concatenated-stream (make-string-input-stream "ab")
+                                    (make-string-input-stream "cd"))))
+  (list (read-char in) (read-char in) (read-char in) (read-char in) (read-char in nil :eof)))
+
+== CONCATENATED-STREAM-STREAMS
+(let ((a (make-string-input-stream "x")))
+  (eq a (first (concatenated-stream-streams (make-concatenated-stream a)))))
+
+== MAKE-ECHO-STREAM
+(let* ((echoed (make-string-output-stream))
+       (echo (make-echo-stream (make-string-input-stream "abc") echoed)))
+  (read-char echo)
+  (read-char echo)
+  (get-output-stream-string echoed))
+
+== ECHO-STREAM-INPUT-STREAM
+(let* ((in (make-string-input-stream "x"))
+       (echo (make-echo-stream in (make-broadcast-stream))))
+  (eq in (echo-stream-input-stream echo)))
+
+== ECHO-STREAM-OUTPUT-STREAM
+(let* ((out (make-string-output-stream))
+       (echo (make-echo-stream (make-string-input-stream "x") out)))
+  (eq out (echo-stream-output-stream echo)))
+
+== MAKE-TWO-WAY-STREAM
+(let* ((out (make-string-output-stream))
+       (two-way (make-two-way-stream (make-string-input-stream "in") out)))
+  (write-string "out" two-way)
+  (list (read-line two-way) (get-output-stream-string out)))
+
+== TWO-WAY-STREAM-INPUT-STREAM
+(let ((in (make-string-input-stream "x")))
+  (eq in (two-way-stream-input-stream (make-two-way-stream in (make-broadcast-stream)))))
+
+== TWO-WAY-STREAM-OUTPUT-STREAM
+(let ((out (make-string-output-stream)))
+  (eq out (two-way-stream-output-stream
+           (make-two-way-stream (make-string-input-stream "") out))))
+
+== MAKE-SYNONYM-STREAM
+(let ((stream (make-synonym-stream '*standard-output*)))
+  (with-output-to-string (*standard-output*)
+    (princ "through synonym" stream)))
+
+== MAKE-SYNONYM-STREAM
+(synonym-stream-symbol (make-synonym-stream '*standard-input*))
+
+== SYNONYM-STREAM-SYMBOL
+(synonym-stream-symbol (make-synonym-stream '*standard-output*))
+
+== STREAM-ERROR-STREAM
+(handler-case (read-char (make-string-input-stream ""))
+  (end-of-file (condition)
+    (streamp (stream-error-stream condition))))
+
+== STREAM-EXTERNAL-FORMAT
+(let ((format (stream-external-format *standard-output*)))
+  (or (symbolp format) (consp format)))
+
+== FILE-STRING-LENGTH
+(file-string-length (make-broadcast-stream) "abc")
+
+== FILE-STRING-LENGTH
+(file-string-length (make-broadcast-stream) #\x)
+
+== FILE-LENGTH
+(let ((path "/tmp/cldocs-ex-file-length.txt"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string "12345" out))
+  (prog1 (with-open-file (in path) (file-length in))
+    (delete-file path)))
+
+== FILE-POSITION
+(let ((path "/tmp/cldocs-ex-file-position.txt"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string "abcdef" out))
+  (prog1 (with-open-file (in path)
+           (file-position in 3)
+           (list (file-position in) (read-char in) (file-position in)))
+    (delete-file path)))
+
+== OPEN
+(let ((path "/tmp/cldocs-ex-open.txt"))
+  (let ((out (open path :direction :output :if-exists :supersede)))
+    (write-line "first line" out)
+    (close out))
+  (let ((in (open path)))
+    (prog1 (read-line in)
+      (close in)
+      (delete-file path))))
+
+== OPEN
+(let ((path "/tmp/cldocs-ex-open-2.txt"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string "a" out))
+  (with-open-file (out path :direction :output :if-exists :append)
+    (write-string "b" out))
+  (prog1 (with-open-file (in path) (read-line in))
+    (delete-file path)))
+
+== OPEN
+(open "/tmp/cldocs-no-such-dir/none.txt" :if-does-not-exist nil)
+
+== WITH-OPEN-FILE
+(let ((path "/tmp/cldocs-ex-with-open.txt"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (format out "line ~D~%" 1)
+    (format out "line ~D~%" 2))
+  (prog1 (with-open-file (in path)
+           (loop for line = (read-line in nil)
+                 while line
+                 collect line))
+    (delete-file path)))
+
+== WITH-OPEN-FILE
+(let ((path "/tmp/cldocs-ex-binary.bin"))
+  (with-open-file (out path :direction :output :if-exists :supersede
+                            :element-type '(unsigned-byte 8))
+    (write-sequence #(1 2 255) out))
+  (prog1 (with-open-file (in path :element-type '(unsigned-byte 8))
+           (list (read-byte in) (read-byte in) (read-byte in) (read-byte in nil :eof)))
+    (delete-file path)))
+
+== READ-BYTE
+(let ((path "/tmp/cldocs-ex-read-byte.bin"))
+  (with-open-file (out path :direction :output :if-exists :supersede
+                            :element-type '(unsigned-byte 8))
+    (write-byte 7 out)
+    (write-byte 200 out))
+  (prog1 (with-open-file (in path :element-type '(unsigned-byte 8))
+           (list (read-byte in) (read-byte in) (read-byte in nil :end)))
+    (delete-file path)))
+
+== WRITE-BYTE
+(let ((path "/tmp/cldocs-ex-write-byte.bin"))
+  (with-open-file (out path :direction :output :if-exists :supersede
+                            :element-type '(unsigned-byte 8))
+    (list (write-byte 65 out) (write-byte 66 out)))
+  (prog1 (with-open-file (in path :element-type '(unsigned-byte 8))
+           (file-length in))
+    (delete-file path)))
+
+== CLOSE
+(let ((stream (make-string-input-stream "x")))
+  (list (open-stream-p stream) (close stream) (open-stream-p stream)))
+
+== CLOSE
+(let ((path "/tmp/cldocs-ex-close.txt"))
+  (let ((out (open path :direction :output :if-exists :supersede)))
+    (write-string "z" out)
+    (prog1 (close out)
+      (delete-file path))))
+
+== OPEN-STREAM-P
+(open-stream-p (make-string-input-stream "x"))
+
+== OPEN-STREAM-P
+(let ((s (make-string-input-stream "x")))
+  (close s)
+  (open-stream-p s))
+
+== INPUT-STREAM-P
+(input-stream-p (make-string-input-stream "x"))
+
+== INPUT-STREAM-P
+(input-stream-p (make-string-output-stream))
+
+== OUTPUT-STREAM-P
+(output-stream-p (make-string-output-stream))
+
+== OUTPUT-STREAM-P
+(output-stream-p (make-string-input-stream "x"))
+
+== INTERACTIVE-STREAM-P
+(interactive-stream-p (make-string-input-stream "x"))
+
+== STREAM-ELEMENT-TYPE
+(stream-element-type (make-string-input-stream "x"))
+
+== STREAM-ELEMENT-TYPE
+(stream-element-type (make-string-output-stream))
+
+== PROBE-FILE
+(probe-file "/tmp/cldocs-definitely-missing.txt")
+
+== PROBE-FILE
+(let ((path "/tmp/cldocs-ex-probe.txt"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string "x" out))
+  (prog1 (namestring (probe-file path))
+    (delete-file path)))
+
+== TRUENAME
+(namestring (truename "/tmp/"))
+
+== TRUENAME
+(handler-case (truename "/tmp/cldocs-nope-123.txt")
+  (file-error () :missing))
+
+== DELETE-FILE
+(let ((path "/tmp/cldocs-ex-delete.txt"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string "x" out))
+  (list (delete-file path) (probe-file path)))
+
+== DELETE-FILE
+(handler-case (delete-file "/tmp/cldocs-never-existed.txt")
+  (file-error () :cannot-delete))
+
+== RENAME-FILE
+(let ((old "/tmp/cldocs-ex-old.txt")
+      (new "/tmp/cldocs-ex-new.txt"))
+  (with-open-file (out old :direction :output :if-exists :supersede)
+    (write-string "x" out))
+  (rename-file old new)
+  (prog1 (list (and (probe-file old) t) (and (probe-file new) t))
+    (delete-file new)))
+
+== FILE-WRITE-DATE
+(let ((path "/tmp/cldocs-ex-date.txt"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string "x" out))
+  (prog1 (integerp (file-write-date path))
+    (delete-file path)))
+
+== FILE-WRITE-DATE
+(handler-case (file-write-date "/tmp/cldocs-never-here.txt")
+  (file-error () :missing))
+
+== FILE-AUTHOR
+(let ((path "/tmp/cldocs-ex-author.txt"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string "x" out))
+  (prog1 (typep (file-author path) '(or null string))
+    (delete-file path)))
+
+== ENSURE-DIRECTORIES-EXIST
+(let ((path "/tmp/cldocs-ex-dirs/a/b/file.txt"))
+  (multiple-value-bind (pathname created) (ensure-directories-exist path)
+    (list (namestring pathname) created)))
+
+== ENSURE-DIRECTORIES-EXIST
+(nth-value 1 (ensure-directories-exist "/tmp/cldocs-ex-dirs/a/b/file.txt"))
+
+== DIRECTORY
+(let ((dir "/tmp/cldocs-ex-directory/"))
+  (ensure-directories-exist dir)
+  (dolist (name '("b.txt" "a.txt" "c.log"))
+    (with-open-file (out (concatenate 'string dir name) :direction :output :if-exists :supersede)
+      (write-string "x" out)))
+  (prog1 (sort (mapcar #'file-namestring (directory (concatenate 'string dir "*.txt")))
+               #'string<)
+    (dolist (name '("b.txt" "a.txt" "c.log"))
+      (delete-file (concatenate 'string dir name)))))
+
+== LOAD
+(load (make-string-input-stream "(defvar *from-stream* :loaded)"))
+(symbol-value '*from-stream*)
+(let ((path "/tmp/cldocs-ex-load.lisp"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-line "(defparameter *loaded-name* (pathname-name *load-truename*))" out))
+  (load path)
+  (delete-file path)
+  *loaded-name*)
+
+== COMPILE-FILE
+(let ((source "/tmp/cldocs-ex-compile.lisp"))
+  (with-open-file (out source :direction :output :if-exists :supersede)
+    (write-line "(defun compiled-answer () 42)" out))
+  (let ((fasl (let ((*compile-verbose* nil) (*compile-print* nil))
+                (compile-file source))))
+    (load fasl)
+    (prog1 (funcall 'compiled-answer)
+      (delete-file source)
+      (delete-file fasl))))
+
+== COMPILE-FILE-PATHNAME
+(pathname-type (compile-file-pathname "/tmp/example.lisp"))
+
+== COMPILE-FILE-PATHNAME
+(namestring (compile-file-pathname "/tmp/example.lisp"))
+
+== *COMPILE-FILE-PATHNAME*
+*compile-file-pathname*
+
+== *COMPILE-FILE-TRUENAME*
+*compile-file-truename*
+
+== *COMPILE-PRINT*
+(typep *compile-print* 'boolean)
+
+== *COMPILE-VERBOSE*
+(typep *compile-verbose* 'boolean)
+
+== *LOAD-PATHNAME*
+(typep *load-pathname* '(or null pathname))
+
+== *LOAD-PATHNAME*
+(let ((path "/tmp/cldocs-ex-load-pathname.lisp"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-line "(defparameter *seen-load-pathname* (file-namestring *load-pathname*))" out))
+  (load path)
+  (delete-file path)
+  *seen-load-pathname*)
+
+== *LOAD-TRUENAME*
+(typep *load-truename* '(or null pathname))
+
+== *LOAD-TRUENAME*
+(let ((path "/tmp/cldocs-ex-load-truename.lisp"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-line "(defparameter *seen-truename* (namestring *load-truename*))" out))
+  (load path)
+  (delete-file path)
+  *seen-truename*)
+
+== *LOAD-PRINT*
+(typep *load-print* 'boolean)
+
+== *LOAD-VERBOSE*
+(typep *load-verbose* 'boolean)
+
+== *DEFAULT-PATHNAME-DEFAULTS*
+(pathnamep *default-pathname-defaults*)
+
+== *DEFAULT-PATHNAME-DEFAULTS*
+(let ((*default-pathname-defaults* #p"/tmp/"))
+  (namestring (merge-pathnames "file.txt")))
+
+== USER-HOMEDIR-PATHNAME
+(pathnamep (user-homedir-pathname))
+
+== USER-HOMEDIR-PATHNAME
+(null (pathname-name (user-homedir-pathname)))
+
+== PATHNAME
+(pathname "/tmp/example.txt")
+
+== PATHNAME
+(pathnamep (pathname "relative/file"))
+
+== PATHNAME
+(pathname (pathname "/a/b.c"))
+
+== PATHNAMEP
+(pathnamep #p"/tmp/x")
+
+== PATHNAMEP
+(pathnamep "/tmp/x")
+
+== PARSE-NAMESTRING
+(parse-namestring "/tmp/a/b.txt")
+
+== PARSE-NAMESTRING
+(pathname-name (parse-namestring "docs/readme.md"))
+
+== PARSE-NAMESTRING
+(multiple-value-list (parse-namestring "x.txt y.txt" nil *default-pathname-defaults* :junk-allowed t))
+
+== NAMESTRING
+(namestring #p"/tmp/a/b.txt")
+
+== NAMESTRING
+(namestring (make-pathname :name "x" :type "lisp"))
+
+== FILE-NAMESTRING
+(file-namestring "/tmp/a/b.txt")
+
+== FILE-NAMESTRING
+(file-namestring "/tmp/a/")
+
+== DIRECTORY-NAMESTRING
+(directory-namestring "/tmp/a/b.txt")
+
+== DIRECTORY-NAMESTRING
+(directory-namestring "b.txt")
+
+== HOST-NAMESTRING
+(host-namestring "/tmp/a/b.txt")
+
+== ENOUGH-NAMESTRING
+(enough-namestring "/tmp/a/b.txt" "/tmp/")
+
+== ENOUGH-NAMESTRING
+(enough-namestring "/tmp/a/b.txt" "/var/")
+
+== MAKE-PATHNAME
+(namestring (make-pathname :directory '(:absolute "tmp" "docs") :name "notes" :type "txt"))
+
+== MAKE-PATHNAME
+(namestring (make-pathname :name "readme" :type "md"))
+
+== MAKE-PATHNAME
+(pathname-directory (make-pathname :directory '(:relative "src")))
+
+== MERGE-PATHNAMES
+(namestring (merge-pathnames "b.txt" "/tmp/a.txt"))
+
+== MERGE-PATHNAMES
+(namestring (merge-pathnames "sub/file.lisp" "/home/user/"))
+
+== MERGE-PATHNAMES
+(namestring (merge-pathnames "x" "/tmp/dir/default.txt"))
+
+== PATHNAME-DIRECTORY
+(pathname-directory "/tmp/a/b.txt")
+
+== PATHNAME-DIRECTORY
+(pathname-directory "b.txt")
+
+== PATHNAME-DIRECTORY
+(pathname-directory "docs/b.txt")
+
+== PATHNAME-NAME
+(pathname-name "/tmp/archive.tar.gz")
+
+== PATHNAME-NAME
+(pathname-name "/tmp/dir/")
+
+== PATHNAME-TYPE
+(pathname-type "/tmp/archive.tar.gz")
+
+== PATHNAME-TYPE
+(pathname-type "/tmp/README")
+
+== PATHNAME-DEVICE
+(pathname-device "/tmp/a.txt")
+
+== PATHNAME-HOST
+(eq (pathname-host "/tmp/a") (pathname-host "/var/b"))
+
+== PATHNAME-VERSION
+(pathname-version "/tmp/a.txt")
+
+== PATHNAME-MATCH-P
+(pathname-match-p "/tmp/a.txt" "/tmp/*.txt")
+
+== PATHNAME-MATCH-P
+(pathname-match-p "/tmp/a.log" "/tmp/*.txt")
+
+== PATHNAME-MATCH-P
+(pathname-match-p "/tmp/sub/a.txt" "/tmp/**/*.txt")
+
+== TRANSLATE-PATHNAME
+(namestring (translate-pathname "/tmp/a.txt" "/tmp/*.txt" "/var/*.log"))
+
+== TRANSLATE-PATHNAME
+(namestring (translate-pathname "/src/lib/x.lisp" "/src/**/*.lisp" "/out/**/*.fasl"))
+
+== WILD-PATHNAME-P
+(wild-pathname-p "/tmp/*.txt")
+
+== WILD-PATHNAME-P
+(wild-pathname-p "/tmp/a.txt")
+
+== WILD-PATHNAME-P
+(wild-pathname-p "/tmp/*.txt" :name)
+
+== LOGICAL-PATHNAME
+(progn
+  (setf (logical-pathname-translations "demo1") '(("**;*.*.*" "/tmp/demo1/**/*.*")))
+  (namestring (logical-pathname "demo1:src;a.lisp")))
+
+== LOGICAL-PATHNAME-TRANSLATIONS
+(progn
+  (setf (logical-pathname-translations "demo2") '(("**;*.*.*" "/tmp/demo2/**/*.*")))
+  (length (logical-pathname-translations "demo2")))
+
+== TRANSLATE-LOGICAL-PATHNAME
+(progn
+  (setf (logical-pathname-translations "demo3") '(("**;*.*.*" "/tmp/demo3/**/*.*")))
+  (namestring (translate-logical-pathname "demo3:docs;guide.txt")))
+
+== LOAD-LOGICAL-PATHNAME-TRANSLATIONS
+(handler-case (load-logical-pathname-translations "NO-SUCH-LOGICAL-HOST")
+  (error () :no-translations-file))
+
+== FILE-ERROR-PATHNAME
+(handler-case (open "/tmp/cldocs-no-such-dir-x/file.txt")
+  (file-error (condition)
+    (namestring (file-error-pathname condition))))
+
+== &OPTIONAL
+(funcall (lambda (a &optional (b 10)) (list a b)) 1)
+
+== &OPTIONAL
+(funcall (lambda (a &optional (b 10)) (list a b)) 1 2)
+
+== &OPTIONAL
+(funcall (lambda (&optional (x nil x-supplied-p)) (list x x-supplied-p)))
+
+== &REST
+(funcall (lambda (first &rest others) (list first others)) 1 2 3)
+(funcall (lambda (&rest all) (length all)))
+-- silent
+(defun sum-of (&rest numbers)
+  (reduce #'+ numbers))
+(sum-of 1 2 3 4)
+
+== &KEY
+(funcall (lambda (&key (a 1) (b 2)) (list a b)) :b 20)
+(funcall (lambda (&key ((:long-name n) 0)) n) :long-name 5)
+-- silent
+(defun make-box (&key (width 1) (height 1))
+  (* width height))
+(make-box :height 4 :width 3)
+
+== &ALLOW-OTHER-KEYS
+(funcall (lambda (&key a &allow-other-keys) a) :a 1 :unknown 2)
+
+== &ALLOW-OTHER-KEYS
+(handler-case (funcall (lambda (&key a) a) :a 1 :unknown 2)
+  (error () :rejected))
+
+== &ALLOW-OTHER-KEYS
+(funcall (lambda (&key a) a) :a 1 :allow-other-keys t :unknown 2)
+
+== &AUX
+(funcall (lambda (x &aux (double (* 2 x))) (list x double)) 5)
+
+== &AUX
+(funcall (lambda (&aux (a 1) (b (+ a 1))) (list a b)))
+
+== &BODY
+-- silent
+(defmacro with-twice (&body body)
+  `(progn ,@body ,@body))
+(let ((n 0))
+  (with-twice (incf n))
+  n)
+(macroexpand-1 '(with-twice (print 1)))
+
+== &ENVIRONMENT
+-- silent
+(defmacro constant-or-form (form &environment env)
+  (if (constantp form env) :constant :not-constant))
+(constant-or-form 42)
+(constant-or-form (+ 1 2))
+(constant-or-form some-variable)
+
+== &WHOLE
+-- silent
+(defmacro show-form (&whole form &rest arguments)
+  (declare (ignore arguments))
+  `',form)
+(show-form a b c)
+
+== DECLARE
+(let ((x 10))
+  (declare (type integer x))
+  (* x 2))
+(let ((unused 1) (used 2))
+  (declare (ignore unused))
+  used)
+(defun sum-fixnums (a b)
+  (declare (fixnum a b))
+  (+ a b))
+
+== TYPE
+(let ((n 5))
+  (declare (type (integer 0 10) n))
+  n)
+
+== TYPE
+(let ((items (list 1 2)))
+  (declare (type list items))
+  (length items))
+
+== TYPE
+(let ((s "abc"))
+  (declare (type string s))
+  (length s))
+
+== FTYPE
+-- silent
+(defun next-number (n)
+  (1+ n))
+(locally (declare (ftype (function (integer) integer) next-number))
+  (next-number 41))
+-- silent
+(declaim (ftype (function (list) list) twice))
+-- silent
+(defun twice (items)
+  (append items items))
+(twice '(a b))
+
+== INLINE
+(progn (declaim (inline add1))
+       (defun add1 (n) (+ n 1))
+       (add1 10))
+
+== INLINE
+(flet ((double (x) (* 2 x)))
+  (declare (inline double))
+  (double 21))
+
+== NOTINLINE
+(progn (declaim (notinline slow))
+       (defun slow (n) (* n n))
+       (slow 7))
+
+== NOTINLINE
+(flet ((double (x) (* 2 x)))
+  (declare (notinline double))
+  (double 21))
+
+== IGNORE
+(funcall (lambda (used unused) (declare (ignore unused)) used) 1 2)
+
+== IGNORE
+(let ((a 1) (b 2))
+  (declare (ignore a))
+  b)
+
+== IGNORABLE
+(funcall (lambda (a b) (declare (ignorable a b)) 42) 1 2)
+
+== IGNORABLE
+(let ((maybe 1))
+  (declare (ignorable maybe))
+  :ok)
+
+== OPTIMIZE
+(locally (declare (optimize (speed 3) (safety 1)))
+  (+ 1 2))
+(defun fast-add (a b)
+  (declare (optimize (speed 3) (safety 0)) (fixnum a b))
+  (the fixnum (+ a b)))
+
+== SPEED
+(locally (declare (optimize (speed 3)))
+  :fast)
+
+== SPEED
+(locally (declare (optimize (speed 0) (space 3)))
+  :small)
+
+== SAFETY
+(locally (declare (optimize (safety 3)))
+  (handler-case (car 5) (type-error () :checked)))
+
+== SAFETY
+(locally (declare (optimize (safety 1)))
+  :normal)
+
+== DEBUG
+(locally (declare (optimize (debug 3)))
+  :debuggable)
+
+== DEBUG
+(locally (declare (optimize (debug 0)))
+  :lean)
+
+== SPACE
+(locally (declare (optimize (space 2)))
+  :compact)
+
+== COMPILATION-SPEED
+(locally (declare (optimize (compilation-speed 3)))
+  :quick-compile)
+
+== SPECIAL
+(defvar *level* 0)
+(let ((*level* 1))
+  (declare (special *level*))
+  (symbol-value '*level*))
+(let ((x 1))
+  (declare (special x))
+  (symbol-value 'x))
+
+== DYNAMIC-EXTENT
+(let ((temp (list 1 2 3)))
+  (declare (dynamic-extent temp))
+  (reduce #'+ temp))
+
+== DYNAMIC-EXTENT
+(flet ((add (a b) (+ a b)))
+  (declare (dynamic-extent #'add))
+  (add 1 2))
+
+== DECLARATION
+(progn (declaim (declaration my-note))
+       (let ((x 1))
+         (declare (my-note x))
+         x))
+
+== COMPILER-MACRO
+(documentation 'car 'compiler-macro)
+
+== COMPILER-MACRO
+(compiler-macro-function 'car)
+
+== STANDARD
+-- silent
+(defgeneric describe-it (x))
+-- silent
+(defmethod describe-it ((x integer)) "integer")
+-- silent
+(defmethod describe-it :around ((x integer))
+  (list :around (call-next-method)))
+(describe-it 5)
+
+== STRUCTURE
+-- silent
+(defstruct documented-struct "A documented structure.")
+(documentation 'documented-struct 'structure)
+(documentation 'documented-struct 'type)
+
+== VARIABLE
+-- silent
+(defvar *documented* 1 "A documented variable.")
+(documentation '*documented* 'variable)
+(let ((symbol '*documented*))
+  (setf (documentation symbol 'variable) "New text.")
+  (documentation symbol 'variable))
+
+== OTHERWISE
+(case 5 (1 :one) (otherwise :other))
+
+== OTHERWISE
+(ecase :a (:a 1) (:b 2))
+
+== OTHERWISE
+(typecase "x" (integer :int) (otherwise :other))
+
+== SATISFIES
+(typep 4 '(satisfies evenp))
+
+== SATISFIES
+(typep 3 '(satisfies evenp))
+
+== SATISFIES
+(subtypep '(satisfies evenp) 'integer)
+
+== MAKE-METHOD
+-- silent
+(define-method-combination first-only ()
+  ((methods ()))
+  `(call-method ,(first methods)))
+-- silent
+(defgeneric pick (x) (:method-combination first-only))
+-- silent
+(defmethod pick ((x integer)) :integer)
+-- silent
+(defmethod pick ((x number)) :number)
+(pick 5)
+(pick 2.5)
+
+== NEXT-METHOD-P
+-- silent
+(defgeneric chain (x))
+-- silent
+(defmethod chain ((x integer)) (list :integer (next-method-p)))
+-- silent
+(defmethod chain ((x number)) (list :number (next-method-p)))
+(chain 1)
+(chain 1.5)
+
+== CALL-METHOD
+-- silent
+(define-method-combination sum-all ()
+  ((methods ()))
+  `(+ ,@(mapcar (lambda (method) `(call-method ,method)) methods)))
+-- silent
+(defgeneric weight (x) (:method-combination sum-all))
+-- silent
+(defmethod weight ((x integer)) 10)
+-- silent
+(defmethod weight ((x number)) 1)
+(weight 5)
+(weight 2.5)
+
+== **
+(boundp '**)
+
+== **
+(let ((** 5))
+  **)
+
+== ***
+(boundp '***)
+
+== ***
+(let ((*** :third))
+  ***)
+
+== ++
+(boundp '++)
+
+== ++
+(let ((++ '(+ 1 2)))
+  (eval ++))
+
+== +++
+(boundp '+++)
+
+== +++
+(let ((+++ 7))
+  (* +++ 2))
+
+== //
+(boundp '//)
+
+== //
+(let ((// '(1 2)))
+  (length //))
+
+== ///
+(boundp '///)
+
+== ///
+(let ((/// '(a)))
+  ///)
+
+== *BREAK-ON-SIGNALS*
+*break-on-signals*
+
+== *BREAK-ON-SIGNALS*
+(let ((*break-on-signals* nil))
+  (handler-case (error "quiet") (error () :handled)))
+
+== *DEBUGGER-HOOK*
+(catch 'done
+  (let ((*debugger-hook* (lambda (condition hook)
+                           (declare (ignore hook))
+                           (throw 'done (type-of condition))))
+        (sb-ext:*invoke-debugger-hook* nil))
+    (invoke-debugger (make-condition 'simple-error :format-control "boom"))))
+
+== *DEBUGGER-HOOK*
+(catch 'done
+  (let ((*debugger-hook* (lambda (condition hook)
+                           (declare (ignore hook))
+                           (throw 'done (princ-to-string condition))))
+        (sb-ext:*invoke-debugger-hook* nil))
+    (invoke-debugger (make-condition 'simple-error
+                                     :format-control "custom ~D"
+                                     :format-arguments '(42)))))
+
+== *FEATURES*
+(and (member :common-lisp *features*) t)
+
+== *FEATURES*
+(let ((*features* (cons :my-feature *features*)))
+  (values (read-from-string "#+my-feature :yes #-my-feature :no")))
+
+== *FEATURES*
+(values (read-from-string "#+(and) :always #+(or) :never"))
+
+== *GENSYM-COUNTER*
+(let ((*gensym-counter* 100))
+  (symbol-name (gensym)))
+
+== *GENSYM-COUNTER*
+(let ((*gensym-counter* 7))
+  (list (symbol-name (gensym "X")) (symbol-name (gensym "X"))))
+
+== *MACROEXPAND-HOOK*
+(let ((*macroexpand-hook* (lambda (expander form environment)
+                            (funcall expander form environment))))
+  (macroexpand-1 '(when a b)))
+
+== *MACROEXPAND-HOOK*
+(let ((count 0))
+  (let ((*macroexpand-hook* (lambda (expander form environment)
+                              (incf count)
+                              (funcall expander form environment))))
+    (macroexpand '(unless a b)))
+  count)
+
+== *RANDOM-STATE*
+(random-state-p *random-state*)
+
+== *RANDOM-STATE*
+(let ((a (make-random-state *random-state*))
+      (b (make-random-state *random-state*)))
+  (= (random 1000 a) (random 1000 b)))
+
+== *READ-BASE*
+(let ((*read-base* 16))
+  (values (read-from-string "FF")))
+
+== *READ-BASE*
+(let ((*read-base* 2))
+  (values (read-from-string "1010")))
+
+== *READ-BASE*
+(values (read-from-string "10"))
+
+== *READ-DEFAULT-FLOAT-FORMAT*
+(let ((*read-default-float-format* 'double-float))
+  (type-of (read-from-string "1.5")))
+
+== *READ-DEFAULT-FLOAT-FORMAT*
+(type-of (read-from-string "1.5"))
+
+== *READ-DEFAULT-FLOAT-FORMAT*
+(type-of (read-from-string "1.5d0"))
+
+== *READ-EVAL*
+(let ((*read-eval* t))
+  (values (read-from-string "#.(+ 1 2)")))
+
+== *READ-EVAL*
+(let ((*read-eval* nil))
+  (handler-case (read-from-string "#.(+ 1 2)")
+    (reader-error () :blocked)))
+
+== *READ-SUPPRESS*
+(let ((*read-suppress* t))
+  (values (read-from-string "(foo bar)")))
+
+== *READ-SUPPRESS*
+(let ((*read-suppress* t))
+  (values (read-from-string "(unknown-package:symbol 1 2)")))
+
+== *READTABLE*
+(readtablep *readtable*)
+
+== *READTABLE*
+(let ((*readtable* (copy-readtable nil)))
+  (setf (readtable-case *readtable*) :invert)
+  (values (read-from-string "Hello")))
+
+== READTABLEP
+(readtablep *readtable*)
+
+== READTABLEP
+(readtablep (copy-readtable))
+
+== READTABLEP
+(readtablep "table")
+
+== READTABLE-CASE
+(readtable-case *readtable*)
+
+== READTABLE-CASE
+(let ((*readtable* (copy-readtable)))
+  (setf (readtable-case *readtable*) :preserve)
+  (list (readtable-case *readtable*) (symbol-name (values (read-from-string "MixedCase")))))
+
+== COPY-READTABLE
+(readtablep (copy-readtable))
+
+== COPY-READTABLE
+(let ((copy (copy-readtable)))
+  (eq copy *readtable*))
+
+== COPY-READTABLE
+(let ((*readtable* (copy-readtable)))
+  (set-macro-character #\! (lambda (stream char) (declare (ignore stream char)) :bang))
+  (values (read-from-string "!")))
+
+== SET-MACRO-CHARACTER
+(let ((*readtable* (copy-readtable)))
+  (set-macro-character #\! (lambda (stream char)
+                             (declare (ignore char))
+                             (list 'quote (read stream t nil t))))
+  (values (read-from-string "!foo")))
+
+== SET-MACRO-CHARACTER
+(let ((*readtable* (copy-readtable)))
+  (set-macro-character #\] (get-macro-character #\)))
+  (set-macro-character #\[ (lambda (stream char)
+                             (declare (ignore char))
+                             (cons 'list (read-delimited-list #\] stream t))))
+  (eval (read-from-string "[1 2 3]")))
+
+== GET-MACRO-CHARACTER
+(functionp (get-macro-character #\())
+
+== GET-MACRO-CHARACTER
+(multiple-value-list (get-macro-character #\a))
+
+== GET-MACRO-CHARACTER
+(nth-value 1 (get-macro-character #\'))
+
+== MAKE-DISPATCH-MACRO-CHARACTER
+(let ((*readtable* (copy-readtable)))
+  (make-dispatch-macro-character #\@)
+  (set-dispatch-macro-character #\@ #\d
+                                (lambda (stream subchar arg)
+                                  (declare (ignore subchar arg))
+                                  (list :dollar (read stream t nil t))))
+  (values (read-from-string "@dfoo")))
+
+== SET-DISPATCH-MACRO-CHARACTER
+(let ((*readtable* (copy-readtable)))
+  (set-dispatch-macro-character #\# #\?
+                                (lambda (stream subchar arg)
+                                  (declare (ignore stream subchar arg))
+                                  :custom))
+  (values (read-from-string "#?")))
+
+== GET-DISPATCH-MACRO-CHARACTER
+(functionp (get-dispatch-macro-character #\# #\'))
+
+== GET-DISPATCH-MACRO-CHARACTER
+(get-dispatch-macro-character #\# #\~)
+
+== SET-SYNTAX-FROM-CHAR
+(let ((*readtable* (copy-readtable)))
+  (set-syntax-from-char #\; #\a)
+  (symbol-name (values (read-from-string ";"))))
+
+== SET-SYNTAX-FROM-CHAR
+(let ((*readtable* (copy-readtable)))
+  (set-syntax-from-char #\, #\Space)
+  (values (read-from-string "a,b")))
+
+== ABORT
+(multiple-value-list
+ (with-simple-restart (abort "Back to the start")
+   (abort)
+   :unreachable))
+
+== ABORT
+(with-simple-restart (abort "Demo")
+  (handler-bind ((error (lambda (condition)
+                          (declare (ignore condition))
+                          (abort))))
+    (error "failed")))
+
+== APROPOS
+(apropos "MAPCAR" :cl)
+
+== APROPOS
+(apropos "WITH-OPEN" :cl)
+
+== APROPOS-LIST
+(apropos-list "MAPCAR" :cl)
+
+== APROPOS-LIST
+(sort (apropos-list "MAP-INTO" :cl) #'string<)
+
+== APROPOS-LIST
+(and (member 'mapcar (apropos-list "MAP")) t)
+
+== ARITHMETIC-ERROR-OPERANDS
+(handler-case (/ 5 0)
+  (arithmetic-error (condition)
+    (arithmetic-error-operands condition)))
+
+== ARITHMETIC-ERROR-OPERATION
+(handler-case (/ 5 0)
+  (arithmetic-error (condition)
+    (arithmetic-error-operation condition)))
+
+== BREAK
+(let ((sb-ext:*invoke-debugger-hook* (lambda (condition hook)
+                                       (declare (ignore condition hook))
+                                       (continue))))
+  (break "Look here")
+  :resumed)
+
+== BREAK
+(let ((sb-ext:*invoke-debugger-hook* (lambda (condition hook)
+                                       (declare (ignore hook))
+                                       (princ-to-string condition)
+                                       (continue))))
+  (list (break "First") (break "Second")))
+
+== CELL-ERROR-NAME
+(handler-case (symbol-value 'no-such-variable-here)
+  (unbound-variable (condition)
+    (cell-error-name condition)))
+
+== CELL-ERROR-NAME
+(handler-case (funcall 'no-such-function-here)
+  (undefined-function (condition)
+    (cell-error-name condition)))
+
+== CERROR
+(handler-bind ((error (lambda (condition)
+                        (declare (ignore condition))
+                        (continue))))
+  (cerror "Carry on" "Problem number ~D" 1)
+  :continued)
+
+== CLASS-OF
+(class-name (class-of 1))
+
+== CLASS-OF
+(class-name (class-of 'a))
+
+== CLASS-OF
+(class-name (class-of '(1)))
+
+== CLASS-OF
+(class-name (class-of 1.5))
+
+== COERCE
+(coerce '(1 2 3) 'vector)
+
+== COERCE
+(coerce "abc" 'list)
+
+== COERCE
+(coerce 3 'double-float)
+
+== COERCE
+(coerce '(#\h #\i) 'string)
+
+== COMPUTE-RESTARTS
+(restart-case (and (member 'my-restart (compute-restarts) :key #'restart-name) t)
+  (my-restart () nil))
+
+== COMPUTE-RESTARTS
+(restart-case (length (remove 'inner (compute-restarts) :key #'restart-name :test-not #'eq))
+  (inner () nil))
+
+== CONTINUE
+(multiple-value-list
+ (with-simple-restart (continue "Resume here")
+   (continue)
+   :unreachable))
+
+== CONTINUE
+(let ((attempts 0))
+  (handler-bind ((error (lambda (condition)
+                          (declare (ignore condition))
+                          (incf attempts)
+                          (continue))))
+    (with-simple-restart (continue "Skip it")
+      (error "problem")))
+  attempts)
+
+== COPY-STRUCTURE
+-- silent
+(defstruct counter (value 0))
+(let* ((a (make-counter :value 1))
+       (b (copy-structure a)))
+  (setf (counter-value b) 99)
+  (list (counter-value a) (counter-value b)))
+
+== DECODE-UNIVERSAL-TIME
+(multiple-value-list (decode-universal-time 0 0))
+
+== DECODE-UNIVERSAL-TIME
+(multiple-value-list (decode-universal-time 3155673600 0))
+
+== ENCODE-UNIVERSAL-TIME
+(encode-universal-time 0 0 0 1 1 2000 0)
+
+== ENCODE-UNIVERSAL-TIME
+(encode-universal-time 0 0 0 1 1 1900 0)
+
+== GET-DECODED-TIME
+(length (multiple-value-list (get-decoded-time)))
+
+== GET-DECODED-TIME
+(integerp (nth-value 5 (get-decoded-time)))
+
+== GET-UNIVERSAL-TIME
+(integerp (get-universal-time))
+
+== GET-UNIVERSAL-TIME
+(> (get-universal-time) 3900000000)
+
+== GET-INTERNAL-REAL-TIME
+(integerp (get-internal-real-time))
+
+== GET-INTERNAL-REAL-TIME
+(<= (get-internal-real-time) (get-internal-real-time))
+
+== GET-INTERNAL-RUN-TIME
+(integerp (get-internal-run-time))
+
+== GET-INTERNAL-RUN-TIME
+(<= (get-internal-run-time) (get-internal-run-time))
+
+== DESCRIBE
+(and (search "CAR" (with-output-to-string (stream) (describe 'car stream))) t)
+
+== DESCRIBE
+(stringp (with-output-to-string (*standard-output*) (describe 42)))
+
+== DISASSEMBLE
+(stringp (with-output-to-string (*standard-output*) (disassemble 'car)))
+
+== DISASSEMBLE
+(stringp (with-output-to-string (*standard-output*)
+           (disassemble (lambda (x) (+ x 1)))))
+
+== DRIBBLE
+(and (fboundp 'dribble) t)
+
+== ED
+(and (fboundp 'ed) t)
+
+== INSPECT
+(and (fboundp 'inspect) t)
+
+== ROOM
+(stringp (with-output-to-string (*standard-output*) (room)))
+
+== ROOM
+(stringp (with-output-to-string (*standard-output*) (room nil)))
+
+== SLEEP
+(sleep 0.01)
+
+== SLEEP
+(sleep 0)
+
+== ENSURE-GENERIC-FUNCTION
+(progn (ensure-generic-function 'my-new-generic :lambda-list '(x))
+       (and (typep (fdefinition 'my-new-generic) 'generic-function) t))
+
+== FIND-CLASS
+(class-name (find-class 'integer))
+
+== FIND-CLASS
+(find-class 'no-such-class-here nil)
+
+== FIND-CLASS
+(handler-case (find-class 'no-such-class-here)
+  (error () :unknown-class))
+
+== FIND-RESTART
+(restart-case (and (find-restart 'retry) t)
+  (retry () nil))
+
+== FIND-RESTART
+(find-restart 'no-such-restart-here)
+
+== RESTART-NAME
+(restart-case (restart-name (find-restart 'demo))
+  (demo () nil))
+
+== RESTART-NAME
+(restart-case (mapcar #'restart-name (list (find-restart 'a) (find-restart 'b)))
+  (a () nil)
+  (b () nil))
+
+== INVOKE-RESTART-INTERACTIVELY
+(restart-case (invoke-restart-interactively 'ask)
+  (ask (&optional value)
+    :interactive (lambda () (list 5))
+    value))
+
+== STORE-VALUE
+(handler-bind ((unbound-variable (lambda (condition)
+                                   (declare (ignore condition))
+                                   (store-value 99))))
+  (restart-case (error 'unbound-variable :name 'x)
+    (store-value (value) value)))
+
+== USE-VALUE
+(handler-bind ((error (lambda (condition)
+                        (declare (ignore condition))
+                        (use-value 42))))
+  (restart-case (error "bad input")
+    (use-value (value) value)))
+
+== MUFFLE-WARNING
+(handler-bind ((warning #'muffle-warning))
+  (warn "ignored")
+  :quiet)
+
+== MUFFLE-WARNING
+(let ((seen 0))
+  (handler-bind ((warning (lambda (w) (incf seen) (muffle-warning w))))
+    (warn "one")
+    (warn "two"))
+  seen)
+
+== WARN
+(handler-case (warn "careful ~D" 1)
+  (warning (condition) (princ-to-string condition)))
+
+== WARN
+(let ((*error-output* (make-broadcast-stream)))
+  (warn "to nowhere"))
+
+== WARN
+(handler-bind ((warning #'muffle-warning))
+  (warn "muffled"))
+
+== SIGNAL
+(signal 'simple-condition :format-control "unhandled")
+
+== SIGNAL
+(let (seen)
+  (handler-bind ((condition (lambda (condition) (setf seen (type-of condition)))))
+    (signal 'simple-condition :format-control "x"))
+  seen)
+
+== MAKE-CONDITION
+(type-of (make-condition 'simple-error :format-control "x"))
+
+== MAKE-CONDITION
+(princ-to-string (make-condition 'simple-error
+                                 :format-control "n=~D"
+                                 :format-arguments '(5)))
+
+== SIMPLE-CONDITION-FORMAT-CONTROL
+(handler-case (error "n=~D" 5)
+  (simple-condition (condition)
+    (simple-condition-format-control condition)))
+
+== SIMPLE-CONDITION-FORMAT-ARGUMENTS
+(handler-case (error "n=~D m=~D" 5 6)
+  (simple-condition (condition)
+    (simple-condition-format-arguments condition)))
+
+== TYPE-ERROR-DATUM
+(handler-case (car 5)
+  (type-error (condition) (type-error-datum condition)))
+
+== TYPE-ERROR-DATUM
+(handler-case (+ 1 "x")
+  (type-error (condition) (type-error-datum condition)))
+
+== TYPE-ERROR-EXPECTED-TYPE
+(handler-case (car 5)
+  (type-error (condition) (type-error-expected-type condition)))
+
+== TYPE-ERROR-EXPECTED-TYPE
+(handler-case (length 5)
+  (type-error (condition) (type-error-expected-type condition)))
+
+== PACKAGE-ERROR-PACKAGE
+(handler-case (find-symbol "X" "NO-SUCH-PACKAGE-FOR-DEMO")
+  (package-error (condition)
+    (package-error-package condition)))
+
+== SUBTYPEP
+(multiple-value-list (subtypep 'integer 'number))
+
+== SUBTYPEP
+(multiple-value-list (subtypep 'string 'number))
+
+== SUBTYPEP
+(subtypep 'fixnum 'integer)
+
+== SUBTYPEP
+(subtypep '(integer 1 5) '(integer 0 10))
+
+== SCHAR
+(schar "abc" 1)
+
+== SCHAR
+(let ((s (copy-seq "abc")))
+  (setf (schar s 0) #\z)
+  s)
+
+== MACROEXPAND
+(macroexpand '(when a b))
+-- silent
+(defmacro my-unless (test &body body)
+  `(if ,test nil (progn ,@body)))
+-- silent
+(defmacro my-twice-unless (test &body body)
+  `(my-unless ,test ,@body ,@body))
+(macroexpand-1 '(my-twice-unless a b))
+(macroexpand '(my-twice-unless a b))
+(macroexpand '(+ 1 2))
+
+== SLOT-BOUNDP
+-- silent
+(defclass box () ((content :initarg :content)))
+(slot-boundp (make-instance 'box :content 1) 'content)
+(slot-boundp (make-instance 'box) 'content)
+
+== SLOT-EXISTS-P
+-- silent
+(defclass thing () ((name :initarg :name)))
+(slot-exists-p (make-instance 'thing) 'name)
+(slot-exists-p (make-instance 'thing) 'colour)
+
+== SLOT-MAKUNBOUND
+-- silent
+(defclass cell () ((value :initarg :value)))
+(let ((c (make-instance 'cell :value 1)))
+  (slot-makunbound c 'value)
+  (slot-boundp c 'value))
+
+== UNBOUND-SLOT-INSTANCE
+-- silent
+(defclass empty-box () ((item)))
+(let ((box (make-instance 'empty-box)))
+  (handler-case (slot-value box 'item)
+    (unbound-slot (condition)
+      (eq box (unbound-slot-instance condition)))))
+
+== INVOKE-DEBUGGER
+(catch 'done
+  (let ((sb-ext:*invoke-debugger-hook* (lambda (condition hook)
+                                         (declare (ignore hook))
+                                         (throw 'done (type-of condition)))))
+    (invoke-debugger (make-condition 'simple-error :format-control "stop"))))
+
+== INVOKE-DEBUGGER
+(catch 'done
+  (let ((sb-ext:*invoke-debugger-hook* (lambda (condition hook)
+                                         (declare (ignore hook))
+                                         (throw 'done (princ-to-string condition)))))
+    (invoke-debugger (make-condition 'simple-error :format-control "stop ~D"
+                                                  :format-arguments '(7)))))
+
+== INVALID-METHOD-ERROR
+-- silent
+(define-method-combination plain-only ()
+  ((primary ()) (others *))
+  (when others
+    (invalid-method-error (first others) "Qualified methods are not allowed"))
+  `(call-method ,(first primary)))
+-- silent
+(defgeneric plain (x)
+  (:method-combination plain-only))
+-- silent
+(defmethod plain ((x integer))
+  :integer)
+(plain 1)
+-- silent
+(defmethod plain :before ((x integer))
+  :ignored)
+(handler-case (plain 1)
+  (error () :invalid-method))
+
+== METHOD-COMBINATION-ERROR
+-- silent
+(define-method-combination needs-two ()
+  ((methods ()))
+  (if (< (length methods) 2)
+      (method-combination-error "Need at least two methods")
+      `(call-method ,(first methods))))
+-- silent
+(defgeneric two-needed (x) (:method-combination needs-two))
+-- silent
+(defmethod two-needed ((x integer)) :integer)
+(handler-case (two-needed 1)
+  (error () :combination-error))
+
+== MAKE-LOAD-FORM-SAVING-SLOTS
+-- silent
+(defstruct saved-point x y)
+(multiple-value-bind (creation initialization)
+    (make-load-form-saving-slots (make-saved-point :x 1 :y 2))
+  (list (consp creation) (consp initialization)))
+
+== CCASE
+(let ((x 2))
+  (ccase x (1 :one) (2 :two)))
+
+== CCASE
+(let ((x 9))
+  (handler-case (ccase x (1 :one) (2 :two))
+    (type-error () :no-match)))
+
+== CTYPECASE
+(let ((x 5))
+  (ctypecase x (string :string) (integer :integer)))
+
+== CTYPECASE
+(let ((x 1.5))
+  (handler-case (ctypecase x (string :string) (integer :integer))
+    (type-error () :no-match)))
+
+== ECASE
+(ecase 2 (1 :one) (2 :two))
+
+== ECASE
+(ecase :b ((:a :b) :ab) (:c :c))
+
+== ECASE
+(handler-case (ecase 9 (1 :one))
+  (error () :no-match))
+
+== ETYPECASE
+(etypecase 5 (string :string) (integer :integer))
+
+== ETYPECASE
+(handler-case (etypecase 1.5 (string :string) (integer :integer))
+  (error () :no-match))
+
+== TYPECASE
+(typecase 5 (string :string) (integer :integer) (t :other))
+
+== TYPECASE
+(typecase 'a (string :string) (integer :integer))
+
+== TYPECASE
+(mapcar (lambda (x) (typecase x (integer :int) (string :str) (t :other)))
+        '(1 "a" b))
+
+== DECLAIM
+(progn (declaim (special *declaimed*))
+       (boundp '*declaimed*))
+
+== DECLAIM
+(progn (declaim (optimize (debug 1)))
+       :declaimed)
+
+== DEFCONSTANT
+(defconstant +demo-limit+ 42)
+(* +demo-limit+ 2)
+(defconstant +names+ '(a b c) "A list constant.")
+
+== DEFINE-COMPILER-MACRO
+-- silent
+(defun add (a b)
+  (+ a b))
+-- silent
+(define-compiler-macro add (&whole form a b)
+  (if (and (numberp a) (numberp b))
+      (+ a b)
+      form))
+(add 1 2)
+(let ((x 5))
+  (add x 10))
+(functionp (compiler-macro-function 'add))
+
+== DEFINE-METHOD-COMBINATION
+-- silent
+(define-method-combination my-and :operator and :identity-with-one-argument t)
+-- silent
+(defgeneric acceptable-p (x)
+  (:method-combination my-and))
+-- silent
+(defmethod acceptable-p my-and ((x integer)) (> x 0))
+-- silent
+(defmethod acceptable-p my-and ((x number)) (< x 100))
+(acceptable-p 5)
+(acceptable-p 500)
+
+== DEFINE-MODIFY-MACRO
+-- silent
+(define-modify-macro append-to (&rest more) append)
+(let ((items (list 1)))
+  (append-to items '(2) '(3))
+  items)
+-- silent
+(define-modify-macro doublef () (lambda (n) (* 2 n)))
+(let ((n 4))
+  (doublef n)
+  n)
+
+== DEFINE-SETF-EXPANDER
+-- silent
+(define-setf-expander head (list)
+  (let ((store (gensym)))
+    (values '() '() (list store)
+            `(progn (rplaca ,list ,store) ,store)
+            `(car ,list))))
+(let ((cells (list 1 2 3)))
+  (setf (head cells) :new)
+  cells)
+
+== DEFSETF
+-- silent
+(defun second-of (list) (second list))
+-- silent
+(defsetf second-of (list) (new-value)
+  `(progn (setf (second ,list) ,new-value) ,new-value))
+(let ((items (list 1 2 3)))
+  (setf (second-of items) :two)
+  items)
+
+== DEFINE-SYMBOL-MACRO
+(define-symbol-macro current-year 2025)
+(+ current-year 1)
+(define-symbol-macro origin (list 0 0))
+origin
+
+== DEFTYPE
+(deftype small-integer () '(integer 0 9))
+(typep 5 'small-integer)
+(typep 50 'small-integer)
+(deftype pair-of (type) `(cons ,type ,type))
+(typep '(1 . 2) '(pair-of integer))
+(typep '(1 . a) '(pair-of integer))
+
+== DO*
+(do* ((i 0 (1+ i))
+      (square (* i i) (* i i))
+      (acc '() (cons square acc)))
+     ((= i 4) (nreverse acc)))
+
+== DO*
+(do* ((a 1 (* a 2))
+      (b a a))
+     ((> b 10) b))
+
+== LOOP-FINISH
+(loop for x in '(1 2 3 4)
+      when (= x 3) do (loop-finish)
+      collect x)
+
+== LOOP-FINISH
+(loop for i from 1
+      collect i
+      when (>= i 3) do (loop-finish))
+
+== PROG
+(prog ((i 0) (acc nil))
+ top
+   (when (= i 3) (return (reverse acc)))
+   (push i acc)
+   (incf i)
+   (go top))
+
+== PROG
+(prog (x)
+   (setf x 5)
+   (return (* x 2)))
+
+== PROG*
+(prog* ((a 1) (b (+ a 1)))
+  (return (list a b)))
+
+== PROG*
+(prog* ((i 0) (limit (+ i 3)))
+ again
+   (when (= i limit) (return i))
+   (incf i)
+   (go again))
+
+== PROG1
+(prog1 1 2 3)
+
+== PROG1
+(let ((x 5))
+  (list (prog1 x (incf x)) x))
+
+== PROG1
+(let ((stack (list 1 2)))
+  (prog1 (first stack) (pop stack)))
+
+== PROG2
+(prog2 1 2 3)
+
+== PROG2
+(let ((x 5))
+  (prog2 (incf x) (* x 2) (incf x)))
+
+== PSETF
+(let ((a 1) (b 2))
+  (psetf a b b a)
+  (list a b))
+
+== PSETF
+(let ((items (list 1 2 3)))
+  (psetf (first items) (second items)
+         (second items) (first items))
+  items)
+
+== PSETQ
+(let ((a 1) (b 2))
+  (psetq a b b a)
+  (list a b))
+
+== PSETQ
+(let ((x 0) (y 10))
+  (psetq x (+ x y) y (- y x))
+  (list x y))
+
+== RESTART-BIND
+(restart-bind ((my-restart (lambda () :restarted)))
+  (invoke-restart 'my-restart))
+
+== RESTART-BIND
+(restart-bind ((double (lambda (n) (* 2 n))))
+  (invoke-restart 'double 21))
+
+== ROTATEF
+(let ((a 1) (b 2) (c 3))
+  (rotatef a b c)
+  (list a b c))
+
+== ROTATEF
+(let ((items (list 1 2 3)))
+  (rotatef (first items) (third items))
+  items)
+
+== SHIFTF
+(let ((a 1) (b 2) (c 3))
+  (list (shiftf a b c 4) a b c))
+
+== SHIFTF
+(let ((queue (list 1 2 3)))
+  (shiftf (first queue) (second queue) :end)
+  queue)
+
+== STEP
+(consp (macroexpand-1 '(step (+ 1 2))))
+
+== STEP
+(functionp (macro-function 'step))
+
+== TIME
+(let ((*trace-output* (make-broadcast-stream)))
+  (time (+ 1 2)))
+
+== TIME
+(let ((*trace-output* (make-broadcast-stream)))
+  (multiple-value-list (time (floor 17 5))))
+
+== TRACE
+-- silent
+(defun square (n)
+  (* n n))
+(trace square)
+(square 3)
+(untrace square)
+
+== UNTRACE
+-- silent
+(defun cube (n)
+  (* n n n))
+-- silent
+(trace cube)
+(untrace cube)
+(cube 2)
+
+== WITH-ACCESSORS
+-- silent
+(defclass account ()
+  ((balance :initarg :balance :accessor balance)))
+(let ((a (make-instance 'account :balance 100)))
+  (with-accessors ((b balance)) a
+    (incf b 50)
+    b))
+
+== WITH-SLOTS
+-- silent
+(defclass person ()
+  ((name :initarg :name)
+   (age :initarg :age)))
+(let ((p (make-instance 'person :name "Ada" :age 36)))
+  (with-slots (name age) p
+    (setf age 37)
+    (list name age)))
+(let ((p (make-instance 'person :name "Grace" :age 45)))
+  (with-slots ((years age)) p
+    years))
+
+== WITH-COMPILATION-UNIT
+(with-compilation-unit ()
+  (+ 1 2))
+
+== WITH-COMPILATION-UNIT
+(with-compilation-unit (:override t)
+  :ok)
+
+== WITH-CONDITION-RESTARTS
+(restart-case
+    (let ((condition (make-condition 'simple-error :format-control "x")))
+      (with-condition-restarts condition (list (find-restart 'fix))
+        (and (find-restart 'fix condition) t)))
+  (fix () nil))
+
+== WITH-SIMPLE-RESTART
+(multiple-value-list
+ (with-simple-restart (skip "Skip this step")
+   (invoke-restart 'skip)
+   :not-reached))
+
+== WITH-SIMPLE-RESTART
+(with-simple-restart (skip "Skip this step")
+  :completed)
+
+== WITH-STANDARD-IO-SYNTAX
+(let ((*print-base* 16))
+  (with-standard-io-syntax (prin1-to-string 255)))
+
+== WITH-STANDARD-IO-SYNTAX
+(let ((*read-base* 16))
+  (with-standard-io-syntax (values (read-from-string "10"))))
+
+== WITH-STANDARD-IO-SYNTAX
+(let ((*print-case* :downcase))
+  (with-standard-io-syntax (prin1-to-string 'sym)))
+
+== CATCH
+(catch 'tag (throw 'tag :thrown) :not-reached)
+
+== CATCH
+(catch 'tag :normal-value)
+
+== CATCH
+(catch 'outer (catch 'inner (throw 'outer :to-outer)) :not-reached)
+
+== THROW
+(catch 'done (dolist (x '(1 2 3)) (when (= x 2) (throw 'done x))))
+-- silent
+(defun find-first-negative (numbers)
+  (catch 'found
+    (dolist (n numbers)
+      (when (minusp n) (throw 'found n)))
+    nil))
+(find-first-negative '(3 -1 2))
+(find-first-negative '(1 2 3))
+
+== EVAL-WHEN
+(eval-when (:execute) :executed)
+
+== EVAL-WHEN
+(eval-when (:compile-toplevel) :compile-only)
+
+== EVAL-WHEN
+(eval-when (:compile-toplevel :load-toplevel :execute) :always)
+
+== GO
+(let ((n 0))
+  (tagbody
+   again
+     (incf n)
+     (when (< n 5) (go again)))
+  n)
+
+== TAGBODY
+(let ((trace '()))
+  (tagbody
+     (push :start trace)
+     (go skip)
+     (push :skipped trace)
+   skip
+     (push :end trace))
+  (nreverse trace))
+
+== TAGBODY
+(tagbody)
+
+== LOAD-TIME-VALUE
+(load-time-value (+ 1 2))
+
+== LOAD-TIME-VALUE
+(let ((f (lambda () (load-time-value (list 1 2)))))
+  (eq (funcall f) (funcall f)))
+
+== LOCALLY
+(locally (+ 1 2))
+
+== LOCALLY
+(let ((x 1))
+  (locally (declare (type integer x))
+    (* x 10)))
+
+== MACROLET
+(macrolet ((twice (form) `(progn ,form ,form)))
+  (let ((n 0))
+    (twice (incf n))
+    n))
+
+== MACROLET
+(macrolet ((square (x) `(* ,x ,x)))
+  (list (square 3) (square 4)))
+
+== PROGV
+(progv '(a b) '(1 2)
+  (list (symbol-value 'a) (symbol-value 'b)))
+
+== PROGV
+(progv '(*dynamic*) '(42)
+  (symbol-value '*dynamic*))
+
+== SYMBOL-MACROLET
+(let ((items (list 1 2)))
+  (symbol-macrolet ((head (car items)))
+    (setf head 99)
+    items))
+
+== SYMBOL-MACROLET
+(symbol-macrolet ((answer 42))
+  (+ answer 1))
+
+== THE
+(the integer (+ 1 2))
+
+== THE
+(the (or null string) nil)
+
+== THE
+(the fixnum 5)
+
+== ADD-METHOD
+-- silent
+(defgeneric hello (x))
+-- silent
+(defmethod hello ((x integer)) :integer)
+(let ((method (find-method #'hello '() (list (find-class 'integer)))))
+  (remove-method #'hello method)
+  (add-method #'hello method)
+  (hello 1))
+
+== REMOVE-METHOD
+-- silent
+(defgeneric hello (x))
+-- silent
+(defmethod hello ((x integer)) :integer)
+(let ((method (find-method #'hello '() (list (find-class 'integer)))))
+  (remove-method #'hello method)
+  (handler-case (hello 1)
+    (error () :method-removed)))
+
+== FIND-METHOD
+-- silent
+(defgeneric hello (x))
+-- silent
+(defmethod hello ((x integer)) :integer)
+(and (find-method #'hello '() (list (find-class 'integer))) t)
+(find-method #'hello '() (list (find-class 'string)) nil)
+
+== ALLOCATE-INSTANCE
+-- silent
+(defclass box ()
+  ((content :initform :default)))
+(slot-boundp (allocate-instance (find-class 'box)) 'content)
+(slot-boundp (make-instance 'box) 'content)
+
+== CHANGE-CLASS
+-- silent
+(defclass cat () ((name :initarg :name :accessor name)))
+-- silent
+(defclass lion (cat) ())
+(let ((animal (make-instance 'cat :name "Leo")))
+  (change-class animal 'lion)
+  (list (class-name (class-of animal)) (name animal)))
+
+== CLASS-NAME
+(class-name (find-class 'integer))
+(class-name (class-of "text"))
+-- silent
+(defclass widget () ())
+(class-name (class-of (make-instance 'widget)))
+
+== COMPUTE-APPLICABLE-METHODS
+-- silent
+(defgeneric size (x))
+-- silent
+(defmethod size ((x integer)) 1)
+-- silent
+(defmethod size ((x number)) 2)
+(length (compute-applicable-methods #'size (list 1)))
+(length (compute-applicable-methods #'size (list 1.5)))
+(length (compute-applicable-methods #'size (list "text")))
+
+== DESCRIBE-OBJECT
+-- silent
+(defclass gadget () ((name :initarg :name)))
+-- silent
+(defmethod describe-object ((object gadget) stream)
+  (format stream "A gadget named ~A" (slot-value object 'name)))
+(with-output-to-string (stream)
+  (describe (make-instance 'gadget :name "gizmo") stream))
+
+== FUNCTION-KEYWORDS
+-- silent
+(defgeneric configure (x &key))
+-- silent
+(defmethod configure ((x integer) &key verbose (level 1))
+  (list x verbose level))
+(multiple-value-list
+ (function-keywords (find-method #'configure '() (list (find-class 'integer)))))
+
+== INITIALIZE-INSTANCE
+-- silent
+(defclass counter ()
+  ((count :initform 0 :accessor counter-count)
+   (log :initform nil :accessor counter-log)))
+-- silent
+(defmethod initialize-instance :after ((counter counter) &key)
+  (push :created (counter-log counter)))
+(counter-log (make-instance 'counter))
+(counter-count (make-instance 'counter))
+
+== REINITIALIZE-INSTANCE
+-- silent
+(defclass sensor ()
+  ((reading :initarg :reading :accessor reading)))
+(let ((s (make-instance 'sensor :reading 1)))
+  (reinitialize-instance s :reading 99)
+  (reading s))
+
+== SHARED-INITIALIZE
+-- silent
+(defclass tagged ()
+  ((tag :initarg :tag :initform :none :accessor tag)))
+-- silent
+(defmethod shared-initialize :after ((object tagged) slot-names &key)
+  (declare (ignore slot-names))
+  (setf (tag object) (list :seen (tag object))))
+(tag (make-instance 'tagged :tag :a))
+(tag (make-instance 'tagged))
+
+== MAKE-INSTANCES-OBSOLETE
+-- silent
+(defclass thing () ((x :initarg :x)))
+(make-instances-obsolete 'thing)
+(class-name (make-instances-obsolete (find-class 'thing)))
+
+== UPDATE-INSTANCE-FOR-REDEFINED-CLASS
+-- silent
+(defclass versioned () ((a :initarg :a :accessor a)))
+(let ((object (make-instance 'versioned :a 1)))
+  (eval '(defclass versioned ()
+          ((a :initarg :a :accessor a)
+           (b :initform :added :accessor b))))
+  (list (a object) (b object)))
+
+== UPDATE-INSTANCE-FOR-DIFFERENT-CLASS
+-- silent
+(defclass worker () ((name :initarg :name :accessor name)))
+-- silent
+(defclass manager (worker) ((reports :initform 0 :accessor reports)))
+-- silent
+(defmethod update-instance-for-different-class :after ((old worker) (new manager) &key)
+  (setf (reports new) 10))
+(let ((person (make-instance 'worker :name "Ada")))
+  (change-class person 'manager)
+  (list (name person) (reports person)))
+
+== METHOD-QUALIFIERS
+-- silent
+(defgeneric audit (x))
+-- silent
+(defmethod audit :before ((x integer)) nil)
+-- silent
+(defmethod audit ((x integer)) :primary)
+(method-qualifiers (find-method #'audit '(:before) (list (find-class 'integer))))
+(method-qualifiers (find-method #'audit '() (list (find-class 'integer))))
+
+== MAKE-LOAD-FORM
+-- silent
+(defstruct (marker) (name nil))
+-- silent
+(defmethod make-load-form ((object marker) &optional environment)
+  (make-load-form-saving-slots object :environment environment))
+(multiple-value-bind (creation initialization)
+    (make-load-form (make-marker :name "a"))
+  (list (consp creation) (consp initialization)))
+
+== NO-APPLICABLE-METHOD
+-- silent
+(defgeneric only-integers (x))
+-- silent
+(defmethod only-integers ((x integer)) x)
+(handler-case (only-integers "text")
+  (error () :no-applicable-method))
+(only-integers 5)
+
+== NO-NEXT-METHOD
+-- silent
+(defgeneric climb (x))
+-- silent
+(defmethod climb ((x integer))
+  (call-next-method))
+(handler-case (climb 1)
+  (error () :no-next-method))
+
+== SLOT-MISSING
+-- silent
+(defclass sparse () ((known :initform 1)))
+(handler-case (slot-value (make-instance 'sparse) 'unknown)
+  (error () :slot-missing))
+-- silent
+(defmethod slot-missing ((class standard-class) (object sparse) slot-name operation &optional new-value)
+  (declare (ignore new-value))
+  (list :missing slot-name operation))
+(slot-value (make-instance 'sparse) 'unknown)
+
+== SLOT-UNBOUND
+-- silent
+(defclass lazy () ((value)))
+-- silent
+(defmethod slot-unbound (class (object lazy) (slot-name (eql 'value)))
+  (setf (slot-value object 'value) :computed))
+(let ((object (make-instance 'lazy)))
+  (list (slot-value object 'value)
+        (slot-boundp object 'value)))
+
+== ARITHMETIC-ERROR
+(handler-case (/ 1 0)
+  (arithmetic-error () :arithmetic))
+
+== ARITHMETIC-ERROR
+(subtypep 'division-by-zero 'arithmetic-error)
+
+== ARITHMETIC-ERROR
+(subtypep 'arithmetic-error 'error)
+
+== CELL-ERROR
+(handler-case (symbol-value 'no-such-variable-x)
+  (cell-error (condition) (cell-error-name condition)))
+
+== CELL-ERROR
+(subtypep 'unbound-variable 'cell-error)
+
+== CONDITION
+(typep (make-condition 'simple-condition :format-control "x") 'condition)
+
+== CONDITION
+(subtypep 'error 'condition)
+
+== CONDITION
+(subtypep 'warning 'condition)
+
+== CONTROL-ERROR
+(handler-case (throw 'no-such-catch-tag 1)
+  (control-error () :no-catch))
+
+== CONTROL-ERROR
+(subtypep 'control-error 'error)
+
+== DIVISION-BY-ZERO
+(handler-case (/ 5 0)
+  (division-by-zero () :division))
+
+== DIVISION-BY-ZERO
+(handler-case (floor 5 0)
+  (division-by-zero () :division))
+
+== DIVISION-BY-ZERO
+(handler-case (mod 5 0)
+  (division-by-zero () :division))
+
+== END-OF-FILE
+(handler-case (read-char (make-string-input-stream ""))
+  (end-of-file () :eof))
+
+== END-OF-FILE
+(handler-case (read (make-string-input-stream "(1 2"))
+  (end-of-file () :incomplete))
+
+== END-OF-FILE
+(subtypep 'end-of-file 'stream-error)
+
+== FILE-ERROR
+(handler-case (open "/tmp/cldocs-no-such-directory-xyz/file.txt")
+  (file-error () :file-problem))
+
+== FILE-ERROR
+(subtypep 'file-error 'error)
+
+== FLOATING-POINT-INEXACT
+(subtypep 'floating-point-inexact 'arithmetic-error)
+
+== FLOATING-POINT-INEXACT
+(/ 1.0 3)
+
+== FLOATING-POINT-INVALID-OPERATION
+(subtypep 'floating-point-invalid-operation 'arithmetic-error)
+
+== FLOATING-POINT-INVALID-OPERATION
+(subtypep 'floating-point-invalid-operation 'error)
+
+== FLOATING-POINT-OVERFLOW
+(handler-case (* most-positive-double-float 10d0)
+  (floating-point-overflow () :overflow))
+
+== FLOATING-POINT-OVERFLOW
+(subtypep 'floating-point-overflow 'arithmetic-error)
+
+== FLOATING-POINT-UNDERFLOW
+(subtypep 'floating-point-underflow 'arithmetic-error)
+
+== FLOATING-POINT-UNDERFLOW
+(typep least-positive-double-float 'double-float)
+
+== PACKAGE-ERROR
+(handler-case (find-symbol "X" "NO-SUCH-PACKAGE-ANYWHERE")
+  (package-error () :bad-package))
+
+== PACKAGE-ERROR
+(subtypep 'package-error 'error)
+
+== PARSE-ERROR
+(handler-case (parse-integer "not a number")
+  (parse-error () :not-a-number))
+
+== PARSE-ERROR
+(subtypep 'parse-error 'error)
+
+== PRINT-NOT-READABLE
+(handler-case (let ((*print-readably* t))
+                (prin1-to-string (make-hash-table)))
+  (print-not-readable () :unreadable))
+
+== PRINT-NOT-READABLE
+(subtypep 'print-not-readable 'error)
+
+== PROGRAM-ERROR
+(handler-case (funcall (lambda (a) a))
+  (program-error () :wrong-arguments))
+
+== PROGRAM-ERROR
+(handler-case (funcall (lambda (a) a) 1 2)
+  (program-error () :too-many))
+
+== READER-ERROR
+(handler-case (read-from-string ")")
+  (reader-error () :bad-syntax))
+
+== READER-ERROR
+(handler-case (read-from-string "#<")
+  (reader-error () :unreadable-syntax))
+
+== READER-ERROR
+(subtypep 'reader-error 'parse-error)
+
+== SERIOUS-CONDITION
+(subtypep 'error 'serious-condition)
+
+== SERIOUS-CONDITION
+(subtypep 'warning 'serious-condition)
+
+== SERIOUS-CONDITION
+(handler-case (error "bad")
+  (serious-condition () :serious))
+
+== SIMPLE-CONDITION
+(typep (make-condition 'simple-condition :format-control "x") 'simple-condition)
+
+== SIMPLE-CONDITION
+(handler-case (error "x")
+  (simple-condition (condition) (simple-condition-format-control condition)))
+
+== SIMPLE-ERROR
+(handler-case (error "failed: ~D" 42)
+  (simple-error (condition) (princ-to-string condition)))
+
+== SIMPLE-ERROR
+(typep (make-condition 'simple-error :format-control "x") 'error)
+
+== SIMPLE-TYPE-ERROR
+(subtypep 'simple-type-error 'type-error)
+
+== SIMPLE-TYPE-ERROR
+(typep (make-condition 'simple-type-error
+                       :datum 1
+                       :expected-type 'string
+                       :format-control "bad")
+       'type-error)
+
+== SIMPLE-WARNING
+(handler-case (warn "careful ~D" 1)
+  (simple-warning (condition) (princ-to-string condition)))
+
+== SIMPLE-WARNING
+(subtypep 'simple-warning 'warning)
+
+== STORAGE-CONDITION
+(subtypep 'storage-condition 'serious-condition)
+
+== STORAGE-CONDITION
+(subtypep 'storage-condition 'error)
+
+== STREAM-ERROR
+(handler-case (read-char (make-string-input-stream ""))
+  (stream-error () :stream-problem))
+
+== STREAM-ERROR
+(subtypep 'stream-error 'error)
+
+== STYLE-WARNING
+(handler-case (warn (make-condition 'style-warning))
+  (style-warning () :style))
+
+== STYLE-WARNING
+(subtypep 'style-warning 'warning)
+
+== TYPE-ERROR
+(handler-case (+ 1 "x")
+  (type-error () :type-problem))
+
+== TYPE-ERROR
+(handler-case (car 5)
+  (type-error (condition) (list (type-error-datum condition)
+                                (type-error-expected-type condition))))
+
+== UNBOUND-SLOT
+-- silent
+(defclass cell-holder () ((value)))
+(handler-case (slot-value (make-instance 'cell-holder) 'value)
+  (unbound-slot (condition) (cell-error-name condition)))
+
+== UNBOUND-VARIABLE
+(handler-case (symbol-value 'no-such-variable-y)
+  (unbound-variable () :unbound))
+
+== UNBOUND-VARIABLE
+(handler-case (eval 'no-such-variable-z)
+  (unbound-variable (condition) (cell-error-name condition)))
+
+== UNDEFINED-FUNCTION
+(handler-case (funcall 'no-such-function-y)
+  (undefined-function () :undefined))
+
+== UNDEFINED-FUNCTION
+(handler-case (no-such-function-z 1)
+  (undefined-function (condition) (cell-error-name condition)))
+
+== WARNING
+(handler-case (warn "w")
+  (warning () :warned))
+
+== WARNING
+(handler-bind ((warning #'muffle-warning))
+  (warn "ignored")
+  :continued)
+
+== WARNING
+(subtypep 'style-warning 'warning)
+
+== ARRAY
+(typep #(1 2) 'array)
+
+== ARRAY
+(typep "abc" 'array)
+
+== ARRAY
+(typep '(1 2) 'array)
+
+== SIMPLE-ARRAY
+(typep (make-array 3) 'simple-array)
+
+== SIMPLE-ARRAY
+(typep (make-array 3 :adjustable t) 'simple-array)
+
+== SIMPLE-ARRAY
+(typep (make-array '(2 2)) '(simple-array t (2 2)))
+
+== SIMPLE-VECTOR
+(typep #(1 2 3) 'simple-vector)
+
+== SIMPLE-VECTOR
+(typep "abc" 'simple-vector)
+
+== BIT-VECTOR
+(typep #*101 'bit-vector)
+
+== BIT-VECTOR
+(typep #(1 0 1) 'bit-vector)
+
+== SIMPLE-BIT-VECTOR
+(typep #*101 'simple-bit-vector)
+
+== SIMPLE-BIT-VECTOR
+(typep (make-array 3 :element-type 'bit :adjustable t) 'simple-bit-vector)
+
+== SIMPLE-STRING
+(typep "abc" 'simple-string)
+
+== SIMPLE-STRING
+(typep (make-array 3 :element-type 'character :adjustable t) 'simple-string)
+
+== BASE-STRING
+(typep (coerce "abc" 'base-string) 'base-string)
+
+== BASE-STRING
+(typep "abc" 'string)
+
+== SIMPLE-BASE-STRING
+(typep (coerce "abc" 'simple-base-string) 'simple-base-string)
+
+== SIMPLE-BASE-STRING
+(typep (make-string 2) 'simple-base-string)
+
+== SEQUENCE
+(typep '(1 2) 'sequence)
+
+== SEQUENCE
+(typep #(1 2) 'sequence)
+
+== SEQUENCE
+(typep 5 'sequence)
+
+== NUMBER
+(typep 5 'number)
+
+== NUMBER
+(typep 1/2 'number)
+
+== NUMBER
+(typep "5" 'number)
+
+== REAL
+(typep 1.5 'real)
+
+== REAL
+(typep #c(1 2) 'real)
+
+== REAL
+(typep 1/2 'real)
+
+== INTEGER
+(typep 5 'integer)
+
+== INTEGER
+(typep 5.0 'integer)
+
+== INTEGER
+(typep 5 '(integer 1 10))
+
+== FIXNUM
+(typep 42 'fixnum)
+
+== FIXNUM
+(typep (expt 10 30) 'fixnum)
+
+== BIGNUM
+(typep (expt 10 30) 'bignum)
+
+== BIGNUM
+(typep 42 'bignum)
+
+== RATIO
+(typep 1/3 'ratio)
+
+== RATIO
+(typep 4/2 'ratio)
+
+== SINGLE-FLOAT
+(typep 1.5 'single-float)
+
+== SINGLE-FLOAT
+(typep 1.5d0 'single-float)
+
+== DOUBLE-FLOAT
+(typep 1.5d0 'double-float)
+
+== DOUBLE-FLOAT
+(typep 1.5 'double-float)
+
+== SYMBOL
+(typep 'a 'symbol)
+
+== SYMBOL
+(typep nil 'symbol)
+
+== SYMBOL
+(typep "a" 'symbol)
+
+== HASH-TABLE
+(typep (make-hash-table) 'hash-table)
+
+== HASH-TABLE
+(typep '((a . 1)) 'hash-table)
+
+== PACKAGE
+(typep *package* 'package)
+
+== PACKAGE
+(typep "COMMON-LISP" 'package)
+
+== RANDOM-STATE
+(typep *random-state* 'random-state)
+
+== RANDOM-STATE
+(typep (make-random-state) 'random-state)
+
+== READTABLE
+(typep *readtable* 'readtable)
+
+== READTABLE
+(typep (copy-readtable) 'readtable)
+
+== RESTART
+(restart-case (typep (find-restart 'demo) 'restart)
+  (demo () nil))
+
+== STREAM
+(typep *standard-output* 'stream)
+
+== STREAM
+(typep (make-string-input-stream "x") 'stream)
+
+== STRING-STREAM
+(typep (make-string-input-stream "x") 'string-stream)
+
+== STRING-STREAM
+(typep (make-string-output-stream) 'string-stream)
+
+== FILE-STREAM
+(let ((path "/tmp/cldocs-ex-file-stream.txt"))
+  (with-open-file (stream path :direction :output :if-exists :supersede)
+    (prog1 (typep stream 'file-stream)
+      (write-string "x" stream)))
+  (delete-file path)
+  :done)
+
+== BROADCAST-STREAM
+(typep (make-broadcast-stream) 'broadcast-stream)
+
+== CONCATENATED-STREAM
+(typep (make-concatenated-stream) 'concatenated-stream)
+
+== ECHO-STREAM
+(typep (make-echo-stream (make-string-input-stream "") (make-broadcast-stream)) 'echo-stream)
+
+== SYNONYM-STREAM
+(typep (make-synonym-stream '*standard-output*) 'synonym-stream)
+
+== TWO-WAY-STREAM
+(typep (make-two-way-stream (make-string-input-stream "") (make-broadcast-stream))
+       'two-way-stream)
+
+== CLASS
+(typep (find-class 'integer) 'class)
+
+== CLASS
+(typep (class-of 1) 'class)
+
+== BUILT-IN-CLASS
+(typep (find-class 'integer) 'built-in-class)
+-- silent
+(defclass user-defined () ())
+(typep (find-class 'user-defined) 'built-in-class)
+
+== STANDARD-CLASS
+-- silent
+(defclass user-defined () ())
+(typep (find-class 'user-defined) 'standard-class)
+(typep (find-class 'integer) 'standard-class)
+
+== STRUCTURE-CLASS
+-- silent
+(defstruct a-record field)
+(typep (find-class 'a-record) 'structure-class)
+(typep (find-class 'integer) 'structure-class)
+
+== STANDARD-OBJECT
+-- silent
+(defclass user-defined () ())
+(typep (make-instance 'user-defined) 'standard-object)
+(typep 5 'standard-object)
+
+== STRUCTURE-OBJECT
+-- silent
+(defstruct a-record field)
+(typep (make-a-record) 'structure-object)
+(typep (make-instance 'standard-object) 'structure-object)
+
+== GENERIC-FUNCTION
+(typep #'print-object 'generic-function)
+
+== GENERIC-FUNCTION
+(typep #'car 'generic-function)
+
+== STANDARD-GENERIC-FUNCTION
+(typep #'print-object 'standard-generic-function)
+
+== STANDARD-GENERIC-FUNCTION
+(typep #'car 'standard-generic-function)
+
+== METHOD
+-- silent
+(defgeneric show (x))
+-- silent
+(defmethod show ((x integer)) x)
+(typep (find-method #'show '() (list (find-class 'integer))) 'method)
+
+== STANDARD-METHOD
+-- silent
+(defgeneric show (x))
+-- silent
+(defmethod show ((x integer)) x)
+(typep (find-method #'show '() (list (find-class 'integer))) 'standard-method)
+
+== METHOD-COMBINATION
+(typep (sb-mop:generic-function-method-combination #'print-object) 'method-combination)
+
+== METHOD-COMBINATION
+(typep 'standard 'method-combination)
+
+== BASE-CHAR
+(typep #\a 'base-char)
+
+== BASE-CHAR
+(typep 5 'base-char)
+
+== EXTENDED-CHAR
+(typep #\a 'extended-char)
+
+== EXTENDED-CHAR
+(typep #\a 'character)
+
+== STANDARD-CHAR
+(typep #\a 'standard-char)
+
+== STANDARD-CHAR
+(typep #\Tab 'standard-char)
+
+== BOOLEAN
+(typep t 'boolean)
+
+== BOOLEAN
+(typep nil 'boolean)
+
+== BOOLEAN
+(typep 1 'boolean)
+
+== COMPILED-FUNCTION
+(typep #'car 'compiled-function)
+
+== COMPILED-FUNCTION
+(typep 'car 'compiled-function)
+
+== KEYWORD
+(typep :a 'keyword)
+
+== KEYWORD
+(typep 'a 'keyword)
+
+== LONG-FLOAT
+(typep 1d0 'long-float)
+
+== LONG-FLOAT
+(subtypep 'long-float 'double-float)
+
+== SHORT-FLOAT
+(typep 1.0 'short-float)
+
+== SHORT-FLOAT
+(subtypep 'short-float 'single-float)
+
+== SIGNED-BYTE
+(typep -5 'signed-byte)
+
+== SIGNED-BYTE
+(typep -128 '(signed-byte 8))
+
+== SIGNED-BYTE
+(typep -129 '(signed-byte 8))
+
+== UNSIGNED-BYTE
+(typep 5 'unsigned-byte)
+
+== UNSIGNED-BYTE
+(typep 255 '(unsigned-byte 8))
+
+== UNSIGNED-BYTE
+(typep 256 '(unsigned-byte 8))
+
+== UNSIGNED-BYTE
+(typep -1 'unsigned-byte)
+
+== GET-SETF-EXPANSION
+(length (multiple-value-list (get-setf-expansion '(car x))))
+
+== GET-SETF-EXPANSION
+(length (multiple-value-list (get-setf-expansion 'variable)))
+
+== GET-SETF-EXPANSION
+(multiple-value-bind (temporaries values stores setter getter)
+    (get-setf-expansion '(car place))
+  (list (length temporaries) (length values) (length stores) (consp setter) (length getter)))
+
+== LISP-IMPLEMENTATION-TYPE
+(lisp-implementation-type)
+
+== LISP-IMPLEMENTATION-TYPE
+(stringp (lisp-implementation-type))
+
+== LISP-IMPLEMENTATION-VERSION
+(stringp (lisp-implementation-version))
+
+== LISP-IMPLEMENTATION-VERSION
+(plusp (length (lisp-implementation-version)))
+
+== LONG-SITE-NAME
+(typep (long-site-name) '(or null string))
+
+== SHORT-SITE-NAME
+(typep (short-site-name) '(or null string))
+
+== MACHINE-INSTANCE
+(typep (machine-instance) '(or null string))
+
+== MACHINE-TYPE
+(typep (machine-type) '(or null string))
+
+== MACHINE-TYPE
+(stringp (machine-type))
+
+== MACHINE-VERSION
+(typep (machine-version) '(or null string))
+
+== SOFTWARE-TYPE
+(software-type)
+
+== SOFTWARE-TYPE
+(stringp (software-type))
+
+== SOFTWARE-VERSION
+(typep (software-version) '(or null string))

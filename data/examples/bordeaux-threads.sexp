@@ -27,7 +27,10 @@
   (:symbol "THREADP" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
    :steps
    (
-    (:FORM "(threadp (current-thread))" :VALUES ("T"))
+    (:FORM "(threadp (current-thread))" :VALUES ("T"))))
+  (:symbol "THREADP" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
     (:FORM "(threadp 42)" :VALUES ("NIL"))))
   (:symbol "WITH-LOCK-HELD" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
    :steps
@@ -49,5 +52,259 @@
   (:symbol "*SUPPORTS-THREADS-P*" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
    :steps
    (
-    (:FORM "*supports-threads-p*" :VALUES ("T")))))
+    (:FORM "*supports-threads-p*" :VALUES ("T"))))
+  (:symbol "ACQUIRE-LOCK" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let ((lock (make-lock)))
+  (prog1 (acquire-lock lock)
+    (release-lock lock)))" :VALUES ("T"))))
+  (:symbol "ACQUIRE-LOCK" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let ((lock (make-lock)))
+  (acquire-lock lock)
+  (prog1 (join-thread (make-thread (lambda () (acquire-lock lock nil))))
+    (release-lock lock)))" :VALUES ("NIL"))))
+  (:symbol "RELEASE-LOCK" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let ((lock (make-lock)))
+  (acquire-lock lock)
+  (release-lock lock)
+  (acquire-lock lock nil))" :VALUES ("T"))))
+  (:symbol "MAKE-RECURSIVE-LOCK" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(recursive-lock-p (make-recursive-lock \"demo\"))" :VALUES ("T"))))
+  (:symbol "MAKE-RECURSIVE-LOCK" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(lock-p (make-recursive-lock))" :VALUES ("T"))))
+  (:symbol "ACQUIRE-RECURSIVE-LOCK" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let ((lock (make-recursive-lock)))
+  (acquire-recursive-lock lock)
+  (acquire-recursive-lock lock)
+  (release-recursive-lock lock)
+  (release-recursive-lock lock)
+  :balanced)" :VALUES (":BALANCED"))))
+  (:symbol "RELEASE-RECURSIVE-LOCK" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let ((lock (make-recursive-lock)))
+  (acquire-recursive-lock lock)
+  (release-recursive-lock lock)
+  :released)" :VALUES (":RELEASED"))))
+  (:symbol "WITH-RECURSIVE-LOCK-HELD" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let ((lock (make-recursive-lock)))
+  (with-recursive-lock-held (lock)
+    (with-recursive-lock-held (lock)
+      :nested)))" :VALUES (":NESTED"))))
+  (:symbol "LOCK-P" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(lock-p (make-lock))" :VALUES ("T"))))
+  (:symbol "LOCK-P" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(lock-p 42)" :VALUES ("NIL"))))
+  (:symbol "RECURSIVE-LOCK-P" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(recursive-lock-p (make-recursive-lock))" :VALUES ("T"))))
+  (:symbol "RECURSIVE-LOCK-P" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(recursive-lock-p (make-lock))" :VALUES ("T"))))
+  (:symbol "SEMAPHORE-P" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(semaphore-p (make-semaphore))" :VALUES ("T"))))
+  (:symbol "SEMAPHORE-P" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(semaphore-p (make-lock))" :VALUES ("NIL"))))
+  (:symbol "MAKE-SEMAPHORE" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let ((semaphore (make-semaphore :count 1)))
+  (list (and (wait-on-semaphore semaphore) t)
+        (wait-on-semaphore semaphore :timeout 0.01)))" :VALUES ("(T NIL)"))))
+  (:symbol "MAKE-SEMAPHORE" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(semaphore-p (make-semaphore :name \"gate\"))" :VALUES ("T"))))
+  (:symbol "WAIT-ON-SEMAPHORE" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let ((semaphore (make-semaphore :count 2)))
+  (list (and (wait-on-semaphore semaphore) t)
+        (and (wait-on-semaphore semaphore) t)
+        (wait-on-semaphore semaphore :timeout 0.01)))" :VALUES ("(T T NIL)"))))
+  (:symbol "SIGNAL-SEMAPHORE" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let ((semaphore (make-semaphore :count 0)))
+  (signal-semaphore semaphore)
+  (and (wait-on-semaphore semaphore :timeout 0.1) t))" :VALUES ("T"))))
+  (:symbol "SIGNAL-SEMAPHORE" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let* ((semaphore (make-semaphore))
+       (worker (make-thread (lambda ()
+                              (signal-semaphore semaphore)
+                              :signalled))))
+  (list (and (wait-on-semaphore semaphore :timeout 2) t)
+        (join-thread worker)))" :VALUES ("(T :SIGNALLED)"))))
+  (:symbol "MAKE-CONDITION-VARIABLE" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(not (null (make-condition-variable)))" :VALUES ("T"))))
+  (:symbol "MAKE-CONDITION-VARIABLE" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(typep (make-condition-variable :name \"ready\") 'standard-object)" :VALUES ("NIL"))))
+  (:symbol "CONDITION-WAIT" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let* ((lock (make-lock))
+       (cv (make-condition-variable))
+       (ready nil)
+       (consumer (make-thread
+                  (lambda ()
+                    (with-lock-held (lock)
+                      (loop until ready do (condition-wait cv lock))
+                      :got-signal)))))
+  (with-lock-held (lock)
+    (setf ready t)
+    (condition-notify cv))
+  (join-thread consumer))" :VALUES (":GOT-SIGNAL"))))
+  (:symbol "CONDITION-NOTIFY" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let* ((lock (make-lock))
+       (cv (make-condition-variable))
+       (done nil)
+       (waiter (make-thread
+                (lambda ()
+                  (with-lock-held (lock)
+                    (loop until done do (condition-wait cv lock))
+                    :woken)))))
+  (with-lock-held (lock)
+    (setf done t)
+    (condition-notify cv))
+  (join-thread waiter))" :VALUES (":WOKEN"))))
+  (:symbol "CURRENT-THREAD" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(threadp (current-thread))" :VALUES ("T"))))
+  (:symbol "CURRENT-THREAD" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(eq (current-thread) (current-thread))" :VALUES ("T"))))
+  (:symbol "CURRENT-THREAD" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(stringp (thread-name (current-thread)))" :VALUES ("T"))))
+  (:symbol "ALL-THREADS" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(and (member (current-thread) (all-threads)) t)" :VALUES ("T"))))
+  (:symbol "ALL-THREADS" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(listp (all-threads))" :VALUES ("T"))))
+  (:symbol "INTERRUPT-THREAD" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let* ((flag nil)
+       (worker (make-thread (lambda ()
+                              (loop until flag do (sleep 0.01))
+                              :finished))))
+  (interrupt-thread worker (lambda () (setf flag t)))
+  (join-thread worker))" :VALUES (":FINISHED"))))
+  (:symbol "DESTROY-THREAD" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(let ((worker (make-thread (lambda () (sleep 30)))))
+  (destroy-thread worker)
+  (handler-case (join-thread worker)
+    (error () :destroyed)))" :VALUES (":DESTROYED"))))
+  (:symbol "THREAD-YIELD" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(progn (thread-yield) :yielded)" :VALUES (":YIELDED"))))
+  (:symbol "START-MULTIPROCESSING" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(progn (start-multiprocessing) :started)" :VALUES (":STARTED"))))
+  (:symbol "WITH-TIMEOUT" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(handler-case (with-timeout (0.05)
+                (sleep 5)
+                :late)
+  (timeout () :timed-out))" :VALUES (":TIMED-OUT"))))
+  (:symbol "WITH-TIMEOUT" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(with-timeout (5)
+  :fast)" :VALUES (":FAST"))))
+  (:symbol "*DEFAULT-SPECIAL-BINDINGS*" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(listp *default-special-bindings*)" :VALUES ("T"))))
+  (:symbol "*STANDARD-IO-BINDINGS*" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(and (assoc '*package* *standard-io-bindings*) t)" :VALUES ("T"))))
+  (:symbol "*STANDARD-IO-BINDINGS*" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(listp *standard-io-bindings*)" :VALUES ("T"))))
+  (:symbol "LOCK" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(typep (make-lock) 'lock)" :VALUES ("T"))))
+  (:symbol "LOCK" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(typep 5 'lock)" :VALUES ("NIL"))))
+  (:symbol "RECURSIVE-LOCK" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(typep (make-recursive-lock) 'recursive-lock)" :VALUES ("T"))))
+  (:symbol "RECURSIVE-LOCK" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(typep (make-lock) 'recursive-lock)" :VALUES ("T"))))
+  (:symbol "SEMAPHORE" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(typep (make-semaphore) 'semaphore)" :VALUES ("T"))))
+  (:symbol "SEMAPHORE" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(typep (make-lock) 'semaphore)" :VALUES ("NIL"))))
+  (:symbol "THREAD" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(typep (current-thread) 'thread)" :VALUES ("T"))))
+  (:symbol "THREAD" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(typep 5 'thread)" :VALUES ("NIL"))))
+  (:symbol "TIMEOUT" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(subtypep 'timeout 'serious-condition)" :VALUES ("T" "T"))))
+  (:symbol "TIMEOUT" :uses ("BORDEAUX-THREADS") :system "bordeaux-threads"
+   :steps
+   (
+    (:FORM "(handler-case (with-timeout (0.02) (sleep 5))
+  (timeout () :timed-out))" :VALUES (":TIMED-OUT")))))
  )

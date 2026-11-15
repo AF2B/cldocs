@@ -1,3 +1,4 @@
+
 == BORDEAUX-THREADS:MAKE-THREAD @ bordeaux-threads
 (join-thread (make-thread (lambda () (+ 1 2))))
 
@@ -17,6 +18,8 @@
 
 == BORDEAUX-THREADS:THREADP @ bordeaux-threads
 (threadp (current-thread))
+
+== BORDEAUX-THREADS:THREADP @ bordeaux-threads
 (threadp 42)
 
 == BORDEAUX-THREADS:WITH-LOCK-HELD @ bordeaux-threads
@@ -36,3 +39,210 @@
 
 == BORDEAUX-THREADS:*SUPPORTS-THREADS-P* @ bordeaux-threads
 *supports-threads-p*
+
+== BORDEAUX-THREADS:ACQUIRE-LOCK @ bordeaux-threads
+(let ((lock (make-lock)))
+  (prog1 (acquire-lock lock)
+    (release-lock lock)))
+
+== BORDEAUX-THREADS:ACQUIRE-LOCK @ bordeaux-threads
+(let ((lock (make-lock)))
+  (acquire-lock lock)
+  (prog1 (join-thread (make-thread (lambda () (acquire-lock lock nil))))
+    (release-lock lock)))
+
+== BORDEAUX-THREADS:RELEASE-LOCK @ bordeaux-threads
+(let ((lock (make-lock)))
+  (acquire-lock lock)
+  (release-lock lock)
+  (acquire-lock lock nil))
+
+== BORDEAUX-THREADS:MAKE-RECURSIVE-LOCK @ bordeaux-threads
+(recursive-lock-p (make-recursive-lock "demo"))
+
+== BORDEAUX-THREADS:MAKE-RECURSIVE-LOCK @ bordeaux-threads
+(lock-p (make-recursive-lock))
+
+== BORDEAUX-THREADS:ACQUIRE-RECURSIVE-LOCK @ bordeaux-threads
+(let ((lock (make-recursive-lock)))
+  (acquire-recursive-lock lock)
+  (acquire-recursive-lock lock)
+  (release-recursive-lock lock)
+  (release-recursive-lock lock)
+  :balanced)
+
+== BORDEAUX-THREADS:RELEASE-RECURSIVE-LOCK @ bordeaux-threads
+(let ((lock (make-recursive-lock)))
+  (acquire-recursive-lock lock)
+  (release-recursive-lock lock)
+  :released)
+
+== BORDEAUX-THREADS:WITH-RECURSIVE-LOCK-HELD @ bordeaux-threads
+(let ((lock (make-recursive-lock)))
+  (with-recursive-lock-held (lock)
+    (with-recursive-lock-held (lock)
+      :nested)))
+
+== BORDEAUX-THREADS:LOCK-P @ bordeaux-threads
+(lock-p (make-lock))
+
+== BORDEAUX-THREADS:LOCK-P @ bordeaux-threads
+(lock-p 42)
+
+== BORDEAUX-THREADS:RECURSIVE-LOCK-P @ bordeaux-threads
+(recursive-lock-p (make-recursive-lock))
+
+== BORDEAUX-THREADS:RECURSIVE-LOCK-P @ bordeaux-threads
+(recursive-lock-p (make-lock))
+
+== BORDEAUX-THREADS:SEMAPHORE-P @ bordeaux-threads
+(semaphore-p (make-semaphore))
+
+== BORDEAUX-THREADS:SEMAPHORE-P @ bordeaux-threads
+(semaphore-p (make-lock))
+
+== BORDEAUX-THREADS:MAKE-SEMAPHORE @ bordeaux-threads
+(let ((semaphore (make-semaphore :count 1)))
+  (list (and (wait-on-semaphore semaphore) t)
+        (wait-on-semaphore semaphore :timeout 0.01)))
+
+== BORDEAUX-THREADS:MAKE-SEMAPHORE @ bordeaux-threads
+(semaphore-p (make-semaphore :name "gate"))
+
+== BORDEAUX-THREADS:WAIT-ON-SEMAPHORE @ bordeaux-threads
+(let ((semaphore (make-semaphore :count 2)))
+  (list (and (wait-on-semaphore semaphore) t)
+        (and (wait-on-semaphore semaphore) t)
+        (wait-on-semaphore semaphore :timeout 0.01)))
+
+== BORDEAUX-THREADS:SIGNAL-SEMAPHORE @ bordeaux-threads
+(let ((semaphore (make-semaphore :count 0)))
+  (signal-semaphore semaphore)
+  (and (wait-on-semaphore semaphore :timeout 0.1) t))
+
+== BORDEAUX-THREADS:SIGNAL-SEMAPHORE @ bordeaux-threads
+(let* ((semaphore (make-semaphore))
+       (worker (make-thread (lambda ()
+                              (signal-semaphore semaphore)
+                              :signalled))))
+  (list (and (wait-on-semaphore semaphore :timeout 2) t)
+        (join-thread worker)))
+
+== BORDEAUX-THREADS:MAKE-CONDITION-VARIABLE @ bordeaux-threads
+(not (null (make-condition-variable)))
+
+== BORDEAUX-THREADS:MAKE-CONDITION-VARIABLE @ bordeaux-threads
+(typep (make-condition-variable :name "ready") 'standard-object)
+
+== BORDEAUX-THREADS:CONDITION-WAIT @ bordeaux-threads
+(let* ((lock (make-lock))
+       (cv (make-condition-variable))
+       (ready nil)
+       (consumer (make-thread
+                  (lambda ()
+                    (with-lock-held (lock)
+                      (loop until ready do (condition-wait cv lock))
+                      :got-signal)))))
+  (with-lock-held (lock)
+    (setf ready t)
+    (condition-notify cv))
+  (join-thread consumer))
+
+== BORDEAUX-THREADS:CONDITION-NOTIFY @ bordeaux-threads
+(let* ((lock (make-lock))
+       (cv (make-condition-variable))
+       (done nil)
+       (waiter (make-thread
+                (lambda ()
+                  (with-lock-held (lock)
+                    (loop until done do (condition-wait cv lock))
+                    :woken)))))
+  (with-lock-held (lock)
+    (setf done t)
+    (condition-notify cv))
+  (join-thread waiter))
+
+== BORDEAUX-THREADS:CURRENT-THREAD @ bordeaux-threads
+(threadp (current-thread))
+
+== BORDEAUX-THREADS:CURRENT-THREAD @ bordeaux-threads
+(eq (current-thread) (current-thread))
+
+== BORDEAUX-THREADS:CURRENT-THREAD @ bordeaux-threads
+(stringp (thread-name (current-thread)))
+
+== BORDEAUX-THREADS:ALL-THREADS @ bordeaux-threads
+(and (member (current-thread) (all-threads)) t)
+
+== BORDEAUX-THREADS:ALL-THREADS @ bordeaux-threads
+(listp (all-threads))
+
+== BORDEAUX-THREADS:INTERRUPT-THREAD @ bordeaux-threads
+(let* ((flag nil)
+       (worker (make-thread (lambda ()
+                              (loop until flag do (sleep 0.01))
+                              :finished))))
+  (interrupt-thread worker (lambda () (setf flag t)))
+  (join-thread worker))
+
+== BORDEAUX-THREADS:DESTROY-THREAD @ bordeaux-threads
+(let ((worker (make-thread (lambda () (sleep 30)))))
+  (destroy-thread worker)
+  (handler-case (join-thread worker)
+    (error () :destroyed)))
+
+== BORDEAUX-THREADS:THREAD-YIELD @ bordeaux-threads
+(progn (thread-yield) :yielded)
+
+== BORDEAUX-THREADS:START-MULTIPROCESSING @ bordeaux-threads
+(progn (start-multiprocessing) :started)
+
+== BORDEAUX-THREADS:WITH-TIMEOUT @ bordeaux-threads
+(handler-case (with-timeout (0.05)
+                (sleep 5)
+                :late)
+  (timeout () :timed-out))
+
+== BORDEAUX-THREADS:WITH-TIMEOUT @ bordeaux-threads
+(with-timeout (5)
+  :fast)
+
+== BORDEAUX-THREADS:*DEFAULT-SPECIAL-BINDINGS* @ bordeaux-threads
+(listp *default-special-bindings*)
+
+== BORDEAUX-THREADS:*STANDARD-IO-BINDINGS* @ bordeaux-threads
+(and (assoc '*package* *standard-io-bindings*) t)
+
+== BORDEAUX-THREADS:*STANDARD-IO-BINDINGS* @ bordeaux-threads
+(listp *standard-io-bindings*)
+
+== BORDEAUX-THREADS:LOCK @ bordeaux-threads
+(typep (make-lock) 'lock)
+
+== BORDEAUX-THREADS:LOCK @ bordeaux-threads
+(typep 5 'lock)
+
+== BORDEAUX-THREADS:RECURSIVE-LOCK @ bordeaux-threads
+(typep (make-recursive-lock) 'recursive-lock)
+
+== BORDEAUX-THREADS:RECURSIVE-LOCK @ bordeaux-threads
+(typep (make-lock) 'recursive-lock)
+
+== BORDEAUX-THREADS:SEMAPHORE @ bordeaux-threads
+(typep (make-semaphore) 'semaphore)
+
+== BORDEAUX-THREADS:SEMAPHORE @ bordeaux-threads
+(typep (make-lock) 'semaphore)
+
+== BORDEAUX-THREADS:THREAD @ bordeaux-threads
+(typep (current-thread) 'thread)
+
+== BORDEAUX-THREADS:THREAD @ bordeaux-threads
+(typep 5 'thread)
+
+== BORDEAUX-THREADS:TIMEOUT @ bordeaux-threads
+(subtypep 'timeout 'serious-condition)
+
+== BORDEAUX-THREADS:TIMEOUT @ bordeaux-threads
+(handler-case (with-timeout (0.02) (sleep 5))
+  (timeout () :timed-out))

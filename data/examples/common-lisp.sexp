@@ -6,22 +6,34 @@
   (:symbol "CAR" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(car '(a b c))" :VALUES ("A"))
+    (:FORM "(car '(a b c))" :VALUES ("A"))))
+  (:symbol "CAR" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(car '())" :VALUES ("NIL"))))
   (:symbol "CDR" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(cdr '(a b c))" :VALUES ("(B C)"))
+    (:FORM "(cdr '(a b c))" :VALUES ("(B C)"))))
+  (:symbol "CDR" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(cdr '(a))" :VALUES ("NIL"))))
   (:symbol "CONS" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(cons 1 2)" :VALUES ("(1 . 2)"))
+    (:FORM "(cons 1 2)" :VALUES ("(1 . 2)"))))
+  (:symbol "CONS" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(cons 1 '(2 3))" :VALUES ("(1 2 3)"))))
   (:symbol "LIST" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(list 1 2 3)" :VALUES ("(1 2 3)"))
+    (:FORM "(list 1 2 3)" :VALUES ("(1 2 3)"))))
+  (:symbol "LIST" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(list)" :VALUES ("NIL"))))
   (:symbol "LIST*" :uses NIL :system NIL
    :steps
@@ -30,12 +42,18 @@
   (:symbol "APPEND" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(append '(1 2) '(3) '(4 5))" :VALUES ("(1 2 3 4 5)"))
+    (:FORM "(append '(1 2) '(3) '(4 5))" :VALUES ("(1 2 3 4 5)"))))
+  (:symbol "APPEND" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(append '(1) nil)" :VALUES ("(1)"))))
   (:symbol "REVERSE" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(reverse '(1 2 3))" :VALUES ("(3 2 1)"))
+    (:FORM "(reverse '(1 2 3))" :VALUES ("(3 2 1)"))))
+  (:symbol "REVERSE" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(reverse \"abc\")" :VALUES ("\"cba\""))))
   (:symbol "NREVERSE" :uses NIL :system NIL
    :steps
@@ -44,12 +62,18 @@
   (:symbol "LENGTH" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(length '(a b c))" :VALUES ("3"))
+    (:FORM "(length '(a b c))" :VALUES ("3"))))
+  (:symbol "LENGTH" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(length \"hello\")" :VALUES ("5"))))
   (:symbol "NTH" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(nth 0 '(a b c))" :VALUES ("A"))
+    (:FORM "(nth 0 '(a b c))" :VALUES ("A"))))
+  (:symbol "NTH" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(nth 5 '(a b c))" :VALUES ("NIL"))))
   (:symbol "FIRST" :uses NIL :system NIL
    :steps
@@ -62,7 +86,10 @@
   (:symbol "LAST" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(last '(1 2 3))" :VALUES ("(3)"))
+    (:FORM "(last '(1 2 3))" :VALUES ("(3)"))))
+  (:symbol "LAST" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(last '(1 2 3) 2)" :VALUES ("(2 3)"))))
   (:symbol "BUTLAST" :uses NIL :system NIL
    :steps
@@ -71,18 +98,30 @@
   (:symbol "MEMBER" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(member 2 '(1 2 3))" :VALUES ("(2 3)"))
-    (:FORM "(member 'x '(a b))" :VALUES ("NIL"))
+    (:FORM "(member 2 '(1 2 3))" :VALUES ("(2 3)"))))
+  (:symbol "MEMBER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(member 'x '(a b))" :VALUES ("NIL"))))
+  (:symbol "MEMBER" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(member \"b\" '(\"a\" \"b\" \"c\") :test #'string=)" :VALUES ("(\"b\" \"c\")"))))
   (:symbol "ASSOC" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(assoc 'b '((a . 1) (b . 2)))" :VALUES ("(B . 2)"))
+    (:FORM "(assoc 'b '((a . 1) (b . 2)))" :VALUES ("(B . 2)"))))
+  (:symbol "ASSOC" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(assoc \"b\" '((\"a\" . 1) (\"b\" . 2)) :test #'string=)" :VALUES ("(\"b\" . 2)"))))
   (:symbol "MAPCAR" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(mapcar #'1+ '(1 2 3))" :VALUES ("(2 3 4)"))
+    (:FORM "(mapcar #'1+ '(1 2 3))" :VALUES ("(2 3 4)"))))
+  (:symbol "MAPCAR" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(mapcar #'+ '(1 2 3) '(10 20 30))" :VALUES ("(11 22 33)"))))
   (:symbol "MAPC" :uses NIL :system NIL
    :steps
@@ -97,12 +136,18 @@
   (:symbol "MAP" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(map 'list #'+ '(1 2) '(10 20))" :VALUES ("(11 22)"))
+    (:FORM "(map 'list #'+ '(1 2) '(10 20))" :VALUES ("(11 22)"))))
+  (:symbol "MAP" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(map 'string #'char-upcase \"abc\")" :VALUES ("\"ABC\""))))
   (:symbol "REMOVE" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(remove 2 '(1 2 3 2))" :VALUES ("(1 3)"))
+    (:FORM "(remove 2 '(1 2 3 2))" :VALUES ("(1 3)"))))
+  (:symbol "REMOVE" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(remove #\\a \"banana\")" :VALUES ("\"bnn\""))))
   (:symbol "REMOVE-IF" :uses NIL :system NIL
    :steps
@@ -123,8 +168,14 @@
   (:symbol "FIND" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(find 3 '(1 2 3 4))" :VALUES ("3"))
-    (:FORM "(find 'z '(a b))" :VALUES ("NIL"))
+    (:FORM "(find 3 '(1 2 3 4))" :VALUES ("3"))))
+  (:symbol "FIND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(find 'z '(a b))" :VALUES ("NIL"))))
+  (:symbol "FIND" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(find 2 '((1 . a) (2 . b)) :key #'car)" :VALUES ("(2 . B)"))))
   (:symbol "FIND-IF" :uses NIL :system NIL
    :steps
@@ -133,7 +184,10 @@
   (:symbol "POSITION" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(position #\\c \"abcd\")" :VALUES ("2"))
+    (:FORM "(position #\\c \"abcd\")" :VALUES ("2"))))
+  (:symbol "POSITION" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(position 9 '(1 2 3))" :VALUES ("NIL"))))
   (:symbol "COUNT" :uses NIL :system NIL
    :steps
@@ -142,28 +196,46 @@
   (:symbol "SORT" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(sort (list 3 1 2) #'<)" :VALUES ("(1 2 3)"))
+    (:FORM "(sort (list 3 1 2) #'<)" :VALUES ("(1 2 3)"))))
+  (:symbol "SORT" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(sort (vector \"pear\" \"fig\" \"apple\") #'string<)" :VALUES ("#(\"apple\" \"fig\" \"pear\")"))))
   (:symbol "SUBSEQ" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(subseq \"hello world\" 6)" :VALUES ("\"world\""))
+    (:FORM "(subseq \"hello world\" 6)" :VALUES ("\"world\""))))
+  (:symbol "SUBSEQ" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(subseq '(a b c d) 1 3)" :VALUES ("(B C)"))))
   (:symbol "REDUCE" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(reduce #'+ '(1 2 3 4))" :VALUES ("10"))
-    (:FORM "(reduce #'list '(1 2 3) :from-end t)" :VALUES ("(1 (2 3))"))
+    (:FORM "(reduce #'+ '(1 2 3 4))" :VALUES ("10"))))
+  (:symbol "REDUCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(reduce #'list '(1 2 3) :from-end t)" :VALUES ("(1 (2 3))"))))
+  (:symbol "REDUCE" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(reduce #'+ '() :initial-value 100)" :VALUES ("100"))))
   (:symbol "EVERY" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(every #'numberp '(1 2 3))" :VALUES ("T"))
+    (:FORM "(every #'numberp '(1 2 3))" :VALUES ("T"))))
+  (:symbol "EVERY" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(every #'numberp '(1 a 3))" :VALUES ("NIL"))))
   (:symbol "SOME" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(some #'evenp '(1 3 5))" :VALUES ("NIL"))
+    (:FORM "(some #'evenp '(1 3 5))" :VALUES ("NIL"))))
+  (:symbol "SOME" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(some #'evenp '(1 2))" :VALUES ("T"))))
   (:symbol "PUSH" :uses NIL :system NIL
    :steps
@@ -187,7 +259,10 @@
   (:symbol "ADJOIN" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(adjoin 1 '(2 3))" :VALUES ("(1 2 3)"))
+    (:FORM "(adjoin 1 '(2 3))" :VALUES ("(1 2 3)"))))
+  (:symbol "ADJOIN" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(adjoin 2 '(2 3))" :VALUES ("(2 3)"))))
   (:symbol "UNION" :uses NIL :system NIL
    :steps
@@ -211,12 +286,18 @@
   (:symbol "ELT" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(elt '(a b c) 1)" :VALUES ("B"))
+    (:FORM "(elt '(a b c) 1)" :VALUES ("B"))))
+  (:symbol "ELT" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(elt \"abc\" 2)" :VALUES ("#\\c"))))
   (:symbol "GETF" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(getf '(:a 1 :b 2) :b)" :VALUES ("2"))
+    (:FORM "(getf '(:a 1 :b 2) :b)" :VALUES ("2"))))
+  (:symbol "GETF" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(getf '(:a 1) :z :none)" :VALUES (":NONE"))))
   (:symbol "LET" :uses NIL :system NIL
    :steps
@@ -245,17 +326,26 @@
   (:symbol "IF" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(if (> 3 2) 'yes 'no)" :VALUES ("YES"))
+    (:FORM "(if (> 3 2) 'yes 'no)" :VALUES ("YES"))))
+  (:symbol "IF" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(if nil 'yes)" :VALUES ("NIL"))))
   (:symbol "WHEN" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(when (> 3 2) 'a 'b)" :VALUES ("B"))
+    (:FORM "(when (> 3 2) 'a 'b)" :VALUES ("B"))))
+  (:symbol "WHEN" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(when nil 'a)" :VALUES ("NIL"))))
   (:symbol "UNLESS" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(unless (> 3 2) 'a)" :VALUES ("NIL"))
+    (:FORM "(unless (> 3 2) 'a)" :VALUES ("NIL"))))
+  (:symbol "UNLESS" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(unless nil 'a 'b)" :VALUES ("B"))))
   (:symbol "COND" :uses NIL :system NIL
    :steps
@@ -273,17 +363,26 @@
   (:symbol "AND" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(and 1 2 3)" :VALUES ("3"))
+    (:FORM "(and 1 2 3)" :VALUES ("3"))))
+  (:symbol "AND" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(and 1 nil 3)" :VALUES ("NIL"))))
   (:symbol "OR" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(or nil 2 3)" :VALUES ("2"))
+    (:FORM "(or nil 2 3)" :VALUES ("2"))))
+  (:symbol "OR" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(or nil nil)" :VALUES ("NIL"))))
   (:symbol "NOT" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(not nil)" :VALUES ("T"))
+    (:FORM "(not nil)" :VALUES ("T"))))
+  (:symbol "NOT" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(not 3)" :VALUES ("NIL"))))
   (:symbol "PROGN" :uses NIL :system NIL
    :steps
@@ -292,7 +391,10 @@
   (:symbol "LAMBDA" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(funcall (lambda (x y) (+ x y)) 1 2)" :VALUES ("3"))
+    (:FORM "(funcall (lambda (x y) (+ x y)) 1 2)" :VALUES ("3"))))
+  (:symbol "LAMBDA" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(mapcar (lambda (x) (* x x)) '(1 2 3))" :VALUES ("(1 4 9)"))))
   (:symbol "FUNCALL" :uses NIL :system NIL
    :steps
@@ -305,12 +407,18 @@
   (:symbol "FUNCTION" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(funcall (function car) '(1 2))" :VALUES ("1"))
+    (:FORM "(funcall (function car) '(1 2))" :VALUES ("1"))))
+  (:symbol "FUNCTION" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(mapcar #'cdr '((a . 1) (b . 2)))" :VALUES ("(1 2)"))))
   (:symbol "QUOTE" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(quote (a b))" :VALUES ("(A B)"))
+    (:FORM "(quote (a b))" :VALUES ("(A B)"))))
+  (:symbol "QUOTE" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "'(1 . 2)" :VALUES ("(1 . 2)"))))
   (:symbol "DEFUN" :uses NIL :system NIL
    :steps
@@ -347,7 +455,10 @@
    (
     (:FORM "(let ((l (list 1 2 3)))
   (setf (second l) 20)
-  l)" :VALUES ("(1 20 3)"))
+  l)" :VALUES ("(1 20 3)"))))
+  (:symbol "SETF" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(let ((h (make-hash-table)))
   (setf (gethash :a h) 1)
   (gethash :a h))" :VALUES ("1" "T"))))
@@ -374,8 +485,14 @@
   (:symbol "LOOP" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(loop for i from 1 to 5 collect (* i i))" :VALUES ("(1 4 9 16 25)"))
-    (:FORM "(loop for x in '(1 2 3) sum x)" :VALUES ("6"))
+    (:FORM "(loop for i from 1 to 5 collect (* i i))" :VALUES ("(1 4 9 16 25)"))))
+  (:symbol "LOOP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(loop for x in '(1 2 3) sum x)" :VALUES ("6"))))
+  (:symbol "LOOP" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(loop for i below 3 do (format t \"~D \" i))" :VALUES ("NIL") :OUTPUT "0 1 2 ")))
   (:symbol "DOTIMES" :uses NIL :system NIL
    :steps
@@ -404,8 +521,14 @@
   (:symbol "VALUES" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(values 1 2 3)" :VALUES ("1" "2" "3"))
-    (:FORM "(values)" :VALUES NIL)
+    (:FORM "(values 1 2 3)" :VALUES ("1" "2" "3"))))
+  (:symbol "VALUES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(values)" :VALUES NIL)))
+  (:symbol "VALUES" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(multiple-value-list (values :a :b))" :VALUES ("(:A :B)"))))
   (:symbol "BLOCK" :uses NIL :system NIL
    :steps
@@ -441,7 +564,10 @@
    (
     (:FORM "(let ((table (make-hash-table)))
   (setf (gethash 'k table) nil)
-  (multiple-value-list (gethash 'k table)))" :VALUES ("(NIL T)"))
+  (multiple-value-list (gethash 'k table)))" :VALUES ("(NIL T)"))))
+  (:symbol "GETHASH" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(let ((table (make-hash-table)))
   (multiple-value-list (gethash 'k table)))" :VALUES ("(NIL NIL)"))))
   (:symbol "REMHASH" :uses NIL :system NIL
@@ -473,12 +599,18 @@
   (:symbol "MAKE-ARRAY" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(make-array 3 :initial-element 0)" :VALUES ("#(0 0 0)"))
+    (:FORM "(make-array 3 :initial-element 0)" :VALUES ("#(0 0 0)"))))
+  (:symbol "MAKE-ARRAY" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(make-array '(2 2) :initial-contents '((1 2) (3 4)))" :VALUES ("#2A((1 2) (3 4))"))))
   (:symbol "AREF" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(aref #(10 20 30) 1)" :VALUES ("20"))
+    (:FORM "(aref #(10 20 30) 1)" :VALUES ("20"))))
+  (:symbol "AREF" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(aref #2A((1 2) (3 4)) 1 0)" :VALUES ("3"))))
   (:symbol "VECTOR" :uses NIL :system NIL
    :steps
@@ -488,14 +620,23 @@
    :steps
    (
     (:FORM "(format nil \"~A and ~S\" \"x\" \"y\")" :VALUES ("\"x and \\\"y\\\"\""))
-    (:FORM "(format nil \"~{~A~^, ~}\" '(1 2 3))" :VALUES ("\"1, 2, 3\""))
+    (:FORM "(format nil \"~{~A~^, ~}\" '(1 2 3))" :VALUES ("\"1, 2, 3\""))))
+  (:symbol "FORMAT" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(format t \"Hello, ~A!~%\" \"world\")" :VALUES ("NIL") :OUTPUT "Hello, world!
-")
+")))
+  (:symbol "FORMAT" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(format nil \"~5,2F\" 3.14159)" :VALUES ("\" 3.14\""))))
   (:symbol "STRING=" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(string= \"abc\" \"abc\")" :VALUES ("T"))
+    (:FORM "(string= \"abc\" \"abc\")" :VALUES ("T"))))
+  (:symbol "STRING=" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(string= \"abc\" \"ABC\")" :VALUES ("NIL"))))
   (:symbol "STRING-UPCASE" :uses NIL :system NIL
    :steps
@@ -512,29 +653,47 @@
   (:symbol "CONCATENATE" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(concatenate 'string \"foo\" \"bar\")" :VALUES ("\"foobar\""))
+    (:FORM "(concatenate 'string \"foo\" \"bar\")" :VALUES ("\"foobar\""))))
+  (:symbol "CONCATENATE" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(concatenate 'list '(1) #(2 3))" :VALUES ("(1 2 3)"))))
   (:symbol "SEARCH" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(search \"lo\" \"hello\")" :VALUES ("3"))
+    (:FORM "(search \"lo\" \"hello\")" :VALUES ("3"))))
+  (:symbol "SEARCH" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(search \"zz\" \"hello\")" :VALUES ("NIL"))))
   (:symbol "PARSE-INTEGER" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(parse-integer \"42\")" :VALUES ("42" "2"))
-    (:FORM "(parse-integer \"ff\" :radix 16)" :VALUES ("255" "2"))
+    (:FORM "(parse-integer \"42\")" :VALUES ("42" "2"))))
+  (:symbol "PARSE-INTEGER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(parse-integer \"ff\" :radix 16)" :VALUES ("255" "2"))))
+  (:symbol "PARSE-INTEGER" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(handler-case (parse-integer \"x\")
   (parse-error () :not-a-number))" :VALUES (":NOT-A-NUMBER"))))
   (:symbol "PRIN1-TO-STRING" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(prin1-to-string \"hi\")" :VALUES ("\"\\\"hi\\\"\""))
+    (:FORM "(prin1-to-string \"hi\")" :VALUES ("\"\\\"hi\\\"\""))))
+  (:symbol "PRIN1-TO-STRING" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(prin1-to-string '(1 \"two\" :three))" :VALUES ("\"(1 \\\"two\\\" :THREE)\""))))
   (:symbol "PRINC-TO-STRING" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(princ-to-string \"hi\")" :VALUES ("\"hi\""))
+    (:FORM "(princ-to-string \"hi\")" :VALUES ("\"hi\""))))
+  (:symbol "PRINC-TO-STRING" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(princ-to-string '(1 \"two\" :three))" :VALUES ("\"(1 two THREE)\""))))
   (:symbol "CHAR" :uses NIL :system NIL
    :steps
@@ -557,7 +716,10 @@
   (:symbol "READ-FROM-STRING" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(read-from-string \"(1 2 3)\")" :VALUES ("(1 2 3)" "7"))
+    (:FORM "(read-from-string \"(1 2 3)\")" :VALUES ("(1 2 3)" "7"))))
+  (:symbol "READ-FROM-STRING" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(read-from-string \"foo bar\")" :VALUES ("FOO" "4"))))
   (:symbol "SYMBOL-NAME" :uses NIL :system NIL
    :steps
@@ -566,38 +728,62 @@
   (:symbol "+" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(+ 1 2 3)" :VALUES ("6"))
+    (:FORM "(+ 1 2 3)" :VALUES ("6"))))
+  (:symbol "+" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(+)" :VALUES ("0"))))
   (:symbol "-" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(- 10)" :VALUES ("-10"))
+    (:FORM "(- 10)" :VALUES ("-10"))))
+  (:symbol "-" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(- 10 3 2)" :VALUES ("5"))))
   (:symbol "*" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(* 2 3 4)" :VALUES ("24"))
+    (:FORM "(* 2 3 4)" :VALUES ("24"))))
+  (:symbol "*" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(*)" :VALUES ("1"))))
   (:symbol "/" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(/ 6 3)" :VALUES ("2"))
-    (:FORM "(/ 1 3)" :VALUES ("1/3"))
+    (:FORM "(/ 6 3)" :VALUES ("2"))))
+  (:symbol "/" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(/ 1 3)" :VALUES ("1/3"))))
+  (:symbol "/" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(/ 1.0 4)" :VALUES ("0.25"))))
   (:symbol "MOD" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(mod 7 3)" :VALUES ("1"))
+    (:FORM "(mod 7 3)" :VALUES ("1"))))
+  (:symbol "MOD" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(mod -7 3)" :VALUES ("2"))))
   (:symbol "REM" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(rem 7 3)" :VALUES ("1"))
+    (:FORM "(rem 7 3)" :VALUES ("1"))))
+  (:symbol "REM" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(rem -7 3)" :VALUES ("-1"))))
   (:symbol "FLOOR" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(floor 7 2)" :VALUES ("3" "1"))
+    (:FORM "(floor 7 2)" :VALUES ("3" "1"))))
+  (:symbol "FLOOR" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(floor -7 2)" :VALUES ("-4" "1"))))
   (:symbol "CEILING" :uses NIL :system NIL
    :steps
@@ -606,12 +792,18 @@
   (:symbol "ROUND" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(round 2.5)" :VALUES ("2" "0.5"))
+    (:FORM "(round 2.5)" :VALUES ("2" "0.5"))))
+  (:symbol "ROUND" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(round 3.5)" :VALUES ("4" "-0.5"))))
   (:symbol "TRUNCATE" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(truncate 7 2)" :VALUES ("3" "1"))
+    (:FORM "(truncate 7 2)" :VALUES ("3" "1"))))
+  (:symbol "TRUNCATE" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(truncate -7 2)" :VALUES ("-3" "-1"))))
   (:symbol "MAX" :uses NIL :system NIL
    :steps
@@ -628,12 +820,18 @@
   (:symbol "EXPT" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(expt 2 10)" :VALUES ("1024"))
+    (:FORM "(expt 2 10)" :VALUES ("1024"))))
+  (:symbol "EXPT" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(expt 2 100)" :VALUES ("1267650600228229401496703205376"))))
   (:symbol "SQRT" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(sqrt 16)" :VALUES ("4.0"))
+    (:FORM "(sqrt 16)" :VALUES ("4.0"))))
+  (:symbol "SQRT" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(sqrt 2)" :VALUES ("1.4142135"))))
   (:symbol "GCD" :uses NIL :system NIL
    :steps
@@ -646,7 +844,10 @@
   (:symbol "EVENP" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(evenp 4)" :VALUES ("T"))
+    (:FORM "(evenp 4)" :VALUES ("T"))))
+  (:symbol "EVENP" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(evenp 3)" :VALUES ("NIL"))))
   (:symbol "ODDP" :uses NIL :system NIL
    :steps
@@ -655,7 +856,10 @@
   (:symbol "ZEROP" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(zerop 0)" :VALUES ("T"))
+    (:FORM "(zerop 0)" :VALUES ("T"))))
+  (:symbol "ZEROP" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(zerop 0.0)" :VALUES ("T"))))
   (:symbol "1+" :uses NIL :system NIL
    :steps
@@ -668,13 +872,22 @@
   (:symbol "=" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(= 1 1 1)" :VALUES ("T"))
-    (:FORM "(= 1 2)" :VALUES ("NIL"))
+    (:FORM "(= 1 1 1)" :VALUES ("T"))))
+  (:symbol "=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= 1 2)" :VALUES ("NIL"))))
+  (:symbol "=" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(= 1 1.0)" :VALUES ("T"))))
   (:symbol "<" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(< 1 2 3)" :VALUES ("T"))
+    (:FORM "(< 1 2 3)" :VALUES ("T"))))
+  (:symbol "<" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(< 1 3 2)" :VALUES ("NIL"))))
   (:symbol ">" :uses NIL :system NIL
    :steps
@@ -683,57 +896,90 @@
   (:symbol "PI" :uses NIL :system NIL
    :steps
    (
-    (:FORM "pi" :VALUES ("3.141592653589793d0"))
+    (:FORM "pi" :VALUES ("3.141592653589793d0"))))
+  (:symbol "PI" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(* 2 pi)" :VALUES ("6.283185307179586d0"))))
   (:symbol "TYPEP" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(typep 3 'integer)" :VALUES ("T"))
+    (:FORM "(typep 3 'integer)" :VALUES ("T"))))
+  (:symbol "TYPEP" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(typep \"a\" '(or string symbol))" :VALUES ("T"))))
   (:symbol "TYPE-OF" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(type-of 'a)" :VALUES ("SYMBOL"))
+    (:FORM "(type-of 'a)" :VALUES ("SYMBOL"))))
+  (:symbol "TYPE-OF" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(type-of 1.5)" :VALUES ("SINGLE-FLOAT"))))
   (:symbol "ATOM" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(atom 'a)" :VALUES ("T"))
+    (:FORM "(atom 'a)" :VALUES ("T"))))
+  (:symbol "ATOM" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(atom '(1))" :VALUES ("NIL"))))
   (:symbol "CONSP" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(consp '(1))" :VALUES ("T"))
+    (:FORM "(consp '(1))" :VALUES ("T"))))
+  (:symbol "CONSP" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(consp nil)" :VALUES ("NIL"))))
   (:symbol "LISTP" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(listp nil)" :VALUES ("T"))
+    (:FORM "(listp nil)" :VALUES ("T"))))
+  (:symbol "LISTP" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(listp 3)" :VALUES ("NIL"))))
   (:symbol "NULL" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(null nil)" :VALUES ("T"))
+    (:FORM "(null nil)" :VALUES ("T"))))
+  (:symbol "NULL" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(null '(1))" :VALUES ("NIL"))))
   (:symbol "EQ" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(eq 'a 'a)" :VALUES ("T"))
+    (:FORM "(eq 'a 'a)" :VALUES ("T"))))
+  (:symbol "EQ" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(eq (list 1) (list 1))" :VALUES ("NIL"))))
   (:symbol "EQL" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(eql 1.0 1.0)" :VALUES ("T"))
+    (:FORM "(eql 1.0 1.0)" :VALUES ("T"))))
+  (:symbol "EQL" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(eql 1 1.0)" :VALUES ("NIL"))))
   (:symbol "EQUAL" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(equal \"a\" \"a\")" :VALUES ("T"))
+    (:FORM "(equal \"a\" \"a\")" :VALUES ("T"))))
+  (:symbol "EQUAL" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(equal '(1 (2)) '(1 (2)))" :VALUES ("T"))))
   (:symbol "EQUALP" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(equalp \"ABC\" \"abc\")" :VALUES ("T"))
+    (:FORM "(equalp \"ABC\" \"abc\")" :VALUES ("T"))))
+  (:symbol "EQUALP" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(equalp #(1 2) #(1 2))" :VALUES ("T"))))
   (:symbol "DEFCLASS" :uses NIL :system NIL
    :steps
@@ -800,13 +1046,19 @@
    :steps
    (
     (:FORM "(handler-case (/ 1 0)
-  (division-by-zero () :div0))" :VALUES (":DIV0"))
+  (division-by-zero () :div0))" :VALUES (":DIV0"))))
+  (:symbol "HANDLER-CASE" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(handler-case (error \"boom ~A\" 1)
   (error (condition) (princ-to-string condition)))" :VALUES ("\"boom 1\""))))
   (:symbol "ERROR" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(error \"Something went wrong: ~A\" 42)" :ERROR "SIMPLE-ERROR")
+    (:FORM "(error \"Something went wrong: ~A\" 42)" :ERROR "SIMPLE-ERROR")))
+  (:symbol "ERROR" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(handler-case (error \"bad ~A\" 'thing)
   (simple-error (condition) (princ-to-string condition)))" :VALUES ("\"bad THING\""))))
   (:symbol "RESTART-CASE" :uses NIL :system NIL
@@ -846,12 +1098,18 @@
    :steps
    (
     (:FORM "(multiple-value-bind (value condition) (ignore-errors (parse-integer \"x\"))
-  (list value (typep condition 'error)))" :VALUES ("(NIL T)"))
+  (list value (typep condition 'error)))" :VALUES ("(NIL T)"))))
+  (:symbol "IGNORE-ERRORS" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(ignore-errors (parse-integer \"7\"))" :VALUES ("7" "1"))))
   (:symbol "ASSERT" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(assert (= 1 1))" :VALUES ("NIL"))
+    (:FORM "(assert (= 1 1))" :VALUES ("NIL"))))
+  (:symbol "ASSERT" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(handler-case (assert (plusp -1))
   (error () :failed))" :VALUES (":FAILED"))))
   (:symbol "CHECK-TYPE" :uses NIL :system NIL
@@ -872,12 +1130,18 @@
   (:symbol "MACROEXPAND-1" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(macroexpand-1 '(when a b))" :VALUES ("(IF A B)" "T"))
+    (:FORM "(macroexpand-1 '(when a b))" :VALUES ("(IF A B)" "T"))))
+  (:symbol "MACROEXPAND-1" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(macroexpand-1 '(incf x))" :VALUES ("(SETQ X (+ 1 X))" "T"))))
   (:symbol "GENSYM" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(symbolp (gensym))" :VALUES ("T"))
+    (:FORM "(symbolp (gensym))" :VALUES ("T"))))
+  (:symbol "GENSYM" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(eq (gensym) (gensym))" :VALUES ("NIL"))))
   (:symbol "DESTRUCTURING-BIND" :uses NIL :system NIL
    :steps
@@ -895,18 +1159,27 @@
    :steps
    (
     (:FORM "(print 42)" :VALUES ("42") :OUTPUT "
-42 ")
+42 ")))
+  (:symbol "PRINT" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(print \"hello\")" :VALUES ("\"hello\"") :OUTPUT "
 \"hello\" ")))
   (:symbol "PRIN1" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(prin1 \"a\")" :VALUES ("\"a\"") :OUTPUT "\"a\"")
+    (:FORM "(prin1 \"a\")" :VALUES ("\"a\"") :OUTPUT "\"a\"")))
+  (:symbol "PRIN1" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(prin1 'symbol)" :VALUES ("SYMBOL") :OUTPUT "SYMBOL")))
   (:symbol "PRINC" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(princ \"a\")" :VALUES ("\"a\"") :OUTPUT "a")
+    (:FORM "(princ \"a\")" :VALUES ("\"a\"") :OUTPUT "a")))
+  (:symbol "PRINC" :uses NIL :system NIL
+   :steps
+   (
     (:FORM "(princ '(1 \"two\"))" :VALUES ("(1 \"two\")") :OUTPUT "(1 two)")))
   (:symbol "IDENTITY" :uses NIL :system NIL
    :steps
@@ -919,5 +1192,7969 @@
   (:symbol "COMPLEMENT" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(remove-if (complement #'evenp) '(1 2 3 4))" :VALUES ("(2 4)")))))
+    (:FORM "(remove-if (complement #'evenp) '(1 2 3 4))" :VALUES ("(2 4)"))))
+  (:symbol "CAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(car (cons 1 2))" :VALUES ("1"))
+    (:FORM "(let ((pairs '((a . 1) (b . 2))))
+  (mapcar #'car pairs))" :VALUES ("(A B)"))))
+  (:symbol "CAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(setf (car (list 1 2)) 99)" :VALUES ("99"))))
+  (:symbol "CDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cdr (cons 1 2))" :VALUES ("2"))
+    (:FORM "(mapcar #'cdr '((a . 1) (b . 2)))" :VALUES ("(1 2)"))))
+  (:symbol "CDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((cell (list 1 2 3)))
+  (setf (cdr cell) '(:x))
+  cell)" :VALUES ("(1 :X)"))))
+  (:symbol "CONS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cons 'a (cons 'b nil))" :VALUES ("(A B)"))
+    (:FORM "(mapcar #'cons '(1 2 3) '(a b c))" :VALUES ("((1 . A) (2 . B) (3 . C))"))))
+  (:symbol "CONS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(reduce (lambda (acc x) (cons x acc)) '(1 2 3) :initial-value nil)" :VALUES ("(3 2 1)"))))
+  (:symbol "LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(list 'a (+ 1 2) \"three\")" :VALUES ("(A 3 \"three\")"))
+    (:FORM "(mapcar #'list '(1 2) '(a b))" :VALUES ("((1 A) (2 B))"))))
+  (:symbol "LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((n 3))
+  (list n (* n n) (* n n n)))" :VALUES ("(3 9 27)"))))
+  (:symbol "LIST*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(list* 'a 'b 'c)" :VALUES ("(A B . C)"))))
+  (:symbol "LIST*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(list* 1 '(2 3))" :VALUES ("(1 2 3)"))))
+  (:symbol "APPEND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((original (list 1 2)))
+  (append original '(3))
+  original)" :VALUES ("(1 2)"))
+    (:FORM "(apply #'append '((1) (2 3) () (4)))" :VALUES ("(1 2 3 4)"))))
+  (:symbol "APPEND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(reduce #'append '((a) (b) (c)))" :VALUES ("(A B C)"))))
+  (:symbol "REVERSE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(reverse '(1 (2 3) 4))" :VALUES ("(4 (2 3) 1)"))
+    (:FORM "(let ((original (list 1 2 3)))
+  (reverse original)
+  original)" :VALUES ("(1 2 3)"))))
+  (:symbol "REVERSE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(reverse #(1 2 3))" :VALUES ("#(3 2 1)"))))
+  (:symbol "LENGTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(length '())" :VALUES ("0"))
+    (:FORM "(length #(1 2 3 4))" :VALUES ("4"))))
+  (:symbol "LENGTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mapcar #'length '(\"a\" \"bb\" \"ccc\"))" :VALUES ("(1 2 3)"))))
+  (:symbol "NTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nth 2 '(a b c d))" :VALUES ("C"))))
+  (:symbol "NTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2 3)))
+  (setf (nth 1 items) :two)
+  items)" :VALUES ("(1 :TWO 3)"))))
+  (:symbol "FIRST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(first nil)" :VALUES ("NIL"))))
+  (:symbol "FIRST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mapcar #'first '((1 2) (3 4) (5 6)))" :VALUES ("(1 3 5)"))))
+  (:symbol "REST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rest '(1))" :VALUES ("NIL"))))
+  (:symbol "REST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rest nil)" :VALUES ("NIL"))))
+  (:symbol "REST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(loop for tail = '(1 2 3) then (rest tail)
+      while tail
+      collect (length tail))" :VALUES ("(3 2 1)"))))
+  (:symbol "LAST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(last '(1 2 3) 0)" :VALUES ("NIL"))
+    (:FORM "(last nil)" :VALUES ("NIL"))))
+  (:symbol "LAST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(car (last '(a b c)))" :VALUES ("C"))))
+  (:symbol "MEMBER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(member 3 '(1 2 3 4) :key #'1+)" :VALUES ("(2 3 4)"))
+    (:FORM "(member-if #'evenp '(1 3 4 5))" :VALUES ("(4 5)"))
+    (:FORM "(if (member :b '(:a :b :c)) 'present 'absent)" :VALUES ("PRESENT"))))
+  (:symbol "ASSOC" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(assoc 'c '((a . 1) (b . 2)))" :VALUES ("NIL"))
+    (:FORM "(cdr (assoc 'b '((a . 1) (b . 2))))" :VALUES ("2"))))
+  (:symbol "ASSOC" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(assoc 2 '((1 . one) (2 . two)) :key #'identity)" :VALUES ("(2 . TWO)"))))
+  (:symbol "MAPCAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mapcar (lambda (x) (* x x)) '(1 2 3 4))" :VALUES ("(1 4 9 16)"))
+    (:FORM "(defun double (n)
+  (* 2 n))" :SILENT T)
+    (:FORM "(mapcar #'double '(1 2 3))" :VALUES ("(2 4 6)"))
+    (:FORM "(mapcar (lambda (name age) (list name age)) '(ada grace) '(36 45))" :VALUES ("((ADA 36) (GRACE 45))"))))
+  (:symbol "MAPC" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defun collect-square (n)
+  (* n n))" :SILENT T)
+    (:FORM "(mapc #'collect-square '(1 2 3))" :VALUES ("(1 2 3)"))
+    (:FORM "(let ((total 0))
+  (mapc (lambda (x) (incf total x)) '(1 2 3))
+  total)" :VALUES ("6"))))
+  (:symbol "MAPCAN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mapcan #'list '(1 2 3) '(a b c))" :VALUES ("(1 A 2 B 3 C)"))
+    (:FORM "(defun duplicate (x)
+  (list x x))" :SILENT T)
+    (:FORM "(mapcan #'duplicate '(1 2 3))" :VALUES ("(1 1 2 2 3 3)"))))
+  (:symbol "MAP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(map 'vector #'1+ '(1 2 3))" :VALUES ("#(2 3 4)"))
+    (:FORM "(map 'list (lambda (a b) (* a b)) #(1 2 3) '(4 5 6))" :VALUES ("(4 10 18)"))
+    (:FORM "(defun shout (char)
+  (char-upcase char))" :SILENT T)
+    (:FORM "(map 'string #'shout \"lisp\")" :VALUES ("\"LISP\""))))
+  (:symbol "REMOVE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(remove 3 #(1 2 3 4 3))" :VALUES ("#(1 2 4)"))
+    (:FORM "(remove \"b\" '(\"a\" \"b\" \"c\") :test #'string=)" :VALUES ("(\"a\" \"c\")"))))
+  (:symbol "REMOVE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(remove 2 '(1 2 3 2) :count 1)" :VALUES ("(1 3 2)"))))
+  (:symbol "REMOVE-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(remove-if (lambda (n) (> n 2)) '(1 2 3 4))" :VALUES ("(1 2)"))
+    (:FORM "(defun small-p (n)
+  (< n 3))" :SILENT T)
+    (:FORM "(remove-if #'small-p '(1 2 3 4 5))" :VALUES ("(3 4 5)"))
+    (:FORM "(remove-if #'upper-case-p \"Hello World\")" :VALUES ("\"ello orld\""))))
+  (:symbol "REMOVE-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(remove-if-not (lambda (s) (> (length s) 2)) '(\"a\" \"abc\" \"ab\" \"abcd\"))" :VALUES ("(\"abc\" \"abcd\")"))
+    (:FORM "(defun positive-p (n)
+  (> n 0))" :SILENT T)
+    (:FORM "(remove-if-not #'positive-p '(-1 2 -3 4))" :VALUES ("(2 4)"))
+    (:FORM "(remove-if-not #'alpha-char-p \"a1b2c3\")" :VALUES ("\"abc\""))))
+  (:symbol "REMOVE-DUPLICATES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(remove-duplicates \"mississippi\")" :VALUES ("\"mspi\""))))
+  (:symbol "REMOVE-DUPLICATES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(remove-duplicates '(\"a\" \"B\" \"A\") :test #'string-equal)" :VALUES ("(\"B\" \"A\")"))))
+  (:symbol "REMOVE-DUPLICATES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(remove-duplicates '(1 2 1 3 2) :from-end t)" :VALUES ("(1 2 3)"))))
+  (:symbol "SUBSTITUTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(substitute #\\- #\\Space \"a b c\")" :VALUES ("\"a-b-c\""))))
+  (:symbol "SUBSTITUTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(substitute 0 3 '(1 2 3 4 3))" :VALUES ("(1 2 0 4 0)"))))
+  (:symbol "FIND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(find #\\b \"abc\")" :VALUES ("#\\b"))
+    (:FORM "(find \"b\" '(\"a\" \"b\") :test #'string=)" :VALUES ("\"b\""))
+    (:FORM "(find-if #'oddp '(2 4 5 6))" :VALUES ("5"))))
+  (:symbol "FIND-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(find-if (lambda (s) (> (length s) 3)) '(\"ab\" \"abcd\" \"xyz\"))" :VALUES ("\"abcd\""))
+    (:FORM "(defun big-p (n)
+  (> n 100))" :SILENT T)
+    (:FORM "(find-if #'big-p '(5 50 500 5000))" :VALUES ("500"))
+    (:FORM "(find-if #'digit-char-p \"ab3d\")" :VALUES ("#\\3"))))
+  (:symbol "POSITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(position 'c '(a b c d))" :VALUES ("2"))
+    (:FORM "(position-if #'evenp '(1 3 4 5))" :VALUES ("2"))))
+  (:symbol "POSITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(position #\\a \"banana\" :from-end t)" :VALUES ("5"))))
+  (:symbol "COUNT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(count #\\a \"banana\")" :VALUES ("3"))))
+  (:symbol "COUNT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(count-if #'evenp '(1 2 3 4))" :VALUES ("2"))))
+  (:symbol "COUNT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(count 3 '((1 . a) (3 . b) (3 . c)) :key #'car)" :VALUES ("2"))))
+  (:symbol "SORT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sort (list \"b\" \"c\" \"a\") #'string<)" :VALUES ("(\"a\" \"b\" \"c\")"))
+    (:FORM "(sort (list 3 1 2) #'>)" :VALUES ("(3 2 1)"))
+    (:FORM "(defun by-length (a b)
+  (< (length a) (length b)))" :SILENT T)
+    (:FORM "(sort (list \"ccc\" \"a\" \"bb\") #'by-length)" :VALUES ("(\"a\" \"bb\" \"ccc\")"))
+    (:FORM "(sort (list '(b 2) '(a 1)) #'< :key #'second)" :VALUES ("((A 1) (B 2))"))))
+  (:symbol "SUBSEQ" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subseq '(a b c d e) 2)" :VALUES ("(C D E)"))
+    (:FORM "(subseq \"abcdef\" 1 4)" :VALUES ("\"bcd\""))))
+  (:symbol "SUBSEQ" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((v (vector 1 2 3 4)))
+  (setf (subseq v 0 2) #(9 9))
+  v)" :VALUES ("#(9 9 3 4)"))))
+  (:symbol "REDUCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(reduce (lambda (a b) (+ a b)) '(1 2 3 4))" :VALUES ("10"))
+    (:FORM "(defun larger (a b)
+  (if (> a b) a b))" :SILENT T)
+    (:FORM "(reduce #'larger '(3 9 2 7))" :VALUES ("9"))
+    (:FORM "(reduce #'+ '(1 2 3) :initial-value 10)" :VALUES ("16"))
+    (:FORM "(reduce #'max #(4 8 1) :key #'abs)" :VALUES ("8"))))
+  (:symbol "EVERY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(every (lambda (x) (> x 0)) '(1 2 3))" :VALUES ("T"))
+    (:FORM "(defun short-p (s)
+  (< (length s) 4))" :SILENT T)
+    (:FORM "(every #'short-p '(\"ab\" \"abc\"))" :VALUES ("T"))
+    (:FORM "(every #'< '(1 2 3) '(2 3 4))" :VALUES ("T"))))
+  (:symbol "SOME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(some (lambda (x) (and (> x 2) x)) '(1 2 3 4))" :VALUES ("3"))
+    (:FORM "(some #'zerop '(1 2 0))" :VALUES ("T"))))
+  (:symbol "SOME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(some #'< '(5 1) '(3 9))" :VALUES ("T"))))
+  (:symbol "PUSH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((list (list 2 3)))
+  (push 1 list)
+  list)" :VALUES ("(1 2 3)"))))
+  (:symbol "PUSH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((table (list (cons :a 1))))
+  (push (cons :b 2) table)
+  table)" :VALUES ("((:B . 2) (:A . 1))"))))
+  (:symbol "POP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((stack (list :a :b)))
+  (pop stack)
+  stack)" :VALUES ("(:B)"))))
+  (:symbol "POP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((stack nil))
+  (pop stack))" :VALUES ("NIL"))))
+  (:symbol "ADJOIN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(adjoin \"a\" '(\"a\") :test #'string=)" :VALUES ("(\"a\")"))))
+  (:symbol "ADJOIN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(adjoin 3 '(1 2))" :VALUES ("(3 1 2)"))))
+  (:symbol "UNION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sort (union '(\"a\" \"b\") '(\"b\" \"c\") :test #'string=) #'string<)" :VALUES ("(\"a\" \"b\" \"c\")"))))
+  (:symbol "UNION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sort (union '(3 1) '(2 1)) #'<)" :VALUES ("(1 2 3)"))))
+  (:symbol "INTERSECTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(intersection '(a b c) '(d e))" :VALUES ("NIL"))))
+  (:symbol "INTERSECTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sort (intersection '(\"x\" \"y\") '(\"y\" \"z\" \"x\") :test #'string=) #'string<)" :VALUES ("(\"x\" \"y\")"))))
+  (:symbol "SET-DIFFERENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(set-difference '(1 2) '(1 2))" :VALUES ("NIL"))))
+  (:symbol "SET-DIFFERENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sort (set-difference '(5 3 1) '(3)) #'<)" :VALUES ("(1 5)"))))
+  (:symbol "NCONC" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nconc (list 1) (list 2) (list 3))" :VALUES ("(1 2 3)"))))
+  (:symbol "NCONC" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nconc nil (list :only))" :VALUES ("(:ONLY)"))))
+  (:symbol "ELT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(elt #(10 20 30) 0)" :VALUES ("10"))))
+  (:symbol "ELT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((v (vector 1 2 3)))
+  (setf (elt v 1) :x)
+  v)" :VALUES ("#(1 :X 3)"))))
+  (:symbol "GETF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((plist (list :a 1)))
+  (setf (getf plist :b) 2)
+  plist)" :VALUES ("(:B 2 :A 1)"))))
+  (:symbol "GETF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(getf '(:name \"Ada\" :born 1815) :born)" :VALUES ("1815"))))
+  (:symbol "LET" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((x 1))
+  (let ((x 2))
+    x))" :VALUES ("2"))))
+  (:symbol "LET" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let (a b)
+  (list a b))" :VALUES ("(NIL NIL)"))))
+  (:symbol "LET*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let* ((a 2) (b (* a a)) (c (+ a b)))
+  (list a b c))" :VALUES ("(2 4 6)"))))
+  (:symbol "FLET" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(flet ((square (n) (* n n))
+       (cube (n) (* n n n)))
+  (list (square 3) (cube 3)))" :VALUES ("(9 27)"))))
+  (:symbol "FLET" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(flet ((add (x &optional (y 10)) (+ x y)))
+  (list (add 1) (add 1 2)))" :VALUES ("(11 3)"))))
+  (:symbol "LABELS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(labels ((even-p (n) (if (zerop n) t (odd-p (1- n))))
+         (odd-p (n) (if (zerop n) nil (even-p (1- n)))))
+  (list (even-p 10) (odd-p 10)))" :VALUES ("(T NIL)"))))
+  (:symbol "LABELS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(labels ((count-down (n acc)
+           (if (zerop n)
+               (reverse acc)
+               (count-down (1- n) (cons n acc)))))
+  (count-down 5 nil))" :VALUES ("(5 4 3 2 1)"))))
+  (:symbol "IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(if (evenp 4) \"even\" \"odd\")" :VALUES ("\"even\""))))
+  (:symbol "IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(if (member 3 '(1 2 3)) (list :found) (list :missing))" :VALUES ("(:FOUND)"))))
+  (:symbol "WHEN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(when (member :x '(:x :y))
+  :found)" :VALUES (":FOUND"))))
+  (:symbol "WHEN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((n 5))
+  (when (> n 3) (incf n) (* n 2)))" :VALUES ("12"))))
+  (:symbol "UNLESS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(unless (zerop 5) :nonzero)" :VALUES (":NONZERO"))))
+  (:symbol "UNLESS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(unless t :never)" :VALUES ("NIL"))))
+  (:symbol "COND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cond ((> 5 10) :big) ((> 5 3) :medium) (t :small))" :VALUES (":MEDIUM"))))
+  (:symbol "COND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cond ((assoc 'b '((a . 1) (b . 2))))
+      (t :none))" :VALUES ("(B . 2)"))))
+  (:symbol "COND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cond (nil :never))" :VALUES ("NIL"))))
+  (:symbol "CASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(case :b (:a 1) (:b 2) (otherwise 3))" :VALUES ("2"))))
+  (:symbol "CASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(case 'x ((a b) :ab) ((x y) :xy))" :VALUES (":XY"))))
+  (:symbol "CASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(case 99 (1 :one))" :VALUES ("NIL"))))
+  (:symbol "AND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(and)" :VALUES ("T"))))
+  (:symbol "AND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(and (> 3 2) (< 3 5) 'ok)" :VALUES ("OK"))))
+  (:symbol "OR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(or)" :VALUES ("NIL"))))
+  (:symbol "OR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(or (find 9 '(1 2)) (find 2 '(1 2)))" :VALUES ("2"))))
+  (:symbol "NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(not '())" :VALUES ("T"))))
+  (:symbol "NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mapcar #'not '(nil t 0))" :VALUES ("(T NIL NIL)"))))
+  (:symbol "LAMBDA" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (lambda () :no-arguments))" :VALUES (":NO-ARGUMENTS"))
+    (:FORM "(funcall (lambda (&rest args) (length args)) 1 2 3)" :VALUES ("3"))))
+  (:symbol "LAMBDA" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (lambda (a &optional (b 2)) (list a b)) 1)" :VALUES ("(1 2)"))
+    (:FORM "(mapcar (lambda (pair) (+ (car pair) (cdr pair))) '((1 . 2) (3 . 4)))" :VALUES ("(3 7)"))))
+  (:symbol "FUNCALL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall 'list 1 2)" :VALUES ("(1 2)"))
+    (:FORM "(funcall (lambda (x) (* x 3)) 7)" :VALUES ("21"))
+    (:FORM "(defun twice (f x)
+  (funcall f (funcall f x)))" :SILENT T)
+    (:FORM "(twice #'1+ 5)" :VALUES ("7"))))
+  (:symbol "APPLY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(apply 'list 1 2 '(3))" :VALUES ("(1 2 3)"))
+    (:FORM "(apply (lambda (a b c) (+ a b c)) '(1 2 3))" :VALUES ("6"))
+    (:FORM "(defun sum-all (&rest numbers)
+  (apply #'+ numbers))" :SILENT T)
+    (:FORM "(sum-all 1 2 3 4)" :VALUES ("10"))))
+  (:symbol "DEFUN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defun greet (name &optional (greeting \"Hello\"))
+  (format nil \"~A, ~A!\" greeting name))" :SILENT T)
+    (:FORM "(greet \"Ada\")" :VALUES ("\"Hello, Ada!\""))
+    (:FORM "(greet \"Ada\" \"Hi\")" :VALUES ("\"Hi, Ada!\""))
+    (:FORM "(defun factorial (n)
+  (if (<= n 1) 1 (* n (factorial (1- n)))))" :SILENT T)
+    (:FORM "(factorial 10)" :VALUES ("3628800"))))
+  (:symbol "LOOP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(loop for x in '(1 2 3) collect (* x 10))" :VALUES ("(10 20 30)"))
+    (:FORM "(loop for i from 0 below 10 by 3 collect i)" :VALUES ("(0 3 6 9)"))
+    (:FORM "(loop for (key . value) in '((a . 1) (b . 2)) collect (list key value))" :VALUES ("((A 1) (B 2))"))
+    (:FORM "(loop with total = 0 for n in '(1 2 3) do (incf total n) finally (return total))" :VALUES ("6"))))
+  (:symbol "DOTIMES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((squares '()))
+  (dotimes (i 5 (nreverse squares))
+    (push (* i i) squares)))" :VALUES ("(0 1 4 9 16)"))))
+  (:symbol "DOTIMES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(dotimes (i 3 :done))" :VALUES (":DONE"))))
+  (:symbol "DOLIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((seen '()))
+  (dolist (x '(a b c) (nreverse seen))
+    (push x seen)))" :VALUES ("(A B C)"))))
+  (:symbol "DOLIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(dolist (x nil :empty))" :VALUES (":EMPTY"))))
+  (:symbol "DO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(do ((i 0 (1+ i))) ((= i 3) :finished))" :VALUES (":FINISHED"))))
+  (:symbol "DO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(do ((a 0 b) (b 1 (+ a b)) (n 0 (1+ n))) ((= n 6) a))" :VALUES ("8"))))
+  (:symbol "VALUES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-bind (a b c) (values 1 2) (list a b c))" :VALUES ("(1 2 NIL)"))
+    (:FORM "(floor 7 2)" :VALUES ("3" "1"))
+    (:FORM "(let ((x (values 1 2 3))) x)" :VALUES ("1"))))
+  (:symbol "MULTIPLE-VALUE-BIND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-bind (whole fraction) (truncate 3.75)
+  (list whole fraction))" :VALUES ("(3 0.75)"))))
+  (:symbol "MULTIPLE-VALUE-BIND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-bind (a b) (values :only-one)
+  (list a b))" :VALUES ("(:ONLY-ONE NIL)"))))
+  (:symbol "FORMAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(format nil \"~D items\" 3)" :VALUES ("\"3 items\""))
+    (:FORM "(format nil \"~A\" '(1 \"two\" :three))" :VALUES ("\"(1 two THREE)\""))
+    (:FORM "(format nil \"~S\" '(1 \"two\" :three))" :VALUES ("\"(1 \\\"two\\\" :THREE)\""))
+    (:FORM "(format nil \"~{[~A]~}\" '(a b c))" :VALUES ("\"[A][B][C]\""))))
+  (:symbol "MAKE-HASH-TABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((table (make-hash-table)))
+  (setf (gethash :k table) :v)
+  (hash-table-count table))" :VALUES ("1"))))
+  (:symbol "MAKE-HASH-TABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(hash-table-test (make-hash-table :test #'equal))" :VALUES ("EQUAL"))))
+  (:symbol "MAKE-ARRAY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(make-array 4 :initial-element :x)" :VALUES ("#(:X :X :X :X)"))
+    (:FORM "(make-array 3 :element-type 'character :initial-element #\\z)" :VALUES ("\"zzz\""))))
+  (:symbol "MAKE-ARRAY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((v (make-array 0 :adjustable t :fill-pointer 0)))
+  (vector-push-extend 1 v)
+  (vector-push-extend 2 v)
+  v)" :VALUES ("#(1 2)"))))
+  (:symbol "STRING=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string= \"abc\" \"abd\" :end1 2 :end2 2)" :VALUES ("T"))))
+  (:symbol "STRING=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string= 'foo \"FOO\")" :VALUES ("T"))))
+  (:symbol "STRING-UPCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-upcase \"straße\")" :VALUES ("\"STRAßE\""))))
+  (:symbol "STRING-UPCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-upcase 'sym)" :VALUES ("\"SYM\""))))
+  (:symbol "STRING-UPCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-upcase \"hello world\" :start 6)" :VALUES ("\"hello WORLD\""))))
+  (:symbol "STRING-DOWNCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-downcase \"ABC\" :end 1)" :VALUES ("\"aBC\""))))
+  (:symbol "CONCATENATE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(concatenate 'vector #(1) '(2) \"a\")" :VALUES ("#(1 2 #\\a)"))))
+  (:symbol "CONCATENATE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(apply #'concatenate 'string '(\"a\" \"b\" \"c\"))" :VALUES ("\"abc\""))))
+  (:symbol "SEARCH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(search '(2 3) '(1 2 3 4))" :VALUES ("1"))))
+  (:symbol "SEARCH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(search \"A\" \"banana\" :from-end t :test #'char-equal)" :VALUES ("5"))))
+  (:symbol "PARSE-INTEGER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(parse-integer \"  42  \")" :VALUES ("42" "6"))
+    (:FORM "(parse-integer \"-17\")" :VALUES ("-17" "3"))
+    (:FORM "(parse-integer \"12abc\" :junk-allowed t)" :VALUES ("12" "2"))))
+  (:symbol "TYPEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep nil 'null)" :VALUES ("T"))
+    (:FORM "(typep 5 '(integer 1 10))" :VALUES ("T"))))
+  (:symbol "TYPEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 'a '(member a b))" :VALUES ("T"))
+    (:FORM "(mapcar (lambda (x) (typep x 'number)) '(1 a 2.5))" :VALUES ("(T NIL T)"))))
+  (:symbol "EQL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eql 'a 'a)" :VALUES ("T"))
+    (:FORM "(eql \"a\" \"a\")" :VALUES ("NIL"))))
+  (:symbol "EQL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eql 2/3 2/3)" :VALUES ("T"))))
+  (:symbol "EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(equal \"a\" 'a)" :VALUES ("NIL"))
+    (:FORM "(equal #(1) #(1))" :VALUES ("NIL"))))
+  (:symbol "EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(equal (list 1 2) (list 1 2))" :VALUES ("T"))))
+  (:symbol "HANDLER-CASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (parse-integer \"zz\") (parse-error () :bad))" :VALUES (":BAD"))
+    (:FORM "(handler-case (+ 1 2) (error () :never) (:no-error (value) (* value 10)))" :VALUES ("30"))))
+  (:symbol "HANDLER-CASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (car 5) (type-error (c) (type-error-datum c)))" :VALUES ("5"))))
+  (:symbol "ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (error 'division-by-zero) (arithmetic-error () :arith))" :VALUES (":ARITH"))))
+  (:symbol "ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (error \"n=~D\" 7) (error (c) (princ-to-string c)))" :VALUES ("\"n=7\""))))
+  (:symbol "UNWIND-PROTECT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((state :start))
+  (unwind-protect (setf state :worked) (setf state :cleaned))
+  state)" :VALUES (":CLEANED"))))
+  (:symbol "UNWIND-PROTECT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(block done
+  (unwind-protect (return-from done :early) (print :cleanup)))" :VALUES (":EARLY") :OUTPUT "
+:CLEANUP ")))
+  (:symbol "IGNORE-ERRORS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ignore-errors (/ 10 2))" :VALUES ("5"))))
+  (:symbol "IGNORE-ERRORS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nth-value 0 (ignore-errors (/ 1 0)))" :VALUES ("NIL"))))
+  (:symbol "ASSERT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((x 5))
+  (assert (> x 0) (x) \"x must be positive\")
+  x)" :VALUES ("5"))))
+  (:symbol "MACROEXPAND-1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(macroexpand-1 '(unless a b))" :VALUES ("(IF A NIL B)" "T"))
+    (:FORM "(macroexpand-1 '(incf x 2))" :VALUES ("(SETQ X (+ 2 X))" "T"))))
+  (:symbol "MACROEXPAND-1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(macroexpand-1 '(return 5))" :VALUES ("(RETURN-FROM NIL 5)" "T"))))
+  (:symbol "DESTRUCTURING-BIND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(destructuring-bind (&key a (b 2)) '(:a 1) (list a b))" :VALUES ("(1 2)"))))
+  (:symbol "DESTRUCTURING-BIND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(destructuring-bind (first . rest) '(1 2 3) (list first rest))" :VALUES ("(1 (2 3))"))))
+  (:symbol "DESTRUCTURING-BIND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(destructuring-bind ((a b) c) '((1 2) 3) (list a b c))" :VALUES ("(1 2 3)"))))
+  (:symbol "DEFSTRUCT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defstruct (person (:constructor new-person (name age)))
+  name
+  (age 0))" :SILENT T)
+    (:FORM "(person-name (new-person \"Ada\" 36))" :VALUES ("\"Ada\""))
+    (:FORM "(let ((p (new-person \"Ada\" 36)))
+  (incf (person-age p))
+  (person-age p))" :VALUES ("37"))
+    (:FORM "(person-p (new-person \"X\" 1))" :VALUES ("T"))))
+  (:symbol "DEFCLASS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass account ()
+  ((balance :initform 0 :accessor balance)))" :SILENT T)
+    (:FORM "(let ((a (make-instance 'account)))
+  (incf (balance a) 50)
+  (balance a))" :VALUES ("50"))
+    (:FORM "(typep (make-instance 'account) 'account)" :VALUES ("T"))))
+  (:symbol "GENSYM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a (gensym \"TMP\")))
+  (and (symbolp a) (null (symbol-package a))))" :VALUES ("T"))))
+  (:symbol "GENSYM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((counter-name (symbol-name (gensym \"X\"))))
+  (and (char= (char counter-name 0) #\\X) t))" :VALUES ("T"))))
+  (:symbol "IDENTITY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mapcar #'identity '(1 2 3))" :VALUES ("(1 2 3)"))))
+  (:symbol "IDENTITY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(remove-if-not #'identity '(1 nil 2 nil))" :VALUES ("(1 2)"))))
+  (:symbol "CONSTANTLY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (constantly :same) 1 2 3)" :VALUES (":SAME"))))
+  (:symbol "CONSTANTLY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((always-zero (constantly 0)))
+  (map 'list always-zero \"abc\"))" :VALUES ("(0 0 0)"))))
+  (:symbol "COMPLEMENT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (complement #'zerop) 5)" :VALUES ("T"))
+    (:FORM "(defun odd-length-p (s)
+  (oddp (length s)))" :SILENT T)
+    (:FORM "(remove-if (complement #'odd-length-p) '(\"a\" \"bb\" \"ccc\"))" :VALUES ("(\"a\" \"ccc\")"))))
+  (:symbol "ACONS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(acons 'c 3 '((a . 1) (b . 2)))" :VALUES ("((C . 3) (A . 1) (B . 2))"))))
+  (:symbol "ACONS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((table '()))
+  (setf table (acons \"k\" 1 table))
+  (setf table (acons \"j\" 2 table))
+  (assoc \"k\" table :test #'string=))" :VALUES ("(\"k\" . 1)"))))
+  (:symbol "ASSOC-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(assoc-if #'evenp '((1 . one) (2 . two) (4 . four)))" :VALUES ("(2 . TWO)"))
+    (:FORM "(assoc-if (lambda (key) (eq key 'b)) '((a . 1) (b . 2)))" :VALUES ("(B . 2)"))
+    (:FORM "(defun symbol-key-p (key)
+  (symbolp key))" :SILENT T)
+    (:FORM "(assoc-if #'symbol-key-p '((\"x\" . 1) (y . 2)))" :VALUES ("(Y . 2)"))))
+  (:symbol "ASSOC-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(assoc-if-not #'numberp '((1 . one) (:k . key)))" :VALUES ("(:K . KEY)"))))
+  (:symbol "ASSOC-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(assoc-if-not (lambda (key) (< key 3)) '((1 . a) (5 . b)))" :VALUES ("(5 . B)"))))
+  (:symbol "RASSOC" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rassoc 2 '((a . 1) (b . 2)))" :VALUES ("(B . 2)"))))
+  (:symbol "RASSOC" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rassoc \"two\" '((1 . \"one\") (2 . \"two\")) :test #'string=)" :VALUES ("(2 . \"two\")"))))
+  (:symbol "RASSOC-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rassoc-if #'evenp '((a . 1) (b . 2)))" :VALUES ("(B . 2)"))))
+  (:symbol "RASSOC-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rassoc-if (lambda (v) (> v 5)) '((a . 1) (b . 9)))" :VALUES ("(B . 9)"))))
+  (:symbol "RASSOC-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rassoc-if-not #'oddp '((a . 1) (b . 2)))" :VALUES ("(B . 2)"))))
+  (:symbol "PAIRLIS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pairlis '(a b c) '(1 2 3))" :VALUES ("((C . 3) (B . 2) (A . 1))"))))
+  (:symbol "PAIRLIS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(assoc 'b (pairlis '(a b) '(1 2)))" :VALUES ("(B . 2)"))))
+  (:symbol "COPY-ALIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let* ((original (list (cons 'a 1)))
+       (copy (copy-alist original)))
+  (setf (cdr (first copy)) 99)
+  (list original copy))" :VALUES ("(((A . 1)) ((A . 99)))"))))
+  (:symbol "COPY-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let* ((a (list 1 2 3)) (b (copy-list a)))
+  (setf (first b) :changed)
+  (list a b))" :VALUES ("((1 2 3) (:CHANGED 2 3))"))))
+  (:symbol "COPY-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(copy-list '(1 2 . 3))" :VALUES ("(1 2 . 3)"))))
+  (:symbol "COPY-SEQ" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(copy-seq \"abc\")" :VALUES ("\"abc\""))))
+  (:symbol "COPY-SEQ" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let* ((v (vector 1 2)) (w (copy-seq v)))
+  (setf (aref w 0) :x)
+  (list v w))" :VALUES ("(#(1 2) #(:X 2))"))))
+  (:symbol "COPY-TREE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let* ((tree (list 1 (list 2 3)))
+       (copy (copy-tree tree)))
+  (setf (first (second copy)) :x)
+  (list tree copy))" :VALUES ("((1 (2 3)) (1 (:X 3)))"))))
+  (:symbol "COUNT-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(count-if #'oddp '(1 2 3 4 5))" :VALUES ("3"))
+    (:FORM "(count-if (lambda (s) (> (length s) 1)) '(\"a\" \"bb\" \"ccc\"))" :VALUES ("2"))
+    (:FORM "(defun vowel-p (char)
+  (find char \"aeiou\"))" :SILENT T)
+    (:FORM "(count-if #'vowel-p \"education\")" :VALUES ("5"))))
+  (:symbol "COUNT-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(count-if-not #'oddp '(1 2 3 4 5))" :VALUES ("2"))))
+  (:symbol "COUNT-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(count-if-not #'alpha-char-p \"a1b2\")" :VALUES ("2"))))
+  (:symbol "DELETE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(delete 2 (list 1 2 3 2))" :VALUES ("(1 3)"))))
+  (:symbol "DELETE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(delete #\\a (copy-seq \"banana\"))" :VALUES ("\"bnn\""))))
+  (:symbol "DELETE-DUPLICATES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(delete-duplicates (list 1 2 1 3 2))" :VALUES ("(1 3 2)"))))
+  (:symbol "DELETE-DUPLICATES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(delete-duplicates (list \"a\" \"A\" \"b\") :test #'string-equal)" :VALUES ("(\"A\" \"b\")"))))
+  (:symbol "DELETE-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(delete-if #'evenp (list 1 2 3 4))" :VALUES ("(1 3)"))))
+  (:symbol "DELETE-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(delete-if (lambda (n) (> n 2)) (list 1 2 3 4))" :VALUES ("(1 2)"))))
+  (:symbol "DELETE-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(delete-if-not #'evenp (list 1 2 3 4))" :VALUES ("(2 4)"))))
+  (:symbol "DELETE-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(delete-if-not #'alpha-char-p (copy-seq \"a1b2\"))" :VALUES ("\"ab\""))))
+  (:symbol "SECOND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(second '(a b c))" :VALUES ("B"))))
+  (:symbol "SECOND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(second '(a))" :VALUES ("NIL"))))
+  (:symbol "THIRD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(third '(a b c d))" :VALUES ("C"))))
+  (:symbol "FOURTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(fourth '(1 2 3 4 5))" :VALUES ("4"))))
+  (:symbol "FIFTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(fifth '(1 2 3 4 5 6))" :VALUES ("5"))))
+  (:symbol "SIXTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sixth '(1 2 3 4 5 6 7))" :VALUES ("6"))))
+  (:symbol "SEVENTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(seventh '(1 2 3 4 5 6 7 8))" :VALUES ("7"))))
+  (:symbol "EIGHTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eighth '(1 2 3 4 5 6 7 8 9))" :VALUES ("8"))))
+  (:symbol "NINTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ninth '(1 2 3 4 5 6 7 8 9 10))" :VALUES ("9"))))
+  (:symbol "TENTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(tenth '(1 2 3 4 5 6 7 8 9 10 11))" :VALUES ("10"))))
+  (:symbol "TENTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(tenth '(1 2 3))" :VALUES ("NIL"))))
+  (:symbol "ENDP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(endp '())" :VALUES ("T"))))
+  (:symbol "ENDP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(endp '(1))" :VALUES ("NIL"))))
+  (:symbol "ENDP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(loop for tail = '(a b c) then (cdr tail)
+      until (endp tail)
+      collect (car tail))" :VALUES ("(A B C)"))))
+  (:symbol "FILL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(fill (make-list 3) :x)" :VALUES ("(:X :X :X)"))))
+  (:symbol "FILL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((v (vector 1 2 3 4 5)))
+  (fill v 0 :start 1 :end 3)
+  v)" :VALUES ("#(1 0 0 4 5)"))))
+  (:symbol "FIND-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(find-if-not #'evenp '(2 4 5 6))" :VALUES ("5"))))
+  (:symbol "FIND-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(find-if-not #'digit-char-p \"123abc\")" :VALUES ("#\\a"))))
+  (:symbol "LDIFF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((list '(a b c d)))
+  (ldiff list (cddr list)))" :VALUES ("(A B)"))))
+  (:symbol "LDIFF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ldiff '(1 2 3) '(1 2 3))" :VALUES ("(1 2 3)"))))
+  (:symbol "LIST-LENGTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(list-length '(a b c))" :VALUES ("3"))))
+  (:symbol "LIST-LENGTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(list-length '())" :VALUES ("0"))))
+  (:symbol "LIST-LENGTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((circular (list 1 2)))
+  (setf (cdr (last circular)) circular)
+  (list-length circular))" :VALUES ("NIL"))))
+  (:symbol "MAKE-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(make-list 3)" :VALUES ("(NIL NIL NIL)"))))
+  (:symbol "MAKE-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(make-list 2 :initial-element 'x)" :VALUES ("(X X)"))))
+  (:symbol "MAKE-SEQUENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(make-sequence 'list 3 :initial-element 0)" :VALUES ("(0 0 0)"))))
+  (:symbol "MAKE-SEQUENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(make-sequence 'string 3 :initial-element #\\*)" :VALUES ("\"***\""))))
+  (:symbol "MAKE-SEQUENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(make-sequence 'vector 2 :initial-element :v)" :VALUES ("#(:V :V)"))))
+  (:symbol "MAP-INTO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((out (make-list 3)))
+  (map-into out #'1+ '(1 2 3))
+  out)" :VALUES ("(2 3 4)"))
+    (:FORM "(let ((out (vector 0 0 0)))
+  (map-into out (lambda (a b) (+ a b)) '(1 2 3) '(10 20 30))
+  out)" :VALUES ("#(11 22 33)"))
+    (:FORM "(defun triple (n)
+  (* 3 n))" :SILENT T)
+    (:FORM "(let ((out (make-list 3)))
+  (map-into out #'triple '(1 2 3)))" :VALUES ("(3 6 9)"))))
+  (:symbol "MAPL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((tails '()))
+  (mapl (lambda (tail) (push tail tails)) '(1 2 3))
+  (nreverse tails))" :VALUES ("((1 2 3) (2 3) (3))"))))
+  (:symbol "MAPL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((n 0))
+  (mapl (lambda (tail) (incf n (length tail))) '(a b c))
+  n)" :VALUES ("6"))))
+  (:symbol "MAPLIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(maplist #'identity '(a b c))" :VALUES ("((A B C) (B C) (C))"))
+    (:FORM "(maplist (lambda (tail) (length tail)) '(a b c))" :VALUES ("(3 2 1)"))
+    (:FORM "(defun first-and-count (tail)
+  (list (car tail) (length tail)))" :SILENT T)
+    (:FORM "(maplist #'first-and-count '(x y z))" :VALUES ("((X 3) (Y 2) (Z 1))"))))
+  (:symbol "MAPCON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mapcon #'list '(1 2 3))" :VALUES ("((1 2 3) (2 3) (3))"))))
+  (:symbol "MAPCON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mapcon (lambda (tail) (copy-list tail)) '(a b))" :VALUES ("(A B B)"))))
+  (:symbol "MEMBER-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(member-if #'evenp '(1 3 4 5))" :VALUES ("(4 5)"))
+    (:FORM "(member-if (lambda (x) (> x 10)) '(1 2 3))" :VALUES ("NIL"))
+    (:FORM "(defun negative-p (n)
+  (< n 0))" :SILENT T)
+    (:FORM "(member-if #'negative-p '(3 2 -1 5))" :VALUES ("(-1 5)"))))
+  (:symbol "MEMBER-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(member-if-not #'numberp '(1 2 a 3))" :VALUES ("(A 3)"))))
+  (:symbol "MEMBER-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(member-if-not #'evenp '(2 4 5 6))" :VALUES ("(5 6)"))))
+  (:symbol "MERGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(merge 'list (list 1 3 5) (list 2 4 6) #'<)" :VALUES ("(1 2 3 4 5 6)"))))
+  (:symbol "MERGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(merge 'vector (vector 1 4) (vector 2 3) #'<)" :VALUES ("#(1 2 3 4)"))))
+  (:symbol "MERGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(merge 'list (list \"b\" \"d\") (list \"a\" \"c\") #'string<)" :VALUES ("(\"a\" \"b\" \"c\" \"d\")"))))
+  (:symbol "MISMATCH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mismatch \"abcd\" \"abxd\")" :VALUES ("2"))))
+  (:symbol "MISMATCH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mismatch '(1 2 3) '(1 2 3))" :VALUES ("NIL"))))
+  (:symbol "MISMATCH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mismatch \"abc\" \"abcde\")" :VALUES ("3"))))
+  (:symbol "NBUTLAST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nbutlast (list 1 2 3 4))" :VALUES ("(1 2 3)"))))
+  (:symbol "NBUTLAST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nbutlast (list 1 2 3 4) 2)" :VALUES ("(1 2)"))))
+  (:symbol "NINTERSECTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sort (nintersection (list 1 2 3) (list 2 3 4)) #'<)" :VALUES ("(2 3)"))))
+  (:symbol "NOTANY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(notany #'evenp '(1 3 5))" :VALUES ("T"))))
+  (:symbol "NOTANY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(notany (lambda (x) (> x 4)) '(1 5))" :VALUES ("NIL"))))
+  (:symbol "NOTEVERY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(notevery #'evenp '(2 4 5))" :VALUES ("T"))))
+  (:symbol "NOTEVERY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(notevery #'numberp '(1 2))" :VALUES ("NIL"))))
+  (:symbol "NRECONC" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nreconc (list 3 2 1) (list 4 5))" :VALUES ("(1 2 3 4 5)"))))
+  (:symbol "NSET-DIFFERENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sort (nset-difference (list 1 2 3 4) (list 2 4)) #'<)" :VALUES ("(1 3)"))))
+  (:symbol "NSET-EXCLUSIVE-OR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sort (nset-exclusive-or (list 1 2 3) (list 3 4)) #'<)" :VALUES ("(1 2 4)"))))
+  (:symbol "NSUBLIS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nsublis '((a . 1) (b . 2)) (list 'a (list 'b 'c)))" :VALUES ("(1 (2 C))"))))
+  (:symbol "NSUBST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nsubst 'x 'b (list 'a 'b (list 'b 'c)))" :VALUES ("(A X (X C))"))))
+  (:symbol "NSUBST-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nsubst-if :num #'numberp (list 1 'a (list 2 'b)))" :VALUES ("(:NUM A (:NUM B))"))))
+  (:symbol "NSUBST-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nsubst-if-not :other #'numberp (list 1 'a (list 2 'b)))" :VALUES (":OTHER"))))
+  (:symbol "NSUBSTITUTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nsubstitute 0 1 (list 1 2 1 3))" :VALUES ("(0 2 0 3)"))))
+  (:symbol "NSUBSTITUTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nsubstitute #\\- #\\a (copy-seq \"banana\"))" :VALUES ("\"b-n-n-\""))))
+  (:symbol "NSUBSTITUTE-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nsubstitute-if 0 #'evenp (list 1 2 3 4))" :VALUES ("(1 0 3 0)"))))
+  (:symbol "NSUBSTITUTE-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nsubstitute-if-not 0 #'evenp (list 1 2 3 4))" :VALUES ("(0 2 0 4)"))))
+  (:symbol "NTHCDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nthcdr 2 '(a b c d))" :VALUES ("(C D)"))))
+  (:symbol "NTHCDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nthcdr 0 '(a b))" :VALUES ("(A B)"))))
+  (:symbol "NTHCDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nthcdr 5 '(a b))" :VALUES ("NIL"))))
+  (:symbol "NUNION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sort (nunion (list 1 2) (list 2 3)) #'<)" :VALUES ("(1 2 3)"))))
+  (:symbol "POSITION-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(position-if #'oddp '(2 4 5 6))" :VALUES ("2"))
+    (:FORM "(position-if (lambda (c) (char= c #\\space)) \"hello world\")" :VALUES ("5"))
+    (:FORM "(defun big-p (n)
+  (> n 10))" :SILENT T)
+    (:FORM "(position-if #'big-p '(1 5 20 30))" :VALUES ("2"))))
+  (:symbol "POSITION-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(position-if-not #'digit-char-p \"123abc\")" :VALUES ("3"))))
+  (:symbol "POSITION-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(position-if-not #'evenp '(2 4 5))" :VALUES ("2"))))
+  (:symbol "REPLACE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(replace (copy-seq \"abcde\") \"XY\")" :VALUES ("\"XYcde\""))))
+  (:symbol "REPLACE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(replace (copy-seq \"abcde\") \"XY\" :start1 3)" :VALUES ("\"abcXY\""))))
+  (:symbol "REPLACE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((v (vector 1 2 3 4)))
+  (replace v #(9 8) :start1 2)
+  v)" :VALUES ("#(1 2 9 8)"))))
+  (:symbol "REVAPPEND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(revappend '(3 2 1) '(4 5))" :VALUES ("(1 2 3 4 5)"))))
+  (:symbol "REVAPPEND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(revappend '() '(a))" :VALUES ("(A)"))))
+  (:symbol "RPLACA" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((cell (cons 1 2)))
+  (rplaca cell :new)
+  cell)" :VALUES ("(:NEW . 2)"))))
+  (:symbol "RPLACD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((cell (cons 1 2)))
+  (rplacd cell '(3))
+  cell)" :VALUES ("(1 3)"))))
+  (:symbol "SET-EXCLUSIVE-OR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sort (set-exclusive-or '(1 2 3) '(3 4 5)) #'<)" :VALUES ("(1 2 4 5)"))))
+  (:symbol "SET-EXCLUSIVE-OR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(set-exclusive-or '(a) '(a))" :VALUES ("NIL"))))
+  (:symbol "STABLE-SORT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stable-sort (list '(1 . b) '(0 . a) '(1 . a)) #'< :key #'car)" :VALUES ("((0 . A) (1 . B) (1 . A))"))
+    (:FORM "(stable-sort (list \"bb\" \"a\" \"cc\" \"d\") #'< :key #'length)" :VALUES ("(\"a\" \"d\" \"bb\" \"cc\")"))
+    (:FORM "(defun shorter-p (a b)
+  (< (length a) (length b)))" :SILENT T)
+    (:FORM "(stable-sort (list \"ccc\" \"a\" \"bbb\" \"d\") #'shorter-p)" :VALUES ("(\"a\" \"d\" \"ccc\" \"bbb\")"))))
+  (:symbol "SUBLIS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sublis '((a . 1) (b . 2)) '(a (b c) a))" :VALUES ("(1 (2 C) 1)"))))
+  (:symbol "SUBLIS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sublis '((1 . one) (2 . two)) '(1 (2 3)))" :VALUES ("(ONE (TWO 3))"))))
+  (:symbol "SUBSETP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subsetp '(1 2) '(1 2 3))" :VALUES ("T"))))
+  (:symbol "SUBSETP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subsetp '(1 5) '(1 2 3))" :VALUES ("NIL"))))
+  (:symbol "SUBSETP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subsetp '(\"a\") '(\"a\" \"b\") :test #'string=)" :VALUES ("T"))))
+  (:symbol "SUBST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subst 'x 'b '(a b (b c)))" :VALUES ("(A X (X C))"))))
+  (:symbol "SUBST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subst 0 1 '(1 (1 2) 3))" :VALUES ("(0 (0 2) 3)"))))
+  (:symbol "SUBST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subst \"new\" \"old\" '(\"old\" (\"old\")) :test #'equal)" :VALUES ("(\"new\" (\"new\"))"))))
+  (:symbol "SUBST-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subst-if :num #'numberp '(1 a (2 b)))" :VALUES ("(:NUM A (:NUM B))"))))
+  (:symbol "SUBST-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subst-if '* (lambda (x) (and (integerp x) (oddp x))) '(1 2 (3 4)))" :VALUES ("(* 2 (* 4))"))))
+  (:symbol "SUBST-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subst-if-not :other #'numberp '(1 a (2 b)))" :VALUES (":OTHER"))))
+  (:symbol "SUBSTITUTE-IF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(substitute-if 0 #'evenp '(1 2 3 4))" :VALUES ("(1 0 3 0)"))
+    (:FORM "(substitute-if #\\_ (lambda (c) (char= c #\\space)) \"a b c\")" :VALUES ("\"a_b_c\""))
+    (:FORM "(defun negative-p (n)
+  (< n 0))" :SILENT T)
+    (:FORM "(substitute-if 0 #'negative-p '(3 -1 4 -5))" :VALUES ("(3 0 4 0)"))))
+  (:symbol "SUBSTITUTE-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(substitute-if-not 0 #'evenp '(1 2 3 4))" :VALUES ("(0 2 0 4)"))))
+  (:symbol "SUBSTITUTE-IF-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(substitute-if-not #\\? #'alpha-char-p \"a1b2\")" :VALUES ("\"a?b?\""))))
+  (:symbol "TAILP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((list '(a b c d)))
+  (tailp (cddr list) list))" :VALUES ("T"))))
+  (:symbol "TAILP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(tailp '(c d) '(a b c d))" :VALUES ("NIL"))))
+  (:symbol "TREE-EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(tree-equal '(1 (2 3)) '(1 (2 3)))" :VALUES ("T"))))
+  (:symbol "TREE-EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(tree-equal '(\"a\") '(\"a\") :test #'string=)" :VALUES ("T"))))
+  (:symbol "TREE-EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(tree-equal '(1 2) '(1 3))" :VALUES ("NIL"))))
+  (:symbol "VALUES-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(values-list '(1 2 3))" :VALUES ("1" "2" "3"))))
+  (:symbol "VALUES-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (values-list '(a b)))" :VALUES ("(A B)"))))
+  (:symbol "MULTIPLE-VALUE-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (floor 7 2))" :VALUES ("(3 1)"))))
+  (:symbol "MULTIPLE-VALUE-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (values))" :VALUES ("NIL"))))
+  (:symbol "MULTIPLE-VALUE-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (gethash :missing (make-hash-table)))" :VALUES ("(NIL NIL)"))))
+  (:symbol "NTH-VALUE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nth-value 1 (floor 7 2))" :VALUES ("1"))))
+  (:symbol "NTH-VALUE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nth-value 0 (values :a :b))" :VALUES (":A"))))
+  (:symbol "NTH-VALUE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nth-value 5 (values 1 2))" :VALUES ("NIL"))))
+  (:symbol "MULTIPLE-VALUE-SETQ" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let (q r)
+  (multiple-value-setq (q r) (floor 17 5))
+  (list q r))" :VALUES ("(3 2)"))))
+  (:symbol "MULTIPLE-VALUE-CALL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-call #'list (values 1 2) (values 3))" :VALUES ("(1 2 3)"))))
+  (:symbol "MULTIPLE-VALUE-CALL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-call #'+ (floor 7 2) 10)" :VALUES ("14"))))
+  (:symbol "MULTIPLE-VALUE-PROG1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (multiple-value-prog1 (values 1 2) (+ 10 20)))" :VALUES ("(1 2)"))))
+  (:symbol "GET" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((sym (make-symbol \"S\")))
+  (setf (get sym 'color) :red)
+  (get sym 'color))" :VALUES (":RED"))))
+  (:symbol "GET" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((sym (make-symbol \"S\")))
+  (get sym 'missing :default))" :VALUES (":DEFAULT"))))
+  (:symbol "REMPROP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((sym (make-symbol \"S\")))
+  (setf (get sym 'a) 1)
+  (list (remprop sym 'a) (remprop sym 'a) (get sym 'a)))" :VALUES ("((A 1) NIL NIL)"))))
+  (:symbol "SYMBOL-PLIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((sym (make-symbol \"S\")))
+  (setf (get sym 'a) 1 (get sym 'b) 2)
+  (symbol-plist sym))" :VALUES ("(B 2 A 1)"))))
+  (:symbol "GET-PROPERTIES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (get-properties '(:a 1 :b 2 :c 3) '(:b :c)))" :VALUES ("(:B 2 (:B 2 :C 3))"))))
+  (:symbol "GET-PROPERTIES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (get-properties '(:a 1) '(:z)))" :VALUES ("(NIL NIL NIL)"))))
+  (:symbol "REMF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((plist (list :a 1 :b 2)))
+  (list (remf plist :a) plist))" :VALUES ("(T (:B 2))"))))
+  (:symbol "REMF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((plist (list :a 1)))
+  (remf plist :zz))" :VALUES ("NIL"))))
+  (:symbol "CLRHASH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((h (make-hash-table)))
+  (setf (gethash 1 h) 2)
+  (clrhash h)
+  (hash-table-count h))" :VALUES ("0"))))
+  (:symbol "HASH-TABLE-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(hash-table-p (make-hash-table))" :VALUES ("T"))))
+  (:symbol "HASH-TABLE-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(hash-table-p '((a . 1)))" :VALUES ("NIL"))))
+  (:symbol "HASH-TABLE-SIZE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integerp (hash-table-size (make-hash-table)))" :VALUES ("T"))))
+  (:symbol "HASH-TABLE-TEST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(hash-table-test (make-hash-table))" :VALUES ("EQL"))))
+  (:symbol "HASH-TABLE-TEST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(hash-table-test (make-hash-table :test 'equalp))" :VALUES ("EQUALP"))))
+  (:symbol "HASH-TABLE-REHASH-SIZE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(realp (hash-table-rehash-size (make-hash-table)))" :VALUES ("T"))))
+  (:symbol "HASH-TABLE-REHASH-THRESHOLD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(realp (hash-table-rehash-threshold (make-hash-table)))" :VALUES ("T"))))
+  (:symbol "SXHASH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= (sxhash \"abc\") (sxhash \"abc\"))" :VALUES ("T"))))
+  (:symbol "SXHASH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= (sxhash '(1 2)) (sxhash (list 1 2)))" :VALUES ("T"))))
+  (:symbol "SXHASH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integerp (sxhash 42))" :VALUES ("T"))))
+  (:symbol "WITH-HASH-TABLE-ITERATOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((table (make-hash-table))
+      (pairs '()))
+  (setf (gethash :a table) 1)
+  (with-hash-table-iterator (next table)
+    (loop (multiple-value-bind (more key value) (next)
+            (unless more (return))
+            (push (list key value) pairs))))
+  pairs)" :VALUES ("((:A 1))"))))
+  (:symbol "ADJUST-ARRAY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(adjust-array (vector 1 2 3) 5 :initial-element 0)" :VALUES ("#(1 2 3 0 0)"))))
+  (:symbol "ADJUST-ARRAY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a (make-array 2 :adjustable t :initial-contents '(a b))))
+  (adjust-array a 3 :initial-element :new)
+  a)" :VALUES ("#(A B :NEW)"))))
+  (:symbol "ADJUSTABLE-ARRAY-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(adjustable-array-p (make-array 2 :adjustable t))" :VALUES ("T"))))
+  (:symbol "ADJUSTABLE-ARRAY-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(adjustable-array-p (make-array 2))" :VALUES ("NIL"))))
+  (:symbol "ARRAY-DIMENSION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-dimension (make-array '(2 3)) 0)" :VALUES ("2"))))
+  (:symbol "ARRAY-DIMENSION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-dimension (make-array '(2 3)) 1)" :VALUES ("3"))))
+  (:symbol "ARRAY-DIMENSIONS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-dimensions (make-array '(2 3 4)))" :VALUES ("(2 3 4)"))))
+  (:symbol "ARRAY-DIMENSIONS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-dimensions #(1 2 3))" :VALUES ("(3)"))))
+  (:symbol "ARRAY-DISPLACEMENT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let* ((base (make-array 5))
+       (view (make-array 2 :displaced-to base :displaced-index-offset 1)))
+  (multiple-value-bind (array offset) (array-displacement view)
+    (list (eq array base) offset)))" :VALUES ("(T 1)"))))
+  (:symbol "ARRAY-DISPLACEMENT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (array-displacement (make-array 3)))" :VALUES ("(NIL 0)"))))
+  (:symbol "ARRAY-ELEMENT-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-element-type (make-array 2))" :VALUES ("T"))))
+  (:symbol "ARRAY-ELEMENT-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-element-type \"abc\")" :VALUES ("CHARACTER"))))
+  (:symbol "ARRAY-ELEMENT-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-element-type (make-array 2 :element-type 'bit))" :VALUES ("BIT"))))
+  (:symbol "ARRAY-HAS-FILL-POINTER-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-has-fill-pointer-p (make-array 3 :fill-pointer 0))" :VALUES ("T"))))
+  (:symbol "ARRAY-HAS-FILL-POINTER-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-has-fill-pointer-p (make-array 3))" :VALUES ("NIL"))))
+  (:symbol "ARRAY-IN-BOUNDS-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-in-bounds-p #(1 2 3) 2)" :VALUES ("T"))))
+  (:symbol "ARRAY-IN-BOUNDS-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-in-bounds-p #(1 2 3) 3)" :VALUES ("NIL"))))
+  (:symbol "ARRAY-IN-BOUNDS-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-in-bounds-p (make-array '(2 2)) 1 1)" :VALUES ("T"))))
+  (:symbol "ARRAY-RANK" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-rank #(1 2 3))" :VALUES ("1"))))
+  (:symbol "ARRAY-RANK" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-rank (make-array '(2 3 4)))" :VALUES ("3"))))
+  (:symbol "ARRAY-ROW-MAJOR-INDEX" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-row-major-index (make-array '(2 3)) 1 2)" :VALUES ("5"))))
+  (:symbol "ARRAY-ROW-MAJOR-INDEX" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-row-major-index (make-array '(2 3)) 0 0)" :VALUES ("0"))))
+  (:symbol "ARRAY-TOTAL-SIZE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-total-size (make-array '(2 3 4)))" :VALUES ("24"))))
+  (:symbol "ARRAY-TOTAL-SIZE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(array-total-size \"hello\")" :VALUES ("5"))))
+  (:symbol "ARRAYP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(arrayp #(1 2))" :VALUES ("T"))))
+  (:symbol "ARRAYP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(arrayp \"abc\")" :VALUES ("T"))))
+  (:symbol "ARRAYP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(arrayp '(1 2))" :VALUES ("NIL"))))
+  (:symbol "ROW-MAJOR-AREF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(row-major-aref #2A((1 2) (3 4)) 2)" :VALUES ("3"))))
+  (:symbol "ROW-MAJOR-AREF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a (make-array '(2 2) :initial-element 0)))
+  (setf (row-major-aref a 3) :last)
+  a)" :VALUES ("#2A((0 0) (0 :LAST))"))))
+  (:symbol "SVREF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(svref #(a b c) 1)" :VALUES ("B"))))
+  (:symbol "SVREF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((v (vector 1 2 3)))
+  (setf (svref v 0) :x)
+  v)" :VALUES ("#(:X 2 3)"))))
+  (:symbol "VECTORP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(vectorp #(1 2))" :VALUES ("T"))))
+  (:symbol "VECTORP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(vectorp \"abc\")" :VALUES ("T"))))
+  (:symbol "VECTORP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(vectorp (make-array '(2 2)))" :VALUES ("NIL"))))
+  (:symbol "SIMPLE-VECTOR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(simple-vector-p #(1 2 3))" :VALUES ("T"))))
+  (:symbol "SIMPLE-VECTOR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(simple-vector-p \"abc\")" :VALUES ("NIL"))))
+  (:symbol "VECTOR-PUSH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((v (make-array 2 :fill-pointer 0)))
+  (list (vector-push :a v) (vector-push :b v) (vector-push :c v) v))" :VALUES ("(0 1 NIL #(:A :B))"))))
+  (:symbol "VECTOR-PUSH-EXTEND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((v (make-array 1 :fill-pointer 0 :adjustable t)))
+  (dotimes (i 4)
+    (vector-push-extend i v))
+  v)" :VALUES ("#(0 1 2 3)"))))
+  (:symbol "VECTOR-POP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((v (make-array 3 :fill-pointer 3 :initial-contents '(1 2 3))))
+  (list (vector-pop v) v))" :VALUES ("(3 #(1 2))"))))
+  (:symbol "FILL-POINTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(fill-pointer (make-array 5 :fill-pointer 2))" :VALUES ("2"))))
+  (:symbol "FILL-POINTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((v (make-array 5 :fill-pointer 0)))
+  (setf (fill-pointer v) 3)
+  (length v))" :VALUES ("3"))))
+  (:symbol "BIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit #*1010 0)" :VALUES ("1"))))
+  (:symbol "BIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((bits (make-array 3 :element-type 'bit :initial-element 0)))
+  (setf (bit bits 1) 1)
+  bits)" :VALUES ("#*010"))))
+  (:symbol "SBIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sbit #*101 2)" :VALUES ("1"))))
+  (:symbol "SBIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((bits (make-array 3 :element-type 'bit :initial-element 0)))
+  (setf (sbit bits 0) 1)
+  bits)" :VALUES ("#*100"))))
+  (:symbol "BIT-AND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit-and #*1100 #*1010)" :VALUES ("#*1000"))))
+  (:symbol "BIT-IOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit-ior #*1100 #*1010)" :VALUES ("#*1110"))))
+  (:symbol "BIT-XOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit-xor #*1100 #*1010)" :VALUES ("#*0110"))))
+  (:symbol "BIT-NOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit-not #*1010)" :VALUES ("#*0101"))))
+  (:symbol "BIT-NAND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit-nand #*1100 #*1010)" :VALUES ("#*0111"))))
+  (:symbol "BIT-NOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit-nor #*1100 #*1010)" :VALUES ("#*0001"))))
+  (:symbol "BIT-EQV" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit-eqv #*1100 #*1010)" :VALUES ("#*1001"))))
+  (:symbol "BIT-ANDC1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit-andc1 #*1100 #*1010)" :VALUES ("#*0010"))))
+  (:symbol "BIT-ANDC2" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit-andc2 #*1100 #*1010)" :VALUES ("#*0100"))))
+  (:symbol "BIT-ORC1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit-orc1 #*1100 #*1010)" :VALUES ("#*1011"))))
+  (:symbol "BIT-ORC2" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit-orc2 #*1100 #*1010)" :VALUES ("#*1101"))))
+  (:symbol "BIT-VECTOR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit-vector-p #*101)" :VALUES ("T"))))
+  (:symbol "BIT-VECTOR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(bit-vector-p #(1 0 1))" :VALUES ("NIL"))))
+  (:symbol "SIMPLE-BIT-VECTOR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(simple-bit-vector-p #*101)" :VALUES ("T"))))
+  (:symbol "SIMPLE-BIT-VECTOR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(simple-bit-vector-p (make-array 3 :element-type 'bit :adjustable t))" :VALUES ("NIL"))))
+  (:symbol "UPGRADED-ARRAY-ELEMENT-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(upgraded-array-element-type 'bit)" :VALUES ("BIT"))))
+  (:symbol "UPGRADED-ARRAY-ELEMENT-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(upgraded-array-element-type 'character)" :VALUES ("CHARACTER"))))
+  (:symbol "UPGRADED-ARRAY-ELEMENT-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(upgraded-array-element-type '(integer 0 10))" :VALUES ("(UNSIGNED-BYTE 4)"))))
+  (:symbol "UPGRADED-COMPLEX-PART-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(upgraded-complex-part-type 'single-float)" :VALUES ("SINGLE-FLOAT"))))
+  (:symbol "UPGRADED-COMPLEX-PART-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(upgraded-complex-part-type 'double-float)" :VALUES ("DOUBLE-FLOAT"))))
+  (:symbol "CAAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(caar '((1 . 2) . (3 . 4)))" :VALUES ("1"))))
+  (:symbol "CADR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cadr '((5 . 6) . (7 . 8)))" :VALUES ("7"))))
+  (:symbol "CDAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cdar '((9 . 10) . (11 . 12)))" :VALUES ("10"))))
+  (:symbol "CDDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cddr '((13 . 14) . (15 . 16)))" :VALUES ("16"))))
+  (:symbol "CAAAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(caaar '(((17 . 18) . (19 . 20)) . ((21 . 22) . (23 . 24))))" :VALUES ("17"))))
+  (:symbol "CAADR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(caadr '(((25 . 26) . (27 . 28)) . ((29 . 30) . (31 . 32))))" :VALUES ("29"))))
+  (:symbol "CADAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cadar '(((33 . 34) . (35 . 36)) . ((37 . 38) . (39 . 40))))" :VALUES ("35"))))
+  (:symbol "CADDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(caddr '(((41 . 42) . (43 . 44)) . ((45 . 46) . (47 . 48))))" :VALUES ("47"))))
+  (:symbol "CDAAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cdaar '(((49 . 50) . (51 . 52)) . ((53 . 54) . (55 . 56))))" :VALUES ("50"))))
+  (:symbol "CDADR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cdadr '(((57 . 58) . (59 . 60)) . ((61 . 62) . (63 . 64))))" :VALUES ("62"))))
+  (:symbol "CDDAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cddar '(((65 . 66) . (67 . 68)) . ((69 . 70) . (71 . 72))))" :VALUES ("68"))))
+  (:symbol "CDDDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cdddr '(((73 . 74) . (75 . 76)) . ((77 . 78) . (79 . 80))))" :VALUES ("80"))))
+  (:symbol "CAAAAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(caaaar '((((81 . 82) . (83 . 84)) . ((85 . 86) . (87 . 88))) . (((89 . 90) . (91 . 92)) . ((93 . 94) . (95 . 96)))))" :VALUES ("81"))))
+  (:symbol "CAAADR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(caaadr '((((97 . 98) . (99 . 100)) . ((101 . 102) . (103 . 104))) . (((105 . 106) . (107 . 108)) . ((109 . 110) . (111 . 112)))))" :VALUES ("105"))))
+  (:symbol "CAADAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(caadar '((((113 . 114) . (115 . 116)) . ((117 . 118) . (119 . 120))) . (((121 . 122) . (123 . 124)) . ((125 . 126) . (127 . 128)))))" :VALUES ("117"))))
+  (:symbol "CAADDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(caaddr '((((129 . 130) . (131 . 132)) . ((133 . 134) . (135 . 136))) . (((137 . 138) . (139 . 140)) . ((141 . 142) . (143 . 144)))))" :VALUES ("141"))))
+  (:symbol "CADAAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cadaar '((((145 . 146) . (147 . 148)) . ((149 . 150) . (151 . 152))) . (((153 . 154) . (155 . 156)) . ((157 . 158) . (159 . 160)))))" :VALUES ("147"))))
+  (:symbol "CADADR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cadadr '((((161 . 162) . (163 . 164)) . ((165 . 166) . (167 . 168))) . (((169 . 170) . (171 . 172)) . ((173 . 174) . (175 . 176)))))" :VALUES ("171"))))
+  (:symbol "CADDAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(caddar '((((177 . 178) . (179 . 180)) . ((181 . 182) . (183 . 184))) . (((185 . 186) . (187 . 188)) . ((189 . 190) . (191 . 192)))))" :VALUES ("183"))))
+  (:symbol "CADDDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cadddr '((((193 . 194) . (195 . 196)) . ((197 . 198) . (199 . 200))) . (((201 . 202) . (203 . 204)) . ((205 . 206) . (207 . 208)))))" :VALUES ("207"))))
+  (:symbol "CDAAAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cdaaar '((((209 . 210) . (211 . 212)) . ((213 . 214) . (215 . 216))) . (((217 . 218) . (219 . 220)) . ((221 . 222) . (223 . 224)))))" :VALUES ("210"))))
+  (:symbol "CDAADR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cdaadr '((((225 . 226) . (227 . 228)) . ((229 . 230) . (231 . 232))) . (((233 . 234) . (235 . 236)) . ((237 . 238) . (239 . 240)))))" :VALUES ("234"))))
+  (:symbol "CDADAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cdadar '((((241 . 242) . (243 . 244)) . ((245 . 246) . (247 . 248))) . (((249 . 250) . (251 . 252)) . ((253 . 254) . (255 . 256)))))" :VALUES ("246"))))
+  (:symbol "CDADDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cdaddr '((((257 . 258) . (259 . 260)) . ((261 . 262) . (263 . 264))) . (((265 . 266) . (267 . 268)) . ((269 . 270) . (271 . 272)))))" :VALUES ("270"))))
+  (:symbol "CDDAAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cddaar '((((273 . 274) . (275 . 276)) . ((277 . 278) . (279 . 280))) . (((281 . 282) . (283 . 284)) . ((285 . 286) . (287 . 288)))))" :VALUES ("276"))))
+  (:symbol "CDDADR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cddadr '((((289 . 290) . (291 . 292)) . ((293 . 294) . (295 . 296))) . (((297 . 298) . (299 . 300)) . ((301 . 302) . (303 . 304)))))" :VALUES ("300"))))
+  (:symbol "CDDDAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cdddar '((((305 . 306) . (307 . 308)) . ((309 . 310) . (311 . 312))) . (((313 . 314) . (315 . 316)) . ((317 . 318) . (319 . 320)))))" :VALUES ("312"))))
+  (:symbol "CDDDDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cddddr '((((321 . 322) . (323 . 324)) . ((325 . 326) . (327 . 328))) . (((329 . 330) . (331 . 332)) . ((333 . 334) . (335 . 336)))))" :VALUES ("336"))))
+  (:symbol "CAAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(caar '((a b) (c d)))" :VALUES ("A"))))
+  (:symbol "CADR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cadr '(1 2 3))" :VALUES ("2"))))
+  (:symbol "CADR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mapcar #'cadr '((a b) (c d)))" :VALUES ("(B D)"))))
+  (:symbol "CDAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cdar '((a b) (c d)))" :VALUES ("(B)"))))
+  (:symbol "CDDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cddr '(1 2 3 4))" :VALUES ("(3 4)"))))
+  (:symbol "CADDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(caddr '(1 2 3 4))" :VALUES ("3"))))
+  (:symbol "CADDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mapcar #'caddr '((a b c) (d e f)))" :VALUES ("(C F)"))))
+  (:symbol "CDDDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cdddr '(1 2 3 4 5))" :VALUES ("(4 5)"))))
+  (:symbol "CADDDR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cadddr '(1 2 3 4 5))" :VALUES ("4"))))
+  (:symbol "/=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(/= 1 2)" :VALUES ("T"))))
+  (:symbol "/=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(/= 1 1)" :VALUES ("NIL"))))
+  (:symbol "/=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(/= 1 2 3)" :VALUES ("T"))))
+  (:symbol "/=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(/= 1 2 1)" :VALUES ("NIL"))))
+  (:symbol "<=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(<= 1 2 2 3)" :VALUES ("T"))))
+  (:symbol "<=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(<= 3 2)" :VALUES ("NIL"))))
+  (:symbol "<=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(<= 1 1.0)" :VALUES ("T"))))
+  (:symbol ">=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(>= 3 2 2 1)" :VALUES ("T"))))
+  (:symbol ">=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(>= 1 2)" :VALUES ("NIL"))))
+  (:symbol ">=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(>= 2 2)" :VALUES ("T"))))
+  (:symbol "ACOS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(acos 1)" :VALUES ("0.0"))))
+  (:symbol "ACOS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(acos 0)" :VALUES ("1.5707964"))))
+  (:symbol "ACOS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (acos 0.5) (/ pi 3))) 1d-6)" :VALUES ("T"))))
+  (:symbol "ACOSH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(acosh 1)" :VALUES ("0.0"))))
+  (:symbol "ACOSH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (acosh 2) 1.3169579)) 1e-5)" :VALUES ("T"))))
+  (:symbol "ASIN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(asin 0)" :VALUES ("0.0"))))
+  (:symbol "ASIN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (asin 1.0) (/ pi 2))) 1e-6)" :VALUES ("T"))))
+  (:symbol "ASINH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(asinh 0)" :VALUES ("0.0"))))
+  (:symbol "ASINH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (asinh 1.0) 0.8813736)) 1e-5)" :VALUES ("T"))))
+  (:symbol "ATAN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(atan 0)" :VALUES ("0.0"))))
+  (:symbol "ATAN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (atan 1.0) (/ pi 4))) 1e-6)" :VALUES ("T"))))
+  (:symbol "ATAN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (atan 1 -1) (* 3 (/ pi 4)))) 1e-6)" :VALUES ("T"))))
+  (:symbol "ATANH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(atanh 0)" :VALUES ("0.0"))))
+  (:symbol "ATANH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (atanh 0.5) 0.54930615)) 1e-5)" :VALUES ("T"))))
+  (:symbol "SIN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sin 0)" :VALUES ("0.0"))))
+  (:symbol "SIN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (sin (/ pi 2)) 1)) 1d-9)" :VALUES ("T"))))
+  (:symbol "COS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cos 0)" :VALUES ("1.0"))))
+  (:symbol "COS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (cos (/ pi 2))) 1d-9)" :VALUES ("T"))))
+  (:symbol "TAN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(tan 0)" :VALUES ("0.0"))))
+  (:symbol "TAN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (tan (/ pi 4)) 1)) 1d-9)" :VALUES ("T"))))
+  (:symbol "SINH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sinh 0)" :VALUES ("0.0"))))
+  (:symbol "SINH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (sinh 1.0) 1.1752012)) 1e-5)" :VALUES ("T"))))
+  (:symbol "COSH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cosh 0)" :VALUES ("1.0"))))
+  (:symbol "COSH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (cosh 1.0) 1.5430807)) 1e-5)" :VALUES ("T"))))
+  (:symbol "TANH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(tanh 0)" :VALUES ("0.0"))))
+  (:symbol "TANH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (tanh 1.0) 0.7615942)) 1e-5)" :VALUES ("T"))))
+  (:symbol "EXP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(exp 0)" :VALUES ("1.0"))))
+  (:symbol "EXP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (exp 1) 2.7182817)) 1e-5)" :VALUES ("T"))))
+  (:symbol "LOG" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(log 1)" :VALUES ("0.0"))))
+  (:symbol "LOG" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(log 8 2)" :VALUES ("3.0"))))
+  (:symbol "LOG" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(log 100 10)" :VALUES ("2.0"))))
+  (:symbol "LOG" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (log (exp 3.0)) 3.0)) 1e-5)" :VALUES ("T"))))
+  (:symbol "ISQRT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(isqrt 16)" :VALUES ("4"))))
+  (:symbol "ISQRT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(isqrt 17)" :VALUES ("4"))))
+  (:symbol "ISQRT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(isqrt 0)" :VALUES ("0"))))
+  (:symbol "SIGNUM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(signum -5)" :VALUES ("-1"))))
+  (:symbol "SIGNUM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(signum 0)" :VALUES ("0"))))
+  (:symbol "SIGNUM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(signum 2.5)" :VALUES ("1.0"))))
+  (:symbol "MINUSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(minusp -1)" :VALUES ("T"))))
+  (:symbol "MINUSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(minusp 0)" :VALUES ("NIL"))))
+  (:symbol "MINUSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(minusp 2)" :VALUES ("NIL"))))
+  (:symbol "PLUSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(plusp 1)" :VALUES ("T"))))
+  (:symbol "PLUSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(plusp 0)" :VALUES ("NIL"))))
+  (:symbol "PLUSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(plusp -2.5)" :VALUES ("NIL"))))
+  (:symbol "NUMBERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(numberp 3)" :VALUES ("T"))))
+  (:symbol "NUMBERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(numberp 2/3)" :VALUES ("T"))))
+  (:symbol "NUMBERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(numberp \"3\")" :VALUES ("NIL"))))
+  (:symbol "INTEGERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integerp 3)" :VALUES ("T"))))
+  (:symbol "INTEGERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integerp 3.0)" :VALUES ("NIL"))))
+  (:symbol "INTEGERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integerp 6/3)" :VALUES ("T"))))
+  (:symbol "RATIONALP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rationalp 1/3)" :VALUES ("T"))))
+  (:symbol "RATIONALP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rationalp 0.5)" :VALUES ("NIL"))))
+  (:symbol "RATIONALP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rationalp 5)" :VALUES ("T"))))
+  (:symbol "REALP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(realp 1.5)" :VALUES ("T"))))
+  (:symbol "REALP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(realp #c(1 2))" :VALUES ("NIL"))))
+  (:symbol "REALP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(realp 1/2)" :VALUES ("T"))))
+  (:symbol "FLOATP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(floatp 1.5)" :VALUES ("T"))))
+  (:symbol "FLOATP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(floatp 1)" :VALUES ("NIL"))))
+  (:symbol "FLOATP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(floatp 1d0)" :VALUES ("T"))))
+  (:symbol "COMPLEXP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(complexp #c(1 2))" :VALUES ("T"))))
+  (:symbol "COMPLEXP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(complexp 5)" :VALUES ("NIL"))))
+  (:symbol "COMPLEXP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(complexp #c(5 0))" :VALUES ("NIL"))))
+  (:symbol "NUMERATOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(numerator 6/4)" :VALUES ("3"))))
+  (:symbol "NUMERATOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(numerator 5)" :VALUES ("5"))))
+  (:symbol "DENOMINATOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(denominator 6/4)" :VALUES ("2"))))
+  (:symbol "DENOMINATOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(denominator 5)" :VALUES ("1"))))
+  (:symbol "RATIONAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rational 0.5)" :VALUES ("1/2"))))
+  (:symbol "RATIONAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rational 3)" :VALUES ("3"))))
+  (:symbol "RATIONAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rational 0.25d0)" :VALUES ("1/4"))))
+  (:symbol "RATIONALIZE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rationalize 0.5)" :VALUES ("1/2"))))
+  (:symbol "RATIONALIZE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(rationalize 0.333333333)" :VALUES ("1/3"))))
+  (:symbol "FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(float 1/4)" :VALUES ("0.25"))))
+  (:symbol "FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(float 3)" :VALUES ("3.0"))))
+  (:symbol "FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(float 1/3 1d0)" :VALUES ("0.3333333333333333d0"))))
+  (:symbol "FLOAT-DIGITS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(float-digits 1.0)" :VALUES ("24"))))
+  (:symbol "FLOAT-DIGITS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(float-digits 1d0)" :VALUES ("53"))))
+  (:symbol "FLOAT-PRECISION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(float-precision 1.0)" :VALUES ("24"))))
+  (:symbol "FLOAT-PRECISION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(float-precision 0.0)" :VALUES ("0"))))
+  (:symbol "FLOAT-RADIX" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(float-radix 1.0)" :VALUES ("2"))))
+  (:symbol "FLOAT-SIGN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(float-sign -2.5)" :VALUES ("-1.0"))))
+  (:symbol "FLOAT-SIGN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(float-sign 2.5)" :VALUES ("1.0"))))
+  (:symbol "FLOAT-SIGN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(float-sign -1.0 3.0)" :VALUES ("-3.0"))))
+  (:symbol "DECODE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (decode-float 8.0))" :VALUES ("(0.5 4 1.0)"))))
+  (:symbol "DECODE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (decode-float -0.5))" :VALUES ("(0.5 0 -1.0)"))))
+  (:symbol "INTEGER-DECODE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (integer-decode-float 1.0))" :VALUES ("(8388608 -23 1)"))))
+  (:symbol "INTEGER-DECODE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (integer-decode-float 8.0))" :VALUES ("(8388608 -20 1)"))))
+  (:symbol "SCALE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(scale-float 1.0 3)" :VALUES ("8.0"))))
+  (:symbol "SCALE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(scale-float 8.0 -2)" :VALUES ("2.0"))))
+  (:symbol "FFLOOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (ffloor 7.5))" :VALUES ("(7.0 0.5)"))))
+  (:symbol "FFLOOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ffloor -2.5)" :VALUES ("-3.0" "0.5"))))
+  (:symbol "FCEILING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (fceiling 7.2))" :VALUES ("(8.0 -0.8000002)"))))
+  (:symbol "FCEILING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(fceiling -2.5)" :VALUES ("-2.0" "-0.5"))))
+  (:symbol "FTRUNCATE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (ftruncate 7.9))" :VALUES ("(7.0 0.9000001)"))))
+  (:symbol "FTRUNCATE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ftruncate -7.9)" :VALUES ("-7.0" "-0.9000001"))))
+  (:symbol "FROUND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(fround 2.5)" :VALUES ("2.0" "0.5"))))
+  (:symbol "FROUND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(fround 3.5)" :VALUES ("4.0" "-0.5"))))
+  (:symbol "FROUND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(fround 7.2)" :VALUES ("7.0" "0.19999981"))))
+  (:symbol "CIS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(cis 0)" :VALUES ("#C(1.0 0.0)"))))
+  (:symbol "CIS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((z (cis (/ pi 2))))
+  (and (< (abs (realpart z)) 1d-9) (< (abs (- (imagpart z) 1)) 1d-9)))" :VALUES ("T"))))
+  (:symbol "COMPLEX" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(complex 1 2)" :VALUES ("#C(1 2)"))))
+  (:symbol "COMPLEX" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(complex 3 0)" :VALUES ("3"))))
+  (:symbol "COMPLEX" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(complex 1.5 -2)" :VALUES ("#C(1.5 -2.0)"))))
+  (:symbol "CONJUGATE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(conjugate #c(1 2))" :VALUES ("#C(1 -2)"))))
+  (:symbol "CONJUGATE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(conjugate 5)" :VALUES ("5"))))
+  (:symbol "IMAGPART" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(imagpart #c(3 4))" :VALUES ("4"))))
+  (:symbol "IMAGPART" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(imagpart 5)" :VALUES ("0"))))
+  (:symbol "REALPART" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(realpart #c(3 4))" :VALUES ("3"))))
+  (:symbol "REALPART" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(realpart 5)" :VALUES ("5"))))
+  (:symbol "PHASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(phase 1)" :VALUES ("0.0"))))
+  (:symbol "PHASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(phase -1.0)" :VALUES ("3.1415927"))))
+  (:symbol "PHASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (abs (- (phase #c(0 1)) (/ pi 2))) 1e-6)" :VALUES ("T"))))
+  (:symbol "ASH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ash 1 10)" :VALUES ("1024"))))
+  (:symbol "ASH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ash 1024 -3)" :VALUES ("128"))))
+  (:symbol "ASH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ash -8 -1)" :VALUES ("-4"))))
+  (:symbol "LOGAND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logand 12 10)" :VALUES ("8"))))
+  (:symbol "LOGAND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logand #b1111 #b0101)" :VALUES ("5"))))
+  (:symbol "LOGAND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logand)" :VALUES ("-1"))))
+  (:symbol "LOGIOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logior 12 10)" :VALUES ("14"))))
+  (:symbol "LOGIOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logior)" :VALUES ("0"))))
+  (:symbol "LOGXOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logxor 12 10)" :VALUES ("6"))))
+  (:symbol "LOGXOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logxor 5 5)" :VALUES ("0"))))
+  (:symbol "LOGNOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(lognot 0)" :VALUES ("-1"))))
+  (:symbol "LOGNOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(lognot 5)" :VALUES ("-6"))))
+  (:symbol "LOGNOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(lognot -1)" :VALUES ("0"))))
+  (:symbol "LOGANDC1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logandc1 12 10)" :VALUES ("2"))))
+  (:symbol "LOGANDC2" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logandc2 12 10)" :VALUES ("4"))))
+  (:symbol "LOGEQV" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logeqv 12 10)" :VALUES ("-7"))))
+  (:symbol "LOGNAND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(lognand 12 10)" :VALUES ("-9"))))
+  (:symbol "LOGNOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(lognor 12 10)" :VALUES ("-15"))))
+  (:symbol "LOGORC1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logorc1 12 10)" :VALUES ("-5"))))
+  (:symbol "LOGORC2" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logorc2 12 10)" :VALUES ("-3"))))
+  (:symbol "LOGBITP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logbitp 0 5)" :VALUES ("T"))))
+  (:symbol "LOGBITP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logbitp 1 5)" :VALUES ("NIL"))))
+  (:symbol "LOGBITP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logbitp 2 5)" :VALUES ("T"))))
+  (:symbol "LOGCOUNT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logcount 7)" :VALUES ("3"))))
+  (:symbol "LOGCOUNT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logcount 255)" :VALUES ("8"))))
+  (:symbol "LOGCOUNT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logcount -1)" :VALUES ("0"))))
+  (:symbol "LOGTEST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logtest 12 3)" :VALUES ("NIL"))))
+  (:symbol "LOGTEST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(logtest 12 4)" :VALUES ("T"))))
+  (:symbol "INTEGER-LENGTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integer-length 0)" :VALUES ("0"))))
+  (:symbol "INTEGER-LENGTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integer-length 255)" :VALUES ("8"))))
+  (:symbol "INTEGER-LENGTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integer-length 256)" :VALUES ("9"))))
+  (:symbol "INTEGER-LENGTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integer-length -1)" :VALUES ("0"))))
+  (:symbol "BYTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(byte-size (byte 4 2))" :VALUES ("4"))))
+  (:symbol "BYTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(byte-position (byte 4 2))" :VALUES ("2"))))
+  (:symbol "BYTE-SIZE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(byte-size (byte 8 0))" :VALUES ("8"))))
+  (:symbol "BYTE-POSITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(byte-position (byte 8 16))" :VALUES ("16"))))
+  (:symbol "LDB" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ldb (byte 4 0) #xAB)" :VALUES ("11"))))
+  (:symbol "LDB" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ldb (byte 4 4) #xAB)" :VALUES ("10"))))
+  (:symbol "LDB-TEST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ldb-test (byte 1 3) 8)" :VALUES ("T"))))
+  (:symbol "LDB-TEST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ldb-test (byte 1 2) 8)" :VALUES ("NIL"))))
+  (:symbol "DPB" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(dpb 5 (byte 4 4) 0)" :VALUES ("80"))))
+  (:symbol "DPB" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(dpb 0 (byte 4 0) #xFF)" :VALUES ("240"))))
+  (:symbol "DEPOSIT-FIELD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(deposit-field 255 (byte 4 4) 0)" :VALUES ("240"))))
+  (:symbol "DEPOSIT-FIELD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(deposit-field #xFF (byte 4 0) #x00)" :VALUES ("15"))))
+  (:symbol "MASK-FIELD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mask-field (byte 4 4) #xAB)" :VALUES ("160"))))
+  (:symbol "MASK-FIELD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mask-field (byte 4 0) #xAB)" :VALUES ("11"))))
+  (:symbol "BOOLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-and 12 10)" :VALUES ("8"))))
+  (:symbol "BOOLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-ior 12 10)" :VALUES ("14"))))
+  (:symbol "BOOLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-xor 12 10)" :VALUES ("6"))))
+  (:symbol "RANDOM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (random 10) '(integer 0 9))" :VALUES ("T"))))
+  (:symbol "RANDOM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (random 1.0) '(float 0.0 1.0))" :VALUES ("T"))))
+  (:symbol "RANDOM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*random-state* (make-random-state nil)))
+  (typep (random 100) 'fixnum))" :VALUES ("T"))))
+  (:symbol "RANDOM-STATE-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(random-state-p *random-state*)" :VALUES ("T"))))
+  (:symbol "RANDOM-STATE-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(random-state-p 42)" :VALUES ("NIL"))))
+  (:symbol "MAKE-RANDOM-STATE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(random-state-p (make-random-state t))" :VALUES ("T"))))
+  (:symbol "MAKE-RANDOM-STATE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a (make-random-state *random-state*))
+      (b (make-random-state *random-state*)))
+  (= (random 1000000 a) (random 1000000 b)))" :VALUES ("T"))))
+  (:symbol "CONSTANTP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(constantp 5)" :VALUES ("T"))))
+  (:symbol "CONSTANTP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(constantp 'pi)" :VALUES ("T"))))
+  (:symbol "CONSTANTP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(constantp '(+ 1 2))" :VALUES ("T"))))
+  (:symbol "CONSTANTP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(constantp 'x)" :VALUES ("NIL"))))
+  (:symbol "MOST-POSITIVE-FIXNUM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep most-positive-fixnum 'fixnum)" :VALUES ("T"))))
+  (:symbol "MOST-POSITIVE-FIXNUM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (1+ most-positive-fixnum) 'fixnum)" :VALUES ("NIL"))))
+  (:symbol "MOST-NEGATIVE-FIXNUM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep most-negative-fixnum 'fixnum)" :VALUES ("T"))))
+  (:symbol "MOST-NEGATIVE-FIXNUM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= most-negative-fixnum (- (1+ most-positive-fixnum)))" :VALUES ("T"))))
+  (:symbol "ARRAY-DIMENSION-LIMIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integerp array-dimension-limit)" :VALUES ("T"))))
+  (:symbol "ARRAY-DIMENSION-LIMIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(plusp array-dimension-limit)" :VALUES ("T"))))
+  (:symbol "ARRAY-RANK-LIMIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(>= array-rank-limit 8)" :VALUES ("T"))))
+  (:symbol "ARRAY-TOTAL-SIZE-LIMIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integerp array-total-size-limit)" :VALUES ("T"))))
+  (:symbol "CALL-ARGUMENTS-LIMIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(>= call-arguments-limit 50)" :VALUES ("T"))))
+  (:symbol "LAMBDA-PARAMETERS-LIMIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(>= lambda-parameters-limit 50)" :VALUES ("T"))))
+  (:symbol "MULTIPLE-VALUES-LIMIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(>= multiple-values-limit 20)" :VALUES ("T"))))
+  (:symbol "CHAR-CODE-LIMIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(code-char (1- char-code-limit))" :VALUES ("#\\U10FFFF"))))
+  (:symbol "CHAR-CODE-LIMIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integerp char-code-limit)" :VALUES ("T"))))
+  (:symbol "INTERNAL-TIME-UNITS-PER-SECOND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integerp internal-time-units-per-second)" :VALUES ("T"))))
+  (:symbol "INTERNAL-TIME-UNITS-PER-SECOND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(plusp internal-time-units-per-second)" :VALUES ("T"))))
+  (:symbol "LAMBDA-LIST-KEYWORDS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(member '&optional lambda-list-keywords)" :VALUES ("(&OPTIONAL &REST &WHOLE)"))))
+  (:symbol "LAMBDA-LIST-KEYWORDS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(and (member '&key lambda-list-keywords) t)" :VALUES ("T"))))
+  (:symbol "SINGLE-FLOAT-EPSILON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep single-float-epsilon 'single-float)" :VALUES ("T"))))
+  (:symbol "SINGLE-FLOAT-EPSILON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(> (+ 1.0 single-float-epsilon) 1.0)" :VALUES ("T"))))
+  (:symbol "SINGLE-FLOAT-NEGATIVE-EPSILON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep single-float-negative-epsilon 'single-float)" :VALUES ("T"))))
+  (:symbol "SINGLE-FLOAT-NEGATIVE-EPSILON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (- 1.0 single-float-negative-epsilon) 1.0)" :VALUES ("T"))))
+  (:symbol "DOUBLE-FLOAT-EPSILON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep double-float-epsilon 'double-float)" :VALUES ("T"))))
+  (:symbol "DOUBLE-FLOAT-EPSILON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(> (+ 1d0 double-float-epsilon) 1d0)" :VALUES ("T"))))
+  (:symbol "DOUBLE-FLOAT-NEGATIVE-EPSILON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep double-float-negative-epsilon 'double-float)" :VALUES ("T"))))
+  (:symbol "DOUBLE-FLOAT-NEGATIVE-EPSILON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< (- 1d0 double-float-negative-epsilon) 1d0)" :VALUES ("T"))))
+  (:symbol "SHORT-FLOAT-EPSILON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= short-float-epsilon single-float-epsilon)" :VALUES ("T"))))
+  (:symbol "SHORT-FLOAT-NEGATIVE-EPSILON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= short-float-negative-epsilon single-float-negative-epsilon)" :VALUES ("T"))))
+  (:symbol "LONG-FLOAT-EPSILON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= long-float-epsilon double-float-epsilon)" :VALUES ("T"))))
+  (:symbol "LONG-FLOAT-NEGATIVE-EPSILON" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= long-float-negative-epsilon double-float-negative-epsilon)" :VALUES ("T"))))
+  (:symbol "MOST-POSITIVE-SINGLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep most-positive-single-float 'single-float)" :VALUES ("T"))))
+  (:symbol "MOST-POSITIVE-SINGLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(plusp most-positive-single-float)" :VALUES ("T"))))
+  (:symbol "MOST-NEGATIVE-SINGLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(minusp most-negative-single-float)" :VALUES ("T"))))
+  (:symbol "MOST-NEGATIVE-SINGLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= most-negative-single-float (- most-positive-single-float))" :VALUES ("T"))))
+  (:symbol "MOST-POSITIVE-DOUBLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep most-positive-double-float 'double-float)" :VALUES ("T"))))
+  (:symbol "MOST-POSITIVE-DOUBLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(plusp most-positive-double-float)" :VALUES ("T"))))
+  (:symbol "MOST-NEGATIVE-DOUBLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(minusp most-negative-double-float)" :VALUES ("T"))))
+  (:symbol "MOST-NEGATIVE-DOUBLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= most-negative-double-float (- most-positive-double-float))" :VALUES ("T"))))
+  (:symbol "MOST-POSITIVE-SHORT-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= most-positive-short-float most-positive-single-float)" :VALUES ("T"))))
+  (:symbol "MOST-NEGATIVE-SHORT-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= most-negative-short-float most-negative-single-float)" :VALUES ("T"))))
+  (:symbol "MOST-POSITIVE-LONG-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= most-positive-long-float most-positive-double-float)" :VALUES ("T"))))
+  (:symbol "MOST-NEGATIVE-LONG-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= most-negative-long-float most-negative-double-float)" :VALUES ("T"))))
+  (:symbol "LEAST-POSITIVE-SINGLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(plusp least-positive-single-float)" :VALUES ("T"))))
+  (:symbol "LEAST-POSITIVE-SINGLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< least-positive-single-float least-positive-normalized-single-float)" :VALUES ("T"))))
+  (:symbol "LEAST-NEGATIVE-SINGLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(minusp least-negative-single-float)" :VALUES ("T"))))
+  (:symbol "LEAST-POSITIVE-DOUBLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(plusp least-positive-double-float)" :VALUES ("T"))))
+  (:symbol "LEAST-POSITIVE-DOUBLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(< least-positive-double-float least-positive-normalized-double-float)" :VALUES ("T"))))
+  (:symbol "LEAST-NEGATIVE-DOUBLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(minusp least-negative-double-float)" :VALUES ("T"))))
+  (:symbol "LEAST-POSITIVE-SHORT-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= least-positive-short-float least-positive-single-float)" :VALUES ("T"))))
+  (:symbol "LEAST-NEGATIVE-SHORT-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= least-negative-short-float least-negative-single-float)" :VALUES ("T"))))
+  (:symbol "LEAST-POSITIVE-LONG-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= least-positive-long-float least-positive-double-float)" :VALUES ("T"))))
+  (:symbol "LEAST-NEGATIVE-LONG-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= least-negative-long-float least-negative-double-float)" :VALUES ("T"))))
+  (:symbol "LEAST-POSITIVE-NORMALIZED-SINGLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(plusp least-positive-normalized-single-float)" :VALUES ("T"))))
+  (:symbol "LEAST-NEGATIVE-NORMALIZED-SINGLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(minusp least-negative-normalized-single-float)" :VALUES ("T"))))
+  (:symbol "LEAST-POSITIVE-NORMALIZED-DOUBLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(plusp least-positive-normalized-double-float)" :VALUES ("T"))))
+  (:symbol "LEAST-NEGATIVE-NORMALIZED-DOUBLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(minusp least-negative-normalized-double-float)" :VALUES ("T"))))
+  (:symbol "LEAST-POSITIVE-NORMALIZED-SHORT-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= least-positive-normalized-short-float least-positive-normalized-single-float)" :VALUES ("T"))))
+  (:symbol "LEAST-NEGATIVE-NORMALIZED-SHORT-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= least-negative-normalized-short-float least-negative-normalized-single-float)" :VALUES ("T"))))
+  (:symbol "LEAST-POSITIVE-NORMALIZED-LONG-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= least-positive-normalized-long-float least-positive-normalized-double-float)" :VALUES ("T"))))
+  (:symbol "LEAST-NEGATIVE-NORMALIZED-LONG-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= least-negative-normalized-long-float least-negative-normalized-double-float)" :VALUES ("T"))))
+  (:symbol "BOOLE-1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-1 12 10)" :VALUES ("12"))))
+  (:symbol "BOOLE-2" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-2 12 10)" :VALUES ("10"))))
+  (:symbol "BOOLE-AND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-and 12 10)" :VALUES ("8"))))
+  (:symbol "BOOLE-ANDC1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-andc1 12 10)" :VALUES ("2"))))
+  (:symbol "BOOLE-ANDC2" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-andc2 12 10)" :VALUES ("4"))))
+  (:symbol "BOOLE-C1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-c1 12 10)" :VALUES ("-13"))))
+  (:symbol "BOOLE-C2" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-c2 12 10)" :VALUES ("-11"))))
+  (:symbol "BOOLE-CLR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-clr 12 10)" :VALUES ("0"))))
+  (:symbol "BOOLE-EQV" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-eqv 12 10)" :VALUES ("-7"))))
+  (:symbol "BOOLE-IOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-ior 12 10)" :VALUES ("14"))))
+  (:symbol "BOOLE-NAND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-nand 12 10)" :VALUES ("-9"))))
+  (:symbol "BOOLE-NOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-nor 12 10)" :VALUES ("-15"))))
+  (:symbol "BOOLE-ORC1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-orc1 12 10)" :VALUES ("-5"))))
+  (:symbol "BOOLE-ORC2" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-orc2 12 10)" :VALUES ("-3"))))
+  (:symbol "BOOLE-SET" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-set 12 10)" :VALUES ("-1"))))
+  (:symbol "BOOLE-XOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boole boole-xor 12 10)" :VALUES ("6"))))
+  (:symbol "NIL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "nil" :VALUES ("NIL"))))
+  (:symbol "NIL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eq nil '())" :VALUES ("T"))))
+  (:symbol "NIL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(type-of nil)" :VALUES ("NULL"))))
+  (:symbol "NIL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(list (null nil) (listp nil) (symbolp nil))" :VALUES ("(T T T)"))))
+  (:symbol "T" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "t" :VALUES ("T"))))
+  (:symbol "T" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eq t (not nil))" :VALUES ("T"))))
+  (:symbol "T" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 42 t)" :VALUES ("T"))))
+  (:symbol "PLUSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(remove-if-not #'plusp '(-2 0 3 5))" :VALUES ("(3 5)"))))
+  (:symbol "ALPHA-CHAR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(alpha-char-p #\\a)" :VALUES ("T"))))
+  (:symbol "ALPHA-CHAR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(alpha-char-p #\\7)" :VALUES ("NIL"))))
+  (:symbol "ALPHA-CHAR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(remove-if-not #'alpha-char-p \"a1-b2\")" :VALUES ("\"ab\""))))
+  (:symbol "ALPHANUMERICP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(alphanumericp #\\a)" :VALUES ("T"))))
+  (:symbol "ALPHANUMERICP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(alphanumericp #\\5)" :VALUES ("T"))))
+  (:symbol "ALPHANUMERICP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(alphanumericp #\\-)" :VALUES ("NIL"))))
+  (:symbol "BOTH-CASE-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(both-case-p #\\a)" :VALUES ("T"))))
+  (:symbol "BOTH-CASE-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(both-case-p #\\5)" :VALUES ("NIL"))))
+  (:symbol "LOWER-CASE-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(lower-case-p #\\a)" :VALUES ("T"))))
+  (:symbol "LOWER-CASE-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(lower-case-p #\\A)" :VALUES ("NIL"))))
+  (:symbol "LOWER-CASE-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(count-if #'lower-case-p \"Hello World\")" :VALUES ("8"))))
+  (:symbol "UPPER-CASE-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(upper-case-p #\\A)" :VALUES ("T"))))
+  (:symbol "UPPER-CASE-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(upper-case-p #\\a)" :VALUES ("NIL"))))
+  (:symbol "UPPER-CASE-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(remove-if-not #'upper-case-p \"Hello World\")" :VALUES ("\"HW\""))))
+  (:symbol "CHAR-UPCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-upcase #\\a)" :VALUES ("#\\A"))))
+  (:symbol "CHAR-UPCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-upcase #\\5)" :VALUES ("#\\5"))))
+  (:symbol "CHAR-UPCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(map 'string #'char-upcase \"lisp\")" :VALUES ("\"LISP\""))))
+  (:symbol "CHAR-DOWNCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-downcase #\\A)" :VALUES ("#\\a"))))
+  (:symbol "CHAR-DOWNCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(map 'string #'char-downcase \"LISP\")" :VALUES ("\"lisp\""))))
+  (:symbol "CHAR-EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-equal #\\a #\\A)" :VALUES ("T"))))
+  (:symbol "CHAR-EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-equal #\\a #\\b)" :VALUES ("NIL"))))
+  (:symbol "CHAR-EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-equal #\\a #\\A #\\a)" :VALUES ("T"))))
+  (:symbol "CHAR-NOT-EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-not-equal #\\a #\\b)" :VALUES ("T"))))
+  (:symbol "CHAR-NOT-EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-not-equal #\\a #\\A)" :VALUES ("NIL"))))
+  (:symbol "CHAR-GREATERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-greaterp #\\b #\\A)" :VALUES ("T"))))
+  (:symbol "CHAR-GREATERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-greaterp #\\a #\\B)" :VALUES ("NIL"))))
+  (:symbol "CHAR-LESSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-lessp #\\a #\\B)" :VALUES ("T"))))
+  (:symbol "CHAR-LESSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-lessp #\\b #\\A)" :VALUES ("NIL"))))
+  (:symbol "CHAR-NOT-GREATERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-not-greaterp #\\a #\\B)" :VALUES ("T"))))
+  (:symbol "CHAR-NOT-GREATERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-not-greaterp #\\c #\\B)" :VALUES ("NIL"))))
+  (:symbol "CHAR-NOT-LESSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-not-lessp #\\b #\\A)" :VALUES ("T"))))
+  (:symbol "CHAR-NOT-LESSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-not-lessp #\\a #\\B)" :VALUES ("NIL"))))
+  (:symbol "CHAR=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char= #\\a #\\a)" :VALUES ("T"))))
+  (:symbol "CHAR=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char= #\\a #\\A)" :VALUES ("NIL"))))
+  (:symbol "CHAR=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char= #\\a #\\a #\\a)" :VALUES ("T"))))
+  (:symbol "CHAR/=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char/= #\\a #\\b)" :VALUES ("T"))))
+  (:symbol "CHAR/=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char/= #\\a #\\a)" :VALUES ("NIL"))))
+  (:symbol "CHAR/=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char/= #\\a #\\b #\\a)" :VALUES ("NIL"))))
+  (:symbol "CHAR<" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char< #\\a #\\b)" :VALUES ("T"))))
+  (:symbol "CHAR<" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char< #\\a #\\b #\\c)" :VALUES ("T"))))
+  (:symbol "CHAR<" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char< #\\b #\\a)" :VALUES ("NIL"))))
+  (:symbol "CHAR<=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char<= #\\a #\\a #\\b)" :VALUES ("T"))))
+  (:symbol "CHAR<=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char<= #\\b #\\a)" :VALUES ("NIL"))))
+  (:symbol "CHAR>" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char> #\\b #\\a)" :VALUES ("T"))))
+  (:symbol "CHAR>" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char> #\\c #\\b #\\a)" :VALUES ("T"))))
+  (:symbol "CHAR>=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char>= #\\b #\\b #\\a)" :VALUES ("T"))))
+  (:symbol "CHAR>=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char>= #\\a #\\b)" :VALUES ("NIL"))))
+  (:symbol "CHARACTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(character \"a\")" :VALUES ("#\\a"))))
+  (:symbol "CHARACTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(character 'x)" :VALUES ("#\\X"))))
+  (:symbol "CHARACTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(character #\\a)" :VALUES ("#\\a"))))
+  (:symbol "CHARACTERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(characterp #\\a)" :VALUES ("T"))))
+  (:symbol "CHARACTERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(characterp \"a\")" :VALUES ("NIL"))))
+  (:symbol "CHARACTERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(characterp 97)" :VALUES ("NIL"))))
+  (:symbol "CHAR-INT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-int #\\A)" :VALUES ("65"))))
+  (:symbol "CHAR-INT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(= (char-int #\\a) (char-code #\\a))" :VALUES ("T"))))
+  (:symbol "CHAR-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-name #\\Space)" :VALUES ("\"Space\""))))
+  (:symbol "CHAR-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-name #\\Newline)" :VALUES ("\"Newline\""))))
+  (:symbol "CHAR-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(char-name #\\a)" :VALUES ("\"LATIN_SMALL_LETTER_A\""))))
+  (:symbol "NAME-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(name-char \"Space\")" :VALUES ("#\\ "))))
+  (:symbol "NAME-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(name-char \"Newline\")" :VALUES ("#\\Newline"))))
+  (:symbol "NAME-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(name-char \"NoSuchName\")" :VALUES ("NIL"))))
+  (:symbol "DIGIT-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(digit-char 7)" :VALUES ("#\\7"))))
+  (:symbol "DIGIT-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(digit-char 11 16)" :VALUES ("#\\B"))))
+  (:symbol "DIGIT-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(digit-char 11)" :VALUES ("NIL"))))
+  (:symbol "DIGIT-CHAR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(digit-char-p #\\7)" :VALUES ("7"))))
+  (:symbol "DIGIT-CHAR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(digit-char-p #\\a)" :VALUES ("NIL"))))
+  (:symbol "DIGIT-CHAR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(digit-char-p #\\a 16)" :VALUES ("10"))))
+  (:symbol "GRAPHIC-CHAR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(graphic-char-p #\\a)" :VALUES ("T"))))
+  (:symbol "GRAPHIC-CHAR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(graphic-char-p #\\Space)" :VALUES ("T"))))
+  (:symbol "GRAPHIC-CHAR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(graphic-char-p #\\Newline)" :VALUES ("NIL"))))
+  (:symbol "STANDARD-CHAR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(standard-char-p #\\a)" :VALUES ("T"))))
+  (:symbol "STANDARD-CHAR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(standard-char-p #\\Tab)" :VALUES ("NIL"))))
+  (:symbol "MAKE-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(make-string 3 :initial-element #\\x)" :VALUES ("\"xxx\""))))
+  (:symbol "MAKE-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(length (make-string 5))" :VALUES ("5"))))
+  (:symbol "MAKE-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(make-string 2 :initial-element #\\-)" :VALUES ("\"--\""))))
+  (:symbol "STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string 'symbol)" :VALUES ("\"SYMBOL\""))))
+  (:symbol "STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string #\\a)" :VALUES ("\"a\""))))
+  (:symbol "STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string \"already\")" :VALUES ("\"already\""))))
+  (:symbol "STRINGP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stringp \"abc\")" :VALUES ("T"))))
+  (:symbol "STRINGP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stringp #\\a)" :VALUES ("NIL"))))
+  (:symbol "STRINGP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stringp 'abc)" :VALUES ("NIL"))))
+  (:symbol "SIMPLE-STRING-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(simple-string-p \"abc\")" :VALUES ("T"))))
+  (:symbol "SIMPLE-STRING-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(simple-string-p (make-array 3 :element-type 'character :adjustable t))" :VALUES ("NIL"))))
+  (:symbol "STRING-CAPITALIZE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-capitalize \"hello wORLD\")" :VALUES ("\"Hello World\""))))
+  (:symbol "STRING-CAPITALIZE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-capitalize \"foo-bar baz\")" :VALUES ("\"Foo-Bar Baz\""))))
+  (:symbol "NSTRING-CAPITALIZE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nstring-capitalize (copy-seq \"hello wORLD\"))" :VALUES ("\"Hello World\""))))
+  (:symbol "NSTRING-DOWNCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nstring-downcase (copy-seq \"HELLO\"))" :VALUES ("\"hello\""))))
+  (:symbol "NSTRING-UPCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nstring-upcase (copy-seq \"hello\"))" :VALUES ("\"HELLO\""))))
+  (:symbol "NSTRING-UPCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((s (copy-seq \"abc\")))
+  (nstring-upcase s :start 1)
+  s)" :VALUES ("\"aBC\""))))
+  (:symbol "STRING-EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-equal \"Lisp\" \"LISP\")" :VALUES ("T"))))
+  (:symbol "STRING-EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-equal \"Lisp\" \"Lisps\")" :VALUES ("NIL"))))
+  (:symbol "STRING-NOT-EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-not-equal \"abc\" \"abd\")" :VALUES ("2"))))
+  (:symbol "STRING-NOT-EQUAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-not-equal \"abc\" \"ABC\")" :VALUES ("NIL"))))
+  (:symbol "STRING-LESSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-lessp \"apple\" \"Banana\")" :VALUES ("0"))))
+  (:symbol "STRING-LESSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-lessp \"b\" \"A\")" :VALUES ("NIL"))))
+  (:symbol "STRING-GREATERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-greaterp \"banana\" \"Apple\")" :VALUES ("0"))))
+  (:symbol "STRING-GREATERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-greaterp \"a\" \"B\")" :VALUES ("NIL"))))
+  (:symbol "STRING-NOT-LESSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-not-lessp \"b\" \"A\")" :VALUES ("0"))))
+  (:symbol "STRING-NOT-LESSP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-not-lessp \"a\" \"B\")" :VALUES ("NIL"))))
+  (:symbol "STRING-NOT-GREATERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-not-greaterp \"a\" \"B\")" :VALUES ("0"))))
+  (:symbol "STRING-NOT-GREATERP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-not-greaterp \"c\" \"B\")" :VALUES ("NIL"))))
+  (:symbol "STRING<" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string< \"apple\" \"banana\")" :VALUES ("0"))))
+  (:symbol "STRING<" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string< \"b\" \"a\")" :VALUES ("NIL"))))
+  (:symbol "STRING<" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sort (list \"pear\" \"fig\" \"apple\") #'string<)" :VALUES ("(\"apple\" \"fig\" \"pear\")"))))
+  (:symbol "STRING<=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string<= \"abc\" \"abc\")" :VALUES ("3"))))
+  (:symbol "STRING<=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string<= \"b\" \"a\")" :VALUES ("NIL"))))
+  (:symbol "STRING>" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string> \"b\" \"a\")" :VALUES ("0"))))
+  (:symbol "STRING>" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sort (list \"pear\" \"fig\" \"apple\") #'string>)" :VALUES ("(\"pear\" \"fig\" \"apple\")"))))
+  (:symbol "STRING>=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string>= \"b\" \"b\")" :VALUES ("1"))))
+  (:symbol "STRING>=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string>= \"a\" \"b\")" :VALUES ("NIL"))))
+  (:symbol "STRING/=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string/= \"abc\" \"abd\")" :VALUES ("2"))))
+  (:symbol "STRING/=" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string/= \"abc\" \"abc\")" :VALUES ("NIL"))))
+  (:symbol "STRING-LEFT-TRIM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-left-trim \" \" \"  hi  \")" :VALUES ("\"hi  \""))))
+  (:symbol "STRING-LEFT-TRIM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-left-trim \"0\" \"000123\")" :VALUES ("\"123\""))))
+  (:symbol "STRING-RIGHT-TRIM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-right-trim \" \" \"  hi  \")" :VALUES ("\"  hi\""))))
+  (:symbol "STRING-RIGHT-TRIM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(string-right-trim '(#\\. #\\!) \"done...!\")" :VALUES ("\"done\""))))
+  (:symbol "KEYWORDP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(keywordp :a)" :VALUES ("T"))))
+  (:symbol "KEYWORDP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(keywordp 'a)" :VALUES ("NIL"))))
+  (:symbol "KEYWORDP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(keywordp \"a\")" :VALUES ("NIL"))))
+  (:symbol "SYMBOLP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(symbolp 'a)" :VALUES ("T"))))
+  (:symbol "SYMBOLP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(symbolp nil)" :VALUES ("T"))))
+  (:symbol "SYMBOLP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(symbolp \"a\")" :VALUES ("NIL"))))
+  (:symbol "SYMBOLP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mapcar #'symbolp '(a :b 1))" :VALUES ("(T T NIL)"))))
+  (:symbol "SYMBOL-VALUE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (defvar *answer* 42) (symbol-value '*answer*))" :VALUES ("42"))))
+  (:symbol "SYMBOL-VALUE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((name '*answer*))
+  (setf (symbol-value name) 7)
+  *answer*)" :VALUES ("7"))))
+  (:symbol "SYMBOL-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (symbol-function 'car) '(1 2))" :VALUES ("1"))))
+  (:symbol "SYMBOL-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(functionp (symbol-function 'list))" :VALUES ("T"))))
+  (:symbol "SYMBOL-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(package-name (symbol-package 'car))" :VALUES ("\"COMMON-LISP\""))))
+  (:symbol "SYMBOL-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(package-name (symbol-package :keyword-symbol))" :VALUES ("\"KEYWORD\""))))
+  (:symbol "SYMBOL-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(symbol-package (make-symbol \"S\"))" :VALUES ("NIL"))))
+  (:symbol "MAKE-SYMBOL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(symbol-name (make-symbol \"foo\"))" :VALUES ("\"foo\""))))
+  (:symbol "MAKE-SYMBOL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eq (make-symbol \"A\") (make-symbol \"A\"))" :VALUES ("NIL"))))
+  (:symbol "MAKE-SYMBOL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(symbol-package (make-symbol \"A\"))" :VALUES ("NIL"))))
+  (:symbol "COPY-SYMBOL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(symbol-name (copy-symbol 'foo))" :VALUES ("\"FOO\""))))
+  (:symbol "COPY-SYMBOL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eq (copy-symbol 'foo) 'foo)" :VALUES ("NIL"))))
+  (:symbol "COPY-SYMBOL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a 'bar))
+  (defvar *bar* 1)
+  (boundp (copy-symbol a)))" :VALUES ("NIL"))))
+  (:symbol "GENTEMP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(symbolp (gentemp))" :VALUES ("T"))))
+  (:symbol "GENTEMP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(null (symbol-package (gensym)))" :VALUES ("T"))))
+  (:symbol "SET" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(set 'dynamic-var 10)" :VALUES ("10"))
+    (:FORM "(symbol-value 'dynamic-var)" :VALUES ("10"))
+    (:FORM "(let ((name 'another-var))
+  (set name :value)
+  (symbol-value name))" :VALUES (":VALUE"))))
+  (:symbol "BOUNDP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boundp 'nothing-here-ever)" :VALUES ("NIL"))))
+  (:symbol "BOUNDP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boundp 'pi)" :VALUES ("T"))))
+  (:symbol "BOUNDP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (defvar *known* 1) (boundp '*known*))" :VALUES ("T"))))
+  (:symbol "MAKUNBOUND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn
+  (defvar *temp* 1)
+  (makunbound '*temp*)
+  (boundp '*temp*))" :VALUES ("NIL"))))
+  (:symbol "FBOUNDP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(and (fboundp 'car) t)" :VALUES ("T"))))
+  (:symbol "FBOUNDP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(fboundp 'no-such-function-anywhere)" :VALUES ("NIL"))))
+  (:symbol "FBOUNDP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(and (fboundp 'when) t)" :VALUES ("T"))))
+  (:symbol "FMAKUNBOUND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defun temporary-fn () :here)" :SILENT T)
+    (:FORM "(and (fboundp 'temporary-fn) t)" :VALUES ("T"))
+    (:FORM "(progn (fmakunbound 'temporary-fn) (fboundp 'temporary-fn))" :VALUES ("NIL"))))
+  (:symbol "FDEFINITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (fdefinition 'car) '(7 8))" :VALUES ("7"))
+    (:FORM "(defun counter () 42)" :SILENT T)
+    (:FORM "(funcall (fdefinition 'counter))" :VALUES ("42"))))
+  (:symbol "MACRO-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(functionp (macro-function 'when))" :VALUES ("T"))))
+  (:symbol "MACRO-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(macro-function 'car)" :VALUES ("NIL"))))
+  (:symbol "MACRO-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (macro-function 'when) '(when a b) nil)" :VALUES ("(IF A B)"))))
+  (:symbol "COMPILER-MACRO-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(compiler-macro-function 'car)" :VALUES ("NIL"))))
+  (:symbol "COMPILER-MACRO-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(functionp (compiler-macro-function 'nth))" :VALUES ("NIL"))))
+  (:symbol "SPECIAL-OPERATOR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(special-operator-p 'if)" :VALUES ("T"))))
+  (:symbol "SPECIAL-OPERATOR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(special-operator-p 'when)" :VALUES ("NIL"))))
+  (:symbol "SPECIAL-OPERATOR-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(special-operator-p 'car)" :VALUES ("NIL"))))
+  (:symbol "FUNCTIONP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(functionp #'car)" :VALUES ("T"))))
+  (:symbol "FUNCTIONP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(functionp 'car)" :VALUES ("NIL"))))
+  (:symbol "FUNCTIONP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(functionp (lambda (x) x))" :VALUES ("T"))))
+  (:symbol "COMPILED-FUNCTION-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(compiled-function-p #'car)" :VALUES ("T"))))
+  (:symbol "COMPILED-FUNCTION-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(compiled-function-p (compile nil '(lambda (x) x)))" :VALUES ("T"))))
+  (:symbol "FUNCTION-LAMBDA-EXPRESSION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nth-value 2 (function-lambda-expression #'car))" :VALUES ("CAR"))))
+  (:symbol "FUNCTION-LAMBDA-EXPRESSION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(consp (function-lambda-expression (lambda (x) x)))" :VALUES ("T"))))
+  (:symbol "COMPILE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (compile nil '(lambda (x) (* x 2))) 21)" :VALUES ("42"))
+    (:FORM "(defun slow-add (a b)
+  (+ a b))" :SILENT T)
+    (:FORM "(compile 'slow-add)" :VALUES ("SLOW-ADD" "NIL" "NIL"))
+    (:FORM "(slow-add 1 2)" :VALUES ("3"))))
+  (:symbol "EVAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eval '(+ 1 2 3))" :VALUES ("6"))))
+  (:symbol "EVAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eval (list '* 6 7))" :VALUES ("42"))))
+  (:symbol "EVAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((form '(list 'a 'b)))
+  (eval form))" :VALUES ("(A B)"))))
+  (:symbol "INTERN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (intern \"FRESH-SYMBOL-1\"))" :VALUES ("(FRESH-SYMBOL-1 NIL)"))
+    (:FORM "(multiple-value-list (intern \"FRESH-SYMBOL-1\"))" :VALUES ("(FRESH-SYMBOL-1 :INTERNAL)"))
+    (:FORM "(symbol-name (intern \"mixed-Case\"))" :VALUES ("\"mixed-Case\""))))
+  (:symbol "FIND-SYMBOL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (find-symbol \"CAR\"))" :VALUES ("(CAR :INHERITED)"))))
+  (:symbol "FIND-SYMBOL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (find-symbol \"NEVER-INTERNED-ANYWHERE\"))" :VALUES ("(NIL NIL)"))))
+  (:symbol "FIND-SYMBOL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (find-symbol \"NEVER-INTERNED-KEYWORD-XYZ\" \"KEYWORD\"))" :VALUES ("(NIL NIL)"))))
+  (:symbol "UNINTERN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((sym (intern \"TO-REMOVE\")))
+  (list (unintern sym) (find-symbol \"TO-REMOVE\")))" :VALUES ("(T NIL)"))))
+  (:symbol "PROCLAIM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (proclaim '(special *dyn*)) (boundp '*dyn*))" :VALUES ("NIL"))))
+  (:symbol "PROCLAIM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (proclaim '(optimize (speed 1))) :done)" :VALUES (":DONE"))))
+  (:symbol "MAKE-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-MAKE\" :use '(\"COMMON-LISP\"))))
+  (prog1 (package-name pkg)
+    (delete-package pkg)))" :VALUES ("\"DEMO-MAKE\""))))
+  (:symbol "MAKE-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-NICK\" :nicknames '(\"DN\"))))
+  (prog1 (package-nicknames pkg)
+    (delete-package pkg)))" :VALUES ("(\"DN\")"))))
+  (:symbol "PACKAGEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(packagep *package*)" :VALUES ("T"))))
+  (:symbol "PACKAGEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(packagep \"COMMON-LISP\")" :VALUES ("NIL"))))
+  (:symbol "PACKAGEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(packagep (find-package \"KEYWORD\"))" :VALUES ("T"))))
+  (:symbol "PACKAGE-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(package-name (find-package \"CL\"))" :VALUES ("\"COMMON-LISP\""))))
+  (:symbol "PACKAGE-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(package-name :keyword)" :VALUES ("\"KEYWORD\""))))
+  (:symbol "PACKAGE-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(package-name (symbol-package 'car))" :VALUES ("\"COMMON-LISP\""))))
+  (:symbol "PACKAGE-NICKNAMES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(package-nicknames (find-package \"COMMON-LISP\"))" :VALUES ("(\"CL\")"))))
+  (:symbol "PACKAGE-USE-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(null (package-use-list (find-package \"KEYWORD\")))" :VALUES ("T"))))
+  (:symbol "PACKAGE-USE-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-USE\" :use '(\"COMMON-LISP\"))))
+  (prog1 (mapcar #'package-name (package-use-list pkg))
+    (delete-package pkg)))" :VALUES ("(\"COMMON-LISP\")"))))
+  (:symbol "PACKAGE-USED-BY-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let* ((lib (make-package \"DEMO-LIB\" :use '()))
+       (app (make-package \"DEMO-APP\" :use '(\"DEMO-LIB\"))))
+  (prog1 (mapcar #'package-name (package-used-by-list lib))
+    (delete-package app)
+    (delete-package lib)))" :VALUES ("(\"DEMO-APP\")"))))
+  (:symbol "PACKAGE-SHADOWING-SYMBOLS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-SHADOW\" :use '(\"COMMON-LISP\"))))
+  (shadow \"CAR\" pkg)
+  (prog1 (mapcar #'symbol-name (package-shadowing-symbols pkg))
+    (delete-package pkg)))" :VALUES ("(\"CAR\")"))))
+  (:symbol "FIND-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(package-name (find-package \"CL\"))" :VALUES ("\"COMMON-LISP\""))))
+  (:symbol "FIND-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(find-package \"NO-SUCH-PACKAGE\")" :VALUES ("NIL"))))
+  (:symbol "FIND-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eq (find-package :keyword) (find-package \"KEYWORD\"))" :VALUES ("T"))))
+  (:symbol "FIND-ALL-SYMBOLS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(length (find-all-symbols \"CAR\"))" :VALUES ("1"))))
+  (:symbol "FIND-ALL-SYMBOLS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-FAS\" :use '())))
+  (intern \"UNIQUE-DEMO-NAME\" pkg)
+  (prog1 (mapcar (lambda (symbol) (package-name (symbol-package symbol)))
+                 (find-all-symbols \"UNIQUE-DEMO-NAME\"))
+    (delete-package pkg)))" :VALUES ("(\"DEMO-FAS\")"))))
+  (:symbol "LIST-ALL-PACKAGES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(and (member (find-package \"COMMON-LISP\") (list-all-packages)) t)" :VALUES ("T"))))
+  (:symbol "LIST-ALL-PACKAGES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(listp (list-all-packages))" :VALUES ("T"))))
+  (:symbol "EXPORT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-EXPORT\" :use '())))
+  (let ((sym (intern \"PUBLIC\" pkg)))
+    (export sym pkg)
+    (prog1 (nth-value 1 (find-symbol \"PUBLIC\" pkg))
+      (delete-package pkg))))" :VALUES (":EXTERNAL"))))
+  (:symbol "UNEXPORT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-UNEXPORT\" :use '())))
+  (let ((sym (intern \"THING\" pkg)))
+    (export sym pkg)
+    (unexport sym pkg)
+    (prog1 (nth-value 1 (find-symbol \"THING\" pkg))
+      (delete-package pkg))))" :VALUES (":INTERNAL"))))
+  (:symbol "IMPORT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-IMPORT\" :use '())))
+  (import 'car pkg)
+  (prog1 (eq (find-symbol \"CAR\" pkg) 'car)
+    (delete-package pkg)))" :VALUES ("T"))))
+  (:symbol "SHADOW" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-SH\" :use '(\"COMMON-LISP\"))))
+  (shadow \"LIST\" pkg)
+  (prog1 (eq (find-symbol \"LIST\" pkg) 'list)
+    (delete-package pkg)))" :VALUES ("NIL"))))
+  (:symbol "SHADOWING-IMPORT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-SI\" :use '(\"COMMON-LISP\"))))
+  (shadowing-import 'cons pkg)
+  (prog1 (eq (find-symbol \"CONS\" pkg) 'cons)
+    (delete-package pkg)))" :VALUES ("T"))))
+  (:symbol "USE-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((lib (make-package \"DEMO-UP-LIB\" :use '()))
+      (app (make-package \"DEMO-UP-APP\" :use '())))
+  (export (intern \"TOOL\" lib) lib)
+  (use-package lib app)
+  (prog1 (eq (find-symbol \"TOOL\" app) (find-symbol \"TOOL\" lib))
+    (delete-package app)
+    (delete-package lib)))" :VALUES ("T"))))
+  (:symbol "UNUSE-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((lib (make-package \"DEMO-UU-LIB\" :use '()))
+      (app (make-package \"DEMO-UU-APP\" :use '())))
+  (export (intern \"TOOL\" lib) lib)
+  (use-package lib app)
+  (unuse-package lib app)
+  (prog1 (find-symbol \"TOOL\" app)
+    (delete-package app)
+    (delete-package lib)))" :VALUES ("NIL"))))
+  (:symbol "RENAME-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-OLD\" :use '())))
+  (rename-package pkg \"DEMO-NEW\")
+  (prog1 (package-name pkg)
+    (delete-package pkg)))" :VALUES ("\"DEMO-NEW\""))))
+  (:symbol "DELETE-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-DEL\" :use '())))
+  (list (delete-package pkg) (find-package \"DEMO-DEL\")))" :VALUES ("(T NIL)"))))
+  (:symbol "DEFPACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(package-name (defpackage \"DEMO-DEFPKG-1\"
+               (:use \"COMMON-LISP\")
+               (:export \"HELLO\")))" :VALUES ("\"DEMO-DEFPKG-1\""))
+    (:FORM "(let ((pkg (find-package \"DEMO-DEFPKG-1\")))
+  (prog1 (list (package-name pkg) (nth-value 1 (find-symbol \"HELLO\" pkg)))
+    (delete-package pkg)))" :VALUES ("(\"DEMO-DEFPKG-1\" :EXTERNAL)"))))
+  (:symbol "IN-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*package* *package*))
+  (make-package \"DEMO-IN\" :use '(\"COMMON-LISP\"))
+  (in-package \"DEMO-IN\")
+  (prog1 (package-name *package*)
+    (setf *package* (find-package \"COMMON-LISP-USER\"))
+    (delete-package \"DEMO-IN\")))" :VALUES ("\"DEMO-IN\""))))
+  (:symbol "DO-SYMBOLS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-DS\" :use '())))
+  (intern \"B\" pkg)
+  (intern \"A\" pkg)
+  (let ((names '()))
+    (do-symbols (sym pkg)
+      (push (symbol-name sym) names))
+    (prog1 (sort names #'string<)
+      (delete-package pkg))))" :VALUES ("(\"A\" \"B\")"))))
+  (:symbol "DO-EXTERNAL-SYMBOLS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-DES\" :use '())))
+  (export (intern \"PUBLIC\" pkg) pkg)
+  (intern \"PRIVATE\" pkg)
+  (let ((names '()))
+    (do-external-symbols (sym pkg)
+      (push (symbol-name sym) names))
+    (prog1 names
+      (delete-package pkg))))" :VALUES ("(\"PUBLIC\")"))))
+  (:symbol "DO-ALL-SYMBOLS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-DAS\" :use '()))
+      (found nil))
+  (intern \"VERY-UNIQUE-DEMO-SYMBOL\" pkg)
+  (do-all-symbols (sym)
+    (when (string= (symbol-name sym) \"VERY-UNIQUE-DEMO-SYMBOL\")
+      (setf found t)))
+  (delete-package pkg)
+  found)" :VALUES ("T"))))
+  (:symbol "WITH-PACKAGE-ITERATOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((pkg (make-package \"DEMO-WPI\" :use '()))
+      (names '()))
+  (intern \"ONLY\" pkg)
+  (with-package-iterator (next pkg :internal :external)
+    (loop (multiple-value-bind (more symbol) (next)
+            (unless more (return))
+            (push (symbol-name symbol) names))))
+  (delete-package pkg)
+  names)" :VALUES ("(\"ONLY\")"))))
+  (:symbol "*PACKAGE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(package-name *package*)" :VALUES ("\"EXAMPLE\""))))
+  (:symbol "*PACKAGE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*package* (find-package \"KEYWORD\")))
+  (prin1-to-string 'sym))" :VALUES ("\"EXAMPLE::SYM\""))))
+  (:symbol "*PACKAGE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(symbol-name (intern \"S\" *package*))" :VALUES ("\"S\""))))
+  (:symbol "*MODULES*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(listp *modules*)" :VALUES ("T"))))
+  (:symbol "*MODULES*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (provide \"DEMO-MODULE\") (and (member \"DEMO-MODULE\" *modules* :test #'string=) t))" :VALUES ("T"))))
+  (:symbol "PROVIDE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (provide \"DEMO-PROVIDE\") (and (member \"DEMO-PROVIDE\" *modules* :test #'string=) t))" :VALUES ("T"))))
+  (:symbol "REQUIRE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (provide \"DEMO-REQUIRE\") (require \"DEMO-REQUIRE\"))" :VALUES ("NIL"))
+    (:FORM "(and (member \"DEMO-REQUIRE\" *modules* :test #'string=) t)" :VALUES ("T"))))
+  (:symbol "MAKE-STRING-OUTPUT-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((out (make-string-output-stream)))
+  (write-string \"abc\" out)
+  (write-char #\\d out)
+  (get-output-stream-string out))" :VALUES ("\"abcd\""))))
+  (:symbol "MAKE-STRING-OUTPUT-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((out (make-string-output-stream)))
+  (format out \"~D-~D\" 1 2)
+  (get-output-stream-string out))" :VALUES ("\"1-2\""))))
+  (:symbol "GET-OUTPUT-STREAM-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((out (make-string-output-stream)))
+  (princ \"first\" out)
+  (list (get-output-stream-string out)
+        (get-output-stream-string out)))" :VALUES ("(\"first\" \"\")"))))
+  (:symbol "MAKE-STRING-INPUT-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((in (make-string-input-stream \"hello world\")))
+  (list (read-char in) (read-char in) (read-line in)))" :VALUES ("(#\\h #\\e \"llo world\")"))))
+  (:symbol "MAKE-STRING-INPUT-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(read-line (make-string-input-stream \"one
+two\"))" :VALUES ("\"one\"" "NIL"))))
+  (:symbol "MAKE-STRING-INPUT-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(read (make-string-input-stream \"(a b c)\"))" :VALUES ("(A B C)"))))
+  (:symbol "WITH-INPUT-FROM-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-input-from-string (in \"1 2 3\")
+  (list (read in) (read in) (read in)))" :VALUES ("(1 2 3)"))))
+  (:symbol "WITH-INPUT-FROM-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-input-from-string (in \"first
+second\")
+  (loop for line = (read-line in nil)
+        while line
+        collect line))" :VALUES ("(\"first\" \"second\")"))))
+  (:symbol "WITH-INPUT-FROM-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-input-from-string (in \"abcdef\" :start 2)
+  (read-line in))" :VALUES ("\"cdef\"" "T"))))
+  (:symbol "WITH-OPEN-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-open-stream (out (make-string-output-stream))
+  (princ \"inside\" out)
+  (get-output-stream-string out))" :VALUES ("\"inside\""))))
+  (:symbol "WITH-OPEN-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-open-stream (in (make-string-input-stream \"x y\"))
+  (read-line in))" :VALUES ("\"x y\"" "T"))))
+  (:symbol "STREAMP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(streamp *standard-output*)" :VALUES ("T"))))
+  (:symbol "STREAMP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(streamp (make-string-input-stream \"x\"))" :VALUES ("T"))))
+  (:symbol "STREAMP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(streamp \"stream\")" :VALUES ("NIL"))))
+  (:symbol "READ" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(read-from-string \"(1 2 3)\")" :VALUES ("(1 2 3)" "7"))))
+  (:symbol "READ" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(read (make-string-input-stream \"#(1 2) rest\"))" :VALUES ("#(1 2)"))))
+  (:symbol "READ" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(read (make-string-input-stream \"\") nil :eof)" :VALUES (":EOF"))))
+  (:symbol "READ-LINE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (read-line (make-string-input-stream \"first
+second\")))" :VALUES ("(\"first\" NIL)"))))
+  (:symbol "READ-LINE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (read-line (make-string-input-stream \"no newline\")))" :VALUES ("(\"no newline\" T)"))))
+  (:symbol "READ-LINE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(read-line (make-string-input-stream \"\") nil :at-end)" :VALUES (":AT-END" "T"))))
+  (:symbol "READ-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((in (make-string-input-stream \"ab\")))
+  (list (read-char in) (read-char in) (read-char in nil :eof)))" :VALUES ("(#\\a #\\b :EOF)"))))
+  (:symbol "PEEK-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((in (make-string-input-stream \"  x y\")))
+  (list (peek-char t in) (read-char in)))" :VALUES ("(#\\x #\\x)"))))
+  (:symbol "PEEK-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((in (make-string-input-stream \"abc\")))
+  (list (peek-char nil in) (peek-char nil in) (read-char in)))" :VALUES ("(#\\a #\\a #\\a)"))))
+  (:symbol "PEEK-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(peek-char #\\c (make-string-input-stream \"abcd\"))" :VALUES ("#\\c"))))
+  (:symbol "UNREAD-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((in (make-string-input-stream \"xy\")))
+  (let ((char (read-char in)))
+    (unread-char char in)
+    (list (read-char in) (read-char in))))" :VALUES ("(#\\x #\\y)"))))
+  (:symbol "READ-CHAR-NO-HANG" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(read-char-no-hang (make-string-input-stream \"z\"))" :VALUES ("#\\z"))))
+  (:symbol "READ-CHAR-NO-HANG" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(read-char-no-hang (make-string-input-stream \"\") nil :nothing)" :VALUES (":NOTHING"))))
+  (:symbol "LISTEN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(listen (make-string-input-stream \"x\"))" :VALUES ("T"))))
+  (:symbol "LISTEN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(listen (make-string-input-stream \"\"))" :VALUES ("NIL"))))
+  (:symbol "READ-DELIMITED-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-input-from-string (in \"1 2 3) leftover\")
+  (read-delimited-list #\\) in))" :VALUES ("(1 2 3)"))))
+  (:symbol "READ-DELIMITED-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-input-from-string (in \"a b ] c\")
+  (read-delimited-list #\\] in))" :VALUES ("(A B)"))))
+  (:symbol "READ-PRESERVING-WHITESPACE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-input-from-string (in \"abc def\")
+  (list (read-preserving-whitespace in) (read-char in)))" :VALUES ("(ABC #\\ )"))))
+  (:symbol "READ-PRESERVING-WHITESPACE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-input-from-string (in \"abc def\")
+  (list (read in) (read-char in)))" :VALUES ("(ABC #\\d)"))))
+  (:symbol "READ-SEQUENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((buffer (make-string 3 :initial-element #\\-)))
+  (list (read-sequence buffer (make-string-input-stream \"abcdef\")) buffer))" :VALUES ("(3 \"abc\")"))))
+  (:symbol "READ-SEQUENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((buffer (make-array 4 :initial-element 0)))
+  (list (read-sequence buffer (make-string-input-stream \"\")) buffer))" :VALUES ("(0 #(0 0 0 0))"))))
+  (:symbol "CLEAR-INPUT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(clear-input (make-string-input-stream \"abc\"))" :VALUES ("NIL"))))
+  (:symbol "CLEAR-OUTPUT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(clear-output (make-string-output-stream))" :VALUES ("NIL"))))
+  (:symbol "FINISH-OUTPUT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(finish-output (make-string-output-stream))" :VALUES ("NIL"))))
+  (:symbol "FINISH-OUTPUT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (princ \"x\") (finish-output))" :VALUES ("NIL") :OUTPUT "x")))
+  (:symbol "FORCE-OUTPUT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(force-output (make-string-output-stream))" :VALUES ("NIL"))))
+  (:symbol "FORCE-OUTPUT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (princ \"y\") (force-output))" :VALUES ("NIL") :OUTPUT "y")))
+  (:symbol "TERPRI" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (princ \"a\") (terpri) (princ \"b\") :done)" :VALUES (":DONE") :OUTPUT "a
+b")))
+  (:symbol "TERPRI" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (s) (princ 1 s) (terpri s) (princ 2 s))" :VALUES ("\"1
+2\""))))
+  (:symbol "FRESH-LINE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (fresh-line) (princ \"a\") (fresh-line) (fresh-line) (princ \"b\") :done)" :VALUES (":DONE") :OUTPUT "a
+b")))
+  (:symbol "FRESH-LINE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (s) (princ \"x\" s) (fresh-line s) (fresh-line s) (princ \"y\" s))" :VALUES ("\"x
+y\""))))
+  (:symbol "WRITE-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(write-char #\\A)" :VALUES ("#\\A") :OUTPUT "A")))
+  (:symbol "WRITE-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (s) (write-char #\\a s) (write-char #\\b s))" :VALUES ("\"ab\""))))
+  (:symbol "WRITE-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(map nil #'write-char \"xyz\")" :VALUES ("NIL") :OUTPUT "xyz")))
+  (:symbol "WRITE-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(write-string \"hello\")" :VALUES ("\"hello\"") :OUTPUT "hello")))
+  (:symbol "WRITE-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (s) (write-string \"abcdef\" s :start 2 :end 4))" :VALUES ("\"cd\""))))
+  (:symbol "WRITE-LINE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(write-line \"hello\")" :VALUES ("\"hello\"") :OUTPUT "hello
+")))
+  (:symbol "WRITE-LINE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (s) (write-line \"one\" s) (write-line \"two\" s))" :VALUES ("\"one
+two
+\""))))
+  (:symbol "WRITE-SEQUENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(write-sequence \"abc\" *standard-output*)" :VALUES ("\"abc\"") :OUTPUT "abc")))
+  (:symbol "WRITE-SEQUENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (s) (write-sequence '(#\\x #\\y) s))" :VALUES ("\"xy\""))))
+  (:symbol "WRITE-SEQUENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (s) (write-sequence \"hello\" s :start 1 :end 3))" :VALUES ("\"el\""))))
+  (:symbol "WRITE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(write '(1 \"two\" :three))" :VALUES ("(1 \"two\" :THREE)") :OUTPUT "(1 \"two\" :THREE)")))
+  (:symbol "WRITE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(write \"text\" :escape nil)" :VALUES ("\"text\"") :OUTPUT "text")))
+  (:symbol "WRITE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(write 255 :base 16 :radix t)" :VALUES ("255") :OUTPUT "#xFF")))
+  (:symbol "WRITE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(write-to-string 'Hello :case :downcase)" :VALUES ("\"hello\""))))
+  (:symbol "WRITE-TO-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(write-to-string '(1 \"two\"))" :VALUES ("\"(1 \\\"two\\\")\""))))
+  (:symbol "WRITE-TO-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(write-to-string 255 :base 2)" :VALUES ("\"11111111\""))))
+  (:symbol "WRITE-TO-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(write-to-string \"q\" :escape nil)" :VALUES ("\"q\""))))
+  (:symbol "WRITE-TO-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(write-to-string 1/3 :radix t)" :VALUES ("\"#10r1/3\""))))
+  (:symbol "PPRINT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pprint '(a b c))" :VALUES NIL :OUTPUT "
+(A B C)")))
+  (:symbol "PPRINT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-right-margin* 20))
+  (pprint '(defun long-function-name (first-argument second-argument) (body))))" :VALUES NIL :OUTPUT "
+(DEFUN LONG-FUNCTION-NAME
+       (
+        FIRST-ARGUMENT
+        SECOND-ARGUMENT)
+  (BODY))")))
+  (:symbol "PPRINT-FILL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-right-margin* 20))
+  (pprint-fill *standard-output* '(aaa bbb ccc ddd eee fff ggg hhh)))" :VALUES ("NIL") :OUTPUT "(AAA BBB CCC DDD
+ EEE FFF GGG HHH)")))
+  (:symbol "PPRINT-LINEAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-right-margin* 20))
+  (pprint-linear *standard-output* '(aaa bbb ccc ddd eee fff ggg hhh)))" :VALUES ("NIL") :OUTPUT "(AAA
+ BBB
+ CCC
+ DDD
+ EEE
+ FFF
+ GGG
+ HHH)")))
+  (:symbol "PPRINT-LINEAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pprint-linear *standard-output* '(a b c))" :VALUES ("NIL") :OUTPUT "(A B C)")))
+  (:symbol "PPRINT-TABULAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-right-margin* 24))
+  (pprint-tabular *standard-output* '(aa bb cc dd ee ff gg hh) t nil 6))" :VALUES ("NIL") :OUTPUT "(AA    BB    CC    DD
+ EE    FF    GG    HH)")))
+  (:symbol "PPRINT-NEWLINE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pprint-logical-block (*standard-output* nil)
+  (princ \"a\")
+  (pprint-newline :mandatory)
+  (princ \"b\"))" :VALUES ("NIL") :OUTPUT "a
+b")))
+  (:symbol "PPRINT-NEWLINE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-right-margin* 8))
+  (pprint-logical-block (*standard-output* nil)
+    (princ \"abcdef\")
+    (pprint-newline :fill)
+    (princ \"ghijkl\")))" :VALUES ("NIL") :OUTPUT "abcdef
+ghijkl")))
+  (:symbol "PPRINT-INDENT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-right-margin* 12))
+  (pprint-logical-block (*standard-output* nil :prefix \"(\" :suffix \")\")
+    (princ \"head\")
+    (pprint-indent :block 2)
+    (pprint-newline :mandatory)
+    (princ \"body\")))" :VALUES ("NIL") :OUTPUT "(head
+   body)")))
+  (:symbol "PPRINT-TAB" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pprint-logical-block (*standard-output* nil)
+  (princ \"ab\")
+  (pprint-tab :line 6 1)
+  (princ \"cd\"))" :VALUES ("NIL") :OUTPUT "ab    cd")))
+  (:symbol "PPRINT-TAB" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pprint-logical-block (*standard-output* nil)
+  (princ \"x\")
+  (pprint-tab :section 4 1)
+  (princ \"y\"))" :VALUES ("NIL") :OUTPUT "x   y")))
+  (:symbol "PPRINT-LOGICAL-BLOCK" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pprint-logical-block (*standard-output* '(1 2 3) :prefix \"[\" :suffix \"]\")
+  (loop (princ (pprint-pop))
+        (pprint-exit-if-list-exhausted)
+        (write-char #\\Space)))" :VALUES ("NIL") :OUTPUT "[1 2 3]")))
+  (:symbol "PPRINT-LOGICAL-BLOCK" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (stream)
+  (pprint-logical-block (stream nil :prefix \"<\" :suffix \">\")
+    (princ \"inside\" stream)))" :VALUES ("\"<inside>\""))))
+  (:symbol "PPRINT-POP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pprint-logical-block (*standard-output* '(a b))
+  (princ (pprint-pop))
+  (princ (pprint-pop)))" :VALUES ("NIL") :OUTPUT "AB")))
+  (:symbol "PPRINT-EXIT-IF-LIST-EXHAUSTED" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pprint-logical-block (*standard-output* '(1 2))
+  (loop (pprint-exit-if-list-exhausted)
+        (princ (pprint-pop))
+        (princ \"|\")))" :VALUES ("NIL") :OUTPUT "1|2|")))
+  (:symbol "COPY-PPRINT-DISPATCH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((table (copy-pprint-dispatch)))
+  (functionp (pprint-dispatch 42 table)))" :VALUES ("T"))))
+  (:symbol "COPY-PPRINT-DISPATCH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (copy-pprint-dispatch nil) 'standard-object)" :VALUES ("NIL"))))
+  (:symbol "SET-PPRINT-DISPATCH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-pprint-dispatch* (copy-pprint-dispatch))
+      (*print-pretty* t))
+  (set-pprint-dispatch 'integer
+                       (lambda (stream integer)
+                         (write-string (write-to-string integer :pretty nil) stream)
+                         (write-string \"!\" stream)))
+  (prin1-to-string '(1 2 3)))" :VALUES ("\"(1! 2! 3!)\""))))
+  (:symbol "PPRINT-DISPATCH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(functionp (pprint-dispatch 42))" :VALUES ("T"))))
+  (:symbol "PPRINT-DISPATCH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-pprint-dispatch* (copy-pprint-dispatch)))
+  (set-pprint-dispatch 'string (lambda (stream string) (write-string \"STR\" stream)))
+  (nth-value 1 (pprint-dispatch \"x\")))" :VALUES ("T"))))
+  (:symbol "*PRINT-PPRINT-DISPATCH*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *print-pprint-dispatch* 'standard-object)" :VALUES ("NIL"))))
+  (:symbol "*PRINT-PPRINT-DISPATCH*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-pprint-dispatch* (copy-pprint-dispatch))
+      (*print-pretty* t))
+  (set-pprint-dispatch 'symbol
+                       (lambda (stream symbol)
+                         (write-string \"<\" stream)
+                         (write-string (symbol-name symbol) stream)
+                         (write-string \">\" stream)))
+  (prin1-to-string 'sym))" :VALUES ("\"<SYM>\""))))
+  (:symbol "FORMATTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (stream)
+  (funcall (formatter \"~D items\") stream 3))" :VALUES ("\"3 items\""))))
+  (:symbol "FORMATTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (stream)
+  (funcall (formatter \"~{~A~^, ~}\") stream '(a b c)))" :VALUES ("\"A, B, C\""))))
+  (:symbol "FORMATTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(format nil (formatter \"~A-~A\") 1 2)" :VALUES ("\"1-2\""))))
+  (:symbol "PRINT-UNREADABLE-OBJECT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (stream)
+  (print-unreadable-object ('(1 2) stream :type t)
+    (princ \"payload\" stream)))" :VALUES ("\"#<CONS payload>\""))
+    (:FORM "(defclass gadget () ((name :initarg :name :reader gadget-name)))" :SILENT T)
+    (:FORM "(defmethod print-object ((object gadget) stream)
+  (print-unreadable-object (object stream)
+    (format stream \"gadget ~A\" (gadget-name object))))" :SILENT T)
+    (:FORM "(prin1-to-string (make-instance 'gadget :name \"gizmo\"))" :VALUES ("\"#<gadget gizmo>\""))))
+  (:symbol "PRINT-OBJECT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass point ()
+  ((x :initarg :x :reader point-x)
+   (y :initarg :y :reader point-y)))" :SILENT T)
+    (:FORM "(defmethod print-object ((point point) stream)
+  (format stream \"#<point ~D,~D>\" (point-x point) (point-y point)))" :SILENT T)
+    (:FORM "(prin1-to-string (make-instance 'point :x 1 :y 2))" :VALUES ("\"#<point 1,2>\""))
+    (:FORM "(format nil \"~A\" (make-instance 'point :x 3 :y 4))" :VALUES ("\"#<point 3,4>\""))))
+  (:symbol "PRINT-NOT-READABLE-OBJECT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case
+    (let ((*print-readably* t))
+      (prin1-to-string (make-hash-table)))
+  (print-not-readable (condition)
+    (type-of (print-not-readable-object condition))))" :VALUES ("HASH-TABLE"))))
+  (:symbol "PRINT-NOT-READABLE-OBJECT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case
+    (let ((*print-readably* t))
+      (prin1-to-string (make-symbol \"X\")))
+  (print-not-readable () :unreadable))" :VALUES ("\"#:X\""))))
+  (:symbol "PRINT-NOT-READABLE-OBJECT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-readably* t))
+  (prin1-to-string '(1 \"two\")))" :VALUES ("\"(1 \\\"two\\\")\""))))
+  (:symbol "*PRINT-ARRAY*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-array* nil))
+  (and (search \"SIMPLE-VECTOR\" (prin1-to-string (make-array 3 :initial-element 0))) t))" :VALUES ("T"))))
+  (:symbol "*PRINT-ARRAY*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-array* t))
+  (prin1-to-string (make-array 3 :initial-element 0)))" :VALUES ("\"#(0 0 0)\""))))
+  (:symbol "*PRINT-BASE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-base* 16))
+  (prin1-to-string 255))" :VALUES ("\"FF\""))))
+  (:symbol "*PRINT-BASE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-base* 2))
+  (prin1-to-string 10))" :VALUES ("\"1010\""))))
+  (:symbol "*PRINT-BASE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-base* 8))
+  (format nil \"~D\" 64))" :VALUES ("\"64\""))))
+  (:symbol "*PRINT-RADIX*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-radix* t) (*print-base* 16))
+  (prin1-to-string 255))" :VALUES ("\"#xFF\""))))
+  (:symbol "*PRINT-RADIX*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-radix* t))
+  (prin1-to-string 10))" :VALUES ("\"10.\""))))
+  (:symbol "*PRINT-CASE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-case* :downcase))
+  (prin1-to-string 'hello))" :VALUES ("\"hello\""))))
+  (:symbol "*PRINT-CASE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-case* :capitalize))
+  (prin1-to-string '(hello world)))" :VALUES ("\"(Hello World)\""))))
+  (:symbol "*PRINT-CASE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-case* :upcase))
+  (prin1-to-string 'hello))" :VALUES ("\"HELLO\""))))
+  (:symbol "*PRINT-CIRCLE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-circle* t)
+      (cycle (list 1 2)))
+  (setf (cdr (last cycle)) cycle)
+  (prin1-to-string cycle))" :VALUES ("\"#1=(1 2 . #1#)\""))))
+  (:symbol "*PRINT-CIRCLE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-circle* t)
+      (shared (list :x)))
+  (prin1-to-string (list shared shared)))" :VALUES ("\"(#1=(:X) #1#)\""))))
+  (:symbol "*PRINT-ESCAPE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-escape* nil))
+  (prin1-to-string \"text\"))" :VALUES ("\"\\\"text\\\"\""))))
+  (:symbol "*PRINT-ESCAPE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-escape* t))
+  (prin1-to-string \"text\"))" :VALUES ("\"\\\"text\\\"\""))))
+  (:symbol "*PRINT-ESCAPE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-escape* nil))
+  (prin1-to-string '(#\\a \"b\")))" :VALUES ("\"(#\\\\a \\\"b\\\")\""))))
+  (:symbol "*PRINT-GENSYM*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-gensym* t))
+  (prin1-to-string (make-symbol \"G\")))" :VALUES ("\"#:G\""))))
+  (:symbol "*PRINT-GENSYM*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-gensym* nil))
+  (prin1-to-string (make-symbol \"G\")))" :VALUES ("\"G\""))))
+  (:symbol "*PRINT-LENGTH*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-length* 3))
+  (prin1-to-string '(1 2 3 4 5 6)))" :VALUES ("\"(1 2 3 ...)\""))))
+  (:symbol "*PRINT-LENGTH*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-length* 2))
+  (prin1-to-string #(1 2 3)))" :VALUES ("\"#(1 2 ...)\""))))
+  (:symbol "*PRINT-LENGTH*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-length* 0))
+  (prin1-to-string '(1 2)))" :VALUES ("\"(...)\""))))
+  (:symbol "*PRINT-LEVEL*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-level* 1))
+  (prin1-to-string '(1 (2 (3)))))" :VALUES ("\"(1 #)\""))))
+  (:symbol "*PRINT-LEVEL*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-level* 2))
+  (prin1-to-string '(1 (2 (3)))))" :VALUES ("\"(1 (2 #))\""))))
+  (:symbol "*PRINT-LINES*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-lines* 2)
+      (*print-right-margin* 10)
+      (*print-pretty* t))
+  (write-to-string '(aaa bbb ccc ddd eee fff ggg hhh iii)))" :VALUES ("\"(AAA BBB
+ CCC DDD ..)\""))))
+  (:symbol "*PRINT-MISER-WIDTH*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-miser-width* 10))
+  *print-miser-width*)" :VALUES ("10"))))
+  (:symbol "*PRINT-MISER-WIDTH*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *print-miser-width* '(or null integer))" :VALUES ("T"))))
+  (:symbol "*PRINT-PRETTY*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-pretty* nil))
+  (prin1-to-string '(a b c)))" :VALUES ("\"(A B C)\""))))
+  (:symbol "*PRINT-PRETTY*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-pretty* t)
+      (*print-right-margin* 10))
+  (prin1-to-string '(aaaa bbbb cccc dddd)))" :VALUES ("\"(AAAA
+ BBBB
+ CCCC
+ DDDD)\""))))
+  (:symbol "*PRINT-READABLY*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-readably* t))
+  (prin1-to-string \"a\\\"b\"))" :VALUES ("\"\\\"a\\\\\\\"b\\\"\""))))
+  (:symbol "*PRINT-READABLY*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-readably* t))
+  (prin1-to-string 'sym))" :VALUES ("\"SYM\""))))
+  (:symbol "*PRINT-RIGHT-MARGIN*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-right-margin* 12)
+      (*print-pretty* t))
+  (prin1-to-string '(aaaa bbbb cccc dddd)))" :VALUES ("\"(AAAA BBBB
+ CCCC DDDD)\""))))
+  (:symbol "*PRINT-RIGHT-MARGIN*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-right-margin* 80)
+      (*print-pretty* t))
+  (prin1-to-string '(aaaa bbbb cccc dddd)))" :VALUES ("\"(AAAA BBBB CCCC DDDD)\""))))
+  (:symbol "*STANDARD-OUTPUT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (*standard-output*)
+  (princ \"captured\"))" :VALUES ("\"captured\""))))
+  (:symbol "*STANDARD-OUTPUT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*standard-output* (make-broadcast-stream)))
+  (princ \"discarded\")
+  :quiet)" :VALUES (":QUIET"))))
+  (:symbol "*STANDARD-OUTPUT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(streamp *standard-output*)" :VALUES ("T"))))
+  (:symbol "*STANDARD-INPUT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*standard-input* (make-string-input-stream \"typed text\")))
+  (read-line))" :VALUES ("\"typed text\"" "T"))))
+  (:symbol "*STANDARD-INPUT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*standard-input* (make-string-input-stream \"42\")))
+  (read))" :VALUES ("42"))))
+  (:symbol "*ERROR-OUTPUT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (*error-output*)
+  (format *error-output* \"problem\"))" :VALUES ("\"problem\""))))
+  (:symbol "*ERROR-OUTPUT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*error-output* (make-string-output-stream)))
+  (warn \"careful\")
+  (and (search \"careful\" (get-output-stream-string *error-output*)) t))" :VALUES ("NIL"))))
+  (:symbol "*TRACE-OUTPUT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-output-to-string (*trace-output*)
+  (format *trace-output* \"tracing\"))" :VALUES ("\"tracing\""))))
+  (:symbol "*TRACE-OUTPUT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(streamp *trace-output*)" :VALUES ("T"))))
+  (:symbol "*DEBUG-IO*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(streamp *debug-io*)" :VALUES ("T"))))
+  (:symbol "*DEBUG-IO*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *debug-io* 'stream)" :VALUES ("T"))))
+  (:symbol "*QUERY-IO*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(streamp *query-io*)" :VALUES ("T"))))
+  (:symbol "*QUERY-IO*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*query-io* (make-two-way-stream (make-string-input-stream \"y\") (make-broadcast-stream))))
+  (y-or-n-p \"Proceed?\"))" :VALUES ("T"))))
+  (:symbol "*TERMINAL-IO*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(streamp *terminal-io*)" :VALUES ("T"))))
+  (:symbol "*TERMINAL-IO*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *terminal-io* 'two-way-stream)" :VALUES ("NIL"))))
+  (:symbol "Y-OR-N-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*query-io* (make-two-way-stream (make-string-input-stream \"y\")
+                                       (make-broadcast-stream))))
+  (y-or-n-p \"Continue?\"))" :VALUES ("T"))))
+  (:symbol "Y-OR-N-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*query-io* (make-two-way-stream (make-string-input-stream \"n\")
+                                       (make-broadcast-stream))))
+  (y-or-n-p \"Continue?\"))" :VALUES ("NIL"))))
+  (:symbol "YES-OR-NO-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*query-io* (make-two-way-stream (make-string-input-stream (format nil \"yes~%\"))
+                                       (make-broadcast-stream))))
+  (yes-or-no-p \"Really?\"))" :VALUES ("T"))))
+  (:symbol "YES-OR-NO-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*query-io* (make-two-way-stream (make-string-input-stream (format nil \"no~%\"))
+                                       (make-broadcast-stream))))
+  (yes-or-no-p \"Really?\"))" :VALUES ("NIL"))))
+  (:symbol "MAKE-BROADCAST-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a (make-string-output-stream))
+      (b (make-string-output-stream)))
+  (let ((both (make-broadcast-stream a b)))
+    (princ \"hi\" both)
+    (list (get-output-stream-string a) (get-output-stream-string b))))" :VALUES ("(\"hi\" \"hi\")"))))
+  (:symbol "MAKE-BROADCAST-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((sink (make-broadcast-stream)))
+  (princ \"nowhere\" sink)
+  :ok)" :VALUES (":OK"))))
+  (:symbol "BROADCAST-STREAM-STREAMS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a (make-string-output-stream))
+      (b (make-string-output-stream)))
+  (equal (list a b) (broadcast-stream-streams (make-broadcast-stream a b))))" :VALUES ("T"))))
+  (:symbol "BROADCAST-STREAM-STREAMS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(broadcast-stream-streams (make-broadcast-stream))" :VALUES ("NIL"))))
+  (:symbol "MAKE-CONCATENATED-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((in (make-concatenated-stream (make-string-input-stream \"ab\")
+                                    (make-string-input-stream \"cd\"))))
+  (list (read-char in) (read-char in) (read-char in) (read-char in) (read-char in nil :eof)))" :VALUES ("(#\\a #\\b #\\c #\\d :EOF)"))))
+  (:symbol "CONCATENATED-STREAM-STREAMS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a (make-string-input-stream \"x\")))
+  (eq a (first (concatenated-stream-streams (make-concatenated-stream a)))))" :VALUES ("T"))))
+  (:symbol "MAKE-ECHO-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let* ((echoed (make-string-output-stream))
+       (echo (make-echo-stream (make-string-input-stream \"abc\") echoed)))
+  (read-char echo)
+  (read-char echo)
+  (get-output-stream-string echoed))" :VALUES ("\"ab\""))))
+  (:symbol "ECHO-STREAM-INPUT-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let* ((in (make-string-input-stream \"x\"))
+       (echo (make-echo-stream in (make-broadcast-stream))))
+  (eq in (echo-stream-input-stream echo)))" :VALUES ("T"))))
+  (:symbol "ECHO-STREAM-OUTPUT-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let* ((out (make-string-output-stream))
+       (echo (make-echo-stream (make-string-input-stream \"x\") out)))
+  (eq out (echo-stream-output-stream echo)))" :VALUES ("T"))))
+  (:symbol "MAKE-TWO-WAY-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let* ((out (make-string-output-stream))
+       (two-way (make-two-way-stream (make-string-input-stream \"in\") out)))
+  (write-string \"out\" two-way)
+  (list (read-line two-way) (get-output-stream-string out)))" :VALUES ("(\"in\" \"out\")"))))
+  (:symbol "TWO-WAY-STREAM-INPUT-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((in (make-string-input-stream \"x\")))
+  (eq in (two-way-stream-input-stream (make-two-way-stream in (make-broadcast-stream)))))" :VALUES ("T"))))
+  (:symbol "TWO-WAY-STREAM-OUTPUT-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((out (make-string-output-stream)))
+  (eq out (two-way-stream-output-stream
+           (make-two-way-stream (make-string-input-stream \"\") out))))" :VALUES ("T"))))
+  (:symbol "MAKE-SYNONYM-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((stream (make-synonym-stream '*standard-output*)))
+  (with-output-to-string (*standard-output*)
+    (princ \"through synonym\" stream)))" :VALUES ("\"through synonym\""))))
+  (:symbol "MAKE-SYNONYM-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(synonym-stream-symbol (make-synonym-stream '*standard-input*))" :VALUES ("*STANDARD-INPUT*"))))
+  (:symbol "SYNONYM-STREAM-SYMBOL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(synonym-stream-symbol (make-synonym-stream '*standard-output*))" :VALUES ("*STANDARD-OUTPUT*"))))
+  (:symbol "STREAM-ERROR-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (read-char (make-string-input-stream \"\"))
+  (end-of-file (condition)
+    (streamp (stream-error-stream condition))))" :VALUES ("T"))))
+  (:symbol "STREAM-EXTERNAL-FORMAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((format (stream-external-format *standard-output*)))
+  (or (symbolp format) (consp format)))" :VALUES ("T"))))
+  (:symbol "FILE-STRING-LENGTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(file-string-length (make-broadcast-stream) \"abc\")" :VALUES ("1"))))
+  (:symbol "FILE-STRING-LENGTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(file-string-length (make-broadcast-stream) #\\x)" :VALUES ("1"))))
+  (:symbol "FILE-LENGTH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-file-length.txt\"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string \"12345\" out))
+  (prog1 (with-open-file (in path) (file-length in))
+    (delete-file path)))" :VALUES ("5"))))
+  (:symbol "FILE-POSITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-file-position.txt\"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string \"abcdef\" out))
+  (prog1 (with-open-file (in path)
+           (file-position in 3)
+           (list (file-position in) (read-char in) (file-position in)))
+    (delete-file path)))" :VALUES ("(3 #\\d 4)"))))
+  (:symbol "OPEN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-open.txt\"))
+  (let ((out (open path :direction :output :if-exists :supersede)))
+    (write-line \"first line\" out)
+    (close out))
+  (let ((in (open path)))
+    (prog1 (read-line in)
+      (close in)
+      (delete-file path))))" :VALUES ("\"first line\""))))
+  (:symbol "OPEN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-open-2.txt\"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string \"a\" out))
+  (with-open-file (out path :direction :output :if-exists :append)
+    (write-string \"b\" out))
+  (prog1 (with-open-file (in path) (read-line in))
+    (delete-file path)))" :VALUES ("\"ab\""))))
+  (:symbol "OPEN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(open \"/tmp/cldocs-no-such-dir/none.txt\" :if-does-not-exist nil)" :VALUES ("NIL"))))
+  (:symbol "WITH-OPEN-FILE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-with-open.txt\"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (format out \"line ~D~%\" 1)
+    (format out \"line ~D~%\" 2))
+  (prog1 (with-open-file (in path)
+           (loop for line = (read-line in nil)
+                 while line
+                 collect line))
+    (delete-file path)))" :VALUES ("(\"line 1\" \"line 2\")"))))
+  (:symbol "WITH-OPEN-FILE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-binary.bin\"))
+  (with-open-file (out path :direction :output :if-exists :supersede
+                            :element-type '(unsigned-byte 8))
+    (write-sequence #(1 2 255) out))
+  (prog1 (with-open-file (in path :element-type '(unsigned-byte 8))
+           (list (read-byte in) (read-byte in) (read-byte in) (read-byte in nil :eof)))
+    (delete-file path)))" :VALUES ("(1 2 255 :EOF)"))))
+  (:symbol "READ-BYTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-read-byte.bin\"))
+  (with-open-file (out path :direction :output :if-exists :supersede
+                            :element-type '(unsigned-byte 8))
+    (write-byte 7 out)
+    (write-byte 200 out))
+  (prog1 (with-open-file (in path :element-type '(unsigned-byte 8))
+           (list (read-byte in) (read-byte in) (read-byte in nil :end)))
+    (delete-file path)))" :VALUES ("(7 200 :END)"))))
+  (:symbol "WRITE-BYTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-write-byte.bin\"))
+  (with-open-file (out path :direction :output :if-exists :supersede
+                            :element-type '(unsigned-byte 8))
+    (list (write-byte 65 out) (write-byte 66 out)))
+  (prog1 (with-open-file (in path :element-type '(unsigned-byte 8))
+           (file-length in))
+    (delete-file path)))" :VALUES ("2"))))
+  (:symbol "CLOSE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((stream (make-string-input-stream \"x\")))
+  (list (open-stream-p stream) (close stream) (open-stream-p stream)))" :VALUES ("(T T NIL)"))))
+  (:symbol "CLOSE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-close.txt\"))
+  (let ((out (open path :direction :output :if-exists :supersede)))
+    (write-string \"z\" out)
+    (prog1 (close out)
+      (delete-file path))))" :VALUES ("T"))))
+  (:symbol "OPEN-STREAM-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(open-stream-p (make-string-input-stream \"x\"))" :VALUES ("T"))))
+  (:symbol "OPEN-STREAM-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((s (make-string-input-stream \"x\")))
+  (close s)
+  (open-stream-p s))" :VALUES ("NIL"))))
+  (:symbol "INPUT-STREAM-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(input-stream-p (make-string-input-stream \"x\"))" :VALUES ("T"))))
+  (:symbol "INPUT-STREAM-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(input-stream-p (make-string-output-stream))" :VALUES ("NIL"))))
+  (:symbol "OUTPUT-STREAM-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(output-stream-p (make-string-output-stream))" :VALUES ("T"))))
+  (:symbol "OUTPUT-STREAM-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(output-stream-p (make-string-input-stream \"x\"))" :VALUES ("NIL"))))
+  (:symbol "INTERACTIVE-STREAM-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(interactive-stream-p (make-string-input-stream \"x\"))" :VALUES ("NIL"))))
+  (:symbol "STREAM-ELEMENT-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stream-element-type (make-string-input-stream \"x\"))" :VALUES ("CHARACTER"))))
+  (:symbol "STREAM-ELEMENT-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stream-element-type (make-string-output-stream))" :VALUES ("CHARACTER"))))
+  (:symbol "PROBE-FILE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(probe-file \"/tmp/cldocs-definitely-missing.txt\")" :VALUES ("NIL"))))
+  (:symbol "PROBE-FILE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-probe.txt\"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string \"x\" out))
+  (prog1 (namestring (probe-file path))
+    (delete-file path)))" :VALUES ("\"/tmp/cldocs-ex-probe.txt\""))))
+  (:symbol "TRUENAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(namestring (truename \"/tmp/\"))" :VALUES ("\"/tmp/\""))))
+  (:symbol "TRUENAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (truename \"/tmp/cldocs-nope-123.txt\")
+  (file-error () :missing))" :VALUES (":MISSING"))))
+  (:symbol "DELETE-FILE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-delete.txt\"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string \"x\" out))
+  (list (delete-file path) (probe-file path)))" :VALUES ("(T NIL)"))))
+  (:symbol "DELETE-FILE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (delete-file \"/tmp/cldocs-never-existed.txt\")
+  (file-error () :cannot-delete))" :VALUES (":CANNOT-DELETE"))))
+  (:symbol "RENAME-FILE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((old \"/tmp/cldocs-ex-old.txt\")
+      (new \"/tmp/cldocs-ex-new.txt\"))
+  (with-open-file (out old :direction :output :if-exists :supersede)
+    (write-string \"x\" out))
+  (rename-file old new)
+  (prog1 (list (and (probe-file old) t) (and (probe-file new) t))
+    (delete-file new)))" :VALUES ("(NIL T)"))))
+  (:symbol "FILE-WRITE-DATE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-date.txt\"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string \"x\" out))
+  (prog1 (integerp (file-write-date path))
+    (delete-file path)))" :VALUES ("T"))))
+  (:symbol "FILE-WRITE-DATE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (file-write-date \"/tmp/cldocs-never-here.txt\")
+  (file-error () :missing))" :VALUES (":MISSING"))))
+  (:symbol "FILE-AUTHOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-author.txt\"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-string \"x\" out))
+  (prog1 (typep (file-author path) '(or null string))
+    (delete-file path)))" :VALUES ("T"))))
+  (:symbol "ENSURE-DIRECTORIES-EXIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-dirs/a/b/file.txt\"))
+  (multiple-value-bind (pathname created) (ensure-directories-exist path)
+    (list (namestring pathname) created)))" :VALUES ("(\"/tmp/cldocs-ex-dirs/a/b/file.txt\" NIL)"))))
+  (:symbol "ENSURE-DIRECTORIES-EXIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nth-value 1 (ensure-directories-exist \"/tmp/cldocs-ex-dirs/a/b/file.txt\"))" :VALUES ("NIL"))))
+  (:symbol "DIRECTORY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((dir \"/tmp/cldocs-ex-directory/\"))
+  (ensure-directories-exist dir)
+  (dolist (name '(\"b.txt\" \"a.txt\" \"c.log\"))
+    (with-open-file (out (concatenate 'string dir name) :direction :output :if-exists :supersede)
+      (write-string \"x\" out)))
+  (prog1 (sort (mapcar #'file-namestring (directory (concatenate 'string dir \"*.txt\")))
+               #'string<)
+    (dolist (name '(\"b.txt\" \"a.txt\" \"c.log\"))
+      (delete-file (concatenate 'string dir name)))))" :VALUES ("(\"a.txt\" \"b.txt\")"))))
+  (:symbol "LOAD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(load (make-string-input-stream \"(defvar *from-stream* :loaded)\"))" :VALUES ("T"))
+    (:FORM "(symbol-value '*from-stream*)" :VALUES (":LOADED"))
+    (:FORM "(let ((path \"/tmp/cldocs-ex-load.lisp\"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-line \"(defparameter *loaded-name* (pathname-name *load-truename*))\" out))
+  (load path)
+  (delete-file path)
+  *loaded-name*)" :VALUES ("\"cldocs-ex-load\""))))
+  (:symbol "COMPILE-FILE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((source \"/tmp/cldocs-ex-compile.lisp\"))
+  (with-open-file (out source :direction :output :if-exists :supersede)
+    (write-line \"(defun compiled-answer () 42)\" out))
+  (let ((fasl (let ((*compile-verbose* nil) (*compile-print* nil))
+                (compile-file source))))
+    (load fasl)
+    (prog1 (funcall 'compiled-answer)
+      (delete-file source)
+      (delete-file fasl))))" :VALUES ("42"))))
+  (:symbol "COMPILE-FILE-PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-type (compile-file-pathname \"/tmp/example.lisp\"))" :VALUES ("\"fasl\""))))
+  (:symbol "COMPILE-FILE-PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(namestring (compile-file-pathname \"/tmp/example.lisp\"))" :VALUES ("\"/tmp/example.fasl\""))))
+  (:symbol "*COMPILE-FILE-PATHNAME*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "*compile-file-pathname*" :VALUES ("NIL"))))
+  (:symbol "*COMPILE-FILE-TRUENAME*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "*compile-file-truename*" :VALUES ("NIL"))))
+  (:symbol "*COMPILE-PRINT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *compile-print* 'boolean)" :VALUES ("T"))))
+  (:symbol "*COMPILE-VERBOSE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *compile-verbose* 'boolean)" :VALUES ("T"))))
+  (:symbol "*LOAD-PATHNAME*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *load-pathname* '(or null pathname))" :VALUES ("T"))))
+  (:symbol "*LOAD-PATHNAME*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-load-pathname.lisp\"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-line \"(defparameter *seen-load-pathname* (file-namestring *load-pathname*))\" out))
+  (load path)
+  (delete-file path)
+  *seen-load-pathname*)" :VALUES ("\"cldocs-ex-load-pathname.lisp\""))))
+  (:symbol "*LOAD-TRUENAME*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *load-truename* '(or null pathname))" :VALUES ("T"))))
+  (:symbol "*LOAD-TRUENAME*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-load-truename.lisp\"))
+  (with-open-file (out path :direction :output :if-exists :supersede)
+    (write-line \"(defparameter *seen-truename* (namestring *load-truename*))\" out))
+  (load path)
+  (delete-file path)
+  *seen-truename*)" :VALUES ("\"/tmp/cldocs-ex-load-truename.lisp\""))))
+  (:symbol "*LOAD-PRINT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *load-print* 'boolean)" :VALUES ("T"))))
+  (:symbol "*LOAD-VERBOSE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *load-verbose* 'boolean)" :VALUES ("T"))))
+  (:symbol "*DEFAULT-PATHNAME-DEFAULTS*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathnamep *default-pathname-defaults*)" :VALUES ("T"))))
+  (:symbol "*DEFAULT-PATHNAME-DEFAULTS*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*default-pathname-defaults* #p\"/tmp/\"))
+  (namestring (merge-pathnames \"file.txt\")))" :VALUES ("\"/tmp/file.txt\""))))
+  (:symbol "USER-HOMEDIR-PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathnamep (user-homedir-pathname))" :VALUES ("T"))))
+  (:symbol "USER-HOMEDIR-PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(null (pathname-name (user-homedir-pathname)))" :VALUES ("T"))))
+  (:symbol "PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname \"/tmp/example.txt\")" :VALUES ("#P\"/tmp/example.txt\""))))
+  (:symbol "PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathnamep (pathname \"relative/file\"))" :VALUES ("T"))))
+  (:symbol "PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname (pathname \"/a/b.c\"))" :VALUES ("#P\"/a/b.c\""))))
+  (:symbol "PATHNAMEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathnamep #p\"/tmp/x\")" :VALUES ("T"))))
+  (:symbol "PATHNAMEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathnamep \"/tmp/x\")" :VALUES ("NIL"))))
+  (:symbol "PARSE-NAMESTRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(parse-namestring \"/tmp/a/b.txt\")" :VALUES ("#P\"/tmp/a/b.txt\"" "12"))))
+  (:symbol "PARSE-NAMESTRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-name (parse-namestring \"docs/readme.md\"))" :VALUES ("\"readme\""))))
+  (:symbol "PARSE-NAMESTRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (parse-namestring \"x.txt y.txt\" nil *default-pathname-defaults* :junk-allowed t))" :VALUES ("(#P\"x.txt y.txt\" 11)"))))
+  (:symbol "NAMESTRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(namestring #p\"/tmp/a/b.txt\")" :VALUES ("\"/tmp/a/b.txt\""))))
+  (:symbol "NAMESTRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(namestring (make-pathname :name \"x\" :type \"lisp\"))" :VALUES ("\"x.lisp\""))))
+  (:symbol "FILE-NAMESTRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(file-namestring \"/tmp/a/b.txt\")" :VALUES ("\"b.txt\""))))
+  (:symbol "FILE-NAMESTRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(file-namestring \"/tmp/a/\")" :VALUES ("\"\""))))
+  (:symbol "DIRECTORY-NAMESTRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(directory-namestring \"/tmp/a/b.txt\")" :VALUES ("\"/tmp/a/\""))))
+  (:symbol "DIRECTORY-NAMESTRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(directory-namestring \"b.txt\")" :VALUES ("\"\""))))
+  (:symbol "HOST-NAMESTRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(host-namestring \"/tmp/a/b.txt\")" :VALUES ("\"\""))))
+  (:symbol "ENOUGH-NAMESTRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(enough-namestring \"/tmp/a/b.txt\" \"/tmp/\")" :VALUES ("\"a/b.txt\""))))
+  (:symbol "ENOUGH-NAMESTRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(enough-namestring \"/tmp/a/b.txt\" \"/var/\")" :VALUES ("\"/tmp/a/b.txt\""))))
+  (:symbol "MAKE-PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(namestring (make-pathname :directory '(:absolute \"tmp\" \"docs\") :name \"notes\" :type \"txt\"))" :VALUES ("\"/tmp/docs/notes.txt\""))))
+  (:symbol "MAKE-PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(namestring (make-pathname :name \"readme\" :type \"md\"))" :VALUES ("\"readme.md\""))))
+  (:symbol "MAKE-PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-directory (make-pathname :directory '(:relative \"src\")))" :VALUES ("(:RELATIVE \"src\")"))))
+  (:symbol "MERGE-PATHNAMES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(namestring (merge-pathnames \"b.txt\" \"/tmp/a.txt\"))" :VALUES ("\"/tmp/b.txt\""))))
+  (:symbol "MERGE-PATHNAMES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(namestring (merge-pathnames \"sub/file.lisp\" \"/home/user/\"))" :VALUES ("\"/home/user/sub/file.lisp\""))))
+  (:symbol "MERGE-PATHNAMES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(namestring (merge-pathnames \"x\" \"/tmp/dir/default.txt\"))" :VALUES ("\"/tmp/dir/x.txt\""))))
+  (:symbol "PATHNAME-DIRECTORY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-directory \"/tmp/a/b.txt\")" :VALUES ("(:ABSOLUTE \"tmp\" \"a\")"))))
+  (:symbol "PATHNAME-DIRECTORY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-directory \"b.txt\")" :VALUES ("NIL"))))
+  (:symbol "PATHNAME-DIRECTORY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-directory \"docs/b.txt\")" :VALUES ("(:RELATIVE \"docs\")"))))
+  (:symbol "PATHNAME-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-name \"/tmp/archive.tar.gz\")" :VALUES ("\"archive.tar\""))))
+  (:symbol "PATHNAME-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-name \"/tmp/dir/\")" :VALUES ("NIL"))))
+  (:symbol "PATHNAME-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-type \"/tmp/archive.tar.gz\")" :VALUES ("\"gz\""))))
+  (:symbol "PATHNAME-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-type \"/tmp/README\")" :VALUES ("NIL"))))
+  (:symbol "PATHNAME-DEVICE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-device \"/tmp/a.txt\")" :VALUES ("NIL"))))
+  (:symbol "PATHNAME-HOST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eq (pathname-host \"/tmp/a\") (pathname-host \"/var/b\"))" :VALUES ("T"))))
+  (:symbol "PATHNAME-VERSION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-version \"/tmp/a.txt\")" :VALUES (":NEWEST"))))
+  (:symbol "PATHNAME-MATCH-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-match-p \"/tmp/a.txt\" \"/tmp/*.txt\")" :VALUES ("T"))))
+  (:symbol "PATHNAME-MATCH-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-match-p \"/tmp/a.log\" \"/tmp/*.txt\")" :VALUES ("NIL"))))
+  (:symbol "PATHNAME-MATCH-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(pathname-match-p \"/tmp/sub/a.txt\" \"/tmp/**/*.txt\")" :VALUES ("T"))))
+  (:symbol "TRANSLATE-PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(namestring (translate-pathname \"/tmp/a.txt\" \"/tmp/*.txt\" \"/var/*.log\"))" :VALUES ("\"/var/a.log\""))))
+  (:symbol "TRANSLATE-PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(namestring (translate-pathname \"/src/lib/x.lisp\" \"/src/**/*.lisp\" \"/out/**/*.fasl\"))" :VALUES ("\"/out/lib/x.fasl\""))))
+  (:symbol "WILD-PATHNAME-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(wild-pathname-p \"/tmp/*.txt\")" :VALUES ("T"))))
+  (:symbol "WILD-PATHNAME-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(wild-pathname-p \"/tmp/a.txt\")" :VALUES ("NIL"))))
+  (:symbol "WILD-PATHNAME-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(wild-pathname-p \"/tmp/*.txt\" :name)" :VALUES ("T"))))
+  (:symbol "LOGICAL-PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn
+  (setf (logical-pathname-translations \"demo1\") '((\"**;*.*.*\" \"/tmp/demo1/**/*.*\")))
+  (namestring (logical-pathname \"demo1:src;a.lisp\")))" :VALUES ("\"DEMO1:SRC;A.LISP\""))))
+  (:symbol "LOGICAL-PATHNAME-TRANSLATIONS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn
+  (setf (logical-pathname-translations \"demo2\") '((\"**;*.*.*\" \"/tmp/demo2/**/*.*\")))
+  (length (logical-pathname-translations \"demo2\")))" :VALUES ("1"))))
+  (:symbol "TRANSLATE-LOGICAL-PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn
+  (setf (logical-pathname-translations \"demo3\") '((\"**;*.*.*\" \"/tmp/demo3/**/*.*\")))
+  (namestring (translate-logical-pathname \"demo3:docs;guide.txt\")))" :VALUES ("\"/tmp/demo3/docs/guide.txt\""))))
+  (:symbol "LOAD-LOGICAL-PATHNAME-TRANSLATIONS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (load-logical-pathname-translations \"NO-SUCH-LOGICAL-HOST\")
+  (error () :no-translations-file))" :VALUES (":NO-TRANSLATIONS-FILE"))))
+  (:symbol "FILE-ERROR-PATHNAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (open \"/tmp/cldocs-no-such-dir-x/file.txt\")
+  (file-error (condition)
+    (namestring (file-error-pathname condition))))" :VALUES ("\"/tmp/cldocs-no-such-dir-x/file.txt\""))))
+  (:symbol "&OPTIONAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (lambda (a &optional (b 10)) (list a b)) 1)" :VALUES ("(1 10)"))))
+  (:symbol "&OPTIONAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (lambda (a &optional (b 10)) (list a b)) 1 2)" :VALUES ("(1 2)"))))
+  (:symbol "&OPTIONAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (lambda (&optional (x nil x-supplied-p)) (list x x-supplied-p)))" :VALUES ("(NIL NIL)"))))
+  (:symbol "&REST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (lambda (first &rest others) (list first others)) 1 2 3)" :VALUES ("(1 (2 3))"))
+    (:FORM "(funcall (lambda (&rest all) (length all)))" :VALUES ("0"))
+    (:FORM "(defun sum-of (&rest numbers)
+  (reduce #'+ numbers))" :SILENT T)
+    (:FORM "(sum-of 1 2 3 4)" :VALUES ("10"))))
+  (:symbol "&KEY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (lambda (&key (a 1) (b 2)) (list a b)) :b 20)" :VALUES ("(1 20)"))
+    (:FORM "(funcall (lambda (&key ((:long-name n) 0)) n) :long-name 5)" :VALUES ("5"))
+    (:FORM "(defun make-box (&key (width 1) (height 1))
+  (* width height))" :SILENT T)
+    (:FORM "(make-box :height 4 :width 3)" :VALUES ("12"))))
+  (:symbol "&ALLOW-OTHER-KEYS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (lambda (&key a &allow-other-keys) a) :a 1 :unknown 2)" :VALUES ("1"))))
+  (:symbol "&ALLOW-OTHER-KEYS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (funcall (lambda (&key a) a) :a 1 :unknown 2)
+  (error () :rejected))" :VALUES (":REJECTED"))))
+  (:symbol "&ALLOW-OTHER-KEYS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (lambda (&key a) a) :a 1 :allow-other-keys t :unknown 2)" :VALUES ("1"))))
+  (:symbol "&AUX" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (lambda (x &aux (double (* 2 x))) (list x double)) 5)" :VALUES ("(5 10)"))))
+  (:symbol "&AUX" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (lambda (&aux (a 1) (b (+ a 1))) (list a b)))" :VALUES ("(1 2)"))))
+  (:symbol "&BODY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defmacro with-twice (&body body)
+  `(progn ,@body ,@body))" :SILENT T)
+    (:FORM "(let ((n 0))
+  (with-twice (incf n))
+  n)" :VALUES ("2"))
+    (:FORM "(macroexpand-1 '(with-twice (print 1)))" :VALUES ("(PROGN (PRINT 1) (PRINT 1))" "T"))))
+  (:symbol "&ENVIRONMENT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defmacro constant-or-form (form &environment env)
+  (if (constantp form env) :constant :not-constant))" :SILENT T)
+    (:FORM "(constant-or-form 42)" :VALUES (":CONSTANT"))
+    (:FORM "(constant-or-form (+ 1 2))" :VALUES (":CONSTANT"))
+    (:FORM "(constant-or-form some-variable)" :VALUES (":NOT-CONSTANT"))))
+  (:symbol "&WHOLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defmacro show-form (&whole form &rest arguments)
+  (declare (ignore arguments))
+  `',form)" :SILENT T)
+    (:FORM "(show-form a b c)" :VALUES ("(SHOW-FORM A B C)"))))
+  (:symbol "DECLARE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((x 10))
+  (declare (type integer x))
+  (* x 2))" :VALUES ("20"))
+    (:FORM "(let ((unused 1) (used 2))
+  (declare (ignore unused))
+  used)" :VALUES ("2"))
+    (:FORM "(defun sum-fixnums (a b)
+  (declare (fixnum a b))
+  (+ a b))" :VALUES ("SUM-FIXNUMS"))))
+  (:symbol "TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((n 5))
+  (declare (type (integer 0 10) n))
+  n)" :VALUES ("5"))))
+  (:symbol "TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2)))
+  (declare (type list items))
+  (length items))" :VALUES ("2"))))
+  (:symbol "TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((s \"abc\"))
+  (declare (type string s))
+  (length s))" :VALUES ("3"))))
+  (:symbol "FTYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defun next-number (n)
+  (1+ n))" :SILENT T)
+    (:FORM "(locally (declare (ftype (function (integer) integer) next-number))
+  (next-number 41))" :VALUES ("42"))
+    (:FORM "(declaim (ftype (function (list) list) twice))" :SILENT T)
+    (:FORM "(defun twice (items)
+  (append items items))" :SILENT T)
+    (:FORM "(twice '(a b))" :VALUES ("(A B A B)"))))
+  (:symbol "INLINE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (declaim (inline add1))
+       (defun add1 (n) (+ n 1))
+       (add1 10))" :VALUES ("11"))))
+  (:symbol "INLINE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(flet ((double (x) (* 2 x)))
+  (declare (inline double))
+  (double 21))" :VALUES ("42"))))
+  (:symbol "NOTINLINE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (declaim (notinline slow))
+       (defun slow (n) (* n n))
+       (slow 7))" :VALUES ("49"))))
+  (:symbol "NOTINLINE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(flet ((double (x) (* 2 x)))
+  (declare (notinline double))
+  (double 21))" :VALUES ("42"))))
+  (:symbol "IGNORE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (lambda (used unused) (declare (ignore unused)) used) 1 2)" :VALUES ("1"))))
+  (:symbol "IGNORE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a 1) (b 2))
+  (declare (ignore a))
+  b)" :VALUES ("2"))))
+  (:symbol "IGNORABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(funcall (lambda (a b) (declare (ignorable a b)) 42) 1 2)" :VALUES ("42"))))
+  (:symbol "IGNORABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((maybe 1))
+  (declare (ignorable maybe))
+  :ok)" :VALUES (":OK"))))
+  (:symbol "OPTIMIZE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(locally (declare (optimize (speed 3) (safety 1)))
+  (+ 1 2))" :VALUES ("3"))
+    (:FORM "(defun fast-add (a b)
+  (declare (optimize (speed 3) (safety 0)) (fixnum a b))
+  (the fixnum (+ a b)))" :VALUES ("FAST-ADD"))))
+  (:symbol "SPEED" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(locally (declare (optimize (speed 3)))
+  :fast)" :VALUES (":FAST"))))
+  (:symbol "SPEED" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(locally (declare (optimize (speed 0) (space 3)))
+  :small)" :VALUES (":SMALL"))))
+  (:symbol "SAFETY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(locally (declare (optimize (safety 3)))
+  (handler-case (car 5) (type-error () :checked)))" :VALUES (":CHECKED"))))
+  (:symbol "SAFETY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(locally (declare (optimize (safety 1)))
+  :normal)" :VALUES (":NORMAL"))))
+  (:symbol "DEBUG" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(locally (declare (optimize (debug 3)))
+  :debuggable)" :VALUES (":DEBUGGABLE"))))
+  (:symbol "DEBUG" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(locally (declare (optimize (debug 0)))
+  :lean)" :VALUES (":LEAN"))))
+  (:symbol "SPACE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(locally (declare (optimize (space 2)))
+  :compact)" :VALUES (":COMPACT"))))
+  (:symbol "COMPILATION-SPEED" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(locally (declare (optimize (compilation-speed 3)))
+  :quick-compile)" :VALUES (":QUICK-COMPILE"))))
+  (:symbol "SPECIAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defvar *level* 0)" :VALUES ("*LEVEL*"))
+    (:FORM "(let ((*level* 1))
+  (declare (special *level*))
+  (symbol-value '*level*))" :VALUES ("1"))
+    (:FORM "(let ((x 1))
+  (declare (special x))
+  (symbol-value 'x))" :VALUES ("1"))))
+  (:symbol "DYNAMIC-EXTENT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((temp (list 1 2 3)))
+  (declare (dynamic-extent temp))
+  (reduce #'+ temp))" :VALUES ("6"))))
+  (:symbol "DYNAMIC-EXTENT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(flet ((add (a b) (+ a b)))
+  (declare (dynamic-extent #'add))
+  (add 1 2))" :VALUES ("3"))))
+  (:symbol "DECLARATION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (declaim (declaration my-note))
+       (let ((x 1))
+         (declare (my-note x))
+         x))" :VALUES ("1"))))
+  (:symbol "COMPILER-MACRO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(documentation 'car 'compiler-macro)" :VALUES ("NIL"))))
+  (:symbol "COMPILER-MACRO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(compiler-macro-function 'car)" :VALUES ("NIL"))))
+  (:symbol "STANDARD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defgeneric describe-it (x))" :SILENT T)
+    (:FORM "(defmethod describe-it ((x integer)) \"integer\")" :SILENT T)
+    (:FORM "(defmethod describe-it :around ((x integer))
+  (list :around (call-next-method)))" :SILENT T)
+    (:FORM "(describe-it 5)" :VALUES ("(:AROUND \"integer\")"))))
+  (:symbol "STRUCTURE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defstruct documented-struct \"A documented structure.\")" :SILENT T)
+    (:FORM "(documentation 'documented-struct 'structure)" :VALUES ("\"A documented structure.\""))
+    (:FORM "(documentation 'documented-struct 'type)" :VALUES ("\"A documented structure.\""))))
+  (:symbol "VARIABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defvar *documented* 1 \"A documented variable.\")" :SILENT T)
+    (:FORM "(documentation '*documented* 'variable)" :VALUES ("\"A documented variable.\""))
+    (:FORM "(let ((symbol '*documented*))
+  (setf (documentation symbol 'variable) \"New text.\")
+  (documentation symbol 'variable))" :VALUES ("\"New text.\""))))
+  (:symbol "OTHERWISE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(case 5 (1 :one) (otherwise :other))" :VALUES (":OTHER"))))
+  (:symbol "OTHERWISE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ecase :a (:a 1) (:b 2))" :VALUES ("1"))))
+  (:symbol "OTHERWISE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typecase \"x\" (integer :int) (otherwise :other))" :VALUES (":OTHER"))))
+  (:symbol "SATISFIES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 4 '(satisfies evenp))" :VALUES ("T"))))
+  (:symbol "SATISFIES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 3 '(satisfies evenp))" :VALUES ("NIL"))))
+  (:symbol "SATISFIES" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep '(satisfies evenp) 'integer)" :VALUES ("NIL" "NIL"))))
+  (:symbol "MAKE-METHOD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(define-method-combination first-only ()
+  ((methods ()))
+  `(call-method ,(first methods)))" :SILENT T)
+    (:FORM "(defgeneric pick (x) (:method-combination first-only))" :SILENT T)
+    (:FORM "(defmethod pick ((x integer)) :integer)" :SILENT T)
+    (:FORM "(defmethod pick ((x number)) :number)" :SILENT T)
+    (:FORM "(pick 5)" :VALUES (":INTEGER"))
+    (:FORM "(pick 2.5)" :VALUES (":NUMBER"))))
+  (:symbol "NEXT-METHOD-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defgeneric chain (x))" :SILENT T)
+    (:FORM "(defmethod chain ((x integer)) (list :integer (next-method-p)))" :SILENT T)
+    (:FORM "(defmethod chain ((x number)) (list :number (next-method-p)))" :SILENT T)
+    (:FORM "(chain 1)" :VALUES ("(:INTEGER T)"))
+    (:FORM "(chain 1.5)" :VALUES ("(:NUMBER NIL)"))))
+  (:symbol "CALL-METHOD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(define-method-combination sum-all ()
+  ((methods ()))
+  `(+ ,@(mapcar (lambda (method) `(call-method ,method)) methods)))" :SILENT T)
+    (:FORM "(defgeneric weight (x) (:method-combination sum-all))" :SILENT T)
+    (:FORM "(defmethod weight ((x integer)) 10)" :SILENT T)
+    (:FORM "(defmethod weight ((x number)) 1)" :SILENT T)
+    (:FORM "(weight 5)" :VALUES ("11"))
+    (:FORM "(weight 2.5)" :VALUES ("1"))))
+  (:symbol "**" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boundp '**)" :VALUES ("T"))))
+  (:symbol "**" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((** 5))
+  **)" :VALUES ("5"))))
+  (:symbol "***" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boundp '***)" :VALUES ("T"))))
+  (:symbol "***" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*** :third))
+  ***)" :VALUES (":THIRD"))))
+  (:symbol "++" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boundp '++)" :VALUES ("T"))))
+  (:symbol "++" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((++ '(+ 1 2)))
+  (eval ++))" :VALUES ("3"))))
+  (:symbol "+++" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boundp '+++)" :VALUES ("T"))))
+  (:symbol "+++" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((+++ 7))
+  (* +++ 2))" :VALUES ("14"))))
+  (:symbol "//" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boundp '//)" :VALUES ("T"))))
+  (:symbol "//" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((// '(1 2)))
+  (length //))" :VALUES ("2"))))
+  (:symbol "///" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(boundp '///)" :VALUES ("T"))))
+  (:symbol "///" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((/// '(a)))
+  ///)" :VALUES ("(A)"))))
+  (:symbol "*BREAK-ON-SIGNALS*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "*break-on-signals*" :VALUES ("NIL"))))
+  (:symbol "*BREAK-ON-SIGNALS*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*break-on-signals* nil))
+  (handler-case (error \"quiet\") (error () :handled)))" :VALUES (":HANDLED"))))
+  (:symbol "*DEBUGGER-HOOK*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(catch 'done
+  (let ((*debugger-hook* (lambda (condition hook)
+                           (declare (ignore hook))
+                           (throw 'done (type-of condition))))
+        (sb-ext:*invoke-debugger-hook* nil))
+    (invoke-debugger (make-condition 'simple-error :format-control \"boom\"))))" :VALUES ("SIMPLE-ERROR"))))
+  (:symbol "*DEBUGGER-HOOK*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(catch 'done
+  (let ((*debugger-hook* (lambda (condition hook)
+                           (declare (ignore hook))
+                           (throw 'done (princ-to-string condition))))
+        (sb-ext:*invoke-debugger-hook* nil))
+    (invoke-debugger (make-condition 'simple-error
+                                     :format-control \"custom ~D\"
+                                     :format-arguments '(42)))))" :VALUES ("\"custom 42\""))))
+  (:symbol "*FEATURES*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(and (member :common-lisp *features*) t)" :VALUES ("T"))))
+  (:symbol "*FEATURES*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*features* (cons :my-feature *features*)))
+  (values (read-from-string \"#+my-feature :yes #-my-feature :no\")))" :VALUES (":YES"))))
+  (:symbol "*FEATURES*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(values (read-from-string \"#+(and) :always #+(or) :never\"))" :VALUES (":ALWAYS"))))
+  (:symbol "*GENSYM-COUNTER*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*gensym-counter* 100))
+  (symbol-name (gensym)))" :VALUES ("\"G100\""))))
+  (:symbol "*GENSYM-COUNTER*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*gensym-counter* 7))
+  (list (symbol-name (gensym \"X\")) (symbol-name (gensym \"X\"))))" :VALUES ("(\"X7\" \"X8\")"))))
+  (:symbol "*MACROEXPAND-HOOK*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*macroexpand-hook* (lambda (expander form environment)
+                            (funcall expander form environment))))
+  (macroexpand-1 '(when a b)))" :VALUES ("(IF A B)" "T"))))
+  (:symbol "*MACROEXPAND-HOOK*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((count 0))
+  (let ((*macroexpand-hook* (lambda (expander form environment)
+                              (incf count)
+                              (funcall expander form environment))))
+    (macroexpand '(unless a b)))
+  count)" :VALUES ("1"))))
+  (:symbol "*RANDOM-STATE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(random-state-p *random-state*)" :VALUES ("T"))))
+  (:symbol "*RANDOM-STATE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a (make-random-state *random-state*))
+      (b (make-random-state *random-state*)))
+  (= (random 1000 a) (random 1000 b)))" :VALUES ("T"))))
+  (:symbol "*READ-BASE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*read-base* 16))
+  (values (read-from-string \"FF\")))" :VALUES ("255"))))
+  (:symbol "*READ-BASE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*read-base* 2))
+  (values (read-from-string \"1010\")))" :VALUES ("10"))))
+  (:symbol "*READ-BASE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(values (read-from-string \"10\"))" :VALUES ("10"))))
+  (:symbol "*READ-DEFAULT-FLOAT-FORMAT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*read-default-float-format* 'double-float))
+  (type-of (read-from-string \"1.5\")))" :VALUES ("DOUBLE-FLOAT"))))
+  (:symbol "*READ-DEFAULT-FLOAT-FORMAT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(type-of (read-from-string \"1.5\"))" :VALUES ("SINGLE-FLOAT"))))
+  (:symbol "*READ-DEFAULT-FLOAT-FORMAT*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(type-of (read-from-string \"1.5d0\"))" :VALUES ("DOUBLE-FLOAT"))))
+  (:symbol "*READ-EVAL*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*read-eval* t))
+  (values (read-from-string \"#.(+ 1 2)\")))" :VALUES ("3"))))
+  (:symbol "*READ-EVAL*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*read-eval* nil))
+  (handler-case (read-from-string \"#.(+ 1 2)\")
+    (reader-error () :blocked)))" :VALUES (":BLOCKED"))))
+  (:symbol "*READ-SUPPRESS*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*read-suppress* t))
+  (values (read-from-string \"(foo bar)\")))" :VALUES ("NIL"))))
+  (:symbol "*READ-SUPPRESS*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*read-suppress* t))
+  (values (read-from-string \"(unknown-package:symbol 1 2)\")))" :VALUES ("NIL"))))
+  (:symbol "*READTABLE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(readtablep *readtable*)" :VALUES ("T"))))
+  (:symbol "*READTABLE*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*readtable* (copy-readtable nil)))
+  (setf (readtable-case *readtable*) :invert)
+  (values (read-from-string \"Hello\")))" :VALUES ("|Hello|"))))
+  (:symbol "READTABLEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(readtablep *readtable*)" :VALUES ("T"))))
+  (:symbol "READTABLEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(readtablep (copy-readtable))" :VALUES ("T"))))
+  (:symbol "READTABLEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(readtablep \"table\")" :VALUES ("NIL"))))
+  (:symbol "READTABLE-CASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(readtable-case *readtable*)" :VALUES (":UPCASE"))))
+  (:symbol "READTABLE-CASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*readtable* (copy-readtable)))
+  (setf (readtable-case *readtable*) :preserve)
+  (list (readtable-case *readtable*) (symbol-name (values (read-from-string \"MixedCase\")))))" :VALUES ("(:PRESERVE \"MixedCase\")"))))
+  (:symbol "COPY-READTABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(readtablep (copy-readtable))" :VALUES ("T"))))
+  (:symbol "COPY-READTABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((copy (copy-readtable)))
+  (eq copy *readtable*))" :VALUES ("NIL"))))
+  (:symbol "COPY-READTABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*readtable* (copy-readtable)))
+  (set-macro-character #\\! (lambda (stream char) (declare (ignore stream char)) :bang))
+  (values (read-from-string \"!\")))" :VALUES (":BANG"))))
+  (:symbol "SET-MACRO-CHARACTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*readtable* (copy-readtable)))
+  (set-macro-character #\\! (lambda (stream char)
+                             (declare (ignore char))
+                             (list 'quote (read stream t nil t))))
+  (values (read-from-string \"!foo\")))" :VALUES ("(QUOTE FOO)"))))
+  (:symbol "SET-MACRO-CHARACTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*readtable* (copy-readtable)))
+  (set-macro-character #\\] (get-macro-character #\\)))
+  (set-macro-character #\\[ (lambda (stream char)
+                             (declare (ignore char))
+                             (cons 'list (read-delimited-list #\\] stream t))))
+  (eval (read-from-string \"[1 2 3]\")))" :VALUES ("(1 2 3)"))))
+  (:symbol "GET-MACRO-CHARACTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(functionp (get-macro-character #\\())" :VALUES ("NIL"))))
+  (:symbol "GET-MACRO-CHARACTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (get-macro-character #\\a))" :VALUES ("(NIL NIL)"))))
+  (:symbol "GET-MACRO-CHARACTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(nth-value 1 (get-macro-character #\\'))" :VALUES ("NIL"))))
+  (:symbol "MAKE-DISPATCH-MACRO-CHARACTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*readtable* (copy-readtable)))
+  (make-dispatch-macro-character #\\@)
+  (set-dispatch-macro-character #\\@ #\\d
+                                (lambda (stream subchar arg)
+                                  (declare (ignore subchar arg))
+                                  (list :dollar (read stream t nil t))))
+  (values (read-from-string \"@dfoo\")))" :VALUES ("(:DOLLAR FOO)"))))
+  (:symbol "SET-DISPATCH-MACRO-CHARACTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*readtable* (copy-readtable)))
+  (set-dispatch-macro-character #\\# #\\?
+                                (lambda (stream subchar arg)
+                                  (declare (ignore stream subchar arg))
+                                  :custom))
+  (values (read-from-string \"#?\")))" :VALUES (":CUSTOM"))))
+  (:symbol "GET-DISPATCH-MACRO-CHARACTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(functionp (get-dispatch-macro-character #\\# #\\'))" :VALUES ("T"))))
+  (:symbol "GET-DISPATCH-MACRO-CHARACTER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(get-dispatch-macro-character #\\# #\\~)" :VALUES ("NIL"))))
+  (:symbol "SET-SYNTAX-FROM-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*readtable* (copy-readtable)))
+  (set-syntax-from-char #\\; #\\a)
+  (symbol-name (values (read-from-string \";\"))))" :VALUES ("\";\""))))
+  (:symbol "SET-SYNTAX-FROM-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*readtable* (copy-readtable)))
+  (set-syntax-from-char #\\, #\\Space)
+  (values (read-from-string \"a,b\")))" :VALUES ("A"))))
+  (:symbol "ABORT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list
+ (with-simple-restart (abort \"Back to the start\")
+   (abort)
+   :unreachable))" :VALUES ("(NIL T)"))))
+  (:symbol "ABORT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-simple-restart (abort \"Demo\")
+  (handler-bind ((error (lambda (condition)
+                          (declare (ignore condition))
+                          (abort))))
+    (error \"failed\")))" :VALUES ("NIL" "T"))))
+  (:symbol "APROPOS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(apropos \"MAPCAR\" :cl)" :VALUES NIL :OUTPUT "MAPCAR (fbound)")))
+  (:symbol "APROPOS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(apropos \"WITH-OPEN\" :cl)" :VALUES NIL :OUTPUT "WITH-OPEN-FILE (fbound)
+WITH-OPEN-STREAM (fbound)")))
+  (:symbol "APROPOS-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(apropos-list \"MAPCAR\" :cl)" :VALUES ("(MAPCAR)"))))
+  (:symbol "APROPOS-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sort (apropos-list \"MAP-INTO\" :cl) #'string<)" :VALUES ("(MAP-INTO)"))))
+  (:symbol "APROPOS-LIST" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(and (member 'mapcar (apropos-list \"MAP\")) t)" :VALUES ("T"))))
+  (:symbol "ARITHMETIC-ERROR-OPERANDS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (/ 5 0)
+  (arithmetic-error (condition)
+    (arithmetic-error-operands condition)))" :VALUES ("(5 0)"))))
+  (:symbol "ARITHMETIC-ERROR-OPERATION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (/ 5 0)
+  (arithmetic-error (condition)
+    (arithmetic-error-operation condition)))" :VALUES ("/"))))
+  (:symbol "BREAK" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((sb-ext:*invoke-debugger-hook* (lambda (condition hook)
+                                       (declare (ignore condition hook))
+                                       (continue))))
+  (break \"Look here\")
+  :resumed)" :VALUES (":RESUMED"))))
+  (:symbol "BREAK" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((sb-ext:*invoke-debugger-hook* (lambda (condition hook)
+                                       (declare (ignore hook))
+                                       (princ-to-string condition)
+                                       (continue))))
+  (list (break \"First\") (break \"Second\")))" :VALUES ("(NIL NIL)"))))
+  (:symbol "CELL-ERROR-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (symbol-value 'no-such-variable-here)
+  (unbound-variable (condition)
+    (cell-error-name condition)))" :VALUES ("NO-SUCH-VARIABLE-HERE"))))
+  (:symbol "CELL-ERROR-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (funcall 'no-such-function-here)
+  (undefined-function (condition)
+    (cell-error-name condition)))" :VALUES ("NO-SUCH-FUNCTION-HERE"))))
+  (:symbol "CERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-bind ((error (lambda (condition)
+                        (declare (ignore condition))
+                        (continue))))
+  (cerror \"Carry on\" \"Problem number ~D\" 1)
+  :continued)" :VALUES (":CONTINUED"))))
+  (:symbol "CLASS-OF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(class-name (class-of 1))" :VALUES ("FIXNUM"))))
+  (:symbol "CLASS-OF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(class-name (class-of 'a))" :VALUES ("SYMBOL"))))
+  (:symbol "CLASS-OF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(class-name (class-of '(1)))" :VALUES ("CONS"))))
+  (:symbol "CLASS-OF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(class-name (class-of 1.5))" :VALUES ("SINGLE-FLOAT"))))
+  (:symbol "COERCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(coerce '(1 2 3) 'vector)" :VALUES ("#(1 2 3)"))))
+  (:symbol "COERCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(coerce \"abc\" 'list)" :VALUES ("(#\\a #\\b #\\c)"))))
+  (:symbol "COERCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(coerce 3 'double-float)" :VALUES ("3.0d0"))))
+  (:symbol "COERCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(coerce '(#\\h #\\i) 'string)" :VALUES ("\"hi\""))))
+  (:symbol "COMPUTE-RESTARTS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(restart-case (and (member 'my-restart (compute-restarts) :key #'restart-name) t)
+  (my-restart () nil))" :VALUES ("T"))))
+  (:symbol "COMPUTE-RESTARTS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(restart-case (length (remove 'inner (compute-restarts) :key #'restart-name :test-not #'eq))
+  (inner () nil))" :VALUES ("1"))))
+  (:symbol "CONTINUE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list
+ (with-simple-restart (continue \"Resume here\")
+   (continue)
+   :unreachable))" :VALUES ("(NIL T)"))))
+  (:symbol "CONTINUE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((attempts 0))
+  (handler-bind ((error (lambda (condition)
+                          (declare (ignore condition))
+                          (incf attempts)
+                          (continue))))
+    (with-simple-restart (continue \"Skip it\")
+      (error \"problem\")))
+  attempts)" :VALUES ("1"))))
+  (:symbol "COPY-STRUCTURE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defstruct counter (value 0))" :SILENT T)
+    (:FORM "(let* ((a (make-counter :value 1))
+       (b (copy-structure a)))
+  (setf (counter-value b) 99)
+  (list (counter-value a) (counter-value b)))" :VALUES ("(1 99)"))))
+  (:symbol "DECODE-UNIVERSAL-TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (decode-universal-time 0 0))" :VALUES ("(0 0 0 1 1 1900 0 NIL 0)"))))
+  (:symbol "DECODE-UNIVERSAL-TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (decode-universal-time 3155673600 0))" :VALUES ("(0 0 0 1 1 2000 5 NIL 0)"))))
+  (:symbol "ENCODE-UNIVERSAL-TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(encode-universal-time 0 0 0 1 1 2000 0)" :VALUES ("3155673600"))))
+  (:symbol "ENCODE-UNIVERSAL-TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(encode-universal-time 0 0 0 1 1 1900 0)" :VALUES ("0"))))
+  (:symbol "GET-DECODED-TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(length (multiple-value-list (get-decoded-time)))" :VALUES ("9"))))
+  (:symbol "GET-DECODED-TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integerp (nth-value 5 (get-decoded-time)))" :VALUES ("T"))))
+  (:symbol "GET-UNIVERSAL-TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integerp (get-universal-time))" :VALUES ("T"))))
+  (:symbol "GET-UNIVERSAL-TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(> (get-universal-time) 3900000000)" :VALUES ("T"))))
+  (:symbol "GET-INTERNAL-REAL-TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integerp (get-internal-real-time))" :VALUES ("T"))))
+  (:symbol "GET-INTERNAL-REAL-TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(<= (get-internal-real-time) (get-internal-real-time))" :VALUES ("T"))))
+  (:symbol "GET-INTERNAL-RUN-TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(integerp (get-internal-run-time))" :VALUES ("T"))))
+  (:symbol "GET-INTERNAL-RUN-TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(<= (get-internal-run-time) (get-internal-run-time))" :VALUES ("T"))))
+  (:symbol "DESCRIBE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(and (search \"CAR\" (with-output-to-string (stream) (describe 'car stream))) t)" :VALUES ("T"))))
+  (:symbol "DESCRIBE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stringp (with-output-to-string (*standard-output*) (describe 42)))" :VALUES ("T"))))
+  (:symbol "DISASSEMBLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stringp (with-output-to-string (*standard-output*) (disassemble 'car)))" :VALUES ("T"))))
+  (:symbol "DISASSEMBLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stringp (with-output-to-string (*standard-output*)
+           (disassemble (lambda (x) (+ x 1)))))" :VALUES ("T"))))
+  (:symbol "DRIBBLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(and (fboundp 'dribble) t)" :VALUES ("T"))))
+  (:symbol "ED" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(and (fboundp 'ed) t)" :VALUES ("T"))))
+  (:symbol "INSPECT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(and (fboundp 'inspect) t)" :VALUES ("T"))))
+  (:symbol "ROOM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stringp (with-output-to-string (*standard-output*) (room)))" :VALUES ("T"))))
+  (:symbol "ROOM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stringp (with-output-to-string (*standard-output*) (room nil)))" :VALUES ("T"))))
+  (:symbol "SLEEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sleep 0.01)" :VALUES ("NIL"))))
+  (:symbol "SLEEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(sleep 0)" :VALUES ("NIL"))))
+  (:symbol "ENSURE-GENERIC-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (ensure-generic-function 'my-new-generic :lambda-list '(x))
+       (and (typep (fdefinition 'my-new-generic) 'generic-function) t))" :VALUES ("T"))))
+  (:symbol "FIND-CLASS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(class-name (find-class 'integer))" :VALUES ("INTEGER"))))
+  (:symbol "FIND-CLASS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(find-class 'no-such-class-here nil)" :VALUES ("NIL"))))
+  (:symbol "FIND-CLASS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (find-class 'no-such-class-here)
+  (error () :unknown-class))" :VALUES (":UNKNOWN-CLASS"))))
+  (:symbol "FIND-RESTART" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(restart-case (and (find-restart 'retry) t)
+  (retry () nil))" :VALUES ("T"))))
+  (:symbol "FIND-RESTART" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(find-restart 'no-such-restart-here)" :VALUES ("NIL"))))
+  (:symbol "RESTART-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(restart-case (restart-name (find-restart 'demo))
+  (demo () nil))" :VALUES ("DEMO"))))
+  (:symbol "RESTART-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(restart-case (mapcar #'restart-name (list (find-restart 'a) (find-restart 'b)))
+  (a () nil)
+  (b () nil))" :VALUES ("(A B)"))))
+  (:symbol "INVOKE-RESTART-INTERACTIVELY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(restart-case (invoke-restart-interactively 'ask)
+  (ask (&optional value)
+    :interactive (lambda () (list 5))
+    value))" :VALUES ("5"))))
+  (:symbol "STORE-VALUE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-bind ((unbound-variable (lambda (condition)
+                                   (declare (ignore condition))
+                                   (store-value 99))))
+  (restart-case (error 'unbound-variable :name 'x)
+    (store-value (value) value)))" :VALUES ("99"))))
+  (:symbol "USE-VALUE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-bind ((error (lambda (condition)
+                        (declare (ignore condition))
+                        (use-value 42))))
+  (restart-case (error \"bad input\")
+    (use-value (value) value)))" :VALUES ("42"))))
+  (:symbol "MUFFLE-WARNING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-bind ((warning #'muffle-warning))
+  (warn \"ignored\")
+  :quiet)" :VALUES (":QUIET"))))
+  (:symbol "MUFFLE-WARNING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((seen 0))
+  (handler-bind ((warning (lambda (w) (incf seen) (muffle-warning w))))
+    (warn \"one\")
+    (warn \"two\"))
+  seen)" :VALUES ("2"))))
+  (:symbol "WARN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (warn \"careful ~D\" 1)
+  (warning (condition) (princ-to-string condition)))" :VALUES ("\"careful 1\""))))
+  (:symbol "WARN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*error-output* (make-broadcast-stream)))
+  (warn \"to nowhere\"))" :VALUES ("NIL"))))
+  (:symbol "WARN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-bind ((warning #'muffle-warning))
+  (warn \"muffled\"))" :VALUES ("NIL"))))
+  (:symbol "SIGNAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(signal 'simple-condition :format-control \"unhandled\")" :VALUES ("NIL"))))
+  (:symbol "SIGNAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let (seen)
+  (handler-bind ((condition (lambda (condition) (setf seen (type-of condition)))))
+    (signal 'simple-condition :format-control \"x\"))
+  seen)" :VALUES ("SIMPLE-CONDITION"))))
+  (:symbol "MAKE-CONDITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(type-of (make-condition 'simple-error :format-control \"x\"))" :VALUES ("SIMPLE-ERROR"))))
+  (:symbol "MAKE-CONDITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(princ-to-string (make-condition 'simple-error
+                                 :format-control \"n=~D\"
+                                 :format-arguments '(5)))" :VALUES ("\"n=5\""))))
+  (:symbol "SIMPLE-CONDITION-FORMAT-CONTROL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (error \"n=~D\" 5)
+  (simple-condition (condition)
+    (simple-condition-format-control condition)))" :VALUES ("\"n=~D\""))))
+  (:symbol "SIMPLE-CONDITION-FORMAT-ARGUMENTS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (error \"n=~D m=~D\" 5 6)
+  (simple-condition (condition)
+    (simple-condition-format-arguments condition)))" :VALUES ("(5 6)"))))
+  (:symbol "TYPE-ERROR-DATUM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (car 5)
+  (type-error (condition) (type-error-datum condition)))" :VALUES ("5"))))
+  (:symbol "TYPE-ERROR-DATUM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (+ 1 \"x\")
+  (type-error (condition) (type-error-datum condition)))" :VALUES ("\"x\""))))
+  (:symbol "TYPE-ERROR-EXPECTED-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (car 5)
+  (type-error (condition) (type-error-expected-type condition)))" :VALUES ("LIST"))))
+  (:symbol "TYPE-ERROR-EXPECTED-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (length 5)
+  (type-error (condition) (type-error-expected-type condition)))" :VALUES ("SEQUENCE"))))
+  (:symbol "PACKAGE-ERROR-PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (find-symbol \"X\" \"NO-SUCH-PACKAGE-FOR-DEMO\")
+  (package-error (condition)
+    (package-error-package condition)))" :VALUES ("\"NO-SUCH-PACKAGE-FOR-DEMO\""))))
+  (:symbol "SUBTYPEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (subtypep 'integer 'number))" :VALUES ("(T T)"))))
+  (:symbol "SUBTYPEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list (subtypep 'string 'number))" :VALUES ("(NIL T)"))))
+  (:symbol "SUBTYPEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'fixnum 'integer)" :VALUES ("T" "T"))))
+  (:symbol "SUBTYPEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep '(integer 1 5) '(integer 0 10))" :VALUES ("T" "T"))))
+  (:symbol "SCHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(schar \"abc\" 1)" :VALUES ("#\\b"))))
+  (:symbol "SCHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((s (copy-seq \"abc\")))
+  (setf (schar s 0) #\\z)
+  s)" :VALUES ("\"zbc\""))))
+  (:symbol "MACROEXPAND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(macroexpand '(when a b))" :VALUES ("(IF A B)" "T"))
+    (:FORM "(defmacro my-unless (test &body body)
+  `(if ,test nil (progn ,@body)))" :SILENT T)
+    (:FORM "(defmacro my-twice-unless (test &body body)
+  `(my-unless ,test ,@body ,@body))" :SILENT T)
+    (:FORM "(macroexpand-1 '(my-twice-unless a b))" :VALUES ("(MY-UNLESS A B B)" "T"))
+    (:FORM "(macroexpand '(my-twice-unless a b))" :VALUES ("(IF A NIL (PROGN B B))" "T"))
+    (:FORM "(macroexpand '(+ 1 2))" :VALUES ("(+ 1 2)" "NIL"))))
+  (:symbol "SLOT-BOUNDP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass box () ((content :initarg :content)))" :SILENT T)
+    (:FORM "(slot-boundp (make-instance 'box :content 1) 'content)" :VALUES ("T"))
+    (:FORM "(slot-boundp (make-instance 'box) 'content)" :VALUES ("NIL"))))
+  (:symbol "SLOT-EXISTS-P" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass thing () ((name :initarg :name)))" :SILENT T)
+    (:FORM "(slot-exists-p (make-instance 'thing) 'name)" :VALUES ("T"))
+    (:FORM "(slot-exists-p (make-instance 'thing) 'colour)" :VALUES ("NIL"))))
+  (:symbol "SLOT-MAKUNBOUND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass cell () ((value :initarg :value)))" :SILENT T)
+    (:FORM "(let ((c (make-instance 'cell :value 1)))
+  (slot-makunbound c 'value)
+  (slot-boundp c 'value))" :VALUES ("NIL"))))
+  (:symbol "UNBOUND-SLOT-INSTANCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass empty-box () ((item)))" :SILENT T)
+    (:FORM "(let ((box (make-instance 'empty-box)))
+  (handler-case (slot-value box 'item)
+    (unbound-slot (condition)
+      (eq box (unbound-slot-instance condition)))))" :VALUES ("T"))))
+  (:symbol "INVOKE-DEBUGGER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(catch 'done
+  (let ((sb-ext:*invoke-debugger-hook* (lambda (condition hook)
+                                         (declare (ignore hook))
+                                         (throw 'done (type-of condition)))))
+    (invoke-debugger (make-condition 'simple-error :format-control \"stop\"))))" :VALUES ("SIMPLE-ERROR"))))
+  (:symbol "INVOKE-DEBUGGER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(catch 'done
+  (let ((sb-ext:*invoke-debugger-hook* (lambda (condition hook)
+                                         (declare (ignore hook))
+                                         (throw 'done (princ-to-string condition)))))
+    (invoke-debugger (make-condition 'simple-error :format-control \"stop ~D\"
+                                                  :format-arguments '(7)))))" :VALUES ("\"stop 7\""))))
+  (:symbol "INVALID-METHOD-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(define-method-combination plain-only ()
+  ((primary ()) (others *))
+  (when others
+    (invalid-method-error (first others) \"Qualified methods are not allowed\"))
+  `(call-method ,(first primary)))" :SILENT T)
+    (:FORM "(defgeneric plain (x)
+  (:method-combination plain-only))" :SILENT T)
+    (:FORM "(defmethod plain ((x integer))
+  :integer)" :SILENT T)
+    (:FORM "(plain 1)" :VALUES (":INTEGER"))
+    (:FORM "(defmethod plain :before ((x integer))
+  :ignored)" :SILENT T)
+    (:FORM "(handler-case (plain 1)
+  (error () :invalid-method))" :VALUES (":INVALID-METHOD"))))
+  (:symbol "METHOD-COMBINATION-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(define-method-combination needs-two ()
+  ((methods ()))
+  (if (< (length methods) 2)
+      (method-combination-error \"Need at least two methods\")
+      `(call-method ,(first methods))))" :SILENT T)
+    (:FORM "(defgeneric two-needed (x) (:method-combination needs-two))" :SILENT T)
+    (:FORM "(defmethod two-needed ((x integer)) :integer)" :SILENT T)
+    (:FORM "(handler-case (two-needed 1)
+  (error () :combination-error))" :VALUES (":COMBINATION-ERROR"))))
+  (:symbol "MAKE-LOAD-FORM-SAVING-SLOTS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defstruct saved-point x y)" :SILENT T)
+    (:FORM "(multiple-value-bind (creation initialization)
+    (make-load-form-saving-slots (make-saved-point :x 1 :y 2))
+  (list (consp creation) (consp initialization)))" :VALUES ("(T T)"))))
+  (:symbol "CCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((x 2))
+  (ccase x (1 :one) (2 :two)))" :VALUES (":TWO"))))
+  (:symbol "CCASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((x 9))
+  (handler-case (ccase x (1 :one) (2 :two))
+    (type-error () :no-match)))" :VALUES (":NO-MATCH"))))
+  (:symbol "CTYPECASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((x 5))
+  (ctypecase x (string :string) (integer :integer)))" :VALUES (":INTEGER"))))
+  (:symbol "CTYPECASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((x 1.5))
+  (handler-case (ctypecase x (string :string) (integer :integer))
+    (type-error () :no-match)))" :VALUES (":NO-MATCH"))))
+  (:symbol "ECASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ecase 2 (1 :one) (2 :two))" :VALUES (":TWO"))))
+  (:symbol "ECASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(ecase :b ((:a :b) :ab) (:c :c))" :VALUES (":AB"))))
+  (:symbol "ECASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (ecase 9 (1 :one))
+  (error () :no-match))" :VALUES (":NO-MATCH"))))
+  (:symbol "ETYPECASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(etypecase 5 (string :string) (integer :integer))" :VALUES (":INTEGER"))))
+  (:symbol "ETYPECASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (etypecase 1.5 (string :string) (integer :integer))
+  (error () :no-match))" :VALUES (":NO-MATCH"))))
+  (:symbol "TYPECASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typecase 5 (string :string) (integer :integer) (t :other))" :VALUES (":INTEGER"))))
+  (:symbol "TYPECASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typecase 'a (string :string) (integer :integer))" :VALUES ("NIL"))))
+  (:symbol "TYPECASE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(mapcar (lambda (x) (typecase x (integer :int) (string :str) (t :other)))
+        '(1 \"a\" b))" :VALUES ("(:INT :STR :OTHER)"))))
+  (:symbol "DECLAIM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (declaim (special *declaimed*))
+       (boundp '*declaimed*))" :VALUES ("NIL"))))
+  (:symbol "DECLAIM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progn (declaim (optimize (debug 1)))
+       :declaimed)" :VALUES (":DECLAIMED"))))
+  (:symbol "DEFCONSTANT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defconstant +demo-limit+ 42)" :VALUES ("+DEMO-LIMIT+"))
+    (:FORM "(* +demo-limit+ 2)" :VALUES ("84"))
+    (:FORM "(defconstant +names+ '(a b c) \"A list constant.\")" :VALUES ("+NAMES+"))))
+  (:symbol "DEFINE-COMPILER-MACRO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defun add (a b)
+  (+ a b))" :SILENT T)
+    (:FORM "(define-compiler-macro add (&whole form a b)
+  (if (and (numberp a) (numberp b))
+      (+ a b)
+      form))" :SILENT T)
+    (:FORM "(add 1 2)" :VALUES ("3"))
+    (:FORM "(let ((x 5))
+  (add x 10))" :VALUES ("15"))
+    (:FORM "(functionp (compiler-macro-function 'add))" :VALUES ("T"))))
+  (:symbol "DEFINE-METHOD-COMBINATION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(define-method-combination my-and :operator and :identity-with-one-argument t)" :SILENT T)
+    (:FORM "(defgeneric acceptable-p (x)
+  (:method-combination my-and))" :SILENT T)
+    (:FORM "(defmethod acceptable-p my-and ((x integer)) (> x 0))" :SILENT T)
+    (:FORM "(defmethod acceptable-p my-and ((x number)) (< x 100))" :SILENT T)
+    (:FORM "(acceptable-p 5)" :VALUES ("T"))
+    (:FORM "(acceptable-p 500)" :VALUES ("NIL"))))
+  (:symbol "DEFINE-MODIFY-MACRO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(define-modify-macro append-to (&rest more) append)" :SILENT T)
+    (:FORM "(let ((items (list 1)))
+  (append-to items '(2) '(3))
+  items)" :VALUES ("(1 2 3)"))
+    (:FORM "(define-modify-macro doublef () (lambda (n) (* 2 n)))" :SILENT T)
+    (:FORM "(let ((n 4))
+  (doublef n)
+  n)" :VALUES ("8"))))
+  (:symbol "DEFINE-SETF-EXPANDER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(define-setf-expander head (list)
+  (let ((store (gensym)))
+    (values '() '() (list store)
+            `(progn (rplaca ,list ,store) ,store)
+            `(car ,list))))" :SILENT T)
+    (:FORM "(let ((cells (list 1 2 3)))
+  (setf (head cells) :new)
+  cells)" :VALUES ("(:NEW 2 3)"))))
+  (:symbol "DEFSETF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defun second-of (list) (second list))" :SILENT T)
+    (:FORM "(defsetf second-of (list) (new-value)
+  `(progn (setf (second ,list) ,new-value) ,new-value))" :SILENT T)
+    (:FORM "(let ((items (list 1 2 3)))
+  (setf (second-of items) :two)
+  items)" :VALUES ("(1 :TWO 3)"))))
+  (:symbol "DEFINE-SYMBOL-MACRO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(define-symbol-macro current-year 2025)" :VALUES ("CURRENT-YEAR"))
+    (:FORM "(+ current-year 1)" :VALUES ("2026"))
+    (:FORM "(define-symbol-macro origin (list 0 0))" :VALUES ("ORIGIN"))
+    (:FORM "origin" :VALUES ("(0 0)"))))
+  (:symbol "DEFTYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(deftype small-integer () '(integer 0 9))" :VALUES ("SMALL-INTEGER"))
+    (:FORM "(typep 5 'small-integer)" :VALUES ("T"))
+    (:FORM "(typep 50 'small-integer)" :VALUES ("NIL"))
+    (:FORM "(deftype pair-of (type) `(cons ,type ,type))" :VALUES ("PAIR-OF"))
+    (:FORM "(typep '(1 . 2) '(pair-of integer))" :VALUES ("T"))
+    (:FORM "(typep '(1 . a) '(pair-of integer))" :VALUES ("NIL"))))
+  (:symbol "DO*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(do* ((i 0 (1+ i))
+      (square (* i i) (* i i))
+      (acc '() (cons square acc)))
+     ((= i 4) (nreverse acc)))" :VALUES ("(1 4 9 16)"))))
+  (:symbol "DO*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(do* ((a 1 (* a 2))
+      (b a a))
+     ((> b 10) b))" :VALUES ("16"))))
+  (:symbol "LOOP-FINISH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(loop for x in '(1 2 3 4)
+      when (= x 3) do (loop-finish)
+      collect x)" :VALUES ("(1 2)"))))
+  (:symbol "LOOP-FINISH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(loop for i from 1
+      collect i
+      when (>= i 3) do (loop-finish))" :VALUES ("(1 2 3)"))))
+  (:symbol "PROG" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(prog ((i 0) (acc nil))
+ top
+   (when (= i 3) (return (reverse acc)))
+   (push i acc)
+   (incf i)
+   (go top))" :VALUES ("(0 1 2)"))))
+  (:symbol "PROG" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(prog (x)
+   (setf x 5)
+   (return (* x 2)))" :VALUES ("10"))))
+  (:symbol "PROG*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(prog* ((a 1) (b (+ a 1)))
+  (return (list a b)))" :VALUES ("(1 2)"))))
+  (:symbol "PROG*" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(prog* ((i 0) (limit (+ i 3)))
+ again
+   (when (= i limit) (return i))
+   (incf i)
+   (go again))" :VALUES ("3"))))
+  (:symbol "PROG1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(prog1 1 2 3)" :VALUES ("1"))))
+  (:symbol "PROG1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((x 5))
+  (list (prog1 x (incf x)) x))" :VALUES ("(5 6)"))))
+  (:symbol "PROG1" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((stack (list 1 2)))
+  (prog1 (first stack) (pop stack)))" :VALUES ("1"))))
+  (:symbol "PROG2" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(prog2 1 2 3)" :VALUES ("2"))))
+  (:symbol "PROG2" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((x 5))
+  (prog2 (incf x) (* x 2) (incf x)))" :VALUES ("12"))))
+  (:symbol "PSETF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a 1) (b 2))
+  (psetf a b b a)
+  (list a b))" :VALUES ("(2 1)"))))
+  (:symbol "PSETF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2 3)))
+  (psetf (first items) (second items)
+         (second items) (first items))
+  items)" :VALUES ("(2 1 3)"))))
+  (:symbol "PSETQ" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a 1) (b 2))
+  (psetq a b b a)
+  (list a b))" :VALUES ("(2 1)"))))
+  (:symbol "PSETQ" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((x 0) (y 10))
+  (psetq x (+ x y) y (- y x))
+  (list x y))" :VALUES ("(10 10)"))))
+  (:symbol "RESTART-BIND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(restart-bind ((my-restart (lambda () :restarted)))
+  (invoke-restart 'my-restart))" :VALUES (":RESTARTED"))))
+  (:symbol "RESTART-BIND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(restart-bind ((double (lambda (n) (* 2 n))))
+  (invoke-restart 'double 21))" :VALUES ("42"))))
+  (:symbol "ROTATEF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a 1) (b 2) (c 3))
+  (rotatef a b c)
+  (list a b c))" :VALUES ("(2 3 1)"))))
+  (:symbol "ROTATEF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2 3)))
+  (rotatef (first items) (third items))
+  items)" :VALUES ("(3 2 1)"))))
+  (:symbol "SHIFTF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((a 1) (b 2) (c 3))
+  (list (shiftf a b c 4) a b c))" :VALUES ("(1 2 3 4)"))))
+  (:symbol "SHIFTF" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((queue (list 1 2 3)))
+  (shiftf (first queue) (second queue) :end)
+  queue)" :VALUES ("(2 :END 3)"))))
+  (:symbol "STEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(consp (macroexpand-1 '(step (+ 1 2))))" :VALUES ("T"))))
+  (:symbol "STEP" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(functionp (macro-function 'step))" :VALUES ("T"))))
+  (:symbol "TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*trace-output* (make-broadcast-stream)))
+  (time (+ 1 2)))" :VALUES ("3"))))
+  (:symbol "TIME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*trace-output* (make-broadcast-stream)))
+  (multiple-value-list (time (floor 17 5))))" :VALUES ("(3 2)"))))
+  (:symbol "TRACE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defun square (n)
+  (* n n))" :SILENT T)
+    (:FORM "(trace square)" :VALUES ("(SQUARE)"))
+    (:FORM "(square 3)" :VALUES ("9") :OUTPUT "  0: (EXAMPLE::SQUARE 3)
+  0: SQUARE returned 9
+")
+    (:FORM "(untrace square)" :VALUES ("T"))))
+  (:symbol "UNTRACE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defun cube (n)
+  (* n n n))" :SILENT T)
+    (:FORM "(trace cube)" :SILENT T)
+    (:FORM "(untrace cube)" :VALUES ("T"))
+    (:FORM "(cube 2)" :VALUES ("8"))))
+  (:symbol "WITH-ACCESSORS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass account ()
+  ((balance :initarg :balance :accessor balance)))" :SILENT T)
+    (:FORM "(let ((a (make-instance 'account :balance 100)))
+  (with-accessors ((b balance)) a
+    (incf b 50)
+    b))" :VALUES ("150"))))
+  (:symbol "WITH-SLOTS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass person ()
+  ((name :initarg :name)
+   (age :initarg :age)))" :SILENT T)
+    (:FORM "(let ((p (make-instance 'person :name \"Ada\" :age 36)))
+  (with-slots (name age) p
+    (setf age 37)
+    (list name age)))" :VALUES ("(\"Ada\" 37)"))
+    (:FORM "(let ((p (make-instance 'person :name \"Grace\" :age 45)))
+  (with-slots ((years age)) p
+    years))" :VALUES ("45"))))
+  (:symbol "WITH-COMPILATION-UNIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-compilation-unit ()
+  (+ 1 2))" :VALUES ("3"))))
+  (:symbol "WITH-COMPILATION-UNIT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-compilation-unit (:override t)
+  :ok)" :VALUES (":OK"))))
+  (:symbol "WITH-CONDITION-RESTARTS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(restart-case
+    (let ((condition (make-condition 'simple-error :format-control \"x\")))
+      (with-condition-restarts condition (list (find-restart 'fix))
+        (and (find-restart 'fix condition) t)))
+  (fix () nil))" :VALUES ("T"))))
+  (:symbol "WITH-SIMPLE-RESTART" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-list
+ (with-simple-restart (skip \"Skip this step\")
+   (invoke-restart 'skip)
+   :not-reached))" :VALUES ("(NIL T)"))))
+  (:symbol "WITH-SIMPLE-RESTART" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(with-simple-restart (skip \"Skip this step\")
+  :completed)" :VALUES (":COMPLETED"))))
+  (:symbol "WITH-STANDARD-IO-SYNTAX" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-base* 16))
+  (with-standard-io-syntax (prin1-to-string 255)))" :VALUES ("\"255\""))))
+  (:symbol "WITH-STANDARD-IO-SYNTAX" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*read-base* 16))
+  (with-standard-io-syntax (values (read-from-string \"10\"))))" :VALUES ("10"))))
+  (:symbol "WITH-STANDARD-IO-SYNTAX" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((*print-case* :downcase))
+  (with-standard-io-syntax (prin1-to-string 'sym)))" :VALUES ("\"EXAMPLE::SYM\""))))
+  (:symbol "CATCH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(catch 'tag (throw 'tag :thrown) :not-reached)" :VALUES (":THROWN"))))
+  (:symbol "CATCH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(catch 'tag :normal-value)" :VALUES (":NORMAL-VALUE"))))
+  (:symbol "CATCH" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(catch 'outer (catch 'inner (throw 'outer :to-outer)) :not-reached)" :VALUES (":TO-OUTER"))))
+  (:symbol "THROW" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(catch 'done (dolist (x '(1 2 3)) (when (= x 2) (throw 'done x))))" :VALUES ("2"))
+    (:FORM "(defun find-first-negative (numbers)
+  (catch 'found
+    (dolist (n numbers)
+      (when (minusp n) (throw 'found n)))
+    nil))" :SILENT T)
+    (:FORM "(find-first-negative '(3 -1 2))" :VALUES ("-1"))
+    (:FORM "(find-first-negative '(1 2 3))" :VALUES ("NIL"))))
+  (:symbol "EVAL-WHEN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eval-when (:execute) :executed)" :VALUES (":EXECUTED"))))
+  (:symbol "EVAL-WHEN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eval-when (:compile-toplevel) :compile-only)" :VALUES ("NIL"))))
+  (:symbol "EVAL-WHEN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(eval-when (:compile-toplevel :load-toplevel :execute) :always)" :VALUES (":ALWAYS"))))
+  (:symbol "GO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((n 0))
+  (tagbody
+   again
+     (incf n)
+     (when (< n 5) (go again)))
+  n)" :VALUES ("5"))))
+  (:symbol "TAGBODY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((trace '()))
+  (tagbody
+     (push :start trace)
+     (go skip)
+     (push :skipped trace)
+   skip
+     (push :end trace))
+  (nreverse trace))" :VALUES ("(:START :END)"))))
+  (:symbol "TAGBODY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(tagbody)" :VALUES ("NIL"))))
+  (:symbol "LOAD-TIME-VALUE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(load-time-value (+ 1 2))" :VALUES ("3"))))
+  (:symbol "LOAD-TIME-VALUE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((f (lambda () (load-time-value (list 1 2)))))
+  (eq (funcall f) (funcall f)))" :VALUES ("T"))))
+  (:symbol "LOCALLY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(locally (+ 1 2))" :VALUES ("3"))))
+  (:symbol "LOCALLY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((x 1))
+  (locally (declare (type integer x))
+    (* x 10)))" :VALUES ("10"))))
+  (:symbol "MACROLET" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(macrolet ((twice (form) `(progn ,form ,form)))
+  (let ((n 0))
+    (twice (incf n))
+    n))" :VALUES ("2"))))
+  (:symbol "MACROLET" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(macrolet ((square (x) `(* ,x ,x)))
+  (list (square 3) (square 4)))" :VALUES ("(9 16)"))))
+  (:symbol "PROGV" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progv '(a b) '(1 2)
+  (list (symbol-value 'a) (symbol-value 'b)))" :VALUES ("(1 2)"))))
+  (:symbol "PROGV" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(progv '(*dynamic*) '(42)
+  (symbol-value '*dynamic*))" :VALUES ("42"))))
+  (:symbol "SYMBOL-MACROLET" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2)))
+  (symbol-macrolet ((head (car items)))
+    (setf head 99)
+    items))" :VALUES ("(99 2)"))))
+  (:symbol "SYMBOL-MACROLET" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(symbol-macrolet ((answer 42))
+  (+ answer 1))" :VALUES ("43"))))
+  (:symbol "THE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(the integer (+ 1 2))" :VALUES ("3"))))
+  (:symbol "THE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(the (or null string) nil)" :VALUES ("NIL"))))
+  (:symbol "THE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(the fixnum 5)" :VALUES ("5"))))
+  (:symbol "ADD-METHOD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defgeneric hello (x))" :SILENT T)
+    (:FORM "(defmethod hello ((x integer)) :integer)" :SILENT T)
+    (:FORM "(let ((method (find-method #'hello '() (list (find-class 'integer)))))
+  (remove-method #'hello method)
+  (add-method #'hello method)
+  (hello 1))" :VALUES (":INTEGER"))))
+  (:symbol "REMOVE-METHOD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defgeneric hello (x))" :SILENT T)
+    (:FORM "(defmethod hello ((x integer)) :integer)" :SILENT T)
+    (:FORM "(let ((method (find-method #'hello '() (list (find-class 'integer)))))
+  (remove-method #'hello method)
+  (handler-case (hello 1)
+    (error () :method-removed)))" :VALUES (":METHOD-REMOVED"))))
+  (:symbol "FIND-METHOD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defgeneric hello (x))" :SILENT T)
+    (:FORM "(defmethod hello ((x integer)) :integer)" :SILENT T)
+    (:FORM "(and (find-method #'hello '() (list (find-class 'integer))) t)" :VALUES ("T"))
+    (:FORM "(find-method #'hello '() (list (find-class 'string)) nil)" :VALUES ("NIL"))))
+  (:symbol "ALLOCATE-INSTANCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass box ()
+  ((content :initform :default)))" :SILENT T)
+    (:FORM "(slot-boundp (allocate-instance (find-class 'box)) 'content)" :VALUES ("NIL"))
+    (:FORM "(slot-boundp (make-instance 'box) 'content)" :VALUES ("T"))))
+  (:symbol "CHANGE-CLASS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass cat () ((name :initarg :name :accessor name)))" :SILENT T)
+    (:FORM "(defclass lion (cat) ())" :SILENT T)
+    (:FORM "(let ((animal (make-instance 'cat :name \"Leo\")))
+  (change-class animal 'lion)
+  (list (class-name (class-of animal)) (name animal)))" :VALUES ("(LION \"Leo\")"))))
+  (:symbol "CLASS-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(class-name (find-class 'integer))" :VALUES ("INTEGER"))
+    (:FORM "(class-name (class-of \"text\"))" :VALUES ("SB-KERNEL:SIMPLE-CHARACTER-STRING"))
+    (:FORM "(defclass widget () ())" :SILENT T)
+    (:FORM "(class-name (class-of (make-instance 'widget)))" :VALUES ("WIDGET"))))
+  (:symbol "COMPUTE-APPLICABLE-METHODS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defgeneric size (x))" :SILENT T)
+    (:FORM "(defmethod size ((x integer)) 1)" :SILENT T)
+    (:FORM "(defmethod size ((x number)) 2)" :SILENT T)
+    (:FORM "(length (compute-applicable-methods #'size (list 1)))" :VALUES ("2"))
+    (:FORM "(length (compute-applicable-methods #'size (list 1.5)))" :VALUES ("1"))
+    (:FORM "(length (compute-applicable-methods #'size (list \"text\")))" :VALUES ("0"))))
+  (:symbol "DESCRIBE-OBJECT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass gadget () ((name :initarg :name)))" :SILENT T)
+    (:FORM "(defmethod describe-object ((object gadget) stream)
+  (format stream \"A gadget named ~A\" (slot-value object 'name)))" :SILENT T)
+    (:FORM "(with-output-to-string (stream)
+  (describe (make-instance 'gadget :name \"gizmo\") stream))" :VALUES ("\"A gadget named gizmo\""))))
+  (:symbol "FUNCTION-KEYWORDS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defgeneric configure (x &key))" :SILENT T)
+    (:FORM "(defmethod configure ((x integer) &key verbose (level 1))
+  (list x verbose level))" :SILENT T)
+    (:FORM "(multiple-value-list
+ (function-keywords (find-method #'configure '() (list (find-class 'integer)))))" :VALUES ("((:VERBOSE :LEVEL) NIL)"))))
+  (:symbol "INITIALIZE-INSTANCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass counter ()
+  ((count :initform 0 :accessor counter-count)
+   (log :initform nil :accessor counter-log)))" :SILENT T)
+    (:FORM "(defmethod initialize-instance :after ((counter counter) &key)
+  (push :created (counter-log counter)))" :SILENT T)
+    (:FORM "(counter-log (make-instance 'counter))" :VALUES ("(:CREATED)"))
+    (:FORM "(counter-count (make-instance 'counter))" :VALUES ("0"))))
+  (:symbol "REINITIALIZE-INSTANCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass sensor ()
+  ((reading :initarg :reading :accessor reading)))" :SILENT T)
+    (:FORM "(let ((s (make-instance 'sensor :reading 1)))
+  (reinitialize-instance s :reading 99)
+  (reading s))" :VALUES ("99"))))
+  (:symbol "SHARED-INITIALIZE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass tagged ()
+  ((tag :initarg :tag :initform :none :accessor tag)))" :SILENT T)
+    (:FORM "(defmethod shared-initialize :after ((object tagged) slot-names &key)
+  (declare (ignore slot-names))
+  (setf (tag object) (list :seen (tag object))))" :SILENT T)
+    (:FORM "(tag (make-instance 'tagged :tag :a))" :VALUES ("(:SEEN :A)"))
+    (:FORM "(tag (make-instance 'tagged))" :VALUES ("(:SEEN :NONE)"))))
+  (:symbol "MAKE-INSTANCES-OBSOLETE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass thing () ((x :initarg :x)))" :SILENT T)
+    (:FORM "(make-instances-obsolete 'thing)" :VALUES ("THING"))
+    (:FORM "(class-name (make-instances-obsolete (find-class 'thing)))" :VALUES ("THING"))))
+  (:symbol "UPDATE-INSTANCE-FOR-REDEFINED-CLASS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass versioned () ((a :initarg :a :accessor a)))" :SILENT T)
+    (:FORM "(let ((object (make-instance 'versioned :a 1)))
+  (eval '(defclass versioned ()
+          ((a :initarg :a :accessor a)
+           (b :initform :added :accessor b))))
+  (list (a object) (b object)))" :VALUES ("(1 :ADDED)"))))
+  (:symbol "UPDATE-INSTANCE-FOR-DIFFERENT-CLASS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass worker () ((name :initarg :name :accessor name)))" :SILENT T)
+    (:FORM "(defclass manager (worker) ((reports :initform 0 :accessor reports)))" :SILENT T)
+    (:FORM "(defmethod update-instance-for-different-class :after ((old worker) (new manager) &key)
+  (setf (reports new) 10))" :SILENT T)
+    (:FORM "(let ((person (make-instance 'worker :name \"Ada\")))
+  (change-class person 'manager)
+  (list (name person) (reports person)))" :VALUES ("(\"Ada\" 10)"))))
+  (:symbol "METHOD-QUALIFIERS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defgeneric audit (x))" :SILENT T)
+    (:FORM "(defmethod audit :before ((x integer)) nil)" :SILENT T)
+    (:FORM "(defmethod audit ((x integer)) :primary)" :SILENT T)
+    (:FORM "(method-qualifiers (find-method #'audit '(:before) (list (find-class 'integer))))" :VALUES ("(:BEFORE)"))
+    (:FORM "(method-qualifiers (find-method #'audit '() (list (find-class 'integer))))" :VALUES ("NIL"))))
+  (:symbol "MAKE-LOAD-FORM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defstruct (marker) (name nil))" :SILENT T)
+    (:FORM "(defmethod make-load-form ((object marker) &optional environment)
+  (make-load-form-saving-slots object :environment environment))" :SILENT T)
+    (:FORM "(multiple-value-bind (creation initialization)
+    (make-load-form (make-marker :name \"a\"))
+  (list (consp creation) (consp initialization)))" :VALUES ("(T T)"))))
+  (:symbol "NO-APPLICABLE-METHOD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defgeneric only-integers (x))" :SILENT T)
+    (:FORM "(defmethod only-integers ((x integer)) x)" :SILENT T)
+    (:FORM "(handler-case (only-integers \"text\")
+  (error () :no-applicable-method))" :VALUES (":NO-APPLICABLE-METHOD"))
+    (:FORM "(only-integers 5)" :VALUES ("5"))))
+  (:symbol "NO-NEXT-METHOD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defgeneric climb (x))" :SILENT T)
+    (:FORM "(defmethod climb ((x integer))
+  (call-next-method))" :SILENT T)
+    (:FORM "(handler-case (climb 1)
+  (error () :no-next-method))" :VALUES (":NO-NEXT-METHOD"))))
+  (:symbol "SLOT-MISSING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass sparse () ((known :initform 1)))" :SILENT T)
+    (:FORM "(handler-case (slot-value (make-instance 'sparse) 'unknown)
+  (error () :slot-missing))" :VALUES (":SLOT-MISSING"))
+    (:FORM "(defmethod slot-missing ((class standard-class) (object sparse) slot-name operation &optional new-value)
+  (declare (ignore new-value))
+  (list :missing slot-name operation))" :SILENT T)
+    (:FORM "(slot-value (make-instance 'sparse) 'unknown)" :VALUES ("(:MISSING UNKNOWN SLOT-VALUE)"))))
+  (:symbol "SLOT-UNBOUND" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass lazy () ((value)))" :SILENT T)
+    (:FORM "(defmethod slot-unbound (class (object lazy) (slot-name (eql 'value)))
+  (setf (slot-value object 'value) :computed))" :SILENT T)
+    (:FORM "(let ((object (make-instance 'lazy)))
+  (list (slot-value object 'value)
+        (slot-boundp object 'value)))" :VALUES ("(:COMPUTED T)"))))
+  (:symbol "ARITHMETIC-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (/ 1 0)
+  (arithmetic-error () :arithmetic))" :VALUES (":ARITHMETIC"))))
+  (:symbol "ARITHMETIC-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'division-by-zero 'arithmetic-error)" :VALUES ("T" "T"))))
+  (:symbol "ARITHMETIC-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'arithmetic-error 'error)" :VALUES ("T" "T"))))
+  (:symbol "CELL-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (symbol-value 'no-such-variable-x)
+  (cell-error (condition) (cell-error-name condition)))" :VALUES ("NO-SUCH-VARIABLE-X"))))
+  (:symbol "CELL-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'unbound-variable 'cell-error)" :VALUES ("T" "T"))))
+  (:symbol "CONDITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-condition 'simple-condition :format-control \"x\") 'condition)" :VALUES ("T"))))
+  (:symbol "CONDITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'error 'condition)" :VALUES ("T" "T"))))
+  (:symbol "CONDITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'warning 'condition)" :VALUES ("T" "T"))))
+  (:symbol "CONTROL-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (throw 'no-such-catch-tag 1)
+  (control-error () :no-catch))" :VALUES (":NO-CATCH"))))
+  (:symbol "CONTROL-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'control-error 'error)" :VALUES ("T" "T"))))
+  (:symbol "DIVISION-BY-ZERO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (/ 5 0)
+  (division-by-zero () :division))" :VALUES (":DIVISION"))))
+  (:symbol "DIVISION-BY-ZERO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (floor 5 0)
+  (division-by-zero () :division))" :VALUES (":DIVISION"))))
+  (:symbol "DIVISION-BY-ZERO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (mod 5 0)
+  (division-by-zero () :division))" :VALUES (":DIVISION"))))
+  (:symbol "END-OF-FILE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (read-char (make-string-input-stream \"\"))
+  (end-of-file () :eof))" :VALUES (":EOF"))))
+  (:symbol "END-OF-FILE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (read (make-string-input-stream \"(1 2\"))
+  (end-of-file () :incomplete))" :VALUES (":INCOMPLETE"))))
+  (:symbol "END-OF-FILE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'end-of-file 'stream-error)" :VALUES ("T" "T"))))
+  (:symbol "FILE-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (open \"/tmp/cldocs-no-such-directory-xyz/file.txt\")
+  (file-error () :file-problem))" :VALUES (":FILE-PROBLEM"))))
+  (:symbol "FILE-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'file-error 'error)" :VALUES ("T" "T"))))
+  (:symbol "FLOATING-POINT-INEXACT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'floating-point-inexact 'arithmetic-error)" :VALUES ("T" "T"))))
+  (:symbol "FLOATING-POINT-INEXACT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(/ 1.0 3)" :VALUES ("0.33333334"))))
+  (:symbol "FLOATING-POINT-INVALID-OPERATION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'floating-point-invalid-operation 'arithmetic-error)" :VALUES ("T" "T"))))
+  (:symbol "FLOATING-POINT-INVALID-OPERATION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'floating-point-invalid-operation 'error)" :VALUES ("T" "T"))))
+  (:symbol "FLOATING-POINT-OVERFLOW" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (* most-positive-double-float 10d0)
+  (floating-point-overflow () :overflow))" :VALUES (":OVERFLOW"))))
+  (:symbol "FLOATING-POINT-OVERFLOW" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'floating-point-overflow 'arithmetic-error)" :VALUES ("T" "T"))))
+  (:symbol "FLOATING-POINT-UNDERFLOW" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'floating-point-underflow 'arithmetic-error)" :VALUES ("T" "T"))))
+  (:symbol "FLOATING-POINT-UNDERFLOW" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep least-positive-double-float 'double-float)" :VALUES ("T"))))
+  (:symbol "PACKAGE-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (find-symbol \"X\" \"NO-SUCH-PACKAGE-ANYWHERE\")
+  (package-error () :bad-package))" :VALUES (":BAD-PACKAGE"))))
+  (:symbol "PACKAGE-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'package-error 'error)" :VALUES ("T" "T"))))
+  (:symbol "PARSE-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (parse-integer \"not a number\")
+  (parse-error () :not-a-number))" :VALUES (":NOT-A-NUMBER"))))
+  (:symbol "PARSE-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'parse-error 'error)" :VALUES ("T" "T"))))
+  (:symbol "PRINT-NOT-READABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (let ((*print-readably* t))
+                (prin1-to-string (make-hash-table)))
+  (print-not-readable () :unreadable))" :VALUES (":UNREADABLE"))))
+  (:symbol "PRINT-NOT-READABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'print-not-readable 'error)" :VALUES ("T" "T"))))
+  (:symbol "PROGRAM-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (funcall (lambda (a) a))
+  (program-error () :wrong-arguments))" :VALUES (":WRONG-ARGUMENTS"))))
+  (:symbol "PROGRAM-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (funcall (lambda (a) a) 1 2)
+  (program-error () :too-many))" :VALUES (":TOO-MANY"))))
+  (:symbol "READER-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (read-from-string \")\")
+  (reader-error () :bad-syntax))" :VALUES (":BAD-SYNTAX"))))
+  (:symbol "READER-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (read-from-string \"#<\")
+  (reader-error () :unreadable-syntax))" :VALUES (":UNREADABLE-SYNTAX"))))
+  (:symbol "READER-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'reader-error 'parse-error)" :VALUES ("T" "T"))))
+  (:symbol "SERIOUS-CONDITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'error 'serious-condition)" :VALUES ("T" "T"))))
+  (:symbol "SERIOUS-CONDITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'warning 'serious-condition)" :VALUES ("NIL" "T"))))
+  (:symbol "SERIOUS-CONDITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (error \"bad\")
+  (serious-condition () :serious))" :VALUES (":SERIOUS"))))
+  (:symbol "SIMPLE-CONDITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-condition 'simple-condition :format-control \"x\") 'simple-condition)" :VALUES ("T"))))
+  (:symbol "SIMPLE-CONDITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (error \"x\")
+  (simple-condition (condition) (simple-condition-format-control condition)))" :VALUES ("\"x\""))))
+  (:symbol "SIMPLE-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (error \"failed: ~D\" 42)
+  (simple-error (condition) (princ-to-string condition)))" :VALUES ("\"failed: 42\""))))
+  (:symbol "SIMPLE-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-condition 'simple-error :format-control \"x\") 'error)" :VALUES ("T"))))
+  (:symbol "SIMPLE-TYPE-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'simple-type-error 'type-error)" :VALUES ("T" "T"))))
+  (:symbol "SIMPLE-TYPE-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-condition 'simple-type-error
+                       :datum 1
+                       :expected-type 'string
+                       :format-control \"bad\")
+       'type-error)" :VALUES ("T"))))
+  (:symbol "SIMPLE-WARNING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (warn \"careful ~D\" 1)
+  (simple-warning (condition) (princ-to-string condition)))" :VALUES ("\"careful 1\""))))
+  (:symbol "SIMPLE-WARNING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'simple-warning 'warning)" :VALUES ("T" "T"))))
+  (:symbol "STORAGE-CONDITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'storage-condition 'serious-condition)" :VALUES ("T" "T"))))
+  (:symbol "STORAGE-CONDITION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'storage-condition 'error)" :VALUES ("NIL" "T"))))
+  (:symbol "STREAM-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (read-char (make-string-input-stream \"\"))
+  (stream-error () :stream-problem))" :VALUES (":STREAM-PROBLEM"))))
+  (:symbol "STREAM-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'stream-error 'error)" :VALUES ("T" "T"))))
+  (:symbol "STYLE-WARNING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (warn (make-condition 'style-warning))
+  (style-warning () :style))" :VALUES (":STYLE"))))
+  (:symbol "STYLE-WARNING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'style-warning 'warning)" :VALUES ("T" "T"))))
+  (:symbol "TYPE-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (+ 1 \"x\")
+  (type-error () :type-problem))" :VALUES (":TYPE-PROBLEM"))))
+  (:symbol "TYPE-ERROR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (car 5)
+  (type-error (condition) (list (type-error-datum condition)
+                                (type-error-expected-type condition))))" :VALUES ("(5 LIST)"))))
+  (:symbol "UNBOUND-SLOT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass cell-holder () ((value)))" :SILENT T)
+    (:FORM "(handler-case (slot-value (make-instance 'cell-holder) 'value)
+  (unbound-slot (condition) (cell-error-name condition)))" :VALUES ("VALUE"))))
+  (:symbol "UNBOUND-VARIABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (symbol-value 'no-such-variable-y)
+  (unbound-variable () :unbound))" :VALUES (":UNBOUND"))))
+  (:symbol "UNBOUND-VARIABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (eval 'no-such-variable-z)
+  (unbound-variable (condition) (cell-error-name condition)))" :VALUES ("NO-SUCH-VARIABLE-Z"))))
+  (:symbol "UNDEFINED-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (funcall 'no-such-function-y)
+  (undefined-function () :undefined))" :VALUES (":UNDEFINED"))))
+  (:symbol "UNDEFINED-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (no-such-function-z 1)
+  (undefined-function (condition) (cell-error-name condition)))" :VALUES ("NO-SUCH-FUNCTION-Z"))))
+  (:symbol "WARNING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-case (warn \"w\")
+  (warning () :warned))" :VALUES (":WARNED"))))
+  (:symbol "WARNING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(handler-bind ((warning #'muffle-warning))
+  (warn \"ignored\")
+  :continued)" :VALUES (":CONTINUED"))))
+  (:symbol "WARNING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'style-warning 'warning)" :VALUES ("T" "T"))))
+  (:symbol "ARRAY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #(1 2) 'array)" :VALUES ("T"))))
+  (:symbol "ARRAY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep \"abc\" 'array)" :VALUES ("T"))))
+  (:symbol "ARRAY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep '(1 2) 'array)" :VALUES ("NIL"))))
+  (:symbol "SIMPLE-ARRAY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-array 3) 'simple-array)" :VALUES ("T"))))
+  (:symbol "SIMPLE-ARRAY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-array 3 :adjustable t) 'simple-array)" :VALUES ("NIL"))))
+  (:symbol "SIMPLE-ARRAY" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-array '(2 2)) '(simple-array t (2 2)))" :VALUES ("T"))))
+  (:symbol "SIMPLE-VECTOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #(1 2 3) 'simple-vector)" :VALUES ("T"))))
+  (:symbol "SIMPLE-VECTOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep \"abc\" 'simple-vector)" :VALUES ("NIL"))))
+  (:symbol "BIT-VECTOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #*101 'bit-vector)" :VALUES ("T"))))
+  (:symbol "BIT-VECTOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #(1 0 1) 'bit-vector)" :VALUES ("NIL"))))
+  (:symbol "SIMPLE-BIT-VECTOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #*101 'simple-bit-vector)" :VALUES ("T"))))
+  (:symbol "SIMPLE-BIT-VECTOR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-array 3 :element-type 'bit :adjustable t) 'simple-bit-vector)" :VALUES ("NIL"))))
+  (:symbol "SIMPLE-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep \"abc\" 'simple-string)" :VALUES ("T"))))
+  (:symbol "SIMPLE-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-array 3 :element-type 'character :adjustable t) 'simple-string)" :VALUES ("NIL"))))
+  (:symbol "BASE-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (coerce \"abc\" 'base-string) 'base-string)" :VALUES ("T"))))
+  (:symbol "BASE-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep \"abc\" 'string)" :VALUES ("T"))))
+  (:symbol "SIMPLE-BASE-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (coerce \"abc\" 'simple-base-string) 'simple-base-string)" :VALUES ("T"))))
+  (:symbol "SIMPLE-BASE-STRING" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-string 2) 'simple-base-string)" :VALUES ("NIL"))))
+  (:symbol "SEQUENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep '(1 2) 'sequence)" :VALUES ("T"))))
+  (:symbol "SEQUENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #(1 2) 'sequence)" :VALUES ("T"))))
+  (:symbol "SEQUENCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 5 'sequence)" :VALUES ("NIL"))))
+  (:symbol "NUMBER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 5 'number)" :VALUES ("T"))))
+  (:symbol "NUMBER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 1/2 'number)" :VALUES ("T"))))
+  (:symbol "NUMBER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep \"5\" 'number)" :VALUES ("NIL"))))
+  (:symbol "REAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 1.5 'real)" :VALUES ("T"))))
+  (:symbol "REAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #c(1 2) 'real)" :VALUES ("NIL"))))
+  (:symbol "REAL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 1/2 'real)" :VALUES ("T"))))
+  (:symbol "INTEGER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 5 'integer)" :VALUES ("T"))))
+  (:symbol "INTEGER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 5.0 'integer)" :VALUES ("NIL"))))
+  (:symbol "INTEGER" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 5 '(integer 1 10))" :VALUES ("T"))))
+  (:symbol "FIXNUM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 42 'fixnum)" :VALUES ("T"))))
+  (:symbol "FIXNUM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (expt 10 30) 'fixnum)" :VALUES ("NIL"))))
+  (:symbol "BIGNUM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (expt 10 30) 'bignum)" :VALUES ("T"))))
+  (:symbol "BIGNUM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 42 'bignum)" :VALUES ("NIL"))))
+  (:symbol "RATIO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 1/3 'ratio)" :VALUES ("T"))))
+  (:symbol "RATIO" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 4/2 'ratio)" :VALUES ("NIL"))))
+  (:symbol "SINGLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 1.5 'single-float)" :VALUES ("T"))))
+  (:symbol "SINGLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 1.5d0 'single-float)" :VALUES ("NIL"))))
+  (:symbol "DOUBLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 1.5d0 'double-float)" :VALUES ("T"))))
+  (:symbol "DOUBLE-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 1.5 'double-float)" :VALUES ("NIL"))))
+  (:symbol "SYMBOL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 'a 'symbol)" :VALUES ("T"))))
+  (:symbol "SYMBOL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep nil 'symbol)" :VALUES ("T"))))
+  (:symbol "SYMBOL" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep \"a\" 'symbol)" :VALUES ("NIL"))))
+  (:symbol "HASH-TABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-hash-table) 'hash-table)" :VALUES ("T"))))
+  (:symbol "HASH-TABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep '((a . 1)) 'hash-table)" :VALUES ("NIL"))))
+  (:symbol "PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *package* 'package)" :VALUES ("T"))))
+  (:symbol "PACKAGE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep \"COMMON-LISP\" 'package)" :VALUES ("NIL"))))
+  (:symbol "RANDOM-STATE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *random-state* 'random-state)" :VALUES ("T"))))
+  (:symbol "RANDOM-STATE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-random-state) 'random-state)" :VALUES ("T"))))
+  (:symbol "READTABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *readtable* 'readtable)" :VALUES ("T"))))
+  (:symbol "READTABLE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (copy-readtable) 'readtable)" :VALUES ("T"))))
+  (:symbol "RESTART" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(restart-case (typep (find-restart 'demo) 'restart)
+  (demo () nil))" :VALUES ("T"))))
+  (:symbol "STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep *standard-output* 'stream)" :VALUES ("T"))))
+  (:symbol "STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-string-input-stream \"x\") 'stream)" :VALUES ("T"))))
+  (:symbol "STRING-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-string-input-stream \"x\") 'string-stream)" :VALUES ("T"))))
+  (:symbol "STRING-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-string-output-stream) 'string-stream)" :VALUES ("T"))))
+  (:symbol "FILE-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-file-stream.txt\"))
+  (with-open-file (stream path :direction :output :if-exists :supersede)
+    (prog1 (typep stream 'file-stream)
+      (write-string \"x\" stream)))
+  (delete-file path)
+  :done)" :VALUES (":DONE"))))
+  (:symbol "BROADCAST-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-broadcast-stream) 'broadcast-stream)" :VALUES ("T"))))
+  (:symbol "CONCATENATED-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-concatenated-stream) 'concatenated-stream)" :VALUES ("T"))))
+  (:symbol "ECHO-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-echo-stream (make-string-input-stream \"\") (make-broadcast-stream)) 'echo-stream)" :VALUES ("T"))))
+  (:symbol "SYNONYM-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-synonym-stream '*standard-output*) 'synonym-stream)" :VALUES ("T"))))
+  (:symbol "TWO-WAY-STREAM" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (make-two-way-stream (make-string-input-stream \"\") (make-broadcast-stream))
+       'two-way-stream)" :VALUES ("T"))))
+  (:symbol "CLASS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (find-class 'integer) 'class)" :VALUES ("T"))))
+  (:symbol "CLASS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (class-of 1) 'class)" :VALUES ("T"))))
+  (:symbol "BUILT-IN-CLASS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (find-class 'integer) 'built-in-class)" :VALUES ("T"))
+    (:FORM "(defclass user-defined () ())" :SILENT T)
+    (:FORM "(typep (find-class 'user-defined) 'built-in-class)" :VALUES ("NIL"))))
+  (:symbol "STANDARD-CLASS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass user-defined () ())" :SILENT T)
+    (:FORM "(typep (find-class 'user-defined) 'standard-class)" :VALUES ("T"))
+    (:FORM "(typep (find-class 'integer) 'standard-class)" :VALUES ("NIL"))))
+  (:symbol "STRUCTURE-CLASS" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defstruct a-record field)" :SILENT T)
+    (:FORM "(typep (find-class 'a-record) 'structure-class)" :VALUES ("T"))
+    (:FORM "(typep (find-class 'integer) 'structure-class)" :VALUES ("NIL"))))
+  (:symbol "STANDARD-OBJECT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defclass user-defined () ())" :SILENT T)
+    (:FORM "(typep (make-instance 'user-defined) 'standard-object)" :VALUES ("T"))
+    (:FORM "(typep 5 'standard-object)" :VALUES ("NIL"))))
+  (:symbol "STRUCTURE-OBJECT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defstruct a-record field)" :SILENT T)
+    (:FORM "(typep (make-a-record) 'structure-object)" :VALUES ("T"))
+    (:FORM "(typep (make-instance 'standard-object) 'structure-object)" :VALUES ("NIL"))))
+  (:symbol "GENERIC-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #'print-object 'generic-function)" :VALUES ("T"))))
+  (:symbol "GENERIC-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #'car 'generic-function)" :VALUES ("NIL"))))
+  (:symbol "STANDARD-GENERIC-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #'print-object 'standard-generic-function)" :VALUES ("T"))))
+  (:symbol "STANDARD-GENERIC-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #'car 'standard-generic-function)" :VALUES ("NIL"))))
+  (:symbol "METHOD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defgeneric show (x))" :SILENT T)
+    (:FORM "(defmethod show ((x integer)) x)" :SILENT T)
+    (:FORM "(typep (find-method #'show '() (list (find-class 'integer))) 'method)" :VALUES ("T"))))
+  (:symbol "STANDARD-METHOD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(defgeneric show (x))" :SILENT T)
+    (:FORM "(defmethod show ((x integer)) x)" :SILENT T)
+    (:FORM "(typep (find-method #'show '() (list (find-class 'integer))) 'standard-method)" :VALUES ("T"))))
+  (:symbol "METHOD-COMBINATION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (sb-mop:generic-function-method-combination #'print-object) 'method-combination)" :VALUES ("T"))))
+  (:symbol "METHOD-COMBINATION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 'standard 'method-combination)" :VALUES ("NIL"))))
+  (:symbol "BASE-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #\\a 'base-char)" :VALUES ("T"))))
+  (:symbol "BASE-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 5 'base-char)" :VALUES ("NIL"))))
+  (:symbol "EXTENDED-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #\\a 'extended-char)" :VALUES ("NIL"))))
+  (:symbol "EXTENDED-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #\\a 'character)" :VALUES ("T"))))
+  (:symbol "STANDARD-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #\\a 'standard-char)" :VALUES ("T"))))
+  (:symbol "STANDARD-CHAR" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #\\Tab 'standard-char)" :VALUES ("NIL"))))
+  (:symbol "BOOLEAN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep t 'boolean)" :VALUES ("T"))))
+  (:symbol "BOOLEAN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep nil 'boolean)" :VALUES ("T"))))
+  (:symbol "BOOLEAN" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 1 'boolean)" :VALUES ("NIL"))))
+  (:symbol "COMPILED-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep #'car 'compiled-function)" :VALUES ("T"))))
+  (:symbol "COMPILED-FUNCTION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 'car 'compiled-function)" :VALUES ("NIL"))))
+  (:symbol "KEYWORD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep :a 'keyword)" :VALUES ("T"))))
+  (:symbol "KEYWORD" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 'a 'keyword)" :VALUES ("NIL"))))
+  (:symbol "LONG-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 1d0 'long-float)" :VALUES ("T"))))
+  (:symbol "LONG-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'long-float 'double-float)" :VALUES ("T" "T"))))
+  (:symbol "SHORT-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 1.0 'short-float)" :VALUES ("T"))))
+  (:symbol "SHORT-FLOAT" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(subtypep 'short-float 'single-float)" :VALUES ("T" "T"))))
+  (:symbol "SIGNED-BYTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep -5 'signed-byte)" :VALUES ("T"))))
+  (:symbol "SIGNED-BYTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep -128 '(signed-byte 8))" :VALUES ("T"))))
+  (:symbol "SIGNED-BYTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep -129 '(signed-byte 8))" :VALUES ("NIL"))))
+  (:symbol "UNSIGNED-BYTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 5 'unsigned-byte)" :VALUES ("T"))))
+  (:symbol "UNSIGNED-BYTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 255 '(unsigned-byte 8))" :VALUES ("T"))))
+  (:symbol "UNSIGNED-BYTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep 256 '(unsigned-byte 8))" :VALUES ("NIL"))))
+  (:symbol "UNSIGNED-BYTE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep -1 'unsigned-byte)" :VALUES ("NIL"))))
+  (:symbol "GET-SETF-EXPANSION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(length (multiple-value-list (get-setf-expansion '(car x))))" :VALUES ("5"))))
+  (:symbol "GET-SETF-EXPANSION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(length (multiple-value-list (get-setf-expansion 'variable)))" :VALUES ("5"))))
+  (:symbol "GET-SETF-EXPANSION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(multiple-value-bind (temporaries values stores setter getter)
+    (get-setf-expansion '(car place))
+  (list (length temporaries) (length values) (length stores) (consp setter) (length getter)))" :VALUES ("(1 1 1 T 2)"))))
+  (:symbol "LISP-IMPLEMENTATION-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(lisp-implementation-type)" :VALUES ("\"SBCL\""))))
+  (:symbol "LISP-IMPLEMENTATION-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stringp (lisp-implementation-type))" :VALUES ("T"))))
+  (:symbol "LISP-IMPLEMENTATION-VERSION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stringp (lisp-implementation-version))" :VALUES ("T"))))
+  (:symbol "LISP-IMPLEMENTATION-VERSION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(plusp (length (lisp-implementation-version)))" :VALUES ("T"))))
+  (:symbol "LONG-SITE-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (long-site-name) '(or null string))" :VALUES ("T"))))
+  (:symbol "SHORT-SITE-NAME" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (short-site-name) '(or null string))" :VALUES ("T"))))
+  (:symbol "MACHINE-INSTANCE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (machine-instance) '(or null string))" :VALUES ("T"))))
+  (:symbol "MACHINE-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (machine-type) '(or null string))" :VALUES ("T"))))
+  (:symbol "MACHINE-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stringp (machine-type))" :VALUES ("T"))))
+  (:symbol "MACHINE-VERSION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (machine-version) '(or null string))" :VALUES ("T"))))
+  (:symbol "SOFTWARE-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(software-type)" :VALUES ("\"Linux\""))))
+  (:symbol "SOFTWARE-TYPE" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(stringp (software-type))" :VALUES ("T"))))
+  (:symbol "SOFTWARE-VERSION" :uses NIL :system NIL
+   :steps
+   (
+    (:FORM "(typep (software-version) '(or null string))" :VALUES ("T")))))
  )

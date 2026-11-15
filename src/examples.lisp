@@ -55,8 +55,8 @@
 (defparameter *system-separator* " @ "
   "Separates the symbol from the ASDF system in a block header.")
 
-(defparameter *example-package-prefix* "CLDOCS-EXAMPLE-"
-  "Name prefix of the throwaway packages examples run in.")
+(defparameter *example-package-name* "EXAMPLE"
+  "Name of the throwaway package every example runs in; it is deleted afterwards.")
 
 (defparameter *source-type* "txt"
   "File type of authoring files.")
@@ -66,9 +66,6 @@
 
 (defparameter *no-values-line* ";; => (no values)"
   "Result line shown for a step that returns no values.")
-
-(defvar *example-counter* 0
-  "Counter that keeps throwaway package names unique.")
 
 (defstruct (example (:copier nil))
   "A runnable example for one symbol.
@@ -225,6 +222,7 @@ printed) and :ERROR (type name) when the form signalled an error.
     (let ((*package* package)
           (*standard-output* captured)
           (*error-output* captured)
+          (*trace-output* captured)
           (*read-eval* nil))
       (handler-case
           (setf values
@@ -245,8 +243,7 @@ printed) and :ERROR (type name) when the form signalled an error.
 - EXAMPLE: the EXAMPLE about to run.
 - FUNCTION: a function of one argument, the package."
   (ensure-system-loaded (example-system example))
-  (let ((package (make-package (format nil "~A~D" *example-package-prefix*
-                                       (incf *example-counter*))
+  (let ((package (make-package *example-package-name*
                                :use (list* "COMMON-LISP" (example-uses example)))))
     (unwind-protect (funcall function package)
       (delete-package package))))

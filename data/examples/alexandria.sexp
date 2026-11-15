@@ -6,7 +6,10 @@
   (:symbol "IOTA" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
    (
-    (:FORM "(iota 5)" :VALUES ("(0 1 2 3 4)"))
+    (:FORM "(iota 5)" :VALUES ("(0 1 2 3 4)"))))
+  (:symbol "IOTA" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
     (:FORM "(iota 3 :start 10 :step 5)" :VALUES ("(10 15 20)"))))
   (:symbol "FLATTEN" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
@@ -15,12 +18,18 @@
   (:symbol "CURRY" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
    (
-    (:FORM "(funcall (curry #'+ 10) 5)" :VALUES ("15"))
+    (:FORM "(funcall (curry #'+ 10) 5)" :VALUES ("15"))))
+  (:symbol "CURRY" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
     (:FORM "(mapcar (curry #'* 2) '(1 2 3))" :VALUES ("(2 4 6)"))))
   (:symbol "COMPOSE" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
    (
-    (:FORM "(funcall (compose #'1+ #'abs) -5)" :VALUES ("6"))
+    (:FORM "(funcall (compose #'1+ #'abs) -5)" :VALUES ("6"))))
+  (:symbol "COMPOSE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
     (:FORM "(funcall (compose #'list #'+) 1 2)" :VALUES ("(3)"))))
   (:symbol "CONJOIN" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
@@ -33,7 +42,10 @@
   (:symbol "ENSURE-LIST" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
    (
-    (:FORM "(ensure-list 1)" :VALUES ("(1)"))
+    (:FORM "(ensure-list 1)" :VALUES ("(1)"))))
+  (:symbol "ENSURE-LIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
     (:FORM "(ensure-list '(1 2))" :VALUES ("(1 2)"))))
   (:symbol "ALIST-HASH-TABLE" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
@@ -71,12 +83,18 @@
   (:symbol "STARTS-WITH-SUBSEQ" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
    (
-    (:FORM "(starts-with-subseq \"he\" \"hello\")" :VALUES ("T" "NIL"))
+    (:FORM "(starts-with-subseq \"he\" \"hello\")" :VALUES ("T" "NIL"))))
+  (:symbol "STARTS-WITH-SUBSEQ" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
     (:FORM "(starts-with-subseq '(1 2) '(1 2 3))" :VALUES ("T" "NIL"))))
   (:symbol "ENDS-WITH-SUBSEQ" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
    (
-    (:FORM "(ends-with-subseq \"lo\" \"hello\")" :VALUES ("T"))
+    (:FORM "(ends-with-subseq \"lo\" \"hello\")" :VALUES ("T"))))
+  (:symbol "ENDS-WITH-SUBSEQ" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
     (:FORM "(ends-with-subseq \"he\" \"hello\")" :VALUES ("NIL"))))
   (:symbol "FIRST-ELT" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
@@ -85,7 +103,10 @@
   (:symbol "LAST-ELT" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
    (
-    (:FORM "(last-elt '(1 2 3))" :VALUES ("3"))
+    (:FORM "(last-elt '(1 2 3))" :VALUES ("3"))))
+  (:symbol "LAST-ELT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
     (:FORM "(last-elt #(10 20 30))" :VALUES ("30"))))
   (:symbol "LASTCAR" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
@@ -94,8 +115,14 @@
   (:symbol "CLAMP" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
    (
-    (:FORM "(clamp 15 0 10)" :VALUES ("10"))
-    (:FORM "(clamp -3 0 10)" :VALUES ("0"))
+    (:FORM "(clamp 15 0 10)" :VALUES ("10"))))
+  (:symbol "CLAMP" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(clamp -3 0 10)" :VALUES ("0"))))
+  (:symbol "CLAMP" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
     (:FORM "(clamp 5 0 10)" :VALUES ("5"))))
   (:symbol "LERP" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
@@ -120,13 +147,22 @@
   (:symbol "EMPTYP" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
    (
-    (:FORM "(emptyp nil)" :VALUES ("T"))
-    (:FORM "(emptyp \"\")" :VALUES ("T"))
+    (:FORM "(emptyp nil)" :VALUES ("T"))))
+  (:symbol "EMPTYP" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(emptyp \"\")" :VALUES ("T"))))
+  (:symbol "EMPTYP" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
     (:FORM "(emptyp '(1))" :VALUES ("NIL"))))
   (:symbol "LENGTH=" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
    (
-    (:FORM "(length= '(1 2 3) #(a b c))" :VALUES ("T"))
+    (:FORM "(length= '(1 2 3) #(a b c))" :VALUES ("T"))))
+  (:symbol "LENGTH=" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
     (:FORM "(length= '(1 2) '(1 2 3))" :VALUES ("NIL"))))
   (:symbol "MAPPEND" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
@@ -135,14 +171,20 @@
   (:symbol "MAKE-KEYWORD" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
    (
-    (:FORM "(values (make-keyword \"HELLO\"))" :VALUES (":HELLO"))
+    (:FORM "(values (make-keyword \"HELLO\"))" :VALUES (":HELLO"))))
+  (:symbol "MAKE-KEYWORD" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
     (:FORM "(values (make-keyword \"hello\"))" :VALUES (":|hello|"))))
   (:symbol "IF-LET" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
    (
     (:FORM "(if-let ((found (find 2 '(1 2 3))))
   (* found 10)
-  :none)" :VALUES ("20"))
+  :none)" :VALUES ("20"))))
+  (:symbol "IF-LET" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
     (:FORM "(if-let ((found (find 9 '(1 2 3))))
   (* found 10)
   :none)" :VALUES (":NONE"))))
@@ -187,7 +229,10 @@
   (:symbol "EXTREMUM" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
    (
-    (:FORM "(extremum '(3 1 2) #'<)" :VALUES ("1"))
+    (:FORM "(extremum '(3 1 2) #'<)" :VALUES ("1"))))
+  (:symbol "EXTREMUM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
     (:FORM "(extremum '(\"pear\" \"fig\" \"apple\") #'> :key #'length)" :VALUES ("\"apple\""))))
   (:symbol "MAP-PRODUCT" :uses ("ALEXANDRIA") :system "alexandria"
    :steps
@@ -200,5 +245,1812 @@
   (map-combinations (lambda (pair) (push pair combinations))
                     '(1 2 3)
                     :length 2)
-  (sort combinations #'< :key #'first))" :VALUES ("((1 3) (1 2) (2 3))")))))
+  (sort combinations #'< :key #'first))" :VALUES ("((1 3) (1 2) (2 3))"))))
+  (:symbol "POSITIVE-INTEGER-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-integer-p 3)" :VALUES ("T"))))
+  (:symbol "POSITIVE-INTEGER-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-integer-p -3)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-INTEGER-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-integer-p 0)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-INTEGER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 3 'positive-integer)" :VALUES ("T"))))
+  (:symbol "POSITIVE-INTEGER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -3 'positive-integer)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-INTEGER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'positive-integer)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-FIXNUM-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-fixnum-p 3)" :VALUES ("T"))))
+  (:symbol "POSITIVE-FIXNUM-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-fixnum-p -3)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-FIXNUM-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-fixnum-p 0)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-FIXNUM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 3 'positive-fixnum)" :VALUES ("T"))))
+  (:symbol "POSITIVE-FIXNUM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -3 'positive-fixnum)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-FIXNUM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'positive-fixnum)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-RATIONAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-rational-p 1/2)" :VALUES ("T"))))
+  (:symbol "POSITIVE-RATIONAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-rational-p -1/2)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-RATIONAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-rational-p 0)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-RATIONAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1/2 'positive-rational)" :VALUES ("T"))))
+  (:symbol "POSITIVE-RATIONAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1/2 'positive-rational)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-RATIONAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'positive-rational)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-REAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-real-p 2.5)" :VALUES ("T"))))
+  (:symbol "POSITIVE-REAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-real-p -2.5)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-REAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-real-p 0)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-REAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 2.5 'positive-real)" :VALUES ("T"))))
+  (:symbol "POSITIVE-REAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -2.5 'positive-real)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-REAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'positive-real)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-float-p 1.5)" :VALUES ("T"))))
+  (:symbol "POSITIVE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-float-p -1.5)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-float-p 0.0)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5 'positive-float)" :VALUES ("T"))))
+  (:symbol "POSITIVE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5 'positive-float)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0 'positive-float)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-SINGLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-single-float-p 1.5)" :VALUES ("T"))))
+  (:symbol "POSITIVE-SINGLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-single-float-p -1.5)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-SINGLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-single-float-p 0.0)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-SINGLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5 'positive-single-float)" :VALUES ("T"))))
+  (:symbol "POSITIVE-SINGLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5 'positive-single-float)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-SINGLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0 'positive-single-float)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-SHORT-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-short-float-p 1.5)" :VALUES ("T"))))
+  (:symbol "POSITIVE-SHORT-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-short-float-p -1.5)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-SHORT-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-short-float-p 0.0)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-SHORT-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5 'positive-short-float)" :VALUES ("T"))))
+  (:symbol "POSITIVE-SHORT-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5 'positive-short-float)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-SHORT-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0 'positive-short-float)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-DOUBLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-double-float-p 1.5d0)" :VALUES ("T"))))
+  (:symbol "POSITIVE-DOUBLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-double-float-p -1.5d0)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-DOUBLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-double-float-p 0.0d0)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-DOUBLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5d0 'positive-double-float)" :VALUES ("T"))))
+  (:symbol "POSITIVE-DOUBLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5d0 'positive-double-float)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-DOUBLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0d0 'positive-double-float)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-LONG-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-long-float-p 1.5d0)" :VALUES ("T"))))
+  (:symbol "POSITIVE-LONG-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-long-float-p -1.5d0)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-LONG-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(positive-long-float-p 0.0d0)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-LONG-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5d0 'positive-long-float)" :VALUES ("T"))))
+  (:symbol "POSITIVE-LONG-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5d0 'positive-long-float)" :VALUES ("NIL"))))
+  (:symbol "POSITIVE-LONG-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0d0 'positive-long-float)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-INTEGER-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-integer-p 3)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-INTEGER-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-integer-p -3)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-INTEGER-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-integer-p 0)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-INTEGER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 3 'negative-integer)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-INTEGER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -3 'negative-integer)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-INTEGER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'negative-integer)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-FIXNUM-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-fixnum-p 3)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-FIXNUM-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-fixnum-p -3)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-FIXNUM-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-fixnum-p 0)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-FIXNUM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 3 'negative-fixnum)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-FIXNUM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -3 'negative-fixnum)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-FIXNUM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'negative-fixnum)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-RATIONAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-rational-p 1/2)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-RATIONAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-rational-p -1/2)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-RATIONAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-rational-p 0)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-RATIONAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1/2 'negative-rational)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-RATIONAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1/2 'negative-rational)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-RATIONAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'negative-rational)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-REAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-real-p 2.5)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-REAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-real-p -2.5)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-REAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-real-p 0)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-REAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 2.5 'negative-real)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-REAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -2.5 'negative-real)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-REAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'negative-real)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-float-p 1.5)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-float-p -1.5)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-float-p 0.0)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5 'negative-float)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5 'negative-float)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0 'negative-float)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-SINGLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-single-float-p 1.5)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-SINGLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-single-float-p -1.5)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-SINGLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-single-float-p 0.0)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-SINGLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5 'negative-single-float)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-SINGLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5 'negative-single-float)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-SINGLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0 'negative-single-float)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-SHORT-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-short-float-p 1.5)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-SHORT-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-short-float-p -1.5)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-SHORT-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-short-float-p 0.0)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-SHORT-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5 'negative-short-float)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-SHORT-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5 'negative-short-float)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-SHORT-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0 'negative-short-float)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-DOUBLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-double-float-p 1.5d0)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-DOUBLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-double-float-p -1.5d0)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-DOUBLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-double-float-p 0.0d0)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-DOUBLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5d0 'negative-double-float)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-DOUBLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5d0 'negative-double-float)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-DOUBLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0d0 'negative-double-float)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-LONG-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-long-float-p 1.5d0)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-LONG-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-long-float-p -1.5d0)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-LONG-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(negative-long-float-p 0.0d0)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-LONG-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5d0 'negative-long-float)" :VALUES ("NIL"))))
+  (:symbol "NEGATIVE-LONG-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5d0 'negative-long-float)" :VALUES ("T"))))
+  (:symbol "NEGATIVE-LONG-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0d0 'negative-long-float)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-INTEGER-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-integer-p 3)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-INTEGER-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-integer-p -3)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-INTEGER-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-integer-p 0)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-INTEGER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 3 'non-negative-integer)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-INTEGER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -3 'non-negative-integer)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-INTEGER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'non-negative-integer)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-FIXNUM-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-fixnum-p 3)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-FIXNUM-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-fixnum-p -3)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-FIXNUM-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-fixnum-p 0)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-FIXNUM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 3 'non-negative-fixnum)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-FIXNUM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -3 'non-negative-fixnum)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-FIXNUM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'non-negative-fixnum)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-RATIONAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-rational-p 1/2)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-RATIONAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-rational-p -1/2)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-RATIONAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-rational-p 0)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-RATIONAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1/2 'non-negative-rational)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-RATIONAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1/2 'non-negative-rational)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-RATIONAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'non-negative-rational)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-REAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-real-p 2.5)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-REAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-real-p -2.5)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-REAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-real-p 0)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-REAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 2.5 'non-negative-real)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-REAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -2.5 'non-negative-real)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-REAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'non-negative-real)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-float-p 1.5)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-float-p -1.5)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-float-p 0.0)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5 'non-negative-float)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5 'non-negative-float)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0 'non-negative-float)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-SINGLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-single-float-p 1.5)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-SINGLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-single-float-p -1.5)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-SINGLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-single-float-p 0.0)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-SINGLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5 'non-negative-single-float)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-SINGLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5 'non-negative-single-float)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-SINGLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0 'non-negative-single-float)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-SHORT-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-short-float-p 1.5)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-SHORT-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-short-float-p -1.5)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-SHORT-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-short-float-p 0.0)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-SHORT-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5 'non-negative-short-float)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-SHORT-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5 'non-negative-short-float)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-SHORT-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0 'non-negative-short-float)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-DOUBLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-double-float-p 1.5d0)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-DOUBLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-double-float-p -1.5d0)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-DOUBLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-double-float-p 0.0d0)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-DOUBLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5d0 'non-negative-double-float)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-DOUBLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5d0 'non-negative-double-float)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-DOUBLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0d0 'non-negative-double-float)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-LONG-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-long-float-p 1.5d0)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-LONG-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-long-float-p -1.5d0)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-LONG-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-negative-long-float-p 0.0d0)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-LONG-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5d0 'non-negative-long-float)" :VALUES ("T"))))
+  (:symbol "NON-NEGATIVE-LONG-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5d0 'non-negative-long-float)" :VALUES ("NIL"))))
+  (:symbol "NON-NEGATIVE-LONG-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0d0 'non-negative-long-float)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-INTEGER-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-integer-p 3)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-INTEGER-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-integer-p -3)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-INTEGER-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-integer-p 0)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-INTEGER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 3 'non-positive-integer)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-INTEGER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -3 'non-positive-integer)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-INTEGER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'non-positive-integer)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-FIXNUM-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-fixnum-p 3)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-FIXNUM-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-fixnum-p -3)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-FIXNUM-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-fixnum-p 0)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-FIXNUM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 3 'non-positive-fixnum)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-FIXNUM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -3 'non-positive-fixnum)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-FIXNUM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'non-positive-fixnum)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-RATIONAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-rational-p 1/2)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-RATIONAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-rational-p -1/2)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-RATIONAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-rational-p 0)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-RATIONAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1/2 'non-positive-rational)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-RATIONAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1/2 'non-positive-rational)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-RATIONAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'non-positive-rational)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-REAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-real-p 2.5)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-REAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-real-p -2.5)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-REAL-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-real-p 0)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-REAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 2.5 'non-positive-real)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-REAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -2.5 'non-positive-real)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-REAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0 'non-positive-real)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-float-p 1.5)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-float-p -1.5)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-float-p 0.0)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5 'non-positive-float)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5 'non-positive-float)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0 'non-positive-float)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-SINGLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-single-float-p 1.5)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-SINGLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-single-float-p -1.5)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-SINGLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-single-float-p 0.0)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-SINGLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5 'non-positive-single-float)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-SINGLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5 'non-positive-single-float)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-SINGLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0 'non-positive-single-float)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-SHORT-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-short-float-p 1.5)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-SHORT-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-short-float-p -1.5)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-SHORT-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-short-float-p 0.0)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-SHORT-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5 'non-positive-short-float)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-SHORT-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5 'non-positive-short-float)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-SHORT-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0 'non-positive-short-float)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-DOUBLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-double-float-p 1.5d0)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-DOUBLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-double-float-p -1.5d0)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-DOUBLE-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-double-float-p 0.0d0)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-DOUBLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5d0 'non-positive-double-float)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-DOUBLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5d0 'non-positive-double-float)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-DOUBLE-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0d0 'non-positive-double-float)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-LONG-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-long-float-p 1.5d0)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-LONG-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-long-float-p -1.5d0)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-LONG-FLOAT-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(non-positive-long-float-p 0.0d0)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-LONG-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 1.5d0 'non-positive-long-float)" :VALUES ("NIL"))))
+  (:symbol "NON-POSITIVE-LONG-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1.5d0 'non-positive-long-float)" :VALUES ("T"))))
+  (:symbol "NON-POSITIVE-LONG-FLOAT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 0.0d0 'non-positive-long-float)" :VALUES ("T"))))
+  (:symbol "ARRAY-INDEX" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 5 'array-index)" :VALUES ("T"))))
+  (:symbol "ARRAY-INDEX" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1 'array-index)" :VALUES ("NIL"))))
+  (:symbol "ARRAY-INDEX" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 10 `(array-index ,array-dimension-limit))" :VALUES ("T"))))
+  (:symbol "ARRAY-LENGTH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 5 'array-length)" :VALUES ("T"))))
+  (:symbol "ARRAY-LENGTH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep -1 'array-length)" :VALUES ("NIL"))))
+  (:symbol "PROPER-LIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep '(1 2 3) 'proper-list)" :VALUES ("T"))))
+  (:symbol "PROPER-LIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep '(1 . 2) 'proper-list)" :VALUES ("NIL"))))
+  (:symbol "PROPER-LIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep nil 'proper-list)" :VALUES ("T"))))
+  (:symbol "PROPER-SEQUENCE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep '(1 2) 'proper-sequence)" :VALUES ("T"))))
+  (:symbol "PROPER-SEQUENCE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep #(1 2) 'proper-sequence)" :VALUES ("T"))))
+  (:symbol "PROPER-SEQUENCE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep '(1 . 2) 'proper-sequence)" :VALUES ("NIL"))))
+  (:symbol "STRING-DESIGNATOR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep \"abc\" 'string-designator)" :VALUES ("T"))))
+  (:symbol "STRING-DESIGNATOR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 'abc 'string-designator)" :VALUES ("T"))))
+  (:symbol "STRING-DESIGNATOR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep #\\a 'string-designator)" :VALUES ("T"))))
+  (:symbol "STRING-DESIGNATOR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(typep 5 'string-designator)" :VALUES ("NIL"))))
+  (:symbol "ASSOC-VALUE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(assoc-value '((a . 1) (b . 2)) 'b)" :VALUES ("2" "(B . 2)"))))
+  (:symbol "ASSOC-VALUE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((table (list (cons 'a 1))))
+  (setf (assoc-value table 'b) 2)
+  table)" :VALUES ("((B . 2) (A . 1))"))))
+  (:symbol "RASSOC-VALUE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(rassoc-value '((a . 1) (b . 2)) 2)" :VALUES ("B" "(B . 2)"))))
+  (:symbol "RASSOC-VALUE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((table (list (cons 'a 1))))
+  (setf (rassoc-value table 2) 'b)
+  table)" :VALUES ("((B . 2) (A . 1))"))))
+  (:symbol "CIRCULAR-LIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((ring (circular-list 1 2)))
+  (list (first ring) (second ring) (third ring) (fourth ring)))" :VALUES ("(1 2 1 2)"))))
+  (:symbol "CIRCULAR-LIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(circular-list-p (circular-list :a))" :VALUES ("T"))))
+  (:symbol "CIRCULAR-LIST-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(circular-list-p (circular-list 1 2 3))" :VALUES ("T"))))
+  (:symbol "CIRCULAR-LIST-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(circular-list-p '(1 2 3))" :VALUES ("NIL"))))
+  (:symbol "CIRCULAR-LIST-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(circular-list-p nil)" :VALUES ("NIL"))))
+  (:symbol "CIRCULAR-TREE-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(circular-tree-p '(1 (2 3)))" :VALUES ("NIL"))))
+  (:symbol "CIRCULAR-TREE-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((tree (list 1 2)))
+  (setf (second tree) tree)
+  (circular-tree-p tree))" :VALUES ("T"))))
+  (:symbol "MAKE-CIRCULAR-LIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((ring (make-circular-list 3 :initial-element :x)))
+  (list (first ring) (fourth ring) (circular-list-p ring)))" :VALUES ("(:X :X T)"))))
+  (:symbol "COPY-ARRAY" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let* ((original (vector 1 2 3))
+       (copy (copy-array original)))
+  (setf (aref copy 0) :changed)
+  (list original copy))" :VALUES ("(#(1 2 3) #(:CHANGED 2 3))"))))
+  (:symbol "COPY-ARRAY" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(copy-array (make-array '(2 2) :initial-contents '((1 2) (3 4))))" :VALUES ("#2A((1 2) (3 4))"))))
+  (:symbol "COPY-SEQUENCE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(copy-sequence 'list #(1 2 3))" :VALUES ("(1 2 3)"))))
+  (:symbol "COPY-SEQUENCE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(copy-sequence 'vector '(a b))" :VALUES ("#(A B)"))))
+  (:symbol "COPY-SEQUENCE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(copy-sequence 'string '(#\\h #\\i))" :VALUES ("\"hi\""))))
+  (:symbol "COPY-STREAM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(with-output-to-string (out)
+  (copy-stream (make-string-input-stream \"hello world\") out))" :VALUES ("\"hello world\""))))
+  (:symbol "COPY-STREAM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(with-output-to-string (out)
+  (copy-stream (make-string-input-stream \"abcdef\") out :end 3))" :VALUES ("\"abc\""))))
+  (:symbol "COPY-FILE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((from \"/tmp/cldocs-ex-copy-from.txt\")
+      (to \"/tmp/cldocs-ex-copy-to.txt\"))
+  (write-string-into-file \"contents\" from :if-exists :supersede)
+  (copy-file from to :if-to-exists :supersede)
+  (prog1 (read-file-into-string to)
+    (delete-file from)
+    (delete-file to)))" :VALUES ("\"contents\""))))
+  (:symbol "COUNT-PERMUTATIONS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(count-permutations 5 2)" :VALUES ("20"))))
+  (:symbol "COUNT-PERMUTATIONS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(count-permutations 4)" :VALUES ("24"))))
+  (:symbol "COUNT-PERMUTATIONS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(count-permutations 5 5)" :VALUES ("120"))))
+  (:symbol "SUBFACTORIAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(subfactorial 4)" :VALUES ("9"))))
+  (:symbol "SUBFACTORIAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(mapcar #'subfactorial '(0 1 2 3 4 5))" :VALUES ("(1 0 1 2 9 44)"))))
+  (:symbol "MAP-PERMUTATIONS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((results '()))
+  (map-permutations (lambda (p) (push (format nil \"~{~A~}\" p) results))
+                    '(1 2 3))
+  (sort results #'string<))" :VALUES ("(\"123\" \"132\" \"213\" \"231\" \"312\" \"321\")"))))
+  (:symbol "MAP-PERMUTATIONS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((count 0))
+  (map-permutations (lambda (p) (declare (ignore p)) (incf count)) '(a b c d))
+  count)" :VALUES ("24"))))
+  (:symbol "MAP-DERANGEMENTS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((results '()))
+  (map-derangements (lambda (d) (push (format nil \"~{~A~}\" d) results))
+                    '(1 2 3))
+  (sort results #'string<))" :VALUES ("(\"231\" \"312\")"))))
+  (:symbol "MAP-IOTA" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((results '()))
+  (map-iota (lambda (x) (push x results)) 3 :start 10)
+  (nreverse results))" :VALUES ("(10 11 12)"))))
+  (:symbol "MAP-IOTA" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((results '()))
+  (map-iota (lambda (x) (push x results)) 4 :step 5)
+  (nreverse results))" :VALUES ("(0 5 10 15)"))))
+  (:symbol "MAPHASH-KEYS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((keys '()))
+  (maphash-keys (lambda (key) (push key keys))
+                (alist-hash-table '((1 . a) (2 . b))))
+  (sort keys #'<))" :VALUES ("(1 2)"))))
+  (:symbol "MAPHASH-VALUES" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((values '()))
+  (maphash-values (lambda (value) (push value values))
+                  (alist-hash-table '((a . 1) (b . 2))))
+  (sort values #'<))" :VALUES ("(1 2)"))))
+  (:symbol "HASH-TABLE-PLIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(hash-table-plist (alist-hash-table '((:a . 1))))" :VALUES ("(:A 1)"))))
+  (:symbol "HASH-TABLE-PLIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(length (hash-table-plist (alist-hash-table '((:a . 1) (:b . 2)))))" :VALUES ("4"))))
+  (:symbol "PLIST-HASH-TABLE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(gethash :b (plist-hash-table '(:a 1 :b 2)))" :VALUES ("2" "T"))))
+  (:symbol "PLIST-HASH-TABLE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(hash-table-count (plist-hash-table '(:x 1 :y 2 :z 3)))" :VALUES ("3"))))
+  (:symbol "REMOVE-FROM-PLIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(remove-from-plist '(:a 1 :b 2 :c 3) :b)" :VALUES ("(:A 1 :C 3)"))))
+  (:symbol "REMOVE-FROM-PLIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(remove-from-plist '(:a 1 :b 2 :c 3) :a :c)" :VALUES ("(:B 2)"))))
+  (:symbol "DELETE-FROM-PLIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(delete-from-plist (list :a 1 :b 2 :c 3) :b)" :VALUES ("(:A 1 :C 3)"))))
+  (:symbol "DELETE-FROM-PLIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(delete-from-plist (list :a 1 :b 2) :z)" :VALUES ("(:A 1 :B 2)"))))
+  (:symbol "STARTS-WITH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(starts-with 1 '(1 2 3))" :VALUES ("T"))))
+  (:symbol "STARTS-WITH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(starts-with \"a\" '(\"a\" \"b\") :test #'string=)" :VALUES ("T"))))
+  (:symbol "STARTS-WITH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(starts-with 2 '(1 2 3))" :VALUES ("NIL"))))
+  (:symbol "ENDS-WITH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(ends-with 3 '(1 2 3))" :VALUES ("T"))))
+  (:symbol "ENDS-WITH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(ends-with \"b\" '(\"a\" \"b\") :test #'string=)" :VALUES ("T"))))
+  (:symbol "ENDS-WITH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(ends-with 1 '(1 2 3))" :VALUES ("NIL"))))
+  (:symbol "ENSURE-CAR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(ensure-car '(1 2 3))" :VALUES ("1"))))
+  (:symbol "ENSURE-CAR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(ensure-car 5)" :VALUES ("5"))))
+  (:symbol "ENSURE-CAR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(mapcar #'ensure-car '(a (b c) 3))" :VALUES ("(A B 3)"))))
+  (:symbol "ENSURE-CONS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(ensure-cons 5)" :VALUES ("(5)"))))
+  (:symbol "ENSURE-CONS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(ensure-cons '(1 . 2))" :VALUES ("(1 . 2)"))))
+  (:symbol "ENSURE-CONS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(ensure-cons nil)" :VALUES ("(NIL)"))))
+  (:symbol "ENSURE-FUNCTION" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(functionp (ensure-function 'car))" :VALUES ("T"))))
+  (:symbol "ENSURE-FUNCTION" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(funcall (ensure-function #'1+) 1)" :VALUES ("2"))))
+  (:symbol "ENSURE-FUNCTION" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(funcall (ensure-function 'list) 1 2)" :VALUES ("(1 2)"))))
+  (:symbol "ENSURE-SYMBOL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(values (ensure-symbol \"FOO\" :keyword))" :VALUES (":FOO"))))
+  (:symbol "ENSURE-SYMBOL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(ensure-symbol 'car)" :VALUES ("CAR" ":INHERITED"))))
+  (:symbol "ENSURE-SYMBOL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(eq (ensure-symbol \"CAR\" :cl) 'car)" :VALUES ("T"))))
+  (:symbol "FEATUREP" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(featurep :common-lisp)" :VALUES ("T"))))
+  (:symbol "FEATUREP" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(featurep '(and :sbcl (not :windows)))" :VALUES ("T"))))
+  (:symbol "FEATUREP" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(featurep '(or :clisp :ccl))" :VALUES ("NIL"))))
+  (:symbol "FORMAT-SYMBOL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(format-symbol :keyword \"~A-~D\" 'item 3)" :VALUES (":ITEM-3"))))
+  (:symbol "FORMAT-SYMBOL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(format-symbol nil \"~A\" \"temp\")" :VALUES ("#:|temp|"))))
+  (:symbol "GAUSSIAN-RANDOM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(multiple-value-bind (a b) (gaussian-random)
+  (and (realp a) (realp b)))" :VALUES ("T"))))
+  (:symbol "GAUSSIAN-RANDOM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(multiple-value-bind (a b) (gaussian-random -1 1)
+  (and (<= -1 a 1) (<= -1 b 1)))" :VALUES ("T"))))
+  (:symbol "MAKE-GENSYM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((*gensym-counter* 5))
+  (symbol-name (make-gensym \"G\")))" :VALUES ("\"G5\""))))
+  (:symbol "MAKE-GENSYM" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(symbolp (make-gensym 'any))" :VALUES ("T"))))
+  (:symbol "MAKE-GENSYM-LIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((*gensym-counter* 1))
+  (mapcar #'symbol-name (make-gensym-list 3 \"V\")))" :VALUES ("(\"V1\" \"V2\" \"V3\")"))))
+  (:symbol "MAKE-GENSYM-LIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(length (make-gensym-list 4))" :VALUES ("4"))))
+  (:symbol "MULTIPLE-VALUE-COMPOSE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(funcall (multiple-value-compose #'list #'floor) 7 2)" :VALUES ("(3 1)"))))
+  (:symbol "MULTIPLE-VALUE-COMPOSE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(funcall (multiple-value-compose #'+ #'floor) 17 5)" :VALUES ("5"))))
+  (:symbol "OF-TYPE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(funcall (of-type 'integer) 5)" :VALUES ("T"))))
+  (:symbol "OF-TYPE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(remove-if-not (of-type 'string) '(1 \"a\" b \"c\"))" :VALUES ("(\"a\" \"c\")"))))
+  (:symbol "OF-TYPE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(find-if (of-type 'symbol) '(1 \"a\" b))" :VALUES ("B"))))
+  (:symbol "PARSE-BODY" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(multiple-value-list
+ (parse-body '(\"A docstring.\" (declare (ignore x)) (do-something) (more))
+             :documentation t))" :VALUES ("(((DO-SOMETHING) (MORE)) ((DECLARE (IGNORE X))) \"A docstring.\")"))))
+  (:symbol "PARSE-BODY" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(multiple-value-list (parse-body '((foo) (bar))))" :VALUES ("(((FOO) (BAR)) NIL NIL)"))))
+  (:symbol "PARSE-ORDINARY-LAMBDA-LIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(multiple-value-list (parse-ordinary-lambda-list '(a b)))" :VALUES ("((A B) NIL NIL NIL NIL NIL NIL)"))))
+  (:symbol "PARSE-ORDINARY-LAMBDA-LIST" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(first (multiple-value-list (parse-ordinary-lambda-list '(a &optional (b 1) &key c))))" :VALUES ("(A)"))))
+  (:symbol "PROPER-LIST-LENGTH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(proper-list-length '(1 2 3))" :VALUES ("3"))))
+  (:symbol "PROPER-LIST-LENGTH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(handler-case (proper-list-length '(1 . 2))
+  (type-error () :improper))" :VALUES (":IMPROPER"))))
+  (:symbol "PROPER-LIST-LENGTH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(proper-list-length nil)" :VALUES ("0"))))
+  (:symbol "PROPER-LIST-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(proper-list-p '(1 2 3))" :VALUES ("T"))))
+  (:symbol "PROPER-LIST-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(proper-list-p '(1 . 2))" :VALUES ("NIL"))))
+  (:symbol "PROPER-LIST-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(proper-list-p nil)" :VALUES ("T"))))
+  (:symbol "PROPER-LIST-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(proper-list-p 5)" :VALUES ("NIL"))))
+  (:symbol "RANDOM-ELT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(and (member (random-elt '(a b c)) '(a b c)) t)" :VALUES ("T"))))
+  (:symbol "RANDOM-ELT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(and (find (random-elt #(1 2 3)) #(1 2 3)) t)" :VALUES ("T"))))
+  (:symbol "SHUFFLE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(sort (shuffle (list 1 2 3 4 5)) #'<)" :VALUES ("(1 2 3 4 5)"))))
+  (:symbol "SHUFFLE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(length (shuffle (vector 1 2 3)))" :VALUES ("3"))))
+  (:symbol "SHUFFLE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(sort (coerce (shuffle (vector 3 1 2)) 'list) #'<)" :VALUES ("(1 2 3)"))))
+  (:symbol "RCURRY" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(funcall (rcurry #'- 1) 10)" :VALUES ("9"))
+    (:FORM "(mapcar (rcurry #'expt 2) '(1 2 3))" :VALUES ("(1 4 9)"))
+    (:FORM "(defun divide (a b)
+  (/ a b))" :SILENT T)
+    (:FORM "(funcall (rcurry #'divide 2) 10)" :VALUES ("5"))))
+  (:symbol "READ-FILE-INTO-STRING" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-read-file.txt\"))
+  (write-string-into-file \"line one\" path :if-exists :supersede)
+  (prog1 (read-file-into-string path)
+    (delete-file path)))" :VALUES ("\"line one\""))))
+  (:symbol "WRITE-STRING-INTO-FILE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-write-file.txt\"))
+  (write-string-into-file \"hello\" path :if-exists :supersede)
+  (write-string-into-file \" world\" path :if-exists :append)
+  (prog1 (read-file-into-string path)
+    (delete-file path)))" :VALUES ("\"hello world\""))))
+  (:symbol "READ-FILE-INTO-BYTE-VECTOR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-read-bytes.bin\"))
+  (write-byte-vector-into-file (coerce #(1 2 3) '(vector (unsigned-byte 8))) path
+                               :if-exists :supersede)
+  (prog1 (read-file-into-byte-vector path)
+    (delete-file path)))" :VALUES ("#(1 2 3)"))))
+  (:symbol "WRITE-BYTE-VECTOR-INTO-FILE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-write-bytes.bin\"))
+  (write-byte-vector-into-file (coerce #(65 66) '(vector (unsigned-byte 8))) path
+                               :if-exists :supersede)
+  (prog1 (length (read-file-into-byte-vector path))
+    (delete-file path)))" :VALUES ("2"))))
+  (:symbol "READ-STREAM-CONTENT-INTO-STRING" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(read-stream-content-into-string (make-string-input-stream \"abc def\"))" :VALUES ("\"abc def\""))))
+  (:symbol "READ-STREAM-CONTENT-INTO-STRING" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(read-stream-content-into-string (make-string-input-stream \"\"))" :VALUES ("\"\""))))
+  (:symbol "READ-STREAM-CONTENT-INTO-BYTE-VECTOR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-stream-bytes.bin\"))
+  (write-byte-vector-into-file (coerce #(9 8 7) '(vector (unsigned-byte 8))) path
+                               :if-exists :supersede)
+  (prog1 (with-open-file (in path :element-type '(unsigned-byte 8))
+           (read-stream-content-into-byte-vector in))
+    (delete-file path)))" :VALUES ("#(9 8 7)"))))
+  (:symbol "REQUIRED-ARGUMENT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(handler-case (funcall (lambda (&key (x (required-argument :x))) x))
+  (error () :missing-argument))" :VALUES (":MISSING-ARGUMENT"))))
+  (:symbol "REQUIRED-ARGUMENT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(funcall (lambda (&key (x (required-argument :x))) x) :x 5)" :VALUES ("5"))))
+  (:symbol "ROTATE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(rotate (list 1 2 3 4) 1)" :VALUES ("(4 1 2 3)"))))
+  (:symbol "ROTATE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(rotate (list 1 2 3 4) -1)" :VALUES ("(2 3 4 1)"))))
+  (:symbol "ROTATE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(rotate (list 1 2 3 4) 0)" :VALUES ("(1 2 3 4)"))))
+  (:symbol "SEQUENCE-OF-LENGTH-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(sequence-of-length-p '(1 2 3) 3)" :VALUES ("T"))))
+  (:symbol "SEQUENCE-OF-LENGTH-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(sequence-of-length-p #(1 2) 3)" :VALUES ("NIL"))))
+  (:symbol "SEQUENCE-OF-LENGTH-P" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(sequence-of-length-p \"\" 0)" :VALUES ("T"))))
+  (:symbol "SET-EQUAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(set-equal '(1 2 3) '(3 2 1))" :VALUES ("T"))))
+  (:symbol "SET-EQUAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(set-equal '(1 2) '(1 2 3))" :VALUES ("NIL"))))
+  (:symbol "SET-EQUAL" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(set-equal '(\"a\") '(\"A\") :test #'string-equal)" :VALUES ("T"))))
+  (:symbol "SETP" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(setp '(1 2 3))" :VALUES ("T"))))
+  (:symbol "SETP" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(setp '(1 1 2))" :VALUES ("NIL"))))
+  (:symbol "SETP" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(setp nil)" :VALUES ("T"))))
+  (:symbol "SIMPLE-PARSE-ERROR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(handler-case (simple-parse-error \"bad input ~A\" \"x\")
+  (parse-error (condition) (princ-to-string condition)))" :VALUES ("\"bad input x\""))))
+  (:symbol "SIMPLE-PROGRAM-ERROR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(handler-case (simple-program-error \"wrong ~A\" \"call\")
+  (program-error (condition) (princ-to-string condition)))" :VALUES ("\"wrong call\""))))
+  (:symbol "SIMPLE-READER-ERROR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(handler-case (simple-reader-error (make-string-input-stream \"\") \"bad token ~A\" 1)
+  (reader-error () :reader-error))" :VALUES (":READER-ERROR"))))
+  (:symbol "SIMPLE-STYLE-WARNING" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(handler-case (simple-style-warning \"careful ~A\" 1)
+  (style-warning (condition) (princ-to-string condition)))" :VALUES ("\"careful 1\""))))
+  (:symbol "STANDARD-DEVIATION" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(standard-deviation '(2 4 4 4 5 5 7 9))" :VALUES ("2.0"))))
+  (:symbol "STANDARD-DEVIATION" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(standard-deviation '(1 1 1 1))" :VALUES ("0.0"))))
+  (:symbol "VARIANCE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(variance '(1 2 3 4))" :VALUES ("5/4"))))
+  (:symbol "VARIANCE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(variance '(5 5 5))" :VALUES ("0"))))
+  (:symbol "SYMBOLICATE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(symbolicate \"FOO-\" 'bar \"-\" \"1\")" :VALUES ("FOO-BAR-1"))))
+  (:symbol "SYMBOLICATE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(eq (symbolicate \"CAR\") 'car)" :VALUES ("T"))))
+  (:symbol "TYPE=" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(multiple-value-list (type= 'integer 'integer))" :VALUES ("(T T)"))))
+  (:symbol "TYPE=" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(multiple-value-list (type= 'integer 'number))" :VALUES ("(NIL T)"))))
+  (:symbol "TYPE=" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(multiple-value-list (type= '(integer 0 1) 'bit))" :VALUES ("(T T)"))))
+  (:symbol "COERCEF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((x 1))
+  (coercef x 'double-float)
+  x)" :VALUES ("1.0d0"))))
+  (:symbol "COERCEF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2)))
+  (coercef items 'vector)
+  items)" :VALUES ("#(1 2)"))))
+  (:symbol "SWITCH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(switch (2) (1 :one) (2 :two) (t :other))" :VALUES (":TWO"))))
+  (:symbol "SWITCH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(switch (\"b\" :test #'string=) (\"a\" 1) (\"b\" 2))" :VALUES ("2"))))
+  (:symbol "SWITCH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(switch (9) (1 :one) (t :default))" :VALUES (":DEFAULT"))))
+  (:symbol "ESWITCH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(eswitch (2) (1 :one) (2 :two))" :VALUES (":TWO"))))
+  (:symbol "ESWITCH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(handler-case (eswitch (9) (1 :one) (2 :two))
+  (error () :no-match))" :VALUES (":NO-MATCH"))))
+  (:symbol "CSWITCH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(cswitch (2) (1 :one) (2 :two))" :VALUES (":TWO"))))
+  (:symbol "CSWITCH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(handler-case (cswitch (9) (1 :one) (2 :two))
+  (error () :no-match))" :VALUES (":NO-MATCH"))))
+  (:symbol "DEFINE-CONSTANT" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(define-constant +colors+ '(:red :green) :test #'equal)" :VALUES ("+COLORS+"))
+    (:FORM "+colors+" :VALUES ("(:RED :GREEN)"))
+    (:FORM "(define-constant +greeting+ \"hello\" :test #'string=)" :VALUES ("+GREETING+"))
+    (:FORM "(concatenate 'string +greeting+ \"!\")" :VALUES ("\"hello!\""))))
+  (:symbol "DELETEF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2 3 2)))
+  (deletef items 2)
+  items)" :VALUES ("(1 3)"))))
+  (:symbol "DELETEF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((items (list \"a\" \"b\")))
+  (deletef items \"a\" :test #'string=)
+  items)" :VALUES ("(\"b\")"))))
+  (:symbol "REMOVEF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2 3 2)))
+  (removef items 2)
+  items)" :VALUES ("(1 3)"))))
+  (:symbol "REMOVEF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2 3 4)))
+  (removef items 2 :test #'<)
+  items)" :VALUES ("(1 2)"))))
+  (:symbol "DELETE-FROM-PLISTF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((plist (list :a 1 :b 2)))
+  (delete-from-plistf plist :a)
+  plist)" :VALUES ("(:B 2)"))))
+  (:symbol "REMOVE-FROM-PLISTF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((plist (list :a 1 :b 2 :c 3)))
+  (remove-from-plistf plist :b)
+  plist)" :VALUES ("(:A 1 :C 3)"))))
+  (:symbol "DESTRUCTURING-ECASE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(destructuring-ecase '(:mul 2 3)
+  ((:add a b) (+ a b))
+  ((:mul a b) (* a b)))" :VALUES ("6"))))
+  (:symbol "DESTRUCTURING-ECASE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(handler-case (destructuring-ecase '(:div 1 2)
+                ((:add a b) (+ a b)))
+  (error () :unknown-operation))" :VALUES (":UNKNOWN-OPERATION"))))
+  (:symbol "DESTRUCTURING-CCASE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(destructuring-ccase '(:add 1 2)
+  ((:add a b) (+ a b))
+  ((:mul a b) (* a b)))" :VALUES ("3"))))
+  (:symbol "DESTRUCTURING-CCASE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(handler-case (destructuring-ccase '(:div 1 2)
+                ((:add a b) (+ a b)))
+  (error () :unknown-operation))" :VALUES (":UNKNOWN-OPERATION"))))
+  (:symbol "ENSURE-FUNCTIONF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((f 'car))
+  (ensure-functionf f)
+  (functionp f))" :VALUES ("T"))))
+  (:symbol "ENSURE-FUNCTIONF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((f #'list))
+  (ensure-functionf f)
+  (funcall f 1 2))" :VALUES ("(1 2)"))))
+  (:symbol "ENSURE-GETHASH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((table (make-hash-table)))
+  (list (ensure-gethash :k table 1)
+        (ensure-gethash :k table 2)
+        (gethash :k table)))" :VALUES ("(1 1 1)"))))
+  (:symbol "ENSURE-GETHASH" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((table (make-hash-table))
+      (calls 0))
+  (ensure-gethash :k table (incf calls))
+  (ensure-gethash :k table (incf calls))
+  calls)" :VALUES ("1"))))
+  (:symbol "IGNORE-SOME-CONDITIONS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(null (ignore-some-conditions (type-error) (car 5)))" :VALUES ("T"))))
+  (:symbol "IGNORE-SOME-CONDITIONS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(handler-case (ignore-some-conditions (type-error) (error \"other\"))
+  (simple-error () :not-ignored))" :VALUES (":NOT-IGNORED"))))
+  (:symbol "IGNORE-SOME-CONDITIONS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(ignore-some-conditions (type-error) (+ 1 2))" :VALUES ("3"))))
+  (:symbol "MULTIPLE-VALUE-PROG2" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(multiple-value-list (multiple-value-prog2 1 (values 2 3) 4))" :VALUES ("(2 3)"))))
+  (:symbol "MULTIPLE-VALUE-PROG2" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((log '()))
+  (multiple-value-prog2 (push :a log) (floor 7 2) (push :b log))
+  (nreverse log))" :VALUES ("(:A :B)"))))
+  (:symbol "NAMED-LAMBDA" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(funcall (named-lambda fact (n)
+           (if (<= n 1) 1 (* n (fact (1- n)))))
+         5)" :VALUES ("120"))))
+  (:symbol "NAMED-LAMBDA" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(mapcar (named-lambda double (x) (* 2 x)) '(1 2 3))" :VALUES ("(2 4 6)"))))
+  (:symbol "NCONCF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2)))
+  (nconcf items (list 3 4))
+  items)" :VALUES ("(1 2 3 4)"))))
+  (:symbol "NREVERSEF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2 3)))
+  (nreversef items)
+  items)" :VALUES ("(3 2 1)"))))
+  (:symbol "REVERSEF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2 3)))
+  (reversef items)
+  items)" :VALUES ("(3 2 1)"))))
+  (:symbol "REVERSEF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((text (copy-seq \"abc\")))
+  (reversef text)
+  text)" :VALUES ("\"cba\""))))
+  (:symbol "UNIONF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2)))
+  (unionf items '(2 3))
+  (sort items #'<))" :VALUES ("(1 2 3)"))))
+  (:symbol "NUNIONF" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((items (list 1 2)))
+  (nunionf items (list 2 3))
+  (sort items #'<))" :VALUES ("(1 2 3)"))))
+  (:symbol "NTH-VALUE-OR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(nth-value-or 1 (values 1 nil) (values 2 :second))" :VALUES ("2" ":SECOND"))))
+  (:symbol "NTH-VALUE-OR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(nth-value-or 0 nil nil 3)" :VALUES ("3"))))
+  (:symbol "UNWIND-PROTECT-CASE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((log '()))
+  (unwind-protect-case ()
+      (+ 1 2)
+    (:normal (push :normal log))
+    (:abort (push :abort log)))
+  log)" :VALUES ("(:NORMAL)"))))
+  (:symbol "UNWIND-PROTECT-CASE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((log '()))
+  (catch 'out
+    (unwind-protect-case ()
+        (throw 'out :thrown)
+      (:abort (push :abort log))))
+  log)" :VALUES ("(:ABORT)"))))
+  (:symbol "WHEN-LET" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(when-let ((found (find 2 '(1 2 3))))
+  (* found 10))" :VALUES ("20"))))
+  (:symbol "WHEN-LET" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(when-let ((found (find 9 '(1 2 3))))
+  (* found 10))" :VALUES ("NIL"))))
+  (:symbol "WHEN-LET" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(when-let ((a 1) (b 2))
+  (+ a b))" :VALUES ("3"))))
+  (:symbol "WHEN-LET*" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(when-let* ((a 2) (b (* a 10)))
+  (list a b))" :VALUES ("(2 20)"))))
+  (:symbol "WHEN-LET*" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(when-let* ((a nil) (b (* a 10)))
+  (list a b))" :VALUES ("NIL"))))
+  (:symbol "WHICHEVER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(and (member (whichever :a :b :c) '(:a :b :c)) t)" :VALUES ("T"))))
+  (:symbol "WHICHEVER" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(whichever :only)" :VALUES (":ONLY"))))
+  (:symbol "WITH-GENSYMS" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(defmacro my-swap (a b)
+  (with-gensyms (temp)
+    `(let ((,temp ,a))
+       (setf ,a ,b ,b ,temp))))" :SILENT T)
+    (:FORM "(let ((x 1) (y 2))
+  (my-swap x y)
+  (list x y))" :VALUES ("(2 1)"))))
+  (:symbol "WITH-UNIQUE-NAMES" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(defmacro my-repeat (count &body body)
+  (with-unique-names (index)
+    `(dotimes (,index ,count) ,@body)))" :SILENT T)
+    (:FORM "(let ((n 0))
+  (my-repeat 3 (incf n))
+  n)" :VALUES ("3"))))
+  (:symbol "WITH-INPUT-FROM-FILE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-with-input.txt\"))
+  (write-string-into-file \"first line\" path :if-exists :supersede)
+  (prog1 (with-input-from-file (in path) (read-line in))
+    (delete-file path)))" :VALUES ("\"first line\""))))
+  (:symbol "WITH-OUTPUT-TO-FILE" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(let ((path \"/tmp/cldocs-ex-with-output.txt\"))
+  (with-output-to-file (out path :if-exists :supersede)
+    (write-string \"written\" out))
+  (prog1 (read-file-into-string path)
+    (delete-file path)))" :VALUES ("\"written\""))))
+  (:symbol "XOR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(multiple-value-list (xor nil t))" :VALUES ("(T T)"))))
+  (:symbol "XOR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(multiple-value-list (xor 1 2))" :VALUES ("(NIL NIL)"))))
+  (:symbol "XOR" :uses ("ALEXANDRIA") :system "alexandria"
+   :steps
+   (
+    (:FORM "(multiple-value-list (xor nil nil))" :VALUES ("(NIL T)")))))
  )

@@ -6,7 +6,10 @@
   (:symbol "SCAN" :uses ("CL-PPCRE") :system "cl-ppcre"
    :steps
    (
-    (:FORM "(scan \"b+\" \"aabbbcc\")" :VALUES ("2" "5" "#()" "#()"))
+    (:FORM "(scan \"b+\" \"aabbbcc\")" :VALUES ("2" "5" "#()" "#()"))))
+  (:symbol "SCAN" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
     (:FORM "(scan \"z\" \"aabbbcc\")" :VALUES ("NIL"))))
   (:symbol "SCAN-TO-STRINGS" :uses ("CL-PPCRE") :system "cl-ppcre"
    :steps
@@ -31,7 +34,10 @@
   (:symbol "REGEX-REPLACE-ALL" :uses ("CL-PPCRE") :system "cl-ppcre"
    :steps
    (
-    (:FORM "(regex-replace-all \"\\\\s+\" \"a   b  c\" \" \")" :VALUES ("\"a b c\"" "T"))
+    (:FORM "(regex-replace-all \"\\\\s+\" \"a   b  c\" \" \")" :VALUES ("\"a b c\"" "T"))))
+  (:symbol "REGEX-REPLACE-ALL" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
     (:FORM "(regex-replace-all \"(\\\\w+)@(\\\\w+)\" \"ada@lovelace\" \"\\\\2 at \\\\1\")" :VALUES ("\"lovelace at ada\"" "T"))))
   (:symbol "SPLIT" :uses ("CL-PPCRE") :system "cl-ppcre"
    :steps
@@ -41,7 +47,10 @@
    :steps
    (
     (:FORM "(register-groups-bind (year month) (\"(\\\\d+)-(\\\\d+)\" \"2024-05\")
-  (list year month))" :VALUES ("(\"2024\" \"05\")"))
+  (list year month))" :VALUES ("(\"2024\" \"05\")"))))
+  (:symbol "REGISTER-GROUPS-BIND" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
     (:FORM "(register-groups-bind (n) (\"(\\\\d+)\" \"no digits\")
   n)" :VALUES ("NIL"))))
   (:symbol "CREATE-SCANNER" :uses ("CL-PPCRE") :system "cl-ppcre"
@@ -58,5 +67,187 @@
   (:symbol "QUOTE-META-CHARS" :uses ("CL-PPCRE") :system "cl-ppcre"
    :steps
    (
-    (:FORM "(quote-meta-chars \"1+1=2?\")" :VALUES ("\"1\\\\+1\\\\=2\\\\?\"" "T")))))
+    (:FORM "(quote-meta-chars \"1+1=2?\")" :VALUES ("\"1\\\\+1\\\\=2\\\\?\"" "T"))))
+  (:symbol "CREATE-OPTIMIZED-TEST-FUNCTION" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(functionp (create-optimized-test-function \"x\"))" :VALUES ("NIL"))))
+  (:symbol "CREATE-OPTIMIZED-TEST-FUNCTION" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(functionp (create-optimized-test-function #\\a))" :VALUES ("NIL"))))
+  (:symbol "PARSE-STRING" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(parse-string \"a\")" :VALUES ("#\\a"))))
+  (:symbol "PARSE-STRING" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(parse-string \"a|b\")" :VALUES ("(:ALTERNATION #\\a #\\b)"))))
+  (:symbol "PARSE-STRING" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(parse-string \"(a)b*\")" :VALUES ("(:SEQUENCE (:REGISTER #\\a) (:GREEDY-REPETITION 0 NIL #\\b))"))))
+  (:symbol "PARSE-TREE-SYNONYM" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(parse-tree-synonym 'not-defined-synonym)" :VALUES ("NIL"))))
+  (:symbol "PARSE-TREE-SYNONYM" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(progn
+  (define-parse-tree-synonym year (:sequence :digit-class :digit-class :digit-class :digit-class))
+  (parse-tree-synonym 'year))" :VALUES ("(:SEQUENCE :DIGIT-CLASS :DIGIT-CLASS :DIGIT-CLASS :DIGIT-CLASS)"))))
+  (:symbol "DEFINE-PARSE-TREE-SYNONYM" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(define-parse-tree-synonym digits (:greedy-repetition 1 nil :digit-class))" :VALUES ("(:GREEDY-REPETITION 1 NIL :DIGIT-CLASS)"))
+    (:FORM "(scan-to-strings 'digits \"abc123def\")" :VALUES ("\"123\"" "#()"))
+    (:FORM "(all-matches-as-strings 'digits \"a1b22c333\")" :VALUES ("(\"1\" \"22\" \"333\")"))))
+  (:symbol "REGEX-APROPOS" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(regex-apropos \"^SCAN-TO\")" :VALUES NIL :OUTPUT "SCAN-TO-STRINGS [compiled closure]")))
+  (:symbol "REGEX-APROPOS-LIST" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(sort (regex-apropos-list \"^ALL-MATCHES\") #'string< :key #'symbol-name)" :VALUES ("(ALL-MATCHES ALL-MATCHES-AS-STRINGS)"))))
+  (:symbol "REGEX-APROPOS-LIST" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(> (length (regex-apropos-list \"^DO-\")) 3)" :VALUES ("T"))))
+  (:symbol "DO-MATCHES" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((positions '()))
+  (do-matches (start end \"\\\\d+\" \"a12b345\")
+    (push (list start end) positions))
+  (nreverse positions))" :VALUES ("((1 3) (4 7))"))))
+  (:symbol "DO-MATCHES" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((total 0))
+  (do-matches (start end \"x\" \"xaxbx\" total)
+    (incf total))
+  total)" :VALUES ("3"))))
+  (:symbol "DO-REGISTER-GROUPS" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((pairs '()))
+  (do-register-groups (key value) (\"(\\\\w)=(\\\\d)\" \"a=1,b=2,c=3\")
+    (push (cons key value) pairs))
+  (nreverse pairs))" :VALUES ("((\"a\" . \"1\") (\"b\" . \"2\") (\"c\" . \"3\"))"))))
+  (:symbol "DO-SCANS" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((spans '()))
+  (do-scans (match-start match-end register-starts register-ends \"(\\\\d)\" \"a1b2\")
+    (push (list match-start match-end) spans))
+  (nreverse spans))" :VALUES ("((1 2) (3 4))"))))
+  (:symbol "PPCRE-SYNTAX-ERROR-POS" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((pattern \"(\"))
+  (handler-case (scan pattern \"x\")
+    (ppcre-syntax-error (condition)
+      (ppcre-syntax-error-pos condition))))" :VALUES ("0"))))
+  (:symbol "PPCRE-SYNTAX-ERROR-STRING" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((pattern \"a(\"))
+  (handler-case (scan pattern \"x\")
+    (ppcre-syntax-error (condition)
+      (ppcre-syntax-error-string condition))))" :VALUES ("\"a(\""))))
+  (:symbol "PPCRE-ERROR" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((pattern \"(\"))
+  (handler-case (scan pattern \"x\")
+    (ppcre-error () :regex-error)))" :VALUES (":REGEX-ERROR"))))
+  (:symbol "PPCRE-ERROR" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(subtypep 'ppcre-error 'error)" :VALUES ("T" "T"))))
+  (:symbol "PPCRE-SYNTAX-ERROR" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((pattern \"[\"))
+  (handler-case (scan pattern \"x\")
+    (ppcre-syntax-error () :bad-syntax)))" :VALUES (":BAD-SYNTAX"))))
+  (:symbol "PPCRE-SYNTAX-ERROR" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(subtypep 'ppcre-syntax-error 'ppcre-error)" :VALUES ("T" "T"))))
+  (:symbol "PPCRE-INVOCATION-ERROR" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(subtypep 'ppcre-invocation-error 'ppcre-error)" :VALUES ("T" "T"))))
+  (:symbol "PPCRE-INVOCATION-ERROR" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(handler-case (scan \"a\" \"abc\" :start 10)
+  (error () :bad-call))" :VALUES ("NIL"))))
+  (:symbol "*ALLOW-QUOTING*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((*allow-quoting* t))
+  (multiple-value-list (scan \"\\\\Q.\\\\E\" \"a.b\")))" :VALUES ("(NIL)"))))
+  (:symbol "*ALLOW-QUOTING*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((*allow-quoting* nil))
+  (typep *allow-quoting* 'boolean))" :VALUES ("T"))))
+  (:symbol "*ALLOW-NAMED-REGISTERS*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((*allow-named-registers* t)
+      (pattern \"(?<year>\\\\d+)-(?<month>\\\\d+)\"))
+  (scan-to-strings pattern \"on 2024-05\"))" :VALUES ("\"2024-05\"" "#(\"2024\" \"05\")"))))
+  (:symbol "*ALLOW-NAMED-REGISTERS*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(typep *allow-named-registers* 'boolean)" :VALUES ("T"))))
+  (:symbol "*LOOK-AHEAD-FOR-SUFFIX*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(typep *look-ahead-for-suffix* 'boolean)" :VALUES ("T"))))
+  (:symbol "*LOOK-AHEAD-FOR-SUFFIX*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((*look-ahead-for-suffix* nil))
+  (scan \"b+\" \"aabbb\"))" :VALUES ("2" "5" "#()" "#()"))))
+  (:symbol "*OPTIMIZE-CHAR-CLASSES*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(typep *optimize-char-classes* '(or boolean (member :charset :hash-table)))" :VALUES ("T"))))
+  (:symbol "*OPTIMIZE-CHAR-CLASSES*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((*optimize-char-classes* nil))
+  (scan \"[a-c]+\" \"xxabcxx\"))" :VALUES ("2" "5" "#()" "#()"))))
+  (:symbol "*PROPERTY-RESOLVER*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(typep *property-resolver* '(or null function symbol))" :VALUES ("T"))))
+  (:symbol "*PROPERTY-RESOLVER*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(null *property-resolver*)" :VALUES ("T"))))
+  (:symbol "*REGEX-CHAR-CODE-LIMIT*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(integerp *regex-char-code-limit*)" :VALUES ("T"))))
+  (:symbol "*REGEX-CHAR-CODE-LIMIT*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(plusp *regex-char-code-limit*)" :VALUES ("T"))))
+  (:symbol "*USE-BMH-MATCHERS*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(typep *use-bmh-matchers* 'boolean)" :VALUES ("T"))))
+  (:symbol "*USE-BMH-MATCHERS*" :uses ("CL-PPCRE") :system "cl-ppcre"
+   :steps
+   (
+    (:FORM "(let ((*use-bmh-matchers* nil))
+  (scan \"needle\" \"haystack with needle inside\"))" :VALUES ("14" "20" "#()" "#()")))))
  )

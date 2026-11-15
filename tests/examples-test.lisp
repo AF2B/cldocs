@@ -192,6 +192,19 @@ Returns the regenerated file text.
                 :test #'string=)))
     (is (>= (length names) *minimum-documented-symbols*))))
 
+(test every-documented-symbol-has-between-one-and-four-examples
+  (dolist (package-name (cldocs/store:stored-package-names))
+    (let ((counts (make-hash-table :test #'equal)))
+      (dolist (example (cldocs/examples:read-examples package-name))
+        (incf (gethash (cldocs/examples:example-name example) counts 0)))
+      (dolist (definition (cldocs/store:read-package-data package-name))
+        (let ((count (gethash (cldocs/definition:definition-name definition) counts 0)))
+          (is (<= 1 count 4)
+              "~A:~A has ~D examples"
+              package-name
+              (cldocs/definition:definition-name definition)
+              count))))))
+
 (test every-example-documents-a-real-symbol-and-shows-a-result
   (dolist (package-name (cldocs/store:stored-package-names))
     (let ((stored (mapcar #'cldocs/definition:definition-name
@@ -254,5 +267,15 @@ Returns the regenerated file text.
     (is (not (search "No examples yet" html)))))
 
 (test symbols-without-examples-say-so
+  (let* ((definition (cldocs/definition:make-definition :package "DEMO"
+                                                        :name "LONELY"
+                                                        :kind :function))
+         (entry (cldocs/model:make-symbol-entry :package "DEMO"
+                                                :name "LONELY"
+                                                :definitions (list definition))))
+    (is (search "No examples yet" (cldocs/render:render-symbol entry)))))
+
+(test every-published-symbol-page-shows-examples
   (let ((html (cldocs/tests/site:read-site-file "sym/common-lisp/abort/index.html")))
-    (is (search "No examples yet" html))))
+    (is (not (search "No examples yet" html)))
+    (is (search "Example 1" html))))

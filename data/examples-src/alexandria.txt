@@ -1,5 +1,8 @@
+
 == ALEXANDRIA:IOTA @ alexandria
 (iota 5)
+
+== ALEXANDRIA:IOTA @ alexandria
 (iota 3 :start 10 :step 5)
 
 == ALEXANDRIA:FLATTEN @ alexandria
@@ -7,10 +10,14 @@
 
 == ALEXANDRIA:CURRY @ alexandria
 (funcall (curry #'+ 10) 5)
+
+== ALEXANDRIA:CURRY @ alexandria
 (mapcar (curry #'* 2) '(1 2 3))
 
 == ALEXANDRIA:COMPOSE @ alexandria
 (funcall (compose #'1+ #'abs) -5)
+
+== ALEXANDRIA:COMPOSE @ alexandria
 (funcall (compose #'list #'+) 1 2)
 
 == ALEXANDRIA:CONJOIN @ alexandria
@@ -21,6 +28,8 @@
 
 == ALEXANDRIA:ENSURE-LIST @ alexandria
 (ensure-list 1)
+
+== ALEXANDRIA:ENSURE-LIST @ alexandria
 (ensure-list '(1 2))
 
 == ALEXANDRIA:ALIST-HASH-TABLE @ alexandria
@@ -51,10 +60,14 @@
 
 == ALEXANDRIA:STARTS-WITH-SUBSEQ @ alexandria
 (starts-with-subseq "he" "hello")
+
+== ALEXANDRIA:STARTS-WITH-SUBSEQ @ alexandria
 (starts-with-subseq '(1 2) '(1 2 3))
 
 == ALEXANDRIA:ENDS-WITH-SUBSEQ @ alexandria
 (ends-with-subseq "lo" "hello")
+
+== ALEXANDRIA:ENDS-WITH-SUBSEQ @ alexandria
 (ends-with-subseq "he" "hello")
 
 == ALEXANDRIA:FIRST-ELT @ alexandria
@@ -62,6 +75,8 @@
 
 == ALEXANDRIA:LAST-ELT @ alexandria
 (last-elt '(1 2 3))
+
+== ALEXANDRIA:LAST-ELT @ alexandria
 (last-elt #(10 20 30))
 
 == ALEXANDRIA:LASTCAR @ alexandria
@@ -69,7 +84,11 @@
 
 == ALEXANDRIA:CLAMP @ alexandria
 (clamp 15 0 10)
+
+== ALEXANDRIA:CLAMP @ alexandria
 (clamp -3 0 10)
+
+== ALEXANDRIA:CLAMP @ alexandria
 (clamp 5 0 10)
 
 == ALEXANDRIA:LERP @ alexandria
@@ -89,11 +108,17 @@
 
 == ALEXANDRIA:EMPTYP @ alexandria
 (emptyp nil)
+
+== ALEXANDRIA:EMPTYP @ alexandria
 (emptyp "")
+
+== ALEXANDRIA:EMPTYP @ alexandria
 (emptyp '(1))
 
 == ALEXANDRIA:LENGTH= @ alexandria
 (length= '(1 2 3) #(a b c))
+
+== ALEXANDRIA:LENGTH= @ alexandria
 (length= '(1 2) '(1 2 3))
 
 == ALEXANDRIA:MAPPEND @ alexandria
@@ -101,12 +126,16 @@
 
 == ALEXANDRIA:MAKE-KEYWORD @ alexandria
 (values (make-keyword "HELLO"))
+
+== ALEXANDRIA:MAKE-KEYWORD @ alexandria
 (values (make-keyword "hello"))
 
 == ALEXANDRIA:IF-LET @ alexandria
 (if-let ((found (find 2 '(1 2 3))))
   (* found 10)
   :none)
+
+== ALEXANDRIA:IF-LET @ alexandria
 (if-let ((found (find 9 '(1 2 3))))
   (* found 10)
   :none)
@@ -146,6 +175,8 @@
 
 == ALEXANDRIA:EXTREMUM @ alexandria
 (extremum '(3 1 2) #'<)
+
+== ALEXANDRIA:EXTREMUM @ alexandria
 (extremum '("pear" "fig" "apple") #'> :key #'length)
 
 == ALEXANDRIA:MAP-PRODUCT @ alexandria
@@ -157,3 +188,1402 @@
                     '(1 2 3)
                     :length 2)
   (sort combinations #'< :key #'first))
+
+== ALEXANDRIA:POSITIVE-INTEGER-P @ alexandria
+(positive-integer-p 3)
+
+== ALEXANDRIA:POSITIVE-INTEGER-P @ alexandria
+(positive-integer-p -3)
+
+== ALEXANDRIA:POSITIVE-INTEGER-P @ alexandria
+(positive-integer-p 0)
+
+== ALEXANDRIA:POSITIVE-INTEGER @ alexandria
+(typep 3 'positive-integer)
+
+== ALEXANDRIA:POSITIVE-INTEGER @ alexandria
+(typep -3 'positive-integer)
+
+== ALEXANDRIA:POSITIVE-INTEGER @ alexandria
+(typep 0 'positive-integer)
+
+== ALEXANDRIA:POSITIVE-FIXNUM-P @ alexandria
+(positive-fixnum-p 3)
+
+== ALEXANDRIA:POSITIVE-FIXNUM-P @ alexandria
+(positive-fixnum-p -3)
+
+== ALEXANDRIA:POSITIVE-FIXNUM-P @ alexandria
+(positive-fixnum-p 0)
+
+== ALEXANDRIA:POSITIVE-FIXNUM @ alexandria
+(typep 3 'positive-fixnum)
+
+== ALEXANDRIA:POSITIVE-FIXNUM @ alexandria
+(typep -3 'positive-fixnum)
+
+== ALEXANDRIA:POSITIVE-FIXNUM @ alexandria
+(typep 0 'positive-fixnum)
+
+== ALEXANDRIA:POSITIVE-RATIONAL-P @ alexandria
+(positive-rational-p 1/2)
+
+== ALEXANDRIA:POSITIVE-RATIONAL-P @ alexandria
+(positive-rational-p -1/2)
+
+== ALEXANDRIA:POSITIVE-RATIONAL-P @ alexandria
+(positive-rational-p 0)
+
+== ALEXANDRIA:POSITIVE-RATIONAL @ alexandria
+(typep 1/2 'positive-rational)
+
+== ALEXANDRIA:POSITIVE-RATIONAL @ alexandria
+(typep -1/2 'positive-rational)
+
+== ALEXANDRIA:POSITIVE-RATIONAL @ alexandria
+(typep 0 'positive-rational)
+
+== ALEXANDRIA:POSITIVE-REAL-P @ alexandria
+(positive-real-p 2.5)
+
+== ALEXANDRIA:POSITIVE-REAL-P @ alexandria
+(positive-real-p -2.5)
+
+== ALEXANDRIA:POSITIVE-REAL-P @ alexandria
+(positive-real-p 0)
+
+== ALEXANDRIA:POSITIVE-REAL @ alexandria
+(typep 2.5 'positive-real)
+
+== ALEXANDRIA:POSITIVE-REAL @ alexandria
+(typep -2.5 'positive-real)
+
+== ALEXANDRIA:POSITIVE-REAL @ alexandria
+(typep 0 'positive-real)
+
+== ALEXANDRIA:POSITIVE-FLOAT-P @ alexandria
+(positive-float-p 1.5)
+
+== ALEXANDRIA:POSITIVE-FLOAT-P @ alexandria
+(positive-float-p -1.5)
+
+== ALEXANDRIA:POSITIVE-FLOAT-P @ alexandria
+(positive-float-p 0.0)
+
+== ALEXANDRIA:POSITIVE-FLOAT @ alexandria
+(typep 1.5 'positive-float)
+
+== ALEXANDRIA:POSITIVE-FLOAT @ alexandria
+(typep -1.5 'positive-float)
+
+== ALEXANDRIA:POSITIVE-FLOAT @ alexandria
+(typep 0.0 'positive-float)
+
+== ALEXANDRIA:POSITIVE-SINGLE-FLOAT-P @ alexandria
+(positive-single-float-p 1.5)
+
+== ALEXANDRIA:POSITIVE-SINGLE-FLOAT-P @ alexandria
+(positive-single-float-p -1.5)
+
+== ALEXANDRIA:POSITIVE-SINGLE-FLOAT-P @ alexandria
+(positive-single-float-p 0.0)
+
+== ALEXANDRIA:POSITIVE-SINGLE-FLOAT @ alexandria
+(typep 1.5 'positive-single-float)
+
+== ALEXANDRIA:POSITIVE-SINGLE-FLOAT @ alexandria
+(typep -1.5 'positive-single-float)
+
+== ALEXANDRIA:POSITIVE-SINGLE-FLOAT @ alexandria
+(typep 0.0 'positive-single-float)
+
+== ALEXANDRIA:POSITIVE-SHORT-FLOAT-P @ alexandria
+(positive-short-float-p 1.5)
+
+== ALEXANDRIA:POSITIVE-SHORT-FLOAT-P @ alexandria
+(positive-short-float-p -1.5)
+
+== ALEXANDRIA:POSITIVE-SHORT-FLOAT-P @ alexandria
+(positive-short-float-p 0.0)
+
+== ALEXANDRIA:POSITIVE-SHORT-FLOAT @ alexandria
+(typep 1.5 'positive-short-float)
+
+== ALEXANDRIA:POSITIVE-SHORT-FLOAT @ alexandria
+(typep -1.5 'positive-short-float)
+
+== ALEXANDRIA:POSITIVE-SHORT-FLOAT @ alexandria
+(typep 0.0 'positive-short-float)
+
+== ALEXANDRIA:POSITIVE-DOUBLE-FLOAT-P @ alexandria
+(positive-double-float-p 1.5d0)
+
+== ALEXANDRIA:POSITIVE-DOUBLE-FLOAT-P @ alexandria
+(positive-double-float-p -1.5d0)
+
+== ALEXANDRIA:POSITIVE-DOUBLE-FLOAT-P @ alexandria
+(positive-double-float-p 0.0d0)
+
+== ALEXANDRIA:POSITIVE-DOUBLE-FLOAT @ alexandria
+(typep 1.5d0 'positive-double-float)
+
+== ALEXANDRIA:POSITIVE-DOUBLE-FLOAT @ alexandria
+(typep -1.5d0 'positive-double-float)
+
+== ALEXANDRIA:POSITIVE-DOUBLE-FLOAT @ alexandria
+(typep 0.0d0 'positive-double-float)
+
+== ALEXANDRIA:POSITIVE-LONG-FLOAT-P @ alexandria
+(positive-long-float-p 1.5d0)
+
+== ALEXANDRIA:POSITIVE-LONG-FLOAT-P @ alexandria
+(positive-long-float-p -1.5d0)
+
+== ALEXANDRIA:POSITIVE-LONG-FLOAT-P @ alexandria
+(positive-long-float-p 0.0d0)
+
+== ALEXANDRIA:POSITIVE-LONG-FLOAT @ alexandria
+(typep 1.5d0 'positive-long-float)
+
+== ALEXANDRIA:POSITIVE-LONG-FLOAT @ alexandria
+(typep -1.5d0 'positive-long-float)
+
+== ALEXANDRIA:POSITIVE-LONG-FLOAT @ alexandria
+(typep 0.0d0 'positive-long-float)
+
+== ALEXANDRIA:NEGATIVE-INTEGER-P @ alexandria
+(negative-integer-p 3)
+
+== ALEXANDRIA:NEGATIVE-INTEGER-P @ alexandria
+(negative-integer-p -3)
+
+== ALEXANDRIA:NEGATIVE-INTEGER-P @ alexandria
+(negative-integer-p 0)
+
+== ALEXANDRIA:NEGATIVE-INTEGER @ alexandria
+(typep 3 'negative-integer)
+
+== ALEXANDRIA:NEGATIVE-INTEGER @ alexandria
+(typep -3 'negative-integer)
+
+== ALEXANDRIA:NEGATIVE-INTEGER @ alexandria
+(typep 0 'negative-integer)
+
+== ALEXANDRIA:NEGATIVE-FIXNUM-P @ alexandria
+(negative-fixnum-p 3)
+
+== ALEXANDRIA:NEGATIVE-FIXNUM-P @ alexandria
+(negative-fixnum-p -3)
+
+== ALEXANDRIA:NEGATIVE-FIXNUM-P @ alexandria
+(negative-fixnum-p 0)
+
+== ALEXANDRIA:NEGATIVE-FIXNUM @ alexandria
+(typep 3 'negative-fixnum)
+
+== ALEXANDRIA:NEGATIVE-FIXNUM @ alexandria
+(typep -3 'negative-fixnum)
+
+== ALEXANDRIA:NEGATIVE-FIXNUM @ alexandria
+(typep 0 'negative-fixnum)
+
+== ALEXANDRIA:NEGATIVE-RATIONAL-P @ alexandria
+(negative-rational-p 1/2)
+
+== ALEXANDRIA:NEGATIVE-RATIONAL-P @ alexandria
+(negative-rational-p -1/2)
+
+== ALEXANDRIA:NEGATIVE-RATIONAL-P @ alexandria
+(negative-rational-p 0)
+
+== ALEXANDRIA:NEGATIVE-RATIONAL @ alexandria
+(typep 1/2 'negative-rational)
+
+== ALEXANDRIA:NEGATIVE-RATIONAL @ alexandria
+(typep -1/2 'negative-rational)
+
+== ALEXANDRIA:NEGATIVE-RATIONAL @ alexandria
+(typep 0 'negative-rational)
+
+== ALEXANDRIA:NEGATIVE-REAL-P @ alexandria
+(negative-real-p 2.5)
+
+== ALEXANDRIA:NEGATIVE-REAL-P @ alexandria
+(negative-real-p -2.5)
+
+== ALEXANDRIA:NEGATIVE-REAL-P @ alexandria
+(negative-real-p 0)
+
+== ALEXANDRIA:NEGATIVE-REAL @ alexandria
+(typep 2.5 'negative-real)
+
+== ALEXANDRIA:NEGATIVE-REAL @ alexandria
+(typep -2.5 'negative-real)
+
+== ALEXANDRIA:NEGATIVE-REAL @ alexandria
+(typep 0 'negative-real)
+
+== ALEXANDRIA:NEGATIVE-FLOAT-P @ alexandria
+(negative-float-p 1.5)
+
+== ALEXANDRIA:NEGATIVE-FLOAT-P @ alexandria
+(negative-float-p -1.5)
+
+== ALEXANDRIA:NEGATIVE-FLOAT-P @ alexandria
+(negative-float-p 0.0)
+
+== ALEXANDRIA:NEGATIVE-FLOAT @ alexandria
+(typep 1.5 'negative-float)
+
+== ALEXANDRIA:NEGATIVE-FLOAT @ alexandria
+(typep -1.5 'negative-float)
+
+== ALEXANDRIA:NEGATIVE-FLOAT @ alexandria
+(typep 0.0 'negative-float)
+
+== ALEXANDRIA:NEGATIVE-SINGLE-FLOAT-P @ alexandria
+(negative-single-float-p 1.5)
+
+== ALEXANDRIA:NEGATIVE-SINGLE-FLOAT-P @ alexandria
+(negative-single-float-p -1.5)
+
+== ALEXANDRIA:NEGATIVE-SINGLE-FLOAT-P @ alexandria
+(negative-single-float-p 0.0)
+
+== ALEXANDRIA:NEGATIVE-SINGLE-FLOAT @ alexandria
+(typep 1.5 'negative-single-float)
+
+== ALEXANDRIA:NEGATIVE-SINGLE-FLOAT @ alexandria
+(typep -1.5 'negative-single-float)
+
+== ALEXANDRIA:NEGATIVE-SINGLE-FLOAT @ alexandria
+(typep 0.0 'negative-single-float)
+
+== ALEXANDRIA:NEGATIVE-SHORT-FLOAT-P @ alexandria
+(negative-short-float-p 1.5)
+
+== ALEXANDRIA:NEGATIVE-SHORT-FLOAT-P @ alexandria
+(negative-short-float-p -1.5)
+
+== ALEXANDRIA:NEGATIVE-SHORT-FLOAT-P @ alexandria
+(negative-short-float-p 0.0)
+
+== ALEXANDRIA:NEGATIVE-SHORT-FLOAT @ alexandria
+(typep 1.5 'negative-short-float)
+
+== ALEXANDRIA:NEGATIVE-SHORT-FLOAT @ alexandria
+(typep -1.5 'negative-short-float)
+
+== ALEXANDRIA:NEGATIVE-SHORT-FLOAT @ alexandria
+(typep 0.0 'negative-short-float)
+
+== ALEXANDRIA:NEGATIVE-DOUBLE-FLOAT-P @ alexandria
+(negative-double-float-p 1.5d0)
+
+== ALEXANDRIA:NEGATIVE-DOUBLE-FLOAT-P @ alexandria
+(negative-double-float-p -1.5d0)
+
+== ALEXANDRIA:NEGATIVE-DOUBLE-FLOAT-P @ alexandria
+(negative-double-float-p 0.0d0)
+
+== ALEXANDRIA:NEGATIVE-DOUBLE-FLOAT @ alexandria
+(typep 1.5d0 'negative-double-float)
+
+== ALEXANDRIA:NEGATIVE-DOUBLE-FLOAT @ alexandria
+(typep -1.5d0 'negative-double-float)
+
+== ALEXANDRIA:NEGATIVE-DOUBLE-FLOAT @ alexandria
+(typep 0.0d0 'negative-double-float)
+
+== ALEXANDRIA:NEGATIVE-LONG-FLOAT-P @ alexandria
+(negative-long-float-p 1.5d0)
+
+== ALEXANDRIA:NEGATIVE-LONG-FLOAT-P @ alexandria
+(negative-long-float-p -1.5d0)
+
+== ALEXANDRIA:NEGATIVE-LONG-FLOAT-P @ alexandria
+(negative-long-float-p 0.0d0)
+
+== ALEXANDRIA:NEGATIVE-LONG-FLOAT @ alexandria
+(typep 1.5d0 'negative-long-float)
+
+== ALEXANDRIA:NEGATIVE-LONG-FLOAT @ alexandria
+(typep -1.5d0 'negative-long-float)
+
+== ALEXANDRIA:NEGATIVE-LONG-FLOAT @ alexandria
+(typep 0.0d0 'negative-long-float)
+
+== ALEXANDRIA:NON-NEGATIVE-INTEGER-P @ alexandria
+(non-negative-integer-p 3)
+
+== ALEXANDRIA:NON-NEGATIVE-INTEGER-P @ alexandria
+(non-negative-integer-p -3)
+
+== ALEXANDRIA:NON-NEGATIVE-INTEGER-P @ alexandria
+(non-negative-integer-p 0)
+
+== ALEXANDRIA:NON-NEGATIVE-INTEGER @ alexandria
+(typep 3 'non-negative-integer)
+
+== ALEXANDRIA:NON-NEGATIVE-INTEGER @ alexandria
+(typep -3 'non-negative-integer)
+
+== ALEXANDRIA:NON-NEGATIVE-INTEGER @ alexandria
+(typep 0 'non-negative-integer)
+
+== ALEXANDRIA:NON-NEGATIVE-FIXNUM-P @ alexandria
+(non-negative-fixnum-p 3)
+
+== ALEXANDRIA:NON-NEGATIVE-FIXNUM-P @ alexandria
+(non-negative-fixnum-p -3)
+
+== ALEXANDRIA:NON-NEGATIVE-FIXNUM-P @ alexandria
+(non-negative-fixnum-p 0)
+
+== ALEXANDRIA:NON-NEGATIVE-FIXNUM @ alexandria
+(typep 3 'non-negative-fixnum)
+
+== ALEXANDRIA:NON-NEGATIVE-FIXNUM @ alexandria
+(typep -3 'non-negative-fixnum)
+
+== ALEXANDRIA:NON-NEGATIVE-FIXNUM @ alexandria
+(typep 0 'non-negative-fixnum)
+
+== ALEXANDRIA:NON-NEGATIVE-RATIONAL-P @ alexandria
+(non-negative-rational-p 1/2)
+
+== ALEXANDRIA:NON-NEGATIVE-RATIONAL-P @ alexandria
+(non-negative-rational-p -1/2)
+
+== ALEXANDRIA:NON-NEGATIVE-RATIONAL-P @ alexandria
+(non-negative-rational-p 0)
+
+== ALEXANDRIA:NON-NEGATIVE-RATIONAL @ alexandria
+(typep 1/2 'non-negative-rational)
+
+== ALEXANDRIA:NON-NEGATIVE-RATIONAL @ alexandria
+(typep -1/2 'non-negative-rational)
+
+== ALEXANDRIA:NON-NEGATIVE-RATIONAL @ alexandria
+(typep 0 'non-negative-rational)
+
+== ALEXANDRIA:NON-NEGATIVE-REAL-P @ alexandria
+(non-negative-real-p 2.5)
+
+== ALEXANDRIA:NON-NEGATIVE-REAL-P @ alexandria
+(non-negative-real-p -2.5)
+
+== ALEXANDRIA:NON-NEGATIVE-REAL-P @ alexandria
+(non-negative-real-p 0)
+
+== ALEXANDRIA:NON-NEGATIVE-REAL @ alexandria
+(typep 2.5 'non-negative-real)
+
+== ALEXANDRIA:NON-NEGATIVE-REAL @ alexandria
+(typep -2.5 'non-negative-real)
+
+== ALEXANDRIA:NON-NEGATIVE-REAL @ alexandria
+(typep 0 'non-negative-real)
+
+== ALEXANDRIA:NON-NEGATIVE-FLOAT-P @ alexandria
+(non-negative-float-p 1.5)
+
+== ALEXANDRIA:NON-NEGATIVE-FLOAT-P @ alexandria
+(non-negative-float-p -1.5)
+
+== ALEXANDRIA:NON-NEGATIVE-FLOAT-P @ alexandria
+(non-negative-float-p 0.0)
+
+== ALEXANDRIA:NON-NEGATIVE-FLOAT @ alexandria
+(typep 1.5 'non-negative-float)
+
+== ALEXANDRIA:NON-NEGATIVE-FLOAT @ alexandria
+(typep -1.5 'non-negative-float)
+
+== ALEXANDRIA:NON-NEGATIVE-FLOAT @ alexandria
+(typep 0.0 'non-negative-float)
+
+== ALEXANDRIA:NON-NEGATIVE-SINGLE-FLOAT-P @ alexandria
+(non-negative-single-float-p 1.5)
+
+== ALEXANDRIA:NON-NEGATIVE-SINGLE-FLOAT-P @ alexandria
+(non-negative-single-float-p -1.5)
+
+== ALEXANDRIA:NON-NEGATIVE-SINGLE-FLOAT-P @ alexandria
+(non-negative-single-float-p 0.0)
+
+== ALEXANDRIA:NON-NEGATIVE-SINGLE-FLOAT @ alexandria
+(typep 1.5 'non-negative-single-float)
+
+== ALEXANDRIA:NON-NEGATIVE-SINGLE-FLOAT @ alexandria
+(typep -1.5 'non-negative-single-float)
+
+== ALEXANDRIA:NON-NEGATIVE-SINGLE-FLOAT @ alexandria
+(typep 0.0 'non-negative-single-float)
+
+== ALEXANDRIA:NON-NEGATIVE-SHORT-FLOAT-P @ alexandria
+(non-negative-short-float-p 1.5)
+
+== ALEXANDRIA:NON-NEGATIVE-SHORT-FLOAT-P @ alexandria
+(non-negative-short-float-p -1.5)
+
+== ALEXANDRIA:NON-NEGATIVE-SHORT-FLOAT-P @ alexandria
+(non-negative-short-float-p 0.0)
+
+== ALEXANDRIA:NON-NEGATIVE-SHORT-FLOAT @ alexandria
+(typep 1.5 'non-negative-short-float)
+
+== ALEXANDRIA:NON-NEGATIVE-SHORT-FLOAT @ alexandria
+(typep -1.5 'non-negative-short-float)
+
+== ALEXANDRIA:NON-NEGATIVE-SHORT-FLOAT @ alexandria
+(typep 0.0 'non-negative-short-float)
+
+== ALEXANDRIA:NON-NEGATIVE-DOUBLE-FLOAT-P @ alexandria
+(non-negative-double-float-p 1.5d0)
+
+== ALEXANDRIA:NON-NEGATIVE-DOUBLE-FLOAT-P @ alexandria
+(non-negative-double-float-p -1.5d0)
+
+== ALEXANDRIA:NON-NEGATIVE-DOUBLE-FLOAT-P @ alexandria
+(non-negative-double-float-p 0.0d0)
+
+== ALEXANDRIA:NON-NEGATIVE-DOUBLE-FLOAT @ alexandria
+(typep 1.5d0 'non-negative-double-float)
+
+== ALEXANDRIA:NON-NEGATIVE-DOUBLE-FLOAT @ alexandria
+(typep -1.5d0 'non-negative-double-float)
+
+== ALEXANDRIA:NON-NEGATIVE-DOUBLE-FLOAT @ alexandria
+(typep 0.0d0 'non-negative-double-float)
+
+== ALEXANDRIA:NON-NEGATIVE-LONG-FLOAT-P @ alexandria
+(non-negative-long-float-p 1.5d0)
+
+== ALEXANDRIA:NON-NEGATIVE-LONG-FLOAT-P @ alexandria
+(non-negative-long-float-p -1.5d0)
+
+== ALEXANDRIA:NON-NEGATIVE-LONG-FLOAT-P @ alexandria
+(non-negative-long-float-p 0.0d0)
+
+== ALEXANDRIA:NON-NEGATIVE-LONG-FLOAT @ alexandria
+(typep 1.5d0 'non-negative-long-float)
+
+== ALEXANDRIA:NON-NEGATIVE-LONG-FLOAT @ alexandria
+(typep -1.5d0 'non-negative-long-float)
+
+== ALEXANDRIA:NON-NEGATIVE-LONG-FLOAT @ alexandria
+(typep 0.0d0 'non-negative-long-float)
+
+== ALEXANDRIA:NON-POSITIVE-INTEGER-P @ alexandria
+(non-positive-integer-p 3)
+
+== ALEXANDRIA:NON-POSITIVE-INTEGER-P @ alexandria
+(non-positive-integer-p -3)
+
+== ALEXANDRIA:NON-POSITIVE-INTEGER-P @ alexandria
+(non-positive-integer-p 0)
+
+== ALEXANDRIA:NON-POSITIVE-INTEGER @ alexandria
+(typep 3 'non-positive-integer)
+
+== ALEXANDRIA:NON-POSITIVE-INTEGER @ alexandria
+(typep -3 'non-positive-integer)
+
+== ALEXANDRIA:NON-POSITIVE-INTEGER @ alexandria
+(typep 0 'non-positive-integer)
+
+== ALEXANDRIA:NON-POSITIVE-FIXNUM-P @ alexandria
+(non-positive-fixnum-p 3)
+
+== ALEXANDRIA:NON-POSITIVE-FIXNUM-P @ alexandria
+(non-positive-fixnum-p -3)
+
+== ALEXANDRIA:NON-POSITIVE-FIXNUM-P @ alexandria
+(non-positive-fixnum-p 0)
+
+== ALEXANDRIA:NON-POSITIVE-FIXNUM @ alexandria
+(typep 3 'non-positive-fixnum)
+
+== ALEXANDRIA:NON-POSITIVE-FIXNUM @ alexandria
+(typep -3 'non-positive-fixnum)
+
+== ALEXANDRIA:NON-POSITIVE-FIXNUM @ alexandria
+(typep 0 'non-positive-fixnum)
+
+== ALEXANDRIA:NON-POSITIVE-RATIONAL-P @ alexandria
+(non-positive-rational-p 1/2)
+
+== ALEXANDRIA:NON-POSITIVE-RATIONAL-P @ alexandria
+(non-positive-rational-p -1/2)
+
+== ALEXANDRIA:NON-POSITIVE-RATIONAL-P @ alexandria
+(non-positive-rational-p 0)
+
+== ALEXANDRIA:NON-POSITIVE-RATIONAL @ alexandria
+(typep 1/2 'non-positive-rational)
+
+== ALEXANDRIA:NON-POSITIVE-RATIONAL @ alexandria
+(typep -1/2 'non-positive-rational)
+
+== ALEXANDRIA:NON-POSITIVE-RATIONAL @ alexandria
+(typep 0 'non-positive-rational)
+
+== ALEXANDRIA:NON-POSITIVE-REAL-P @ alexandria
+(non-positive-real-p 2.5)
+
+== ALEXANDRIA:NON-POSITIVE-REAL-P @ alexandria
+(non-positive-real-p -2.5)
+
+== ALEXANDRIA:NON-POSITIVE-REAL-P @ alexandria
+(non-positive-real-p 0)
+
+== ALEXANDRIA:NON-POSITIVE-REAL @ alexandria
+(typep 2.5 'non-positive-real)
+
+== ALEXANDRIA:NON-POSITIVE-REAL @ alexandria
+(typep -2.5 'non-positive-real)
+
+== ALEXANDRIA:NON-POSITIVE-REAL @ alexandria
+(typep 0 'non-positive-real)
+
+== ALEXANDRIA:NON-POSITIVE-FLOAT-P @ alexandria
+(non-positive-float-p 1.5)
+
+== ALEXANDRIA:NON-POSITIVE-FLOAT-P @ alexandria
+(non-positive-float-p -1.5)
+
+== ALEXANDRIA:NON-POSITIVE-FLOAT-P @ alexandria
+(non-positive-float-p 0.0)
+
+== ALEXANDRIA:NON-POSITIVE-FLOAT @ alexandria
+(typep 1.5 'non-positive-float)
+
+== ALEXANDRIA:NON-POSITIVE-FLOAT @ alexandria
+(typep -1.5 'non-positive-float)
+
+== ALEXANDRIA:NON-POSITIVE-FLOAT @ alexandria
+(typep 0.0 'non-positive-float)
+
+== ALEXANDRIA:NON-POSITIVE-SINGLE-FLOAT-P @ alexandria
+(non-positive-single-float-p 1.5)
+
+== ALEXANDRIA:NON-POSITIVE-SINGLE-FLOAT-P @ alexandria
+(non-positive-single-float-p -1.5)
+
+== ALEXANDRIA:NON-POSITIVE-SINGLE-FLOAT-P @ alexandria
+(non-positive-single-float-p 0.0)
+
+== ALEXANDRIA:NON-POSITIVE-SINGLE-FLOAT @ alexandria
+(typep 1.5 'non-positive-single-float)
+
+== ALEXANDRIA:NON-POSITIVE-SINGLE-FLOAT @ alexandria
+(typep -1.5 'non-positive-single-float)
+
+== ALEXANDRIA:NON-POSITIVE-SINGLE-FLOAT @ alexandria
+(typep 0.0 'non-positive-single-float)
+
+== ALEXANDRIA:NON-POSITIVE-SHORT-FLOAT-P @ alexandria
+(non-positive-short-float-p 1.5)
+
+== ALEXANDRIA:NON-POSITIVE-SHORT-FLOAT-P @ alexandria
+(non-positive-short-float-p -1.5)
+
+== ALEXANDRIA:NON-POSITIVE-SHORT-FLOAT-P @ alexandria
+(non-positive-short-float-p 0.0)
+
+== ALEXANDRIA:NON-POSITIVE-SHORT-FLOAT @ alexandria
+(typep 1.5 'non-positive-short-float)
+
+== ALEXANDRIA:NON-POSITIVE-SHORT-FLOAT @ alexandria
+(typep -1.5 'non-positive-short-float)
+
+== ALEXANDRIA:NON-POSITIVE-SHORT-FLOAT @ alexandria
+(typep 0.0 'non-positive-short-float)
+
+== ALEXANDRIA:NON-POSITIVE-DOUBLE-FLOAT-P @ alexandria
+(non-positive-double-float-p 1.5d0)
+
+== ALEXANDRIA:NON-POSITIVE-DOUBLE-FLOAT-P @ alexandria
+(non-positive-double-float-p -1.5d0)
+
+== ALEXANDRIA:NON-POSITIVE-DOUBLE-FLOAT-P @ alexandria
+(non-positive-double-float-p 0.0d0)
+
+== ALEXANDRIA:NON-POSITIVE-DOUBLE-FLOAT @ alexandria
+(typep 1.5d0 'non-positive-double-float)
+
+== ALEXANDRIA:NON-POSITIVE-DOUBLE-FLOAT @ alexandria
+(typep -1.5d0 'non-positive-double-float)
+
+== ALEXANDRIA:NON-POSITIVE-DOUBLE-FLOAT @ alexandria
+(typep 0.0d0 'non-positive-double-float)
+
+== ALEXANDRIA:NON-POSITIVE-LONG-FLOAT-P @ alexandria
+(non-positive-long-float-p 1.5d0)
+
+== ALEXANDRIA:NON-POSITIVE-LONG-FLOAT-P @ alexandria
+(non-positive-long-float-p -1.5d0)
+
+== ALEXANDRIA:NON-POSITIVE-LONG-FLOAT-P @ alexandria
+(non-positive-long-float-p 0.0d0)
+
+== ALEXANDRIA:NON-POSITIVE-LONG-FLOAT @ alexandria
+(typep 1.5d0 'non-positive-long-float)
+
+== ALEXANDRIA:NON-POSITIVE-LONG-FLOAT @ alexandria
+(typep -1.5d0 'non-positive-long-float)
+
+== ALEXANDRIA:NON-POSITIVE-LONG-FLOAT @ alexandria
+(typep 0.0d0 'non-positive-long-float)
+
+== ALEXANDRIA:ARRAY-INDEX @ alexandria
+(typep 5 'array-index)
+
+== ALEXANDRIA:ARRAY-INDEX @ alexandria
+(typep -1 'array-index)
+
+== ALEXANDRIA:ARRAY-INDEX @ alexandria
+(typep 10 `(array-index ,array-dimension-limit))
+
+== ALEXANDRIA:ARRAY-LENGTH @ alexandria
+(typep 5 'array-length)
+
+== ALEXANDRIA:ARRAY-LENGTH @ alexandria
+(typep -1 'array-length)
+
+== ALEXANDRIA:PROPER-LIST @ alexandria
+(typep '(1 2 3) 'proper-list)
+
+== ALEXANDRIA:PROPER-LIST @ alexandria
+(typep '(1 . 2) 'proper-list)
+
+== ALEXANDRIA:PROPER-LIST @ alexandria
+(typep nil 'proper-list)
+
+== ALEXANDRIA:PROPER-SEQUENCE @ alexandria
+(typep '(1 2) 'proper-sequence)
+
+== ALEXANDRIA:PROPER-SEQUENCE @ alexandria
+(typep #(1 2) 'proper-sequence)
+
+== ALEXANDRIA:PROPER-SEQUENCE @ alexandria
+(typep '(1 . 2) 'proper-sequence)
+
+== ALEXANDRIA:STRING-DESIGNATOR @ alexandria
+(typep "abc" 'string-designator)
+
+== ALEXANDRIA:STRING-DESIGNATOR @ alexandria
+(typep 'abc 'string-designator)
+
+== ALEXANDRIA:STRING-DESIGNATOR @ alexandria
+(typep #\a 'string-designator)
+
+== ALEXANDRIA:STRING-DESIGNATOR @ alexandria
+(typep 5 'string-designator)
+
+== ALEXANDRIA:ASSOC-VALUE @ alexandria
+(assoc-value '((a . 1) (b . 2)) 'b)
+
+== ALEXANDRIA:ASSOC-VALUE @ alexandria
+(let ((table (list (cons 'a 1))))
+  (setf (assoc-value table 'b) 2)
+  table)
+
+== ALEXANDRIA:RASSOC-VALUE @ alexandria
+(rassoc-value '((a . 1) (b . 2)) 2)
+
+== ALEXANDRIA:RASSOC-VALUE @ alexandria
+(let ((table (list (cons 'a 1))))
+  (setf (rassoc-value table 2) 'b)
+  table)
+
+== ALEXANDRIA:CIRCULAR-LIST @ alexandria
+(let ((ring (circular-list 1 2)))
+  (list (first ring) (second ring) (third ring) (fourth ring)))
+
+== ALEXANDRIA:CIRCULAR-LIST @ alexandria
+(circular-list-p (circular-list :a))
+
+== ALEXANDRIA:CIRCULAR-LIST-P @ alexandria
+(circular-list-p (circular-list 1 2 3))
+
+== ALEXANDRIA:CIRCULAR-LIST-P @ alexandria
+(circular-list-p '(1 2 3))
+
+== ALEXANDRIA:CIRCULAR-LIST-P @ alexandria
+(circular-list-p nil)
+
+== ALEXANDRIA:CIRCULAR-TREE-P @ alexandria
+(circular-tree-p '(1 (2 3)))
+
+== ALEXANDRIA:CIRCULAR-TREE-P @ alexandria
+(let ((tree (list 1 2)))
+  (setf (second tree) tree)
+  (circular-tree-p tree))
+
+== ALEXANDRIA:MAKE-CIRCULAR-LIST @ alexandria
+(let ((ring (make-circular-list 3 :initial-element :x)))
+  (list (first ring) (fourth ring) (circular-list-p ring)))
+
+== ALEXANDRIA:COPY-ARRAY @ alexandria
+(let* ((original (vector 1 2 3))
+       (copy (copy-array original)))
+  (setf (aref copy 0) :changed)
+  (list original copy))
+
+== ALEXANDRIA:COPY-ARRAY @ alexandria
+(copy-array (make-array '(2 2) :initial-contents '((1 2) (3 4))))
+
+== ALEXANDRIA:COPY-SEQUENCE @ alexandria
+(copy-sequence 'list #(1 2 3))
+
+== ALEXANDRIA:COPY-SEQUENCE @ alexandria
+(copy-sequence 'vector '(a b))
+
+== ALEXANDRIA:COPY-SEQUENCE @ alexandria
+(copy-sequence 'string '(#\h #\i))
+
+== ALEXANDRIA:COPY-STREAM @ alexandria
+(with-output-to-string (out)
+  (copy-stream (make-string-input-stream "hello world") out))
+
+== ALEXANDRIA:COPY-STREAM @ alexandria
+(with-output-to-string (out)
+  (copy-stream (make-string-input-stream "abcdef") out :end 3))
+
+== ALEXANDRIA:COPY-FILE @ alexandria
+(let ((from "/tmp/cldocs-ex-copy-from.txt")
+      (to "/tmp/cldocs-ex-copy-to.txt"))
+  (write-string-into-file "contents" from :if-exists :supersede)
+  (copy-file from to :if-to-exists :supersede)
+  (prog1 (read-file-into-string to)
+    (delete-file from)
+    (delete-file to)))
+
+== ALEXANDRIA:COUNT-PERMUTATIONS @ alexandria
+(count-permutations 5 2)
+
+== ALEXANDRIA:COUNT-PERMUTATIONS @ alexandria
+(count-permutations 4)
+
+== ALEXANDRIA:COUNT-PERMUTATIONS @ alexandria
+(count-permutations 5 5)
+
+== ALEXANDRIA:SUBFACTORIAL @ alexandria
+(subfactorial 4)
+
+== ALEXANDRIA:SUBFACTORIAL @ alexandria
+(mapcar #'subfactorial '(0 1 2 3 4 5))
+
+== ALEXANDRIA:MAP-PERMUTATIONS @ alexandria
+(let ((results '()))
+  (map-permutations (lambda (p) (push (format nil "~{~A~}" p) results))
+                    '(1 2 3))
+  (sort results #'string<))
+
+== ALEXANDRIA:MAP-PERMUTATIONS @ alexandria
+(let ((count 0))
+  (map-permutations (lambda (p) (declare (ignore p)) (incf count)) '(a b c d))
+  count)
+
+== ALEXANDRIA:MAP-DERANGEMENTS @ alexandria
+(let ((results '()))
+  (map-derangements (lambda (d) (push (format nil "~{~A~}" d) results))
+                    '(1 2 3))
+  (sort results #'string<))
+
+== ALEXANDRIA:MAP-IOTA @ alexandria
+(let ((results '()))
+  (map-iota (lambda (x) (push x results)) 3 :start 10)
+  (nreverse results))
+
+== ALEXANDRIA:MAP-IOTA @ alexandria
+(let ((results '()))
+  (map-iota (lambda (x) (push x results)) 4 :step 5)
+  (nreverse results))
+
+== ALEXANDRIA:MAPHASH-KEYS @ alexandria
+(let ((keys '()))
+  (maphash-keys (lambda (key) (push key keys))
+                (alist-hash-table '((1 . a) (2 . b))))
+  (sort keys #'<))
+
+== ALEXANDRIA:MAPHASH-VALUES @ alexandria
+(let ((values '()))
+  (maphash-values (lambda (value) (push value values))
+                  (alist-hash-table '((a . 1) (b . 2))))
+  (sort values #'<))
+
+== ALEXANDRIA:HASH-TABLE-PLIST @ alexandria
+(hash-table-plist (alist-hash-table '((:a . 1))))
+
+== ALEXANDRIA:HASH-TABLE-PLIST @ alexandria
+(length (hash-table-plist (alist-hash-table '((:a . 1) (:b . 2)))))
+
+== ALEXANDRIA:PLIST-HASH-TABLE @ alexandria
+(gethash :b (plist-hash-table '(:a 1 :b 2)))
+
+== ALEXANDRIA:PLIST-HASH-TABLE @ alexandria
+(hash-table-count (plist-hash-table '(:x 1 :y 2 :z 3)))
+
+== ALEXANDRIA:REMOVE-FROM-PLIST @ alexandria
+(remove-from-plist '(:a 1 :b 2 :c 3) :b)
+
+== ALEXANDRIA:REMOVE-FROM-PLIST @ alexandria
+(remove-from-plist '(:a 1 :b 2 :c 3) :a :c)
+
+== ALEXANDRIA:DELETE-FROM-PLIST @ alexandria
+(delete-from-plist (list :a 1 :b 2 :c 3) :b)
+
+== ALEXANDRIA:DELETE-FROM-PLIST @ alexandria
+(delete-from-plist (list :a 1 :b 2) :z)
+
+== ALEXANDRIA:STARTS-WITH @ alexandria
+(starts-with 1 '(1 2 3))
+
+== ALEXANDRIA:STARTS-WITH @ alexandria
+(starts-with "a" '("a" "b") :test #'string=)
+
+== ALEXANDRIA:STARTS-WITH @ alexandria
+(starts-with 2 '(1 2 3))
+
+== ALEXANDRIA:ENDS-WITH @ alexandria
+(ends-with 3 '(1 2 3))
+
+== ALEXANDRIA:ENDS-WITH @ alexandria
+(ends-with "b" '("a" "b") :test #'string=)
+
+== ALEXANDRIA:ENDS-WITH @ alexandria
+(ends-with 1 '(1 2 3))
+
+== ALEXANDRIA:ENSURE-CAR @ alexandria
+(ensure-car '(1 2 3))
+
+== ALEXANDRIA:ENSURE-CAR @ alexandria
+(ensure-car 5)
+
+== ALEXANDRIA:ENSURE-CAR @ alexandria
+(mapcar #'ensure-car '(a (b c) 3))
+
+== ALEXANDRIA:ENSURE-CONS @ alexandria
+(ensure-cons 5)
+
+== ALEXANDRIA:ENSURE-CONS @ alexandria
+(ensure-cons '(1 . 2))
+
+== ALEXANDRIA:ENSURE-CONS @ alexandria
+(ensure-cons nil)
+
+== ALEXANDRIA:ENSURE-FUNCTION @ alexandria
+(functionp (ensure-function 'car))
+
+== ALEXANDRIA:ENSURE-FUNCTION @ alexandria
+(funcall (ensure-function #'1+) 1)
+
+== ALEXANDRIA:ENSURE-FUNCTION @ alexandria
+(funcall (ensure-function 'list) 1 2)
+
+== ALEXANDRIA:ENSURE-SYMBOL @ alexandria
+(values (ensure-symbol "FOO" :keyword))
+
+== ALEXANDRIA:ENSURE-SYMBOL @ alexandria
+(ensure-symbol 'car)
+
+== ALEXANDRIA:ENSURE-SYMBOL @ alexandria
+(eq (ensure-symbol "CAR" :cl) 'car)
+
+== ALEXANDRIA:FEATUREP @ alexandria
+(featurep :common-lisp)
+
+== ALEXANDRIA:FEATUREP @ alexandria
+(featurep '(and :sbcl (not :windows)))
+
+== ALEXANDRIA:FEATUREP @ alexandria
+(featurep '(or :clisp :ccl))
+
+== ALEXANDRIA:FORMAT-SYMBOL @ alexandria
+(format-symbol :keyword "~A-~D" 'item 3)
+
+== ALEXANDRIA:FORMAT-SYMBOL @ alexandria
+(format-symbol nil "~A" "temp")
+
+== ALEXANDRIA:GAUSSIAN-RANDOM @ alexandria
+(multiple-value-bind (a b) (gaussian-random)
+  (and (realp a) (realp b)))
+
+== ALEXANDRIA:GAUSSIAN-RANDOM @ alexandria
+(multiple-value-bind (a b) (gaussian-random -1 1)
+  (and (<= -1 a 1) (<= -1 b 1)))
+
+== ALEXANDRIA:MAKE-GENSYM @ alexandria
+(let ((*gensym-counter* 5))
+  (symbol-name (make-gensym "G")))
+
+== ALEXANDRIA:MAKE-GENSYM @ alexandria
+(symbolp (make-gensym 'any))
+
+== ALEXANDRIA:MAKE-GENSYM-LIST @ alexandria
+(let ((*gensym-counter* 1))
+  (mapcar #'symbol-name (make-gensym-list 3 "V")))
+
+== ALEXANDRIA:MAKE-GENSYM-LIST @ alexandria
+(length (make-gensym-list 4))
+
+== ALEXANDRIA:MULTIPLE-VALUE-COMPOSE @ alexandria
+(funcall (multiple-value-compose #'list #'floor) 7 2)
+
+== ALEXANDRIA:MULTIPLE-VALUE-COMPOSE @ alexandria
+(funcall (multiple-value-compose #'+ #'floor) 17 5)
+
+== ALEXANDRIA:OF-TYPE @ alexandria
+(funcall (of-type 'integer) 5)
+
+== ALEXANDRIA:OF-TYPE @ alexandria
+(remove-if-not (of-type 'string) '(1 "a" b "c"))
+
+== ALEXANDRIA:OF-TYPE @ alexandria
+(find-if (of-type 'symbol) '(1 "a" b))
+
+== ALEXANDRIA:PARSE-BODY @ alexandria
+(multiple-value-list
+ (parse-body '("A docstring." (declare (ignore x)) (do-something) (more))
+             :documentation t))
+
+== ALEXANDRIA:PARSE-BODY @ alexandria
+(multiple-value-list (parse-body '((foo) (bar))))
+
+== ALEXANDRIA:PARSE-ORDINARY-LAMBDA-LIST @ alexandria
+(multiple-value-list (parse-ordinary-lambda-list '(a b)))
+
+== ALEXANDRIA:PARSE-ORDINARY-LAMBDA-LIST @ alexandria
+(first (multiple-value-list (parse-ordinary-lambda-list '(a &optional (b 1) &key c))))
+
+== ALEXANDRIA:PROPER-LIST-LENGTH @ alexandria
+(proper-list-length '(1 2 3))
+
+== ALEXANDRIA:PROPER-LIST-LENGTH @ alexandria
+(handler-case (proper-list-length '(1 . 2))
+  (type-error () :improper))
+
+== ALEXANDRIA:PROPER-LIST-LENGTH @ alexandria
+(proper-list-length nil)
+
+== ALEXANDRIA:PROPER-LIST-P @ alexandria
+(proper-list-p '(1 2 3))
+
+== ALEXANDRIA:PROPER-LIST-P @ alexandria
+(proper-list-p '(1 . 2))
+
+== ALEXANDRIA:PROPER-LIST-P @ alexandria
+(proper-list-p nil)
+
+== ALEXANDRIA:PROPER-LIST-P @ alexandria
+(proper-list-p 5)
+
+== ALEXANDRIA:RANDOM-ELT @ alexandria
+(and (member (random-elt '(a b c)) '(a b c)) t)
+
+== ALEXANDRIA:RANDOM-ELT @ alexandria
+(and (find (random-elt #(1 2 3)) #(1 2 3)) t)
+
+== ALEXANDRIA:SHUFFLE @ alexandria
+(sort (shuffle (list 1 2 3 4 5)) #'<)
+
+== ALEXANDRIA:SHUFFLE @ alexandria
+(length (shuffle (vector 1 2 3)))
+
+== ALEXANDRIA:SHUFFLE @ alexandria
+(sort (coerce (shuffle (vector 3 1 2)) 'list) #'<)
+
+== ALEXANDRIA:RCURRY @ alexandria
+(funcall (rcurry #'- 1) 10)
+(mapcar (rcurry #'expt 2) '(1 2 3))
+-- silent
+(defun divide (a b)
+  (/ a b))
+(funcall (rcurry #'divide 2) 10)
+
+== ALEXANDRIA:READ-FILE-INTO-STRING @ alexandria
+(let ((path "/tmp/cldocs-ex-read-file.txt"))
+  (write-string-into-file "line one" path :if-exists :supersede)
+  (prog1 (read-file-into-string path)
+    (delete-file path)))
+
+== ALEXANDRIA:WRITE-STRING-INTO-FILE @ alexandria
+(let ((path "/tmp/cldocs-ex-write-file.txt"))
+  (write-string-into-file "hello" path :if-exists :supersede)
+  (write-string-into-file " world" path :if-exists :append)
+  (prog1 (read-file-into-string path)
+    (delete-file path)))
+
+== ALEXANDRIA:READ-FILE-INTO-BYTE-VECTOR @ alexandria
+(let ((path "/tmp/cldocs-ex-read-bytes.bin"))
+  (write-byte-vector-into-file (coerce #(1 2 3) '(vector (unsigned-byte 8))) path
+                               :if-exists :supersede)
+  (prog1 (read-file-into-byte-vector path)
+    (delete-file path)))
+
+== ALEXANDRIA:WRITE-BYTE-VECTOR-INTO-FILE @ alexandria
+(let ((path "/tmp/cldocs-ex-write-bytes.bin"))
+  (write-byte-vector-into-file (coerce #(65 66) '(vector (unsigned-byte 8))) path
+                               :if-exists :supersede)
+  (prog1 (length (read-file-into-byte-vector path))
+    (delete-file path)))
+
+== ALEXANDRIA:READ-STREAM-CONTENT-INTO-STRING @ alexandria
+(read-stream-content-into-string (make-string-input-stream "abc def"))
+
+== ALEXANDRIA:READ-STREAM-CONTENT-INTO-STRING @ alexandria
+(read-stream-content-into-string (make-string-input-stream ""))
+
+== ALEXANDRIA:READ-STREAM-CONTENT-INTO-BYTE-VECTOR @ alexandria
+(let ((path "/tmp/cldocs-ex-stream-bytes.bin"))
+  (write-byte-vector-into-file (coerce #(9 8 7) '(vector (unsigned-byte 8))) path
+                               :if-exists :supersede)
+  (prog1 (with-open-file (in path :element-type '(unsigned-byte 8))
+           (read-stream-content-into-byte-vector in))
+    (delete-file path)))
+
+== ALEXANDRIA:REQUIRED-ARGUMENT @ alexandria
+(handler-case (funcall (lambda (&key (x (required-argument :x))) x))
+  (error () :missing-argument))
+
+== ALEXANDRIA:REQUIRED-ARGUMENT @ alexandria
+(funcall (lambda (&key (x (required-argument :x))) x) :x 5)
+
+== ALEXANDRIA:ROTATE @ alexandria
+(rotate (list 1 2 3 4) 1)
+
+== ALEXANDRIA:ROTATE @ alexandria
+(rotate (list 1 2 3 4) -1)
+
+== ALEXANDRIA:ROTATE @ alexandria
+(rotate (list 1 2 3 4) 0)
+
+== ALEXANDRIA:SEQUENCE-OF-LENGTH-P @ alexandria
+(sequence-of-length-p '(1 2 3) 3)
+
+== ALEXANDRIA:SEQUENCE-OF-LENGTH-P @ alexandria
+(sequence-of-length-p #(1 2) 3)
+
+== ALEXANDRIA:SEQUENCE-OF-LENGTH-P @ alexandria
+(sequence-of-length-p "" 0)
+
+== ALEXANDRIA:SET-EQUAL @ alexandria
+(set-equal '(1 2 3) '(3 2 1))
+
+== ALEXANDRIA:SET-EQUAL @ alexandria
+(set-equal '(1 2) '(1 2 3))
+
+== ALEXANDRIA:SET-EQUAL @ alexandria
+(set-equal '("a") '("A") :test #'string-equal)
+
+== ALEXANDRIA:SETP @ alexandria
+(setp '(1 2 3))
+
+== ALEXANDRIA:SETP @ alexandria
+(setp '(1 1 2))
+
+== ALEXANDRIA:SETP @ alexandria
+(setp nil)
+
+== ALEXANDRIA:SIMPLE-PARSE-ERROR @ alexandria
+(handler-case (simple-parse-error "bad input ~A" "x")
+  (parse-error (condition) (princ-to-string condition)))
+
+== ALEXANDRIA:SIMPLE-PROGRAM-ERROR @ alexandria
+(handler-case (simple-program-error "wrong ~A" "call")
+  (program-error (condition) (princ-to-string condition)))
+
+== ALEXANDRIA:SIMPLE-READER-ERROR @ alexandria
+(handler-case (simple-reader-error (make-string-input-stream "") "bad token ~A" 1)
+  (reader-error () :reader-error))
+
+== ALEXANDRIA:SIMPLE-STYLE-WARNING @ alexandria
+(handler-case (simple-style-warning "careful ~A" 1)
+  (style-warning (condition) (princ-to-string condition)))
+
+== ALEXANDRIA:STANDARD-DEVIATION @ alexandria
+(standard-deviation '(2 4 4 4 5 5 7 9))
+
+== ALEXANDRIA:STANDARD-DEVIATION @ alexandria
+(standard-deviation '(1 1 1 1))
+
+== ALEXANDRIA:VARIANCE @ alexandria
+(variance '(1 2 3 4))
+
+== ALEXANDRIA:VARIANCE @ alexandria
+(variance '(5 5 5))
+
+== ALEXANDRIA:SYMBOLICATE @ alexandria
+(symbolicate "FOO-" 'bar "-" "1")
+
+== ALEXANDRIA:SYMBOLICATE @ alexandria
+(eq (symbolicate "CAR") 'car)
+
+== ALEXANDRIA:TYPE= @ alexandria
+(multiple-value-list (type= 'integer 'integer))
+
+== ALEXANDRIA:TYPE= @ alexandria
+(multiple-value-list (type= 'integer 'number))
+
+== ALEXANDRIA:TYPE= @ alexandria
+(multiple-value-list (type= '(integer 0 1) 'bit))
+
+== ALEXANDRIA:COERCEF @ alexandria
+(let ((x 1))
+  (coercef x 'double-float)
+  x)
+
+== ALEXANDRIA:COERCEF @ alexandria
+(let ((items (list 1 2)))
+  (coercef items 'vector)
+  items)
+
+== ALEXANDRIA:SWITCH @ alexandria
+(switch (2) (1 :one) (2 :two) (t :other))
+
+== ALEXANDRIA:SWITCH @ alexandria
+(switch ("b" :test #'string=) ("a" 1) ("b" 2))
+
+== ALEXANDRIA:SWITCH @ alexandria
+(switch (9) (1 :one) (t :default))
+
+== ALEXANDRIA:ESWITCH @ alexandria
+(eswitch (2) (1 :one) (2 :two))
+
+== ALEXANDRIA:ESWITCH @ alexandria
+(handler-case (eswitch (9) (1 :one) (2 :two))
+  (error () :no-match))
+
+== ALEXANDRIA:CSWITCH @ alexandria
+(cswitch (2) (1 :one) (2 :two))
+
+== ALEXANDRIA:CSWITCH @ alexandria
+(handler-case (cswitch (9) (1 :one) (2 :two))
+  (error () :no-match))
+
+== ALEXANDRIA:DEFINE-CONSTANT @ alexandria
+(define-constant +colors+ '(:red :green) :test #'equal)
++colors+
+(define-constant +greeting+ "hello" :test #'string=)
+(concatenate 'string +greeting+ "!")
+
+== ALEXANDRIA:DELETEF @ alexandria
+(let ((items (list 1 2 3 2)))
+  (deletef items 2)
+  items)
+
+== ALEXANDRIA:DELETEF @ alexandria
+(let ((items (list "a" "b")))
+  (deletef items "a" :test #'string=)
+  items)
+
+== ALEXANDRIA:REMOVEF @ alexandria
+(let ((items (list 1 2 3 2)))
+  (removef items 2)
+  items)
+
+== ALEXANDRIA:REMOVEF @ alexandria
+(let ((items (list 1 2 3 4)))
+  (removef items 2 :test #'<)
+  items)
+
+== ALEXANDRIA:DELETE-FROM-PLISTF @ alexandria
+(let ((plist (list :a 1 :b 2)))
+  (delete-from-plistf plist :a)
+  plist)
+
+== ALEXANDRIA:REMOVE-FROM-PLISTF @ alexandria
+(let ((plist (list :a 1 :b 2 :c 3)))
+  (remove-from-plistf plist :b)
+  plist)
+
+== ALEXANDRIA:DESTRUCTURING-ECASE @ alexandria
+(destructuring-ecase '(:mul 2 3)
+  ((:add a b) (+ a b))
+  ((:mul a b) (* a b)))
+
+== ALEXANDRIA:DESTRUCTURING-ECASE @ alexandria
+(handler-case (destructuring-ecase '(:div 1 2)
+                ((:add a b) (+ a b)))
+  (error () :unknown-operation))
+
+== ALEXANDRIA:DESTRUCTURING-CCASE @ alexandria
+(destructuring-ccase '(:add 1 2)
+  ((:add a b) (+ a b))
+  ((:mul a b) (* a b)))
+
+== ALEXANDRIA:DESTRUCTURING-CCASE @ alexandria
+(handler-case (destructuring-ccase '(:div 1 2)
+                ((:add a b) (+ a b)))
+  (error () :unknown-operation))
+
+== ALEXANDRIA:ENSURE-FUNCTIONF @ alexandria
+(let ((f 'car))
+  (ensure-functionf f)
+  (functionp f))
+
+== ALEXANDRIA:ENSURE-FUNCTIONF @ alexandria
+(let ((f #'list))
+  (ensure-functionf f)
+  (funcall f 1 2))
+
+== ALEXANDRIA:ENSURE-GETHASH @ alexandria
+(let ((table (make-hash-table)))
+  (list (ensure-gethash :k table 1)
+        (ensure-gethash :k table 2)
+        (gethash :k table)))
+
+== ALEXANDRIA:ENSURE-GETHASH @ alexandria
+(let ((table (make-hash-table))
+      (calls 0))
+  (ensure-gethash :k table (incf calls))
+  (ensure-gethash :k table (incf calls))
+  calls)
+
+== ALEXANDRIA:IGNORE-SOME-CONDITIONS @ alexandria
+(null (ignore-some-conditions (type-error) (car 5)))
+
+== ALEXANDRIA:IGNORE-SOME-CONDITIONS @ alexandria
+(handler-case (ignore-some-conditions (type-error) (error "other"))
+  (simple-error () :not-ignored))
+
+== ALEXANDRIA:IGNORE-SOME-CONDITIONS @ alexandria
+(ignore-some-conditions (type-error) (+ 1 2))
+
+== ALEXANDRIA:MULTIPLE-VALUE-PROG2 @ alexandria
+(multiple-value-list (multiple-value-prog2 1 (values 2 3) 4))
+
+== ALEXANDRIA:MULTIPLE-VALUE-PROG2 @ alexandria
+(let ((log '()))
+  (multiple-value-prog2 (push :a log) (floor 7 2) (push :b log))
+  (nreverse log))
+
+== ALEXANDRIA:NAMED-LAMBDA @ alexandria
+(funcall (named-lambda fact (n)
+           (if (<= n 1) 1 (* n (fact (1- n)))))
+         5)
+
+== ALEXANDRIA:NAMED-LAMBDA @ alexandria
+(mapcar (named-lambda double (x) (* 2 x)) '(1 2 3))
+
+== ALEXANDRIA:NCONCF @ alexandria
+(let ((items (list 1 2)))
+  (nconcf items (list 3 4))
+  items)
+
+== ALEXANDRIA:NREVERSEF @ alexandria
+(let ((items (list 1 2 3)))
+  (nreversef items)
+  items)
+
+== ALEXANDRIA:REVERSEF @ alexandria
+(let ((items (list 1 2 3)))
+  (reversef items)
+  items)
+
+== ALEXANDRIA:REVERSEF @ alexandria
+(let ((text (copy-seq "abc")))
+  (reversef text)
+  text)
+
+== ALEXANDRIA:UNIONF @ alexandria
+(let ((items (list 1 2)))
+  (unionf items '(2 3))
+  (sort items #'<))
+
+== ALEXANDRIA:NUNIONF @ alexandria
+(let ((items (list 1 2)))
+  (nunionf items (list 2 3))
+  (sort items #'<))
+
+== ALEXANDRIA:NTH-VALUE-OR @ alexandria
+(nth-value-or 1 (values 1 nil) (values 2 :second))
+
+== ALEXANDRIA:NTH-VALUE-OR @ alexandria
+(nth-value-or 0 nil nil 3)
+
+== ALEXANDRIA:UNWIND-PROTECT-CASE @ alexandria
+(let ((log '()))
+  (unwind-protect-case ()
+      (+ 1 2)
+    (:normal (push :normal log))
+    (:abort (push :abort log)))
+  log)
+
+== ALEXANDRIA:UNWIND-PROTECT-CASE @ alexandria
+(let ((log '()))
+  (catch 'out
+    (unwind-protect-case ()
+        (throw 'out :thrown)
+      (:abort (push :abort log))))
+  log)
+
+== ALEXANDRIA:WHEN-LET @ alexandria
+(when-let ((found (find 2 '(1 2 3))))
+  (* found 10))
+
+== ALEXANDRIA:WHEN-LET @ alexandria
+(when-let ((found (find 9 '(1 2 3))))
+  (* found 10))
+
+== ALEXANDRIA:WHEN-LET @ alexandria
+(when-let ((a 1) (b 2))
+  (+ a b))
+
+== ALEXANDRIA:WHEN-LET* @ alexandria
+(when-let* ((a 2) (b (* a 10)))
+  (list a b))
+
+== ALEXANDRIA:WHEN-LET* @ alexandria
+(when-let* ((a nil) (b (* a 10)))
+  (list a b))
+
+== ALEXANDRIA:WHICHEVER @ alexandria
+(and (member (whichever :a :b :c) '(:a :b :c)) t)
+
+== ALEXANDRIA:WHICHEVER @ alexandria
+(whichever :only)
+
+== ALEXANDRIA:WITH-GENSYMS @ alexandria
+-- silent
+(defmacro my-swap (a b)
+  (with-gensyms (temp)
+    `(let ((,temp ,a))
+       (setf ,a ,b ,b ,temp))))
+(let ((x 1) (y 2))
+  (my-swap x y)
+  (list x y))
+
+== ALEXANDRIA:WITH-UNIQUE-NAMES @ alexandria
+-- silent
+(defmacro my-repeat (count &body body)
+  (with-unique-names (index)
+    `(dotimes (,index ,count) ,@body)))
+(let ((n 0))
+  (my-repeat 3 (incf n))
+  n)
+
+== ALEXANDRIA:WITH-INPUT-FROM-FILE @ alexandria
+(let ((path "/tmp/cldocs-ex-with-input.txt"))
+  (write-string-into-file "first line" path :if-exists :supersede)
+  (prog1 (with-input-from-file (in path) (read-line in))
+    (delete-file path)))
+
+== ALEXANDRIA:WITH-OUTPUT-TO-FILE @ alexandria
+(let ((path "/tmp/cldocs-ex-with-output.txt"))
+  (with-output-to-file (out path :if-exists :supersede)
+    (write-string "written" out))
+  (prog1 (read-file-into-string path)
+    (delete-file path)))
+
+== ALEXANDRIA:XOR @ alexandria
+(multiple-value-list (xor nil t))
+
+== ALEXANDRIA:XOR @ alexandria
+(multiple-value-list (xor 1 2))
+
+== ALEXANDRIA:XOR @ alexandria
+(multiple-value-list (xor nil nil))
