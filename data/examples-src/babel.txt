@@ -1,0 +1,153 @@
+
+== BABEL:STRING-TO-OCTETS @ babel
+(string-to-octets "abc" :encoding :utf-8)
+
+== BABEL:STRING-TO-OCTETS @ babel
+(string-to-octets "héllo" :encoding :utf-8)
+
+== BABEL:STRING-TO-OCTETS @ babel
+(string-to-octets "é" :encoding :latin-1)
+
+== BABEL:OCTETS-TO-STRING @ babel
+(octets-to-string (coerce '(104 105) '(vector (unsigned-byte 8))) :encoding :utf-8)
+
+== BABEL:OCTETS-TO-STRING @ babel
+(octets-to-string (coerce '(195 169) '(vector (unsigned-byte 8))) :encoding :utf-8)
+
+== BABEL:STRING-SIZE-IN-OCTETS @ babel
+(string-size-in-octets "abc" :encoding :utf-8)
+
+== BABEL:STRING-SIZE-IN-OCTETS @ babel
+(string-size-in-octets "héllo" :encoding :utf-8)
+
+== BABEL:STRING-SIZE-IN-OCTETS @ babel
+(string-size-in-octets "héllo" :encoding :latin-1)
+
+== BABEL:VECTOR-SIZE-IN-CHARS @ babel
+(vector-size-in-chars (string-to-octets "héllo" :encoding :utf-8) :encoding :utf-8)
+
+== BABEL:CONCATENATE-STRINGS-TO-OCTETS @ babel
+(concatenate-strings-to-octets :utf-8 "ab" "é")
+
+== BABEL:LIST-CHARACTER-ENCODINGS @ babel
+(and (member :utf-8 (list-character-encodings)) t)
+
+== BABEL:LIST-CHARACTER-ENCODINGS @ babel
+(and (member :latin-1 (list-character-encodings)) t)
+
+== BABEL:ENCODABLE-CHARACTER-P @ babel
+(encodable-character-p #\a :encoding :utf-8)
+
+== BABEL:ENCODABLE-CHARACTER-P @ babel
+(encodable-character-p #\é :encoding :ascii)
+
+== BABEL:ENCODABLE-STRING-P @ babel
+(encodable-string-p "abc" :encoding :ascii)
+
+== BABEL:ENCODABLE-STRING-P @ babel
+(encodable-string-p "héllo" :encoding :ascii)
+
+== BABEL:MAKE-EXTERNAL-FORMAT @ babel
+(babel-encodings:enc-name (external-format-encoding (make-external-format :utf-8)))
+
+== BABEL:MAKE-EXTERNAL-FORMAT @ babel
+(external-format-eol-style (make-external-format :utf-8 :eol-style :crlf))
+
+== BABEL:ENSURE-EXTERNAL-FORMAT @ babel
+(babel-encodings:enc-name (external-format-encoding (ensure-external-format :utf-8)))
+
+== BABEL:ENSURE-EXTERNAL-FORMAT @ babel
+(babel-encodings:enc-name (external-format-encoding (ensure-external-format (make-external-format :latin-1))))
+
+== BABEL:EXTERNAL-FORMAT @ babel
+(typep (make-external-format :utf-8) 'external-format)
+
+== BABEL:EXTERNAL-FORMAT-ENCODING @ babel
+(babel-encodings:enc-name (external-format-encoding (make-external-format :latin-1)))
+
+== BABEL:EXTERNAL-FORMAT-EOL-STYLE @ babel
+(external-format-eol-style (make-external-format :utf-8 :eol-style :lf))
+
+== BABEL:EXTERNAL-FORMAT-EQUAL @ babel
+(external-format-equal (make-external-format :utf-8) (make-external-format :utf-8))
+
+== BABEL:EXTERNAL-FORMAT-EQUAL @ babel
+(external-format-equal (make-external-format :utf-8) (make-external-format :latin-1))
+
+== BABEL:*DEFAULT-CHARACTER-ENCODING* @ babel
+(keywordp *default-character-encoding*)
+
+== BABEL:*DEFAULT-CHARACTER-ENCODING* @ babel
+(let ((*default-character-encoding* :latin-1)) (string-to-octets "é"))
+
+== BABEL:*DEFAULT-EOL-STYLE* @ babel
+(member *default-eol-style* '(:lf :cr :crlf))
+
+== BABEL:CHARACTER-CODING-ERROR @ babel
+(subtypep 'character-coding-error 'error)
+
+== BABEL:CHARACTER-CODING-ERROR @ babel
+(handler-case (string-to-octets "é" :encoding :ascii) (character-coding-error () :coding-error))
+
+== BABEL:CHARACTER-ENCODING-ERROR @ babel
+(handler-case (string-to-octets "é" :encoding :ascii) (character-encoding-error () :cannot-encode))
+
+== BABEL:CHARACTER-DECODING-ERROR @ babel
+(handler-case (octets-to-string (coerce '(255 254) '(vector (unsigned-byte 8))) :encoding :utf-8) (character-decoding-error () :cannot-decode))
+
+== BABEL:CHARACTER-OUT-OF-RANGE @ babel
+(subtypep 'character-out-of-range 'character-coding-error)
+
+== BABEL:END-OF-INPUT-IN-CHARACTER @ babel
+(subtypep 'end-of-input-in-character 'character-decoding-error)
+
+== BABEL:INVALID-UTF8-CONTINUATION-BYTE @ babel
+(subtypep 'invalid-utf8-continuation-byte 'character-decoding-error)
+
+== BABEL:INVALID-UTF8-STARTER-BYTE @ babel
+(subtypep 'invalid-utf8-starter-byte 'character-decoding-error)
+
+== BABEL:OVERLONG-UTF8-SEQUENCE @ babel
+(subtypep 'overlong-utf8-sequence 'character-decoding-error)
+
+== BABEL:CHARACTER-CODING-ERROR-ENCODING @ babel
+(handler-case (string-to-octets "é" :encoding :ascii) (character-coding-error (condition) (character-coding-error-encoding condition)))
+
+== BABEL:CHARACTER-CODING-ERROR-BUFFER @ babel
+(handler-case (string-to-octets "é" :encoding :ascii) (character-coding-error (condition) (typep (character-coding-error-buffer condition) '(or null vector string))))
+
+== BABEL:CHARACTER-CODING-ERROR-POSITION @ babel
+(handler-case (string-to-octets "aé" :encoding :ascii) (character-coding-error (condition) (character-coding-error-position condition)))
+
+== BABEL:CHARACTER-ENCODING-ERROR-CODE @ babel
+(handler-case (string-to-octets "é" :encoding :ascii) (character-encoding-error (condition) (character-encoding-error-code condition)))
+
+== BABEL:CHARACTER-DECODING-ERROR-OCTETS @ babel
+(handler-case (octets-to-string (coerce '(255) '(vector (unsigned-byte 8))) :encoding :utf-8) (character-decoding-error (condition) (character-decoding-error-octets condition)))
+
+== BABEL:UNICODE-CHAR @ babel
+(typep #\a 'unicode-char)
+
+== BABEL:UNICODE-CHAR @ babel
+(typep 5 'unicode-char)
+
+== BABEL:UNICODE-STRING @ babel
+(typep "abc" 'unicode-string)
+
+== BABEL:UNICODE-STRING @ babel
+(typep '(1 2) 'unicode-string)
+
+== BABEL:SIMPLE-UNICODE-STRING @ babel
+(typep "abc" 'simple-unicode-string)
+
+== BABEL:UNICODE-CHAR-CODE-LIMIT @ babel
+(integerp unicode-char-code-limit)
+
+== BABEL:UNICODE-CHAR-CODE-LIMIT @ babel
+(<= unicode-char-code-limit char-code-limit)
+
+== BABEL:ENABLE-SHARP-BACKSLASH-SYNTAX @ babel
+(let ((*readtable* (copy-readtable))) (set-sharp-backslash-syntax-in-readtable) (char-code (values (read-from-string "#\\a"))))
+
+== BABEL:SET-SHARP-BACKSLASH-SYNTAX-IN-READTABLE @ babel
+(let ((*readtable* (copy-readtable))) (set-sharp-backslash-syntax-in-readtable) (char-code (values (read-from-string "#\\b"))))

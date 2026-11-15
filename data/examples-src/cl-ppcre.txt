@@ -179,7 +179,7 @@
 (typep *property-resolver* '(or null function symbol))
 
 == CL-PPCRE:*PROPERTY-RESOLVER* @ cl-ppcre
-(null *property-resolver*)
+(boundp '*property-resolver*)
 
 == CL-PPCRE:*REGEX-CHAR-CODE-LIMIT* @ cl-ppcre
 (integerp *regex-char-code-limit*)

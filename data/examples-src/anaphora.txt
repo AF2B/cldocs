@@ -1,0 +1,108 @@
+
+== ANAPHORA:AIF @ anaphora
+(aif (find 2 '(1 2 3)) (* it 10) :none)
+
+== ANAPHORA:AIF @ anaphora
+(aif (find 9 '(1 2 3)) (* it 10) :none)
+
+== ANAPHORA:AWHEN @ anaphora
+(awhen (assoc 'b '((a . 1) (b . 2))) (cdr it))
+
+== ANAPHORA:AWHEN @ anaphora
+(awhen (assoc 'z '((a . 1))) (cdr it))
+
+== ANAPHORA:AAND @ anaphora
+(aand (find 2 '(1 2 3)) (* it 10) (1+ it))
+
+== ANAPHORA:AAND @ anaphora
+(aand (find 9 '(1 2 3)) (* it 10))
+
+== ANAPHORA:ACOND @ anaphora
+(acond ((find 3 '(1 2 3)) (list :found it)) (t :nothing))
+
+== ANAPHORA:ACOND @ anaphora
+(acond ((find 9 '(1 2 3)) it) ((assoc 'a '((a . 1))) (cdr it)))
+
+== ANAPHORA:ACASE @ anaphora
+(acase (+ 1 1) (1 (list :one it)) (2 (list :two it)))
+
+== ANAPHORA:ACCASE @ anaphora
+(let ((x 2)) (accase (+ x 0) (1 :one) (2 (list :two it))))
+
+== ANAPHORA:AECASE @ anaphora
+(aecase (+ 1 1) (1 :one) (2 (list :two it)))
+
+== ANAPHORA:ACTYPECASE @ anaphora
+(let ((x 5)) (actypecase x (string :string) (integer (list :integer it))))
+
+== ANAPHORA:AETYPECASE @ anaphora
+(aetypecase 5 (string :string) (integer (list :integer it)))
+
+== ANAPHORA:ATYPECASE @ anaphora
+(atypecase 5 (string :string) (integer (list :integer it)) (t :other))
+
+== ANAPHORA:ALAMBDA @ anaphora
+(funcall (alambda (n) (if (<= n 1) 1 (* n (self (1- n))))) 5)
+
+== ANAPHORA:ALAMBDA @ anaphora
+(mapcar (alambda (n) (if (zerop n) 0 (+ n (self (1- n))))) '(1 2 3 4))
+
+== ANAPHORA:SELF @ anaphora
+(funcall (alambda (n) (if (zerop n) :done (self (1- n)))) 3)
+
+== ANAPHORA:ALET @ anaphora
+(alet (find 2 '(1 2 3)) (* it 10))
+
+== ANAPHORA:ALET @ anaphora
+(alet 5 (list it it))
+
+== ANAPHORA:APROG1 @ anaphora
+(aprog1 (list 1 2) (push 0 it))
+
+== ANAPHORA:APROG1 @ anaphora
+(aprog1 5 (incf it))
+
+== ANAPHORA:ASIF @ anaphora
+(asif (find 2 '(1 2 3)) (* it 10) :none)
+
+== ANAPHORA:IT @ anaphora
+(aif (find 2 '(1 2 3)) it :none)
+
+== ANAPHORA:IT @ anaphora
+(awhen (assoc 'a '((a . 1))) (list it))
+
+== ANAPHORA:SIF @ anaphora
+(let ((place (list 1 2))) (sif (first place) (progn (setf it 99) place) :none))
+
+== ANAPHORA:SWHEN @ anaphora
+(let ((place (list 1 2))) (swhen (first place) (setf it 99)) place)
+
+== ANAPHORA:SCOND @ anaphora
+(let ((place (list 1 2))) (scond ((first place) (setf it 99))) place)
+
+== ANAPHORA:SCASE @ anaphora
+(let ((place (list 1 2))) (scase (first place) (1 (setf it :one))) place)
+
+== ANAPHORA:SCCASE @ anaphora
+(let ((place (list 1 2))) (sccase (first place) (1 (setf it :one))) place)
+
+== ANAPHORA:SECASE @ anaphora
+(let ((place (list 1 2))) (secase (first place) (1 (setf it :one))) place)
+
+== ANAPHORA:SCTYPECASE @ anaphora
+(let ((place (list 1 2))) (sctypecase (first place) (integer (setf it :int))) place)
+
+== ANAPHORA:SETYPECASE @ anaphora
+(let ((place (list 1 2))) (setypecase (first place) (integer (setf it :int))) place)
+
+== ANAPHORA:STYPECASE @ anaphora
+(let ((place (list 1 2))) (stypecase (first place) (integer (setf it :int))) place)
+
+== ANAPHORA:SLET @ anaphora
+(let ((place (list 1 2))) (slet (first place) (setf it 99)) place)
+
+== ANAPHORA:SOR @ anaphora
+(let ((place (list nil 2))) (sor (first place) (second place)) place)
+
+== ANAPHORA:SUNLESS @ anaphora
+(let ((place (list nil 2))) (sunless (first place) (setf it :filled)) place)

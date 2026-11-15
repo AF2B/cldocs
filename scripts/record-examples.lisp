@@ -15,15 +15,18 @@
    (uiop:pathname-directory-pathname *load-truename*))
   "Root directory of the CLDocs checkout.")
 
-(defparameter *packages* '("COMMON-LISP" "ALEXANDRIA" "CL-PPCRE" "BORDEAUX-THREADS")
-  "Packages whose example sources are recorded.")
+(defun packages ()
+  "Return COMMON-LISP followed by every package of data/systems.sexp."
+  (cons "COMMON-LISP"
+        (loop for entry in (uiop:symbol-call '#:cldocs/systems '#:configured-systems)
+              append (getf entry :packages))))
 
 (defun main ()
   "Record every configured package and report how many examples were written."
   (load *quicklisp-setup*)
   (push *project-root* asdf:*central-registry*)
   (uiop:symbol-call '#:ql '#:quickload "cldocs" :silent t)
-  (dolist (package *packages*)
+  (dolist (package (packages))
     (format t "~&~A: ~D examples recorded~%"
             package
             (uiop:symbol-call '#:cldocs/examples '#:record-examples package))))

@@ -1,0 +1,27 @@
+
+== SPLIT-SEQUENCE:SPLIT-SEQUENCE @ split-sequence
+(multiple-value-list (split-sequence #\, "a,b,,c"))
+
+== SPLIT-SEQUENCE:SPLIT-SEQUENCE @ split-sequence
+(multiple-value-list (split-sequence #\, "a,b,,c" :remove-empty-subseqs t))
+
+== SPLIT-SEQUENCE:SPLIT-SEQUENCE @ split-sequence
+(split-sequence 0 '(1 2 0 3 0 4))
+
+== SPLIT-SEQUENCE:SPLIT-SEQUENCE @ split-sequence
+(split-sequence #\Space "one two three" :count 2)
+(split-sequence #\, "a,b,c" :from-end t :count 1)
+
+== SPLIT-SEQUENCE:SPLIT-SEQUENCE-IF @ split-sequence
+(split-sequence-if #'digit-char-p "ab1cd22ef")
+(split-sequence-if (lambda (n) (> n 10)) '(1 2 50 3 99 4))
+-- silent
+(defun blank-p (char)
+  (char= char #\Space))
+(split-sequence-if #'blank-p "a b c")
+
+== SPLIT-SEQUENCE:SPLIT-SEQUENCE-IF-NOT @ split-sequence
+(split-sequence-if-not #'alpha-char-p "ab1cd22ef")
+
+== SPLIT-SEQUENCE:SPLIT-SEQUENCE-IF-NOT @ split-sequence
+(split-sequence-if-not (lambda (n) (< n 10)) '(1 2 50 3 99 4))

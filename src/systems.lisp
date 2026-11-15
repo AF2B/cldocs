@@ -20,6 +20,9 @@
 (defparameter *systems-file-name* "systems.sexp"
   "File below the data root listing the systems to ingest.")
 
+(defparameter *unversioned* "unversioned"
+  "Version recorded for a system whose .asd declares none.")
+
 (defun configured-systems ()
   "Return the list of (:system NAME :packages (PACKAGE ...)) plists to ingest."
   (read-data-file (merge-pathnames *systems-file-name* (data-directory))))
@@ -52,5 +55,5 @@ its docstrings cannot be redistributed without one.
     (when (or (null license) (string= (string-trim " " license) ""))
       (error 'system-without-license :system-name system-name))
     (list :name system-name
-          :version (asdf:component-version system)
+          :version (or (asdf:component-version system) *unversioned*)
           :license license)))

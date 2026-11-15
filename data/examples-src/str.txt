@@ -1,0 +1,567 @@
+
+== STR:CONCAT @ str
+(concat "foo" "bar")
+
+== STR:CONCAT @ str
+(concat "a" "b" "c")
+
+== STR:CONCAT @ str
+(apply #'concat (list "x" "y"))
+
+== STR:JOIN @ str
+(join "," (list "a" "b" "c"))
+
+== STR:JOIN @ str
+(join " " (list "hello" "world"))
+
+== STR:JOIN @ str
+(join "" (list "x" "y"))
+
+== STR:SPLIT @ str
+(split "," "a,b,,c")
+
+== STR:SPLIT @ str
+(split #\Space "one two three")
+
+== STR:SPLIT @ str
+(split "," "a,b,,c" :omit-nulls t)
+
+== STR:RSPLIT @ str
+(rsplit "," "a,b,c,d" :limit 2)
+
+== STR:RSPLIT @ str
+(rsplit " " "one two three")
+
+== STR:SPLIT-OMIT-NULLS @ str
+(split-omit-nulls "," "a,,b,,c")
+
+== STR:WORDS @ str
+(words "hello  brave new   world")
+
+== STR:WORDS @ str
+(words "  leading and trailing  ")
+
+== STR:WORDS @ str
+(words "a-b c" :limit 2)
+
+== STR:UNWORDS @ str
+(unwords (list "hello" "brave" "world"))
+
+== STR:LINES @ str
+(lines (format nil "one~%two~%three"))
+
+== STR:LINES @ str
+(lines (format nil "a~%~%b") :omit-nulls t)
+
+== STR:UNLINES @ str
+(unlines (list "one" "two" "three"))
+
+== STR:PARAGRAPHS @ str
+(paragraphs (format nil "first~%line~%~%second"))
+
+== STR:UNPARAGRAPHS @ str
+(unparagraphs (list "first" "second"))
+
+== STR:SUBSTRING @ str
+(substring 1 3 "hello")
+
+== STR:SUBSTRING @ str
+(substring 0 -1 "hello")
+
+== STR:SUBSTRING @ str
+(substring 2 nil "hello")
+
+== STR:TRIM @ str
+(trim "  hello  ")
+
+== STR:TRIM @ str
+(trim (format nil "~%  x ~%"))
+
+== STR:TRIM-LEFT @ str
+(trim-left "  hello  ")
+
+== STR:TRIM-RIGHT @ str
+(trim-right "  hello  ")
+
+== STR:UPCASE @ str
+(upcase "hello")
+
+== STR:UPCASE @ str
+(upcase "straße")
+
+== STR:DOWNCASE @ str
+(downcase "HELLO")
+
+== STR:CAPITALIZE @ str
+(capitalize "hello world")
+
+== STR:CAPITALIZE @ str
+(capitalize "HELLO")
+
+== STR:TITLE-CASE @ str
+(title-case "hello brave new world")
+
+== STR:SENTENCE-CASE @ str
+(sentence-case "hello world. how are you")
+
+== STR:CAMEL-CASE @ str
+(camel-case "hello brave world")
+
+== STR:CAMEL-CASE @ str
+(camel-case "foo_bar-baz")
+
+== STR:PASCAL-CASE @ str
+(pascal-case "hello brave world")
+
+== STR:SNAKE-CASE @ str
+(snake-case "Hello Brave World")
+
+== STR:SNAKE-CASE @ str
+(snake-case "fooBarBaz")
+
+== STR:CONSTANT-CASE @ str
+(constant-case "hello brave world")
+
+== STR:PARAM-CASE @ str
+(param-case "Hello Brave World")
+
+== STR:DOT-CASE @ str
+(dot-case "Hello Brave World")
+
+== STR:PATH-CASE @ str
+(path-case "Hello Brave World")
+
+== STR:HEADER-CASE @ str
+(header-case "hello brave world")
+
+== STR:NO-CASE @ str
+(no-case "HelloBraveWorld")
+
+== STR:NO-CASE @ str
+(no-case "hello_brave-world")
+
+== STR:SWAP-CASE @ str
+(swap-case "Hello World")
+
+== STR:PAD @ str
+(pad 8 "ab")
+
+== STR:PAD @ str
+(pad 8 "ab" :pad-side :left)
+
+== STR:PAD @ str
+(pad 8 "ab" :pad-char #\*)
+
+== STR:PAD-LEFT @ str
+(pad-left 6 "ab")
+
+== STR:PAD-LEFT @ str
+(pad-left 6 "ab" :pad-char #\0)
+
+== STR:PAD-RIGHT @ str
+(pad-right 6 "ab")
+
+== STR:PAD-CENTER @ str
+(pad-center 7 "ab")
+
+== STR:PAD-CENTER @ str
+(pad-center 8 "ab" :pad-char #\-)
+
+== STR:FIT @ str
+(fit 6 "hello world")
+
+== STR:FIT @ str
+(fit 8 "hi")
+
+== STR:SHORTEN @ str
+(shorten 8 "hello world")
+
+== STR:SHORTEN @ str
+(shorten 20 "short")
+
+== STR:PRUNE @ str
+(prune 8 "hello world")
+
+== STR:PRUNE @ str
+(prune 20 "short")
+
+== STR:REPEAT @ str
+(repeat 3 "ab")
+
+== STR:REPEAT @ str
+(repeat 0 "x")
+
+== STR:REPLACE-ALL @ str
+(replace-all "a" "o" "banana")
+
+== STR:REPLACE-ALL @ str
+(replace-all "ell" "ipp" "hello")
+
+== STR:REPLACE-FIRST @ str
+(replace-first "a" "o" "banana")
+
+== STR:REPLACE-USING @ str
+(replace-using (list "a" "1" "b" "2") "a-b-a")
+
+== STR:REMOVE-PUNCTUATION @ str
+(remove-punctuation "Hello, world! (ok?)")
+
+== STR:REMOVE-PUNCTUATION @ str
+(remove-punctuation "a-b.c" :replacement "_")
+
+== STR:COLLAPSE-WHITESPACES @ str
+(collapse-whitespaces "a   b    c")
+
+== STR:COLLAPSE-WHITESPACES @ str
+(collapse-whitespaces (format nil "a~%~%b"))
+
+== STR:INSERT @ str
+(insert "X" 2 "hello")
+
+== STR:INSERT @ str
+(insert "-" 0 "abc")
+
+== STR:ENSURE @ str
+(ensure "path" :prefix "/" :suffix "/")
+
+== STR:ENSURE @ str
+(ensure "x" :wrapped-in "\"")
+
+== STR:ENSURE-PREFIX @ str
+(ensure-prefix "http://" "example.org")
+
+== STR:ENSURE-PREFIX @ str
+(ensure-prefix "http://" "http://example.org")
+
+== STR:ENSURE-SUFFIX @ str
+(ensure-suffix "/" "path")
+
+== STR:ENSURE-SUFFIX @ str
+(ensure-suffix "/" "path/")
+
+== STR:ENSURE-WRAPPED-IN @ str
+(ensure-wrapped-in "\"" "text")
+
+== STR:ENSURE-WRAPPED-IN @ str
+(ensure-wrapped-in "\"" "\"text\"")
+
+== STR:ADD-PREFIX @ str
+(add-prefix (list "a" "b") "x-")
+
+== STR:ADD-SUFFIX @ str
+(add-suffix (list "a" "b") "-x")
+
+== STR:COMMON-PREFIX @ str
+(common-prefix (list "foobar" "foobaz" "fooqux"))
+
+== STR:COMMON-PREFIX @ str
+(common-prefix (list "abc" "xyz"))
+
+== STR:PREFIX @ str
+(prefix (list "foobar" "foobaz"))
+
+== STR:SUFFIX @ str
+(suffix (list "running" "jumping"))
+
+== STR:COUNT-SUBSTRING @ str
+(count-substring "an" "banana")
+
+== STR:COUNT-SUBSTRING @ str
+(count-substring "zz" "banana")
+
+== STR:FROM-FILE @ str
+(progn (to-file "/tmp/cldocs-ex-str.txt" "hello" :if-exists :supersede) (prog1 (from-file "/tmp/cldocs-ex-str.txt") (delete-file "/tmp/cldocs-ex-str.txt")))
+
+== STR:TO-FILE @ str
+(progn (to-file "/tmp/cldocs-ex-str-out.txt" "written" :if-exists :supersede) (prog1 (from-file "/tmp/cldocs-ex-str-out.txt") (delete-file "/tmp/cldocs-ex-str-out.txt")))
+
+== STR:MATCH @ str
+(functionp (macro-function (quote match)))
+
+== STR:STRING-CASE @ str
+(string-case "b" ("a" 1) ("b" 2) (otherwise 3))
+
+== STR:STRING-CASE @ str
+(string-case "z" ("a" 1) (otherwise :default))
+
+== STR:S-FIRST @ str
+(s-first "hello")
+
+== STR:S-LAST @ str
+(s-last "hello")
+
+== STR:S-REST @ str
+(s-rest "hello")
+
+== STR:S-NTH @ str
+(s-nth 1 "hello")
+
+== STR:S-MEMBER @ str
+(s-member (list "a" "b" "c") "b")
+
+== STR:S-ASSOC-VALUE @ str
+(s-assoc-value (list (cons "a" 1) (cons "b" 2)) "b")
+
+== STR:VERSION @ str
+(stringp (version))
+
+== STR:+VERSION+ @ str
+(stringp +version+)
+
+== STR:? @ str
+(and (symbolp (quote ?)) t)
+
+== STR:ALPHAP @ str
+(alphap "abc")
+
+== STR:ALPHAP @ str
+(alphap "ab1")
+
+== STR:ALPHA? @ str
+(alpha? "abc")
+
+== STR:ALPHA? @ str
+(alpha? "ab1")
+
+== STR:ALPHANUMP @ str
+(alphanump "ab12")
+
+== STR:ALPHANUMP @ str
+(alphanump "ab-12")
+
+== STR:ALPHANUM? @ str
+(alphanum? "ab12")
+
+== STR:ALPHANUM? @ str
+(alphanum? "ab-12")
+
+== STR:DIGITP @ str
+(digitp "123")
+
+== STR:DIGITP @ str
+(digitp "12a")
+
+== STR:DIGIT? @ str
+(digit? "123")
+
+== STR:DIGIT? @ str
+(digit? "12a")
+
+== STR:NUMERICP @ str
+(numericp "123")
+
+== STR:NUMERICP @ str
+(numericp "1.5")
+
+== STR:NUMERIC? @ str
+(numeric? "123")
+
+== STR:NUMERIC? @ str
+(numeric? "abc")
+
+== STR:LETTERSP @ str
+(lettersp "abc")
+
+== STR:LETTERSP @ str
+(lettersp "ab1")
+
+== STR:LETTERS? @ str
+(letters? "abc")
+
+== STR:LETTERS? @ str
+(letters? "a b")
+
+== STR:LETTERSNUMP @ str
+(lettersnump "ab12")
+
+== STR:LETTERSNUMP @ str
+(lettersnump "ab 12")
+
+== STR:HAS-ALPHA-P @ str
+(has-alpha-p "123a")
+
+== STR:HAS-ALPHA-P @ str
+(has-alpha-p "123")
+
+== STR:HAS-ALPHANUM-P @ str
+(has-alphanum-p "--a--")
+
+== STR:HAS-ALPHANUM-P @ str
+(has-alphanum-p "---")
+
+== STR:HAS-LETTERS-P @ str
+(has-letters-p "12a")
+
+== STR:HAS-LETTERS-P @ str
+(has-letters-p "12")
+
+== STR:BLANKP @ str
+(blankp "")
+
+== STR:BLANKP @ str
+(blankp "   ")
+
+== STR:BLANKP @ str
+(blankp "a")
+
+== STR:BLANK? @ str
+(blank? "")
+
+== STR:BLANK? @ str
+(blank? " a ")
+
+== STR:BLANK-STR-P @ str
+(and (symbolp (quote blank-str-p)) t)
+
+== STR:EMPTYP @ str
+(emptyp "")
+
+== STR:EMPTYP @ str
+(emptyp "a")
+
+== STR:EMPTY? @ str
+(empty? "")
+
+== STR:EMPTY? @ str
+(empty? " ")
+
+== STR:NON-BLANK-STRING-P @ str
+(non-blank-string-p "a")
+
+== STR:NON-BLANK-STRING-P @ str
+(non-blank-string-p "  ")
+
+== STR:NON-EMPTY-STRING-P @ str
+(non-empty-string-p "a")
+
+== STR:NON-EMPTY-STRING-P @ str
+(non-empty-string-p "")
+
+== STR:UPCASEP @ str
+(upcasep "ABC")
+
+== STR:UPCASEP @ str
+(upcasep "AbC")
+
+== STR:UPCASE? @ str
+(upcase? "ABC")
+
+== STR:UPCASE? @ str
+(upcase? "abc")
+
+== STR:DOWNCASEP @ str
+(downcasep "abc")
+
+== STR:DOWNCASEP @ str
+(downcasep "aBc")
+
+== STR:DOWNCASE? @ str
+(downcase? "abc")
+
+== STR:DOWNCASE? @ str
+(downcase? "ABC")
+
+== STR:STARTS-WITH-P @ str
+(starts-with-p "he" "hello")
+
+== STR:STARTS-WITH-P @ str
+(starts-with-p "lo" "hello")
+
+== STR:STARTS-WITH? @ str
+(starts-with? "he" "hello")
+
+== STR:STARTS-WITH? @ str
+(starts-with? "HE" "hello" :ignore-case t)
+
+== STR:ENDS-WITH-P @ str
+(ends-with-p "lo" "hello")
+
+== STR:ENDS-WITH-P @ str
+(ends-with-p "he" "hello")
+
+== STR:ENDS-WITH? @ str
+(ends-with? "lo" "hello")
+
+== STR:ENDS-WITH? @ str
+(ends-with? "LO" "hello" :ignore-case t)
+
+== STR:PREFIXP @ str
+(prefixp (list "foobar" "foobaz") "foo")
+
+== STR:PREFIXP @ str
+(prefixp (list "abc" "xyz") "a")
+
+== STR:PREFIX? @ str
+(prefix? (list "foobar" "foobaz") "foo")
+
+== STR:SUFFIXP @ str
+(suffixp (list "running" "jumping") "ing")
+
+== STR:SUFFIX? @ str
+(suffix? (list "running" "jumping") "ing")
+
+== STR:CONTAINSP @ str
+(containsp "ell" "hello")
+
+== STR:CONTAINSP @ str
+(containsp "zz" "hello")
+
+== STR:CONTAINS? @ str
+(contains? "ell" "hello")
+
+== STR:CONTAINS? @ str
+(contains? "ELL" "hello" :ignore-case t)
+
+== STR:WRAPPED-IN-P @ str
+(wrapped-in-p "\"" "\"text\"")
+
+== STR:WRAPPED-IN-P @ str
+(wrapped-in-p "\"" "text")
+
+== STR:ASCII-P @ str
+(ascii-p "hello")
+
+== STR:ASCII-P @ str
+(ascii-p "héllo")
+
+== STR:ASCII-CHAR-P @ str
+(ascii-char-p #\a)
+
+== STR:ASCII-CHAR-P @ str
+(ascii-char-p #\é)
+
+== STR:*ELLIPSIS* @ str
+*ellipsis*
+
+== STR:*ELLIPSIS* @ str
+(let ((*ellipsis* "~")) (shorten 6 "hello world"))
+
+== STR:*IGNORE-CASE* @ str
+*ignore-case*
+
+== STR:*IGNORE-CASE* @ str
+(let ((*ignore-case* t)) (starts-with? "HE" "hello"))
+
+== STR:*OMIT-NULLS* @ str
+*omit-nulls*
+
+== STR:*OMIT-NULLS* @ str
+(let ((*omit-nulls* t)) (split "," "a,,b"))
+
+== STR:*PAD-CHAR* @ str
+*pad-char*
+
+== STR:*PAD-CHAR* @ str
+(let ((*pad-char* #\.)) (pad-left 5 "ab"))
+
+== STR:*PAD-SIDE* @ str
+*pad-side*
+
+== STR:*PAD-SIDE* @ str
+(let ((*pad-side* :left)) (pad 5 "ab"))
+
+== STR:*WHITESPACES* @ str
+(listp *whitespaces*)
+
+== STR:*WHITESPACES* @ str
+(and (member #\Space *whitespaces*) t)

@@ -232,7 +232,7 @@
   (:symbol "*PROPERTY-RESOLVER*" :uses ("CL-PPCRE") :system "cl-ppcre"
    :steps
    (
-    (:FORM "(null *property-resolver*)" :VALUES ("T"))))
+    (:FORM "(boundp '*property-resolver*)" :VALUES ("T"))))
   (:symbol "*REGEX-CHAR-CODE-LIMIT*" :uses ("CL-PPCRE") :system "cl-ppcre"
    :steps
    (
