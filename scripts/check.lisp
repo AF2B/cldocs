@@ -54,7 +54,11 @@ forced load below sees only warnings caused by CLDocs itself."
          "--load" (namestring *quicklisp-setup*)
          "--eval" (format nil "(push ~S asdf:*central-registry*)"
                           *project-root*)
-         "--eval" "(ql:quickload \"cldocs/tests\" :silent t)")
+         "--eval" "(ql:quickload \"cldocs/tests\" :silent t)"
+         ;; Library systems must be installed before the test session starts:
+         ;; ASDF caches "system not found" for the whole session, so a library
+         ;; first downloaded by a test would never be seen.
+         "--eval" "(dolist (entry (cldocs/systems:configured-systems)) (ql:quickload (getf entry :system) :silent t))")
    :output nil
    :error-output *error-output*))
 

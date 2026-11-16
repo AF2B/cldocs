@@ -206,12 +206,12 @@
       (skip "node is not installed; client-side scripts were NOT verified.")
       (multiple-value-bind (output error-output code)
           (uiop:run-program
-           (list "node" "--test" "tests/")
+           (list "env"
+                 (format nil "CLDOCS_INDEX=~A"
+                         (namestring (merge-pathnames "assets/search-index.json"
+                                                      (built-site))))
+                 "node" "--test" "tests/")
            :directory (asdf:system-relative-pathname "cldocs" "")
-           :environment (list (format nil "CLDOCS_INDEX=~A"
-                                      (namestring
-                                       (merge-pathnames "assets/search-index.json"
-                                                        (built-site)))))
            :output :string
            :error-output :string
            :ignore-error-status t)

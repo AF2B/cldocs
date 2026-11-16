@@ -164,14 +164,31 @@ Returns the regenerated file text.
          (cldocs/examples:record-examples package-name)
          (uiop:read-file-string (cldocs/examples:examples-pathname package-name)))))))
 
+(defun differing-lines (left right)
+  "Return up to three (index left right) lists where the line lists differ.
+
+- LEFT: the checked-in text.
+- RIGHT: the regenerated text."
+  (let ((left-lines (uiop:split-string left :separator '(#\Newline)))
+        (right-lines (uiop:split-string right :separator '(#\Newline))))
+    (loop for index from 1
+          for a in left-lines
+          for b in right-lines
+          unless (string= a b)
+            collect (list index a b) into found
+          until (>= (length found) 3)
+          finally (return found))))
+
 (test checked-in-examples-are-regenerated-byte-for-byte-from-the-source
   (dolist (package-name (cons *common-lisp*
                               (loop for entry in (cldocs/systems:configured-systems)
                                     append (getf entry :packages))))
-    (is (string= (uiop:read-file-string
-                  (cldocs/examples:examples-pathname package-name))
-                 (regenerate-examples package-name))
-        "~A examples differ from their source" package-name)))
+    (let ((checked-in (uiop:read-file-string
+                       (cldocs/examples:examples-pathname package-name)))
+          (regenerated (regenerate-examples package-name)))
+      (is (string= checked-in regenerated)
+          "~A examples differ from their source, first differences: ~S"
+          package-name (differing-lines checked-in regenerated)))))
 
 ;;; Checked-in data
 
