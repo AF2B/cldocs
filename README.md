@@ -1,5 +1,16 @@
 # CLDocs
 
+**Every symbol of Common Lisp on its own page, with examples that run.**
+
+[![CI](https://github.com/AF2B/cldocs/actions/workflows/ci.yml/badge.svg)](https://github.com/AF2B/cldocs/actions/workflows/ci.yml)
+[![Site](https://img.shields.io/badge/site-af2b.github.io%2Fcldocs-0074D9)](https://af2b.github.io/cldocs/)
+[![Pages](https://github.com/AF2B/cldocs/actions/workflows/pages.yml/badge.svg)](https://github.com/AF2B/cldocs/actions/workflows/pages.yml)
+[![Release](https://img.shields.io/github/v/release/AF2B/cldocs?label=release&color=0074D9)](https://github.com/AF2B/cldocs/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-0074D9)](LICENSE)
+[![Examples: CC0](https://img.shields.io/badge/examples-CC0-0074D9)](NOTICE.md)
+[![Common Lisp](https://img.shields.io/badge/Common%20Lisp-SBCL-0074D9)](https://www.sbcl.org/)
+[![Português](https://img.shields.io/badge/pt--BR-dispon%C3%ADvel-333333)](https://af2b.github.io/cldocs/pt-br/)
+
 Community reference for Common Lisp: one page per symbol with signature,
 documentation, executable examples, "see also" links and guided trails, in English
 and Brazilian Portuguese. Inspired by ClojureDocs, styled with the Borba Design System.
