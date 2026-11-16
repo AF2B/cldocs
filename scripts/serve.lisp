@@ -3,6 +3,9 @@
 ;;;; Configuration comes from CLDOCS_* environment variables, see
 ;;;; src/server/config.lisp. Without CLDOCS_SITE_DIRECTORY it serves build/site/.
 
+;;; A bare SBCL has no ASDF/UIOP until it is required; later forms name UIOP symbols.
+(require :asdf)
+
 (defpackage #:cldocs/scripts/serve
   (:use #:cl))
 

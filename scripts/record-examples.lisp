@@ -1,6 +1,9 @@
 ;;;; record-examples.lisp --- Run data/examples-src and store the results.
 ;;;; Usage: sbcl --non-interactive --load scripts/record-examples.lisp
 
+;;; A bare SBCL has no ASDF/UIOP until it is required; later forms name UIOP symbols.
+(require :asdf)
+
 (defpackage #:cldocs/scripts/record-examples
   (:use #:cl))
 

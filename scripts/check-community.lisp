@@ -2,6 +2,9 @@
 ;;;; Usage: sbcl --non-interactive --load scripts/check-community.lisp
 ;;;; Exit status 0 when every file is valid, 1 otherwise.
 
+;;; A bare SBCL has no ASDF/UIOP until it is required; later forms name UIOP symbols.
+(require :asdf)
+
 (defpackage #:cldocs/scripts/check-community
   (:use #:cl))
 

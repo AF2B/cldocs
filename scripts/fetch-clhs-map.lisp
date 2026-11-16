@@ -3,6 +3,9 @@
 ;;;; in the HyperSpec's Data/Map_Sym.txt; no HyperSpec text or images are kept.
 ;;;; Usage: sbcl --non-interactive --load scripts/fetch-clhs-map.lisp
 
+;;; A bare SBCL has no ASDF/UIOP until it is required; later forms name UIOP symbols.
+(require :asdf)
+
 (defpackage #:cldocs/scripts/fetch-clhs-map
   (:use #:cl))
 

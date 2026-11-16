@@ -1,6 +1,9 @@
 ;;;; ingest.lisp --- Regenerate the versioned data set from this SBCL image.
 ;;;; Usage: sbcl --non-interactive --load scripts/ingest.lisp
 
+;;; A bare SBCL has no ASDF/UIOP until it is required; later forms name UIOP symbols.
+(require :asdf)
+
 (defpackage #:cldocs/scripts/ingest
   (:use #:cl))
 

@@ -1,6 +1,9 @@
 ;;;; check.lisp --- Load CLDocs and run its tests; fail on any warning.
 ;;;; Usage: sbcl --non-interactive --load scripts/check.lisp
 
+;;; A bare SBCL has no ASDF/UIOP until it is required; later forms name UIOP symbols.
+(require :asdf)
+
 (defpackage #:cldocs/scripts/check
   (:use #:cl))
 

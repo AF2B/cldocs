@@ -2,6 +2,9 @@
 ;;;; Usage: sbcl --non-interactive --load scripts/build-site.lisp
 ;;;; Set CLDOCS_OUTPUT to write somewhere else than build/site/.
 
+;;; A bare SBCL has no ASDF/UIOP until it is required; later forms name UIOP symbols.
+(require :asdf)
+
 (defpackage #:cldocs/scripts/build-site
   (:use #:cl))
 

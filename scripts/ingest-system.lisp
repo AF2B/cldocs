@@ -2,6 +2,9 @@
 ;;;; Started by CLDOCS/INGEST:INGEST-CONFIGURED-SYSTEMS; not meant to be run by hand.
 ;;;; Exit status: 0 ingested, 3 skipped on purpose, 1 failed.
 
+;;; A bare SBCL has no ASDF/UIOP until it is required; later forms name UIOP symbols.
+(require :asdf)
+
 (defpackage #:cldocs/scripts/ingest-system
   (:use #:cl))
 
