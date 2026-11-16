@@ -33,9 +33,13 @@ jobs:
           key: sbcl-${{ env.SBCL_VERSION }}-ql-${{ env.QUICKLISP_DIST }}
       - name: Install SBCL and Quicklisp
         run: scripts/ci-setup.sh
+      - id: pages
+        uses: actions/configure-pages@v5
       - name: Build the site
+        env:
+          # Public address for the sitemap, canonical links and Open Graph tags.
+          CLDOCS_SITE_URL: ${{ steps.pages.outputs.base_url }}
         run: sbcl --noinform --non-interactive --load scripts/build-site.lisp
-      - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build/site

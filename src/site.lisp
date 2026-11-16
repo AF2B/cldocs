@@ -14,6 +14,7 @@
   (:import-from #:cldocs/i18n
                 #:*locale*
                 #:+locales+
+                #:locale-code
                 #:tr)
   (:import-from #:cldocs/kinds
                 #:+definition-kinds+)
@@ -47,11 +48,15 @@
                 #:read-package-system
                 #:stored-package-names)
   (:import-from #:cldocs/urls
+                #:*site-url*
                 #:+about-path+
                 #:+home-path+
                 #:+not-found-file+
+                #:+robots-file+
+                #:+sitemap-file+
                 #:+terms-path+
                 #:+trails-path+
+                #:absolute-url
                 #:localized-path
                 #:package-path
                 #:search-index-file
@@ -80,7 +85,7 @@
 (defparameter *index-file* "index.html"
   "File name of every page inside its own directory.")
 
-(defparameter *own-assets* '("site.css" "search.js" "community.js")
+(defparameter *own-assets* '("site.css" "search.js" "community.js" "favicon.svg" "share.png")
   "Static files that live in this repository's assets/ directory.")
 
 (defun design-system-directory ()
@@ -260,6 +265,56 @@ Seeded examples come first, then the community's, in file order.
     (dolist (package packages)
       (emit-package-pages emit package community))))
 
+(defparameter *sitemap-header*
+  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xhtml=\"http://www.w3.org/1999/xhtml\">"
+  "Opening of the sitemap document, declaring the alternate-language namespace.")
+
+(defparameter *sitemap-footer* "</urlset>"
+  "Closing of the sitemap document.")
+
+(defun xml-escape (text)
+  "Return TEXT with the characters that XML reserves written as entities.
+
+- TEXT: the string to escape."
+  (with-output-to-string (out)
+    (loop for char across text
+          do (case char
+               (#\& (write-string "&amp;" out))
+               (#\< (write-string "&lt;" out))
+               (#\> (write-string "&gt;" out))
+               (#\" (write-string "&quot;" out))
+               (t (write-char char out))))))
+
+(defun sitemap-entry (path)
+  "Return the sitemap <url> element of the page PATH, one per language.
+
+Each language lists every translation as an alternate, as search engines expect.
+
+- PATH: an unlocalized page path."
+  (with-output-to-string (out)
+    (dolist (locale +locales+)
+      (format out "~&  <url>~%    <loc>~A</loc>~%" (xml-escape (absolute-url path locale)))
+      (dolist (alternate +locales+)
+        (format out "    <xhtml:link rel=\"alternate\" hreflang=\"~A\" href=\"~A\"/>~%"
+                (locale-code alternate)
+                (xml-escape (absolute-url path alternate))))
+      (format out "  </url>"))))
+
+(defun sitemap-text (paths)
+  "Return the sitemap document listing PATHS in every language.
+
+- PATHS: unlocalized page paths, in the order to list them."
+  (format nil "~A~%~{~A~^~%~}~%~A~%"
+          *sitemap-header*
+          (mapcar #'sitemap-entry paths)
+          *sitemap-footer*))
+
+(defun robots-text ()
+  "Return the robots.txt that allows every crawler and names the sitemap."
+  (format nil "User-agent: *~%Allow: /~%~%Sitemap: ~A~%"
+          (concatenate 'string *site-url* "/" +sitemap-file+)))
+
 (defun environment-flag (name)
   "Return true when the environment variable NAME is set to a non-empty value.
 
@@ -269,22 +324,30 @@ Seeded examples come first, then the community's, in file order.
 
 (defun build-site (output
                    &key
-                     (design-system (design-system-directory)))
+                     (design-system (design-system-directory))
+                     (site-url (uiop:getenv "CLDOCS_SITE_URL")))
   "Generate the whole static site into OUTPUT and return the number of pages.
 
 Reads CLDOCS_REPOSITORY (enables contribution buttons), CLDOCS_BASE_PATH (the
-path the site is served under, for the 404 page) and CLDOCS_API (adds the
+path the site is served under, for the 404 page), CLDOCS_SITE_URL (public
+address of the site; enables the sitemap, robots.txt, canonical links and Open
+Graph addresses) and CLDOCS_API (adds the
 optional live community section). Signals DESIGN-SYSTEM-MISSING when tokens or
 fonts cannot be found, OUTPUT-DIRECTORY-NOT-EMPTY when OUTPUT holds files that
 are not a CLDocs site, and COMMUNITY-EXAMPLE-INVALID for a broken contribution.
 
 - OUTPUT: directory that will receive the site.
-- DESIGN-SYSTEM: directory of the Borba Design System."
+- DESIGN-SYSTEM: directory of the Borba Design System.
+- SITE-URL: public address of the site, or NIL; defaults to CLDOCS_SITE_URL."
   (let* ((output (uiop:ensure-directory-pathname output))
          (packages (all-packages))
          (trails (load-trails))
          (community (load-community-examples))
          (pages 0)
+         (listed-paths '())
+         (*site-url* (and site-url
+                          (string/= site-url "")
+                          (string-right-trim "/" site-url)))
          (*repository-url* (let ((url (uiop:getenv "CLDOCS_REPOSITORY")))
                              (and url (string/= url "") (string-right-trim "/" url))))
          (*base-path* (let ((path (uiop:getenv "CLDOCS_BASE_PATH")))
@@ -297,6 +360,8 @@ are not a CLDocs site, and COMMUNITY-EXAMPLE-INVALID for a broken contribution.
       (let ((*locale* locale))
         (flet ((emit (path html)
                  (write-page output (localized-path path) html)
+                 (when (eq locale (first +locales+))
+                   (push path listed-paths))
                  (incf pages)))
           (emit-locale-pages #'emit packages trails community))
         (write-text-file (merge-pathnames (search-index-file) output)
@@ -305,4 +370,9 @@ are not a CLDocs site, and COMMUNITY-EXAMPLE-INVALID for a broken contribution.
     (let ((*locale* :en))
       (write-text-file (merge-pathnames +not-found-file+ output)
                        (render-not-found)))
+    (when *site-url*
+      (write-text-file (merge-pathnames +sitemap-file+ output)
+                       (sitemap-text (nreverse listed-paths)))
+      (write-text-file (merge-pathnames +robots-file+ output)
+                       (robots-text)))
     pages))

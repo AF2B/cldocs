@@ -13,6 +13,12 @@
            #:+trails-path+
            #:+not-found-file+
            #:+search-index-path+
+           #:+sitemap-file+
+           #:+robots-file+
+           #:+favicon-file+
+           #:+share-image-file+
+           #:*site-url*
+           #:absolute-url
            #:symbol-path
            #:package-path
            #:root-prefix
@@ -49,6 +55,36 @@
 (alexandria:define-constant +search-index-path+ "assets/search-index.json"
   :test #'string=
   :documentation "Path of the client-side search index.")
+
+(alexandria:define-constant +sitemap-file+ "sitemap.xml"
+  :test #'string=
+  :documentation "File listing every page for search engines.")
+
+(alexandria:define-constant +robots-file+ "robots.txt"
+  :test #'string=
+  :documentation "File telling crawlers where the sitemap is.")
+
+(alexandria:define-constant +favicon-file+ "assets/favicon.svg"
+  :test #'string=
+  :documentation "Path of the site icon.")
+
+(alexandria:define-constant +share-image-file+ "assets/share.png"
+  :test #'string=
+  :documentation "Path of the image shown when a page is shared on social networks.")
+
+(defvar *site-url* nil
+  "Public address of the site root without a trailing slash, or NIL when unknown.
+
+Search engines and social networks need absolute addresses, so the sitemap,
+canonical links and Open Graph tags are only produced when this is set.")
+
+(defun absolute-url (path &optional (locale *locale*))
+  "Return the public URL of PATH in LOCALE, or NIL when *SITE-URL* is unset.
+
+- PATH: an unlocalized page path such as \"sym/common-lisp/car/\".
+- LOCALE: a keyword from +LOCALES+; defaults to the current locale."
+  (when *site-url*
+    (concatenate 'string *site-url* "/" (locale-prefix locale) path)))
 
 (defun symbol-path (package-name symbol-name)
   "Return the site path of the page documenting a symbol.

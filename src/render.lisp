@@ -20,6 +20,7 @@
                 #:step-result-lines)
   (:import-from #:cldocs/i18n
                 #:*locale*
+                #:+locales+
                 #:locale-code
                 #:locale-prefix
                 #:other-locale
@@ -41,9 +42,12 @@
                 #:trail-title)
   (:import-from #:cldocs/urls
                 #:+about-path+
+                #:+favicon-file+
                 #:+home-path+
+                #:+share-image-file+
                 #:+terms-path+
                 #:+trails-path+
+                #:absolute-url
                 #:package-path
                 #:page-href
                 #:page-root
@@ -171,6 +175,41 @@
         (when *toolchain-note*
           (:p *toolchain-note*))))))
 
+(defparameter *open-graph-locales* '((:en . "en_US") (:pt-br . "pt_BR"))
+  "Open Graph locale code of each site locale.")
+
+(defparameter *x-default-locale* :en
+  "Locale search engines show to readers whose language the site does not offer.")
+
+(defun discovery-tags-html (title description path)
+  "Return the head tags for search engines and link previews, as an HTML string.
+
+Canonical, alternate-language, address and image tags need an absolute address,
+so they are only written when *SITE-URL* is set and PATH is known.
+
+- TITLE: the document title shown in previews.
+- DESCRIPTION: the summary shown in previews.
+- PATH: unlocalized page path, or NIL for pages that have no fixed address."
+  (let ((url (and path (absolute-url path))))
+    (with-html-string
+      (:meta :property "og:type" :content "website")
+      (:meta :property "og:site_name" :content (tr :site-name))
+      (:meta :property "og:title" :content title)
+      (:meta :property "og:description" :content description)
+      (:meta :property "og:locale" :content (cdr (assoc *locale* *open-graph-locales*)))
+      (:meta :name "twitter:card" :content "summary_large_image")
+      (when url
+        (:link :rel "canonical" :href url)
+        (:meta :property "og:url" :content url)
+        (:meta :property "og:image" :content (absolute-url +share-image-file+ :en))
+        (dolist (locale +locales+)
+          (:link :rel "alternate"
+                 :hreflang (locale-code locale)
+                 :href (absolute-url path locale)))
+        (:link :rel "alternate"
+               :hreflang "x-default"
+               :href (absolute-url path *x-default-locale*))))))
+
 (defun layout-html (&key
                       title
                       description
@@ -186,15 +225,18 @@
 - ROOT: relative prefix to the site root; overrides the one derived from PATH.
 - BODY: the already rendered main content.
 - SCRIPTS: extra script paths below the site root, loaded after search.js."
-  (let ((root (or root (page-root path))))
+  (let ((root (or root (page-root path)))
+        (document-title (page-title title)))
     (with-html-string
       (:doctype)
       (:html :lang (locale-code)
         (:head
           (:meta :charset "utf-8")
           (:meta :name "viewport" :content "width=device-width, initial-scale=1")
-          (:title (page-title title))
+          (:title document-title)
           (:meta :name "description" :content description)
+          (:link :rel "icon" :type "image/svg+xml" :href (site-href root +favicon-file+))
+          (:raw (discovery-tags-html document-title description path))
           (:link :rel "stylesheet" :href (site-href root "assets/tokens.css"))
           (:link :rel "stylesheet" :href (site-href root "assets/site.css"))
           (:script :src (site-href root "assets/search.js") :defer t)

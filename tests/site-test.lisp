@@ -128,6 +128,34 @@
   (let ((html (read-site-file "sym/common-lisp/car/index.html")))
     (is (search "never copies its text" html))))
 
+(defun without-attribute-values (html)
+  "Return HTML with every double-quoted attribute value removed.
+
+Quoted values may hold a raw < or > safely, so only text and tags are checked.
+
+- HTML: the page source, a string."
+  (with-output-to-string (out)
+    (let ((inside-quotes nil))
+      (loop for char across html
+            do (cond ((char= char #\") (setf inside-quotes (not inside-quotes)))
+                     ((not inside-quotes) (write-char char out)))))))
+
+(defun compact-html (html)
+  "Return HTML on one line with attribute quotes removed, for substring checks.
+
+The pretty printer may wrap a tag across lines; this makes tags contiguous.
+
+- HTML: the page source, a string."
+  (with-output-to-string (out)
+    (let ((previous-space nil))
+      (loop for char across html
+            do (cond ((char= char #\") nil)
+                     ((member char '(#\Space #\Newline #\Tab))
+                      (unless previous-space (write-char #\Space out))
+                      (setf previous-space t))
+                     (t (write-char char out)
+                        (setf previous-space nil)))))))
+
 (test docstrings-and-names-are-escaped
   (let* ((definition (cldocs/definition:make-definition
                       :package "DEMO"
@@ -140,7 +168,7 @@
                                                 :definitions (list definition)))
          (html (cldocs/render:render-symbol entry)))
     (is (not (search "\"><script>" html)))
-    (is (not (search "<b>" html)))
+    (is (not (search "<b>" (without-attribute-values html))))
     (is (search "&lt;script&gt;alert(1)" html))))
 
 (test generated-css-obeys-the-design-system
@@ -248,3 +276,71 @@
       (is (search "https://github.com/example/cldocs/new/main?filename=community%2Fexamples%2Fcommon-lisp%2Fcar.txt" html))
       (is (search "author%3A%20YOUR-GITHUB-LOGIN" html))
       (is (search "CONTRIBUTING.md" html)))))
+
+(defparameter *test-site-url* "https://example.org/docs"
+  "Public address used to build a site that has sitemap and canonical links.")
+
+(defun call-with-site-built-for-search-engines (function)
+  "Call FUNCTION with the directory of a site built with *TEST-SITE-URL*.
+
+- FUNCTION: a function of one argument, the site directory."
+  (call-with-temporary-directory
+   (lambda (directory)
+     (cldocs/site:build-site directory :site-url (concatenate 'string *test-site-url* "/"))
+     (funcall function directory))))
+
+(test every-page-has-an-icon-and-preview-tags-without-needing-an-address
+  (let ((html (compact-html (read-site-file "sym/common-lisp/car/index.html"))))
+    (is (search "rel=icon" html))
+    (is (search "property=og:title" html))
+    (is (search "property=og:description" html))
+    (is (search "name=twitter:card" html))
+    (is (not (search "rel=canonical" html)))
+    (is (not (search "og:image" html))))
+  (dolist (path '("assets/favicon.svg" "assets/share.png"))
+    (is (probe-file (merge-pathnames path (built-site))) "missing ~A" path))
+  (is (not (probe-file (merge-pathnames "sitemap.xml" (built-site)))))
+  (is (not (probe-file (merge-pathnames "robots.txt" (built-site))))))
+
+(test a-site-address-adds-canonical-links-alternates-and-the-share-image
+  (call-with-site-built-for-search-engines
+   (lambda (directory)
+     (let ((english (compact-html
+                     (uiop:read-file-string
+                      (merge-pathnames "sym/common-lisp/car/index.html" directory))))
+           (portuguese (compact-html
+                        (uiop:read-file-string
+                         (merge-pathnames "pt-br/sym/common-lisp/car/index.html" directory)))))
+       (is (search "rel=canonical href=https://example.org/docs/sym/common-lisp/car/" english))
+       (is (search "rel=canonical href=https://example.org/docs/pt-br/sym/common-lisp/car/"
+                   portuguese))
+       (dolist (html (list english portuguese))
+         (is (search "hreflang=en href=https://example.org/docs/sym/common-lisp/car/" html))
+         (is (search "hreflang=pt-BR href=https://example.org/docs/pt-br/sym/common-lisp/car/"
+                     html))
+         (is (search "hreflang=x-default href=https://example.org/docs/sym/common-lisp/car/"
+                     html))
+         (is (search "og:image content=https://example.org/docs/assets/share.png" html)))
+       (is (search "og:locale content=pt_BR" portuguese))))))
+
+(test the-sitemap-lists-every-page-in-both-languages-and-robots-points-to-it
+  (call-with-site-built-for-search-engines
+   (lambda (directory)
+     (let* ((sitemap (uiop:read-file-string (merge-pathnames "sitemap.xml" directory)))
+            (robots (uiop:read-file-string (merge-pathnames "robots.txt" directory)))
+            (locations (loop for start = (search "<loc>" sitemap)
+                               then (search "<loc>" sitemap :start2 end)
+                             while start
+                             for end = (search "</loc>" sitemap :start2 start)
+                             collect (subseq sitemap (+ start (length "<loc>")) end))))
+       (is (search "<urlset " sitemap))
+       (is (member "https://example.org/docs/" locations :test #'string=))
+       (is (member "https://example.org/docs/pt-br/" locations :test #'string=))
+       (is (member "https://example.org/docs/sym/common-lisp/car/" locations :test #'string=))
+       (is (member "https://example.org/docs/pt-br/pkg/alexandria/" locations :test #'string=))
+       (is (not (member "https://example.org/docs/404.html" locations :test #'string=)))
+       (is (= (length locations) (length (remove-duplicates locations :test #'string=))))
+       (is (= (length locations)
+              (length (directory (merge-pathnames "**/index.html" directory)))))
+       (is (search "Sitemap: https://example.org/docs/sitemap.xml" robots))
+       (is (search "Allow: /" robots))))))
