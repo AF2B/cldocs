@@ -210,7 +210,7 @@
                  (format nil "CLDOCS_INDEX=~A"
                          (namestring (merge-pathnames "assets/search-index.json"
                                                       (built-site))))
-                 "node" "--test" "tests/")
+                 "node" "--test")
            :directory (asdf:system-relative-pathname "cldocs" "")
            :output :string
            :error-output :string

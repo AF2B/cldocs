@@ -4920,11 +4920,12 @@ second")))
 
 == ENSURE-DIRECTORIES-EXIST
 (let ((path "/tmp/cldocs-ex-dirs/a/b/file.txt"))
-  (multiple-value-bind (pathname created) (ensure-directories-exist path)
-    (list (namestring pathname) created)))
+  (namestring (ensure-directories-exist path)))
 
 == ENSURE-DIRECTORIES-EXIST
-(nth-value 1 (ensure-directories-exist "/tmp/cldocs-ex-dirs/a/b/file.txt"))
+(progn
+  (ensure-directories-exist "/tmp/cldocs-ex-dirs/a/b/file.txt")
+  (nth-value 1 (ensure-directories-exist "/tmp/cldocs-ex-dirs/a/b/file.txt")))
 
 == DIRECTORY
 (let ((dir "/tmp/cldocs-ex-directory/"))

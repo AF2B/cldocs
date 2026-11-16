@@ -6256,12 +6256,13 @@ ghijkl")))
    :steps
    (
     (:FORM "(let ((path \"/tmp/cldocs-ex-dirs/a/b/file.txt\"))
-  (multiple-value-bind (pathname created) (ensure-directories-exist path)
-    (list (namestring pathname) created)))" :VALUES ("(\"/tmp/cldocs-ex-dirs/a/b/file.txt\" NIL)"))))
+  (namestring (ensure-directories-exist path)))" :VALUES ("\"/tmp/cldocs-ex-dirs/a/b/file.txt\""))))
   (:symbol "ENSURE-DIRECTORIES-EXIST" :uses NIL :system NIL
    :steps
    (
-    (:FORM "(nth-value 1 (ensure-directories-exist \"/tmp/cldocs-ex-dirs/a/b/file.txt\"))" :VALUES ("NIL"))))
+    (:FORM "(progn
+  (ensure-directories-exist \"/tmp/cldocs-ex-dirs/a/b/file.txt\")
+  (nth-value 1 (ensure-directories-exist \"/tmp/cldocs-ex-dirs/a/b/file.txt\")))" :VALUES ("NIL"))))
   (:symbol "DIRECTORY" :uses NIL :system NIL
    :steps
    (
