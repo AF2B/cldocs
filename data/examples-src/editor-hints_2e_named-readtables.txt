@@ -1,0 +1,135 @@
+== EDITOR-HINTS.NAMED-READTABLES:DEFREADTABLE @ named-readtables
+-- silent
+(defreadtable question-mark-syntax
+  (:merge :standard)
+  (:macro-char #\? (lambda (stream char)
+                     (declare (ignore char))
+                     (list 'quote (read stream t nil t)))))
+(let ((*readtable* (ensure-readtable 'question-mark-syntax)))
+  (values (read-from-string "?(a b c)")))
+
+== EDITOR-HINTS.NAMED-READTABLES:DEFREADTABLE @ named-readtables
+-- silent
+(defun read-bracket-list (stream char)
+  (declare (ignore char))
+  (cons 'list (read-delimited-list #\] stream t)))
+-- silent
+(defreadtable bracket-syntax
+  (:merge :standard)
+  (:macro-char #\[ #'read-bracket-list)
+  (:macro-char #\] (get-macro-character #\))))
+(let ((*readtable* (ensure-readtable 'bracket-syntax)))
+  (eval (read-from-string "[1 2 (+ 1 2)]")))
+
+== EDITOR-HINTS.NAMED-READTABLES:IN-READTABLE @ named-readtables
+-- silent
+(defreadtable shout-syntax
+  (:merge :standard)
+  (:case :upcase))
+(let ((*readtable* *readtable*))
+  (in-readtable shout-syntax)
+  (readtable-name *readtable*))
+
+== EDITOR-HINTS.NAMED-READTABLES:FIND-READTABLE @ named-readtables
+-- silent
+(defreadtable findable-syntax (:merge :standard))
+(readtablep (find-readtable 'findable-syntax))
+(find-readtable 'no-such-readtable)
+
+== EDITOR-HINTS.NAMED-READTABLES:ENSURE-READTABLE @ named-readtables
+-- silent
+(defreadtable ensured-syntax (:merge :standard))
+(eq (ensure-readtable 'ensured-syntax) (find-readtable 'ensured-syntax))
+
+== EDITOR-HINTS.NAMED-READTABLES:ENSURE-READTABLE @ named-readtables
+(readtablep (ensure-readtable 'never-defined-syntax (copy-readtable nil)))
+
+== EDITOR-HINTS.NAMED-READTABLES:MAKE-READTABLE @ named-readtables
+(readtablep (make-readtable))
+
+== EDITOR-HINTS.NAMED-READTABLES:MAKE-READTABLE @ named-readtables
+-- silent
+(make-readtable 'made-syntax :merge '(:standard))
+(readtable-name (find-readtable 'made-syntax))
+
+== EDITOR-HINTS.NAMED-READTABLES:COPY-NAMED-READTABLE @ named-readtables
+-- silent
+(defreadtable original-syntax (:merge :standard))
+(let ((copy (copy-named-readtable 'original-syntax)))
+  (list (readtablep copy)
+        (eq copy (find-readtable 'original-syntax))))
+
+== EDITOR-HINTS.NAMED-READTABLES:MERGE-READTABLES-INTO @ named-readtables
+-- silent
+(defreadtable quote-syntax
+  (:merge :standard)
+  (:macro-char #\! (lambda (stream char)
+                     (declare (ignore char))
+                     (list 'quote (read stream t nil t)))))
+(let ((target (make-readtable)))
+  (merge-readtables-into target :standard 'quote-syntax)
+  (let ((*readtable* target))
+    (values (read-from-string "!(x y)"))))
+
+== EDITOR-HINTS.NAMED-READTABLES:READER-MACRO-CONFLICT @ named-readtables
+-- silent
+(defreadtable conflict-a
+  (:merge :standard)
+  (:macro-char #\! (lambda (stream char) (declare (ignore stream char)) :a)))
+-- silent
+(defreadtable conflict-b
+  (:merge :standard)
+  (:macro-char #\! (lambda (stream char) (declare (ignore stream char)) :b)))
+(handler-case (merge-readtables-into (make-readtable) 'conflict-a 'conflict-b)
+  (reader-macro-conflict () :conflict))
+
+== EDITOR-HINTS.NAMED-READTABLES:READTABLE-NAME @ named-readtables
+-- silent
+(defreadtable named-syntax (:merge :standard))
+(readtable-name (find-readtable 'named-syntax))
+(readtable-name *readtable*)
+
+== EDITOR-HINTS.NAMED-READTABLES:REGISTER-READTABLE @ named-readtables
+(let ((table (copy-readtable nil)))
+  (register-readtable 'registered-syntax table)
+  (eq table (find-readtable 'registered-syntax)))
+
+== EDITOR-HINTS.NAMED-READTABLES:RENAME-READTABLE @ named-readtables
+-- silent
+(defreadtable old-name-syntax (:merge :standard))
+(progn (rename-readtable 'old-name-syntax 'new-name-syntax)
+       :renamed)
+(list (find-readtable 'old-name-syntax)
+      (readtablep (find-readtable 'new-name-syntax)))
+
+== EDITOR-HINTS.NAMED-READTABLES:UNREGISTER-READTABLE @ named-readtables
+-- silent
+(defreadtable short-lived-syntax (:merge :standard))
+(unregister-readtable 'short-lived-syntax)
+(find-readtable 'short-lived-syntax)
+
+== EDITOR-HINTS.NAMED-READTABLES:LIST-ALL-NAMED-READTABLES @ named-readtables
+-- silent
+(defreadtable listed-syntax (:merge :standard))
+(not (null (find 'listed-syntax (list-all-named-readtables) :key #'readtable-name)))
+
+== EDITOR-HINTS.NAMED-READTABLES:NAMED-READTABLE-DESIGNATOR @ named-readtables
+-- silent
+(defreadtable designated-syntax (:merge :standard))
+(list (typep 'designated-syntax 'named-readtable-designator)
+      (typep (find-readtable 'designated-syntax) 'named-readtable-designator)
+      (typep 42 'named-readtable-designator))
+
+== EDITOR-HINTS.NAMED-READTABLES:READTABLE-ERROR @ named-readtables
+(handler-case (ensure-readtable 'still-undefined-syntax)
+  (readtable-error () :readtable-problem))
+
+== EDITOR-HINTS.NAMED-READTABLES:READTABLE-DOES-NOT-EXIST @ named-readtables
+(handler-case (ensure-readtable 'missing-syntax)
+  (readtable-does-not-exist () :missing))
+
+== EDITOR-HINTS.NAMED-READTABLES:READTABLE-DOES-ALREADY-EXIST @ named-readtables
+-- silent
+(make-readtable 'twice-syntax :merge '(:standard))
+(handler-case (make-readtable 'twice-syntax :merge '(:standard))
+  (readtable-does-already-exist () :already-exists))

@@ -113,6 +113,23 @@
                 (make-test-example (list :form "(leaky-function)")))))
     (is (string= "UNDEFINED-FUNCTION" (getf (first steps) :error)))))
 
+(defun suite-test-count (suite)
+  "Return how many tests the FiveAM SUITE holds.
+
+- SUITE: a FiveAM suite object."
+  (hash-table-count (it.bese.fiveam::%tests (slot-value suite 'it.bese.fiveam::tests))))
+
+(test examples-never-touch-the-suite-that-hosts-them
+  (let ((suite fiveam::*suite*))
+    (let ((tests-before (suite-test-count suite)))
+      (cldocs/examples:run-example
+       (make-test-example (list :form "(fiveam:def-suite probe-suite)" :silent t)
+                          (list :form "(fiveam:in-suite probe-suite)" :silent t)
+                          (list :form "(fiveam:def-test probe-test () (fiveam:is-true t))"
+                                :silent t)))
+      (is (eq suite fiveam::*suite*))
+      (is (= tests-before (suite-test-count suite))))))
+
 (test symbols-print-unqualified-inside-the-example-package
   (let ((steps (cldocs/examples:run-example
                 (make-test-example (list :form "'(a b)")))))

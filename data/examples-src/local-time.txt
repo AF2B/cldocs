@@ -1,0 +1,637 @@
+== LOCAL-TIME:*DEFAULT-TIMEZONE* @ local-time
+(let ((*default-timezone* +utc-zone+))
+  (format-timestring nil (unix-to-timestamp 0)))
+(let ((*default-timezone* +gmt-zone+))
+  (format-timestring nil (unix-to-timestamp 0)))
+
+== LOCAL-TIME:*CLOCK* @ local-time
+*clock*
+(typep (clock-now *clock*) 'timestamp)
+
+== LOCAL-TIME:+UTC-ZONE+ @ local-time
+(format-timestring nil (unix-to-timestamp 0) :timezone +utc-zone+)
+(zone-name +utc-zone+)
+
+== LOCAL-TIME:+GMT-ZONE+ @ local-time
+(zone-name +gmt-zone+)
+(format-timestring nil (unix-to-timestamp 0) :timezone +gmt-zone+)
+
+== LOCAL-TIME:+DAY-NAMES+ @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(aref +day-names+ 0)
+(aref +day-names+ (timestamp-day-of-week (parse-timestring "2024-03-15T10:30:00Z")))
+
+== LOCAL-TIME:+SHORT-DAY-NAMES+ @ local-time
+(coerce +short-day-names+ 'list)
+
+== LOCAL-TIME:+MONTH-NAMES+ @ local-time
+(aref +month-names+ 3)
+(length +month-names+)
+
+== LOCAL-TIME:+SHORT-MONTH-NAMES+ @ local-time
+(subseq +short-month-names+ 1 4)
+
+== LOCAL-TIME:+DAYS-PER-WEEK+ @ local-time
++days-per-week+
+(* 3 +days-per-week+)
+
+== LOCAL-TIME:+HOURS-PER-DAY+ @ local-time
++hours-per-day+
+
+== LOCAL-TIME:+MINUTES-PER-HOUR+ @ local-time
++minutes-per-hour+
+
+== LOCAL-TIME:+MINUTES-PER-DAY+ @ local-time
++minutes-per-day+
+(= +minutes-per-day+ (* +hours-per-day+ +minutes-per-hour+))
+
+== LOCAL-TIME:+MONTHS-PER-YEAR+ @ local-time
++months-per-year+
+
+== LOCAL-TIME:+SECONDS-PER-MINUTE+ @ local-time
++seconds-per-minute+
+
+== LOCAL-TIME:+SECONDS-PER-HOUR+ @ local-time
++seconds-per-hour+
+(= +seconds-per-hour+ (* +minutes-per-hour+ +seconds-per-minute+))
+
+== LOCAL-TIME:+SECONDS-PER-DAY+ @ local-time
++seconds-per-day+
+(timestamp-difference (parse-timestring "2024-03-16T00:00:00Z")
+                      (parse-timestring "2024-03-15T00:00:00Z"))
+
+== LOCAL-TIME:+ISO-8601-FORMAT+ @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(format-timestring nil (parse-timestring "2024-03-15T10:30:00Z") :format +iso-8601-format+)
+
+== LOCAL-TIME:+ISO-8601-DATE-FORMAT+ @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(format-timestring nil (parse-timestring "2024-03-15T10:30:00Z") :format +iso-8601-date-format+)
+
+== LOCAL-TIME:+ISO-8601-TIME-FORMAT+ @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(format-timestring nil (parse-timestring "2024-03-15T10:30:00Z") :format +iso-8601-time-format+)
+
+== LOCAL-TIME:+ISO-WEEK-DATE-FORMAT+ @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(format-timestring nil (parse-timestring "2024-03-15T10:30:00Z") :format +iso-week-date-format+)
+
+== LOCAL-TIME:+RFC3339-FORMAT+ @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(format-timestring nil (parse-timestring "2024-03-15T10:30:00Z") :format +rfc3339-format+)
+
+== LOCAL-TIME:+RFC3339-FORMAT/DATE-ONLY+ @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(format-timestring nil (parse-timestring "2024-03-15T10:30:00Z") :format +rfc3339-format/date-only+)
+
+== LOCAL-TIME:+RFC-1123-FORMAT+ @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(format-timestring nil (parse-timestring "2024-03-15T10:30:00Z") :format +rfc-1123-format+)
+
+== LOCAL-TIME:+ASCTIME-FORMAT+ @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(format-timestring nil (parse-timestring "2024-03-15T10:30:00Z") :format +asctime-format+)
+
+== LOCAL-TIME:ASTRONOMICAL-MODIFIED-JULIAN-DATE @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(list (fboundp 'astronomical-modified-julian-date)
+      (boundp 'astronomical-modified-julian-date))
+(modified-julian-date (parse-timestring "2024-03-15T10:30:00Z"))
+
+== LOCAL-TIME:LEAP-SECOND-ADJUSTED @ local-time
+(list (fboundp 'leap-second-adjusted)
+      (boundp 'leap-second-adjusted)
+      (symbol-name 'leap-second-adjusted))
+
+== LOCAL-TIME:TIMESTAMP-WEEK @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(list (fboundp 'timestamp-week)
+      (boundp 'timestamp-week)
+      (symbol-name 'timestamp-week))
+(format-timestring nil (parse-timestring "2024-03-15T10:30:00Z")
+                   :format '(:iso-week-number))
+
+== LOCAL-TIME:TIMESTAMP @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(typep (unix-to-timestamp 0) 'timestamp)
+(let ((moment (make-timestamp :day 8780 :sec 37800)))
+  (list (day-of moment) (sec-of moment) (nsec-of moment)))
+
+== LOCAL-TIME:DATE @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(typep (today) 'date)
+(typep 3 'date)
+
+== LOCAL-TIME:TIME-OF-DAY @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(typep (make-timestamp :day 0 :sec 3600) 'time-of-day)
+(typep (parse-timestring "2024-03-15T10:30:00Z") 'time-of-day)
+
+== LOCAL-TIME:INVALID-TIMESTRING @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(handler-case (parse-timestring "not a date")
+  (invalid-timestring () :invalid))
+(handler-case (parse-timestring "2024-03-15T10:30:00Z")
+  (invalid-timestring () :invalid))
+
+== LOCAL-TIME:MAKE-TIMESTAMP @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(macroexpand-1 '(make-timestamp :day 1 :sec 60))
+(let ((moment (make-timestamp :day 8780 :sec 37800)))
+  (format-timestring nil moment))
+
+== LOCAL-TIME:NOW @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(typep (now) 'timestamp)
+(timestamp> (now) (parse-timestring "2020-01-01T00:00:00Z"))
+
+== LOCAL-TIME:TODAY @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(typep (today) 'timestamp)
+(let ((midnight (today)))
+  (list (sec-of midnight) (nsec-of midnight)))
+
+== LOCAL-TIME:CLOCK-NOW @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(typep (clock-now t) 'timestamp)
+(timestamp> (clock-now *clock*) (parse-timestring "2020-01-01T00:00:00Z"))
+
+== LOCAL-TIME:CLOCK-TODAY @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(typep (clock-today t) 'timestamp)
+(zerop (sec-of (clock-today *clock*)))
+
+== LOCAL-TIME:CLONE-TIMESTAMP @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(let* ((original (parse-timestring "2024-03-15T10:30:00Z"))
+       (copy (clone-timestamp original)))
+  (list (timestamp= original copy)
+        (eq original copy)))
+
+== LOCAL-TIME:ENCODE-TIMESTAMP @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(encode-timestamp 0 0 30 10 15 3 2024)
+(encode-timestamp 500000000 59 59 23 31 12 1999 :timezone +utc-zone+)
+
+== LOCAL-TIME:DECODE-TIMESTAMP @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(multiple-value-list (decode-timestamp (parse-timestring "2024-03-15T10:30:00Z")))
+(multiple-value-bind (nsec sec minute hour day month year)
+    (decode-timestamp (parse-timestring "2024-03-15T10:30:00Z"))
+  (list year month day hour minute sec nsec))
+
+== LOCAL-TIME:WITH-DECODED-TIMESTAMP @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(with-decoded-timestamp (:year year :month month :day day) (parse-timestring "2024-03-15T10:30:00Z")
+  (list year month day))
+(with-decoded-timestamp (:hour hour :minute minute :day-of-week weekday) (parse-timestring "2024-03-15T10:30:00Z")
+  (list hour minute weekday))
+
+== LOCAL-TIME:UNIVERSAL-TO-TIMESTAMP @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(universal-to-timestamp 3919487400)
+(universal-to-timestamp 3919487400 :nsec 250000000)
+
+== LOCAL-TIME:TIMESTAMP-TO-UNIVERSAL @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-to-universal (parse-timestring "2024-03-15T10:30:00Z"))
+(= (timestamp-to-universal (universal-to-timestamp 1234567890)) 1234567890)
+
+== LOCAL-TIME:UNIX-TO-TIMESTAMP @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(unix-to-timestamp 0)
+(unix-to-timestamp 1700000000 :nsec 500000000)
+
+== LOCAL-TIME:TIMESTAMP-TO-UNIX @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-to-unix (parse-timestring "2024-03-15T10:30:00Z"))
+(timestamp-to-unix (unix-to-timestamp 86400))
+
+== LOCAL-TIME:DECODE-UNIVERSAL-TIME-WITH-TZ @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(multiple-value-list (decode-universal-time-with-tz 3919487400 :timezone +utc-zone+))
+(multiple-value-bind (sec minute hour day month year)
+    (decode-universal-time-with-tz 3919487400 :timezone +utc-zone+)
+  (list year month day hour minute sec))
+
+== LOCAL-TIME:ENCODE-UNIVERSAL-TIME-WITH-TZ @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(encode-universal-time-with-tz 0 30 10 15 3 2024 :timezone +utc-zone+)
+(= (encode-universal-time-with-tz 0 0 0 1 1 2000 :timezone +utc-zone+)
+   (encode-universal-time 0 0 0 1 1 2000 0))
+
+== LOCAL-TIME:DAY-OF @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(day-of (parse-timestring "2024-03-15T10:30:00Z"))
+(day-of (unix-to-timestamp 0))
+
+== LOCAL-TIME:SEC-OF @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(sec-of (parse-timestring "2024-03-15T10:30:00Z"))
+(= (sec-of (parse-timestring "2024-03-15T10:30:00Z")) (+ (* 10 3600) (* 30 60)))
+
+== LOCAL-TIME:NSEC-OF @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(nsec-of (parse-timestring "2024-03-15T10:30:00.5Z"))
+(nsec-of (parse-timestring "2024-03-15T10:30:00Z"))
+
+== LOCAL-TIME:TIMESTAMP-YEAR @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-year (parse-timestring "2024-03-15T10:30:00Z"))
+
+== LOCAL-TIME:TIMESTAMP-MONTH @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-month (parse-timestring "2024-03-15T10:30:00Z"))
+
+== LOCAL-TIME:TIMESTAMP-DAY @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-day (parse-timestring "2024-03-15T10:30:00Z"))
+
+== LOCAL-TIME:TIMESTAMP-HOUR @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-hour (parse-timestring "2024-03-15T10:30:00Z"))
+(timestamp-hour (parse-timestring "2024-03-15T10:30:00Z") :timezone +gmt-zone+)
+
+== LOCAL-TIME:TIMESTAMP-MINUTE @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-minute (parse-timestring "2024-03-15T10:30:00Z"))
+
+== LOCAL-TIME:TIMESTAMP-SECOND @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-second (parse-timestring "2024-03-15T10:30:00Z"))
+(timestamp-second (parse-timestring "2024-03-15T10:30:45Z"))
+
+== LOCAL-TIME:TIMESTAMP-MILLISECOND @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(multiple-value-list (timestamp-millisecond (parse-timestring "2024-03-15T10:30:00.123456Z")))
+
+== LOCAL-TIME:TIMESTAMP-MICROSECOND @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(multiple-value-list (timestamp-microsecond (parse-timestring "2024-03-15T10:30:00.123456Z")))
+
+== LOCAL-TIME:TIMESTAMP-DECADE @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(multiple-value-list (timestamp-decade (parse-timestring "2024-03-15T10:30:00Z")))
+
+== LOCAL-TIME:TIMESTAMP-CENTURY @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-century (parse-timestring "2024-03-15T10:30:00Z"))
+(timestamp-century (parse-timestring "1999-12-31T23:59:59Z"))
+
+== LOCAL-TIME:TIMESTAMP-MILLENNIUM @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-millennium (parse-timestring "2024-03-15T10:30:00Z"))
+(timestamp-millennium (parse-timestring "1999-12-31T23:59:59Z"))
+
+== LOCAL-TIME:TIMESTAMP-DAY-OF-WEEK @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-day-of-week (parse-timestring "2024-03-15T10:30:00Z"))
+(aref +day-names+ (timestamp-day-of-week (parse-timestring "2024-03-15T10:30:00Z")))
+
+== LOCAL-TIME:MONDAY? @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(monday? (parse-timestring "2024-03-11T12:00:00Z"))
+(monday? (parse-timestring "2024-03-12T12:00:00Z"))
+
+== LOCAL-TIME:TUESDAY? @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(tuesday? (parse-timestring "2024-03-12T12:00:00Z"))
+(tuesday? (parse-timestring "2024-03-18T12:00:00Z"))
+
+== LOCAL-TIME:WEDNESDAY? @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(wednesday? (parse-timestring "2024-03-13T12:00:00Z"))
+(wednesday? (parse-timestring "2024-03-18T12:00:00Z"))
+
+== LOCAL-TIME:THURSDAY? @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(thursday? (parse-timestring "2024-03-14T12:00:00Z"))
+(thursday? (parse-timestring "2024-03-18T12:00:00Z"))
+
+== LOCAL-TIME:FRIDAY? @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(friday? (parse-timestring "2024-03-15T12:00:00Z"))
+(friday? (parse-timestring "2024-03-18T12:00:00Z"))
+
+== LOCAL-TIME:SATURDAY? @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(saturday? (parse-timestring "2024-03-16T12:00:00Z"))
+(saturday? (parse-timestring "2024-03-18T12:00:00Z"))
+
+== LOCAL-TIME:SUNDAY? @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(sunday? (parse-timestring "2024-03-17T12:00:00Z"))
+(sunday? (parse-timestring "2024-03-18T12:00:00Z"))
+
+== LOCAL-TIME:DAYS-IN-MONTH @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(days-in-month 2 2024)
+(days-in-month 2 2023)
+(mapcar (lambda (month) (days-in-month month 2023))
+        '(1 4 12))
+
+== LOCAL-TIME:TIMESTAMP+ @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp+ (parse-timestring "2024-01-31T00:00:00Z") 1 :month)
+(timestamp+ (parse-timestring "2024-03-15T10:30:00Z") 14 :day)
+
+== LOCAL-TIME:TIMESTAMP- @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp- (parse-timestring "2024-03-01T00:00:00Z") 1 :day)
+(timestamp- (parse-timestring "2024-03-15T10:30:00Z") 90 :minute)
+
+== LOCAL-TIME:TIMESTAMP-DIFFERENCE @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-difference (parse-timestring "2024-03-15T10:30:00Z")
+                      (parse-timestring "2024-03-14T10:30:00Z"))
+(timestamp-difference (unix-to-timestamp 100)
+                      (unix-to-timestamp 160))
+
+== LOCAL-TIME:TIMESTAMP-WHOLE-YEAR-DIFFERENCE @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-whole-year-difference (parse-timestring "2024-03-15T00:00:00Z")
+                                 (parse-timestring "2000-03-16T00:00:00Z"))
+(timestamp-whole-year-difference (parse-timestring "2024-03-15T00:00:00Z")
+                                 (parse-timestring "2000-03-15T00:00:00Z"))
+
+== LOCAL-TIME:ADJUST-TIMESTAMP @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(adjust-timestamp (parse-timestring "2024-03-15T10:30:00Z")
+  (offset :day 20))
+(adjust-timestamp (parse-timestring "2024-03-15T10:30:00Z")
+  (set :hour 0)
+  (set :minute 0))
+(adjust-timestamp (parse-timestring "2024-03-15T10:30:00Z")
+  (offset :month 1)
+  (offset :day -1))
+
+== LOCAL-TIME:ADJUST-TIMESTAMP! @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(let ((moment (parse-timestring "2024-03-15T10:30:00Z")))
+  (adjust-timestamp! moment
+    (offset :hour 2))
+  moment)
+(let ((moment (parse-timestring "2024-03-15T10:30:00Z")))
+  (adjust-timestamp! moment
+    (set :year 2000))
+  (timestamp-year moment))
+
+== LOCAL-TIME:TIMESTAMP-MAXIMIZE-PART @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-maximize-part (parse-timestring "2024-03-15T10:30:00Z") :month)
+(timestamp-maximize-part (parse-timestring "2024-03-15T10:30:00Z") :hour)
+
+== LOCAL-TIME:TIMESTAMP-MINIMIZE-PART @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-minimize-part (parse-timestring "2024-03-15T10:30:00Z") :month)
+(timestamp-minimize-part (parse-timestring "2024-03-15T10:30:00Z") :hour)
+
+== LOCAL-TIME:TIMESTAMP-MAXIMUM @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-maximum (parse-timestring "2024-03-15T10:30:00Z")
+                   (parse-timestring "2023-03-15T10:30:00Z")
+                   (parse-timestring "2025-01-01T00:00:00Z"))
+
+== LOCAL-TIME:TIMESTAMP-MINIMUM @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp-minimum (parse-timestring "2024-03-15T10:30:00Z")
+                   (parse-timestring "2023-03-15T10:30:00Z")
+                   (parse-timestring "2025-01-01T00:00:00Z"))
+
+== LOCAL-TIME:TIMESTAMP< @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp< (parse-timestring "2023-01-01T00:00:00Z")
+            (parse-timestring "2024-01-01T00:00:00Z"))
+(apply #'timestamp< (mapcar #'parse-timestring
+                    '("2023-01-01T00:00:00Z" "2024-01-01T00:00:00Z" "2025-01-01T00:00:00Z")))
+
+== LOCAL-TIME:TIMESTAMP<= @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp<= (parse-timestring "2024-01-01T00:00:00Z")
+             (parse-timestring "2024-01-01T00:00:00Z"))
+(apply #'timestamp<= (mapcar #'parse-timestring
+                     '("2023-01-01T00:00:00Z" "2024-01-01T00:00:00Z" "2025-01-01T00:00:00Z")))
+
+== LOCAL-TIME:TIMESTAMP> @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp> (parse-timestring "2024-01-01T00:00:00Z")
+            (parse-timestring "2023-01-01T00:00:00Z"))
+(apply #'timestamp> (mapcar #'parse-timestring
+                    '("2023-01-01T00:00:00Z" "2024-01-01T00:00:00Z" "2025-01-01T00:00:00Z")))
+
+== LOCAL-TIME:TIMESTAMP>= @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp>= (parse-timestring "2023-01-01T00:00:00Z")
+             (parse-timestring "2024-01-01T00:00:00Z"))
+(apply #'timestamp>= (mapcar #'parse-timestring
+                     '("2023-01-01T00:00:00Z" "2024-01-01T00:00:00Z" "2025-01-01T00:00:00Z")))
+
+== LOCAL-TIME:TIMESTAMP= @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp= (parse-timestring "2024-01-01T00:00:00Z")
+            (parse-timestring "2024-01-01T00:00:00Z"))
+(apply #'timestamp= (mapcar #'parse-timestring
+                    '("2023-01-01T00:00:00Z" "2024-01-01T00:00:00Z" "2025-01-01T00:00:00Z")))
+
+== LOCAL-TIME:TIMESTAMP/= @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(timestamp/= (parse-timestring "2024-01-01T00:00:00Z")
+             (parse-timestring "2024-01-02T00:00:00Z"))
+(apply #'timestamp/= (mapcar #'parse-timestring
+                     '("2023-01-01T00:00:00Z" "2024-01-01T00:00:00Z" "2025-01-01T00:00:00Z")))
+
+== LOCAL-TIME:MODIFIED-JULIAN-DATE @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(modified-julian-date (parse-timestring "2024-03-15T10:30:00Z"))
+(modified-julian-date (parse-timestring "1858-11-17T00:00:00Z"))
+
+== LOCAL-TIME:ASTRONOMICAL-JULIAN-DATE @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(astronomical-julian-date (parse-timestring "2024-03-15T10:30:00Z"))
+
+== LOCAL-TIME:FORMAT-TIMESTRING @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(format-timestring nil (parse-timestring "2024-03-15T10:30:00Z"))
+(format-timestring nil (parse-timestring "2024-03-15T10:30:00Z")
+                   :format '((:year 4) #\/ (:month 2) #\/ (:day 2)))
+(format-timestring nil (parse-timestring "2024-03-15T10:30:00Z")
+                   :format '(:long-weekday ", " :long-month #\Space (:day 1) ", " (:year 4)))
+(let ((new-york (progn (reread-timezone-repository)
+                        (find-timezone-by-location-name "America/New_York"))))
+  (format-timestring nil (parse-timestring "2024-03-15T10:30:00Z") :timezone new-york))
+
+== LOCAL-TIME:FORMAT-RFC1123-TIMESTRING @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(format-rfc1123-timestring nil (parse-timestring "2024-03-15T10:30:00Z"))
+(with-output-to-string (stream)
+  (format-rfc1123-timestring stream (parse-timestring "2024-03-15T10:30:00Z")))
+
+== LOCAL-TIME:FORMAT-RFC3339-TIMESTRING @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(format-rfc3339-timestring nil (parse-timestring "2024-03-15T10:30:00Z"))
+(format-rfc3339-timestring nil (parse-timestring "2024-03-15T10:30:00Z") :omit-time-part t)
+(format-rfc3339-timestring nil (parse-timestring "2024-03-15T10:30:00Z") :use-zulu nil)
+
+== LOCAL-TIME:TO-RFC1123-TIMESTRING @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(to-rfc1123-timestring (parse-timestring "2024-03-15T10:30:00Z"))
+
+== LOCAL-TIME:TO-RFC3339-TIMESTRING @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(to-rfc3339-timestring (parse-timestring "2024-03-15T10:30:00Z"))
+
+== LOCAL-TIME:PARSE-TIMESTRING @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(parse-timestring "2024-03-15T10:30:00Z")
+(parse-timestring "2024-03-15T10:30:00+03:00")
+(parse-timestring "2024-03-15")
+(parse-timestring "not a date" :fail-on-error nil)
+
+== LOCAL-TIME:PARSE-RFC3339-TIMESTRING @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(parse-rfc3339-timestring "2024-03-15T10:30:00.250Z")
+(parse-rfc3339-timestring "2024-03-15" :allow-missing-time-part t)
+(parse-rfc3339-timestring "garbage" :fail-on-error nil)
+
+== LOCAL-TIME:ENABLE-READ-MACROS @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(let ((*readtable* (copy-readtable)))
+  (enable-read-macros)
+  (timestamp= (values (read-from-string "@2024-03-15T10:30:00Z"))
+              (parse-timestring "2024-03-15T10:30:00Z")))
+(let ((*readtable* (copy-readtable)))
+  (enable-read-macros)
+  (values (read-from-string "@2024-03-15T10:30:00Z")))
+
+== LOCAL-TIME:REREAD-TIMEZONE-REPOSITORY @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(reread-timezone-repository)
+(not (null (find-timezone-by-location-name "America/New_York")))
+
+== LOCAL-TIME:FIND-TIMEZONE-BY-LOCATION-NAME @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(reread-timezone-repository)
+(zone-name (find-timezone-by-location-name "America/New_York"))
+(find-timezone-by-location-name "Nowhere/Land")
+
+== LOCAL-TIME:ZONE-NAME @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(zone-name +utc-zone+)
+(progn (reread-timezone-repository)
+       (zone-name (find-timezone-by-location-name "Europe/Paris")))
+
+== LOCAL-TIME:TIMESTAMP-SUBTIMEZONE @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(multiple-value-list (timestamp-subtimezone (parse-timestring "2024-03-15T10:30:00Z") +utc-zone+))
+(progn (reread-timezone-repository)
+       (let ((new-york (find-timezone-by-location-name "America/New_York")))
+         (list (multiple-value-list (timestamp-subtimezone (parse-timestring "2024-01-15T12:00:00Z") new-york))
+               (multiple-value-list (timestamp-subtimezone (parse-timestring "2024-07-15T12:00:00Z") new-york)))))
+
+== LOCAL-TIME:TIMEZONES-MATCHING-SUBZONE @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(progn (reread-timezone-repository)
+       (let ((matches (timezones-matching-subzone "EST" (parse-timestring "2024-01-15T12:00:00Z"))))
+         (not (null (find "America/New_York" matches
+                          :key (lambda (match) (zone-name (first match)))
+                          :test #'string=)))))
+
+== LOCAL-TIME:ALL-TIMEZONES-MATCHING-SUBZONE @ local-time
+-- silent
+(setf *default-timezone* +utc-zone+)
+(progn (reread-timezone-repository)
+       (let ((matches (all-timezones-matching-subzone "CET")))
+         (not (null (find "Europe/Paris" matches
+                          :key (lambda (match) (zone-name (first match)))
+                          :test #'string=)))))
+
+== LOCAL-TIME:DEFINE-TIMEZONE @ local-time
+(macroexpand-1 '(define-timezone demo-zone "/tmp/demo-zone" :load nil))
+(progn (define-timezone demo-utc
+         (asdf:system-relative-pathname :local-time "zoneinfo/Etc/UTC")
+         :load t)
+       (zone-name demo-utc))

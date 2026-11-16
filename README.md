@@ -58,7 +58,8 @@ Local preview: `cd build/site && python3 -m http.server 8765`, then open
 | Live server (optional, experimental) | `src/server/` | GitHub sign-in, SQLite and a moderation queue; not used by the Pages deployment |
 
 Documented packages: `COMMON-LISP`, `ALEXANDRIA`, `ANAPHORA`, `BABEL`, `BORDEAUX-THREADS`,
-`CL-PPCRE`, `ITERATE`, `SPLIT-SEQUENCE`, `STR` (add systems in `data/systems.sexp`).
+`CL-PPCRE`, `EDITOR-HINTS.NAMED-READTABLES`, `FIVEAM`, `ITERATE`, `LOCAL-TIME`,
+`SPLIT-SEQUENCE`, `STR`, `TRIVIAL-GARBAGE` (add systems in `data/systems.sexp`).
 
 ## Deploying to GitHub Pages
 

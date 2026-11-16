@@ -4,6 +4,20 @@ All notable changes are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- Sitemap, `robots.txt`, canonical and alternate-language links, Open Graph and Twitter
+  card tags, a favicon and a social preview image; set `CLDOCS_SITE_URL` to enable the
+  parts that need an absolute address (the Pages workflow does).
+- Four more libraries with examples for every symbol: fiveam, local-time,
+  named-readtables and trivial-garbage (about 190 more documented definitions), and
+  matching sections in the "Essential libraries" trail.
+
+### Changed
+- Examples of FiveAM run in a private suite with a fresh report indentation, so they
+  neither alter nor depend on the test run that hosts them.
+
 ## [1.0.0] - 2026-11-15
 
 First complete release: a static, community-extensible reference for Common Lisp.

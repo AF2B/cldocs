@@ -1,0 +1,43 @@
+== TRIVIAL-GARBAGE:MAKE-WEAK-POINTER @ trivial-garbage
+(weak-pointer-p (make-weak-pointer (list 1 2 3)))
+
+== TRIVIAL-GARBAGE:MAKE-WEAK-POINTER @ trivial-garbage
+-- silent
+(defvar *kept* (list :a :b))
+(weak-pointer-value (make-weak-pointer *kept*))
+
+== TRIVIAL-GARBAGE:WEAK-POINTER-VALUE @ trivial-garbage
+(let* ((object (list 1 2 3))
+       (pointer (make-weak-pointer object)))
+  (list (weak-pointer-value pointer)
+        (eq object (weak-pointer-value pointer))))
+
+== TRIVIAL-GARBAGE:WEAK-POINTER-P @ trivial-garbage
+(weak-pointer-p (make-weak-pointer "text"))
+(weak-pointer-p "text")
+
+== TRIVIAL-GARBAGE:MAKE-WEAK-HASH-TABLE @ trivial-garbage
+(hash-table-weakness (make-weak-hash-table :weakness :key))
+
+== TRIVIAL-GARBAGE:MAKE-WEAK-HASH-TABLE @ trivial-garbage
+(let ((table (make-weak-hash-table :weakness :value :test 'equal)))
+  (setf (gethash "answer" table) 42)
+  (gethash "answer" table))
+
+== TRIVIAL-GARBAGE:HASH-TABLE-WEAKNESS @ trivial-garbage
+(hash-table-weakness (make-hash-table))
+(hash-table-weakness (make-weak-hash-table :weakness :key-or-value))
+
+== TRIVIAL-GARBAGE:FINALIZE @ trivial-garbage
+(let ((object (list 1 2 3)))
+  (eq object (finalize object (lambda () nil))))
+
+== TRIVIAL-GARBAGE:CANCEL-FINALIZATION @ trivial-garbage
+(let ((object (list 1 2 3)))
+  (finalize object (lambda () nil))
+  (cancel-finalization object)
+  :cancelled)
+
+== TRIVIAL-GARBAGE:GC @ trivial-garbage
+(progn (gc) :collected)
+(progn (gc :full t) :collected-everything)

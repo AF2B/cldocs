@@ -265,6 +265,32 @@ printed) and :ERROR (type name) when the form signalled an error.
               (when (string/= output "")
                 (list :output output))))))
 
+(defparameter *test-framework-package* "IT.BESE.FIVEAM"
+  "Package of FiveAM, whose current suite examples must not touch.")
+
+(defun call-with-isolated-test-suite (function)
+  "Call FUNCTION with FiveAM's current suite rebound to a fresh, empty one.
+
+Examples of FiveAM define tests and switch suites. Without this they would add
+tests to, and leave behind a changed current suite in, whichever test run is
+hosting them. The report indentation is reset too, so the printed output does
+not depend on how deeply the host run is nested. Nothing happens when FiveAM
+is not loaded.
+
+- FUNCTION: a function of no arguments."
+  (let ((framework (find-package *test-framework-package*)))
+    (if framework
+        (progv (list (find-symbol "*SUITE*" framework)
+                     (find-symbol "*TEST-DRIBBLE-INDENT*" framework))
+            (list (funcall (find-symbol "MAKE-SUITE" framework)
+                           (gensym "EXAMPLE-SUITE"))
+                  (make-array 0
+                              :element-type 'character
+                              :adjustable t
+                              :fill-pointer 0))
+          (funcall function))
+        (funcall function))))
+
 (defun call-with-example-package (example function)
   "Call FUNCTION with a fresh package for EXAMPLE, deleting it afterwards.
 
@@ -273,7 +299,7 @@ printed) and :ERROR (type name) when the form signalled an error.
   (ensure-system-loaded (example-system example))
   (let ((package (make-package *example-package-name*
                                :use (list* "COMMON-LISP" (example-uses example)))))
-    (unwind-protect (funcall function package)
+    (unwind-protect (call-with-isolated-test-suite (lambda () (funcall function package)))
       (delete-package package))))
 
 (defun run-example (example)

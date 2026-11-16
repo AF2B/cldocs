@@ -1,0 +1,368 @@
+== FIVEAM:DEF-TEST @ fiveam
+-- silent
+(def-test addition-works ()
+  (is (= 4 (+ 2 2))))
+(values (results-status (run 'addition-works)))
+
+== FIVEAM:DEF-TEST @ fiveam
+-- silent
+(def-test list-ops ()
+  (is (equal '(1 2 3) (list 1 2 3)))
+  (is-true (member 2 '(1 2 3))))
+(values (run! 'list-ops))
+
+== FIVEAM:TEST @ fiveam
+-- silent
+(test string-length
+  (is (= 5 (length "hello"))))
+(values (run! 'string-length))
+
+== FIVEAM:IS @ fiveam
+-- silent
+(def-test is-passes ()
+  (is (= 3 (+ 1 2)))
+  (is (string= "ab" (concatenate 'string "a" "b"))))
+(values (results-status (run 'is-passes)))
+
+== FIVEAM:IS @ fiveam
+-- silent
+(def-test is-fails ()
+  (is (= 5 (+ 1 2)) "one plus two should be ~D" 3))
+(let ((*test-dribble* (make-broadcast-stream)))
+  (values (results-status (run 'is-fails))))
+-- silent
+(rem-test 'is-fails)
+
+== FIVEAM:IS-TRUE @ fiveam
+-- silent
+(def-test is-true-works ()
+  (is-true (evenp 10))
+  (is-true (find 3 '(1 2 3))))
+(values (results-status (run 'is-true-works)))
+
+== FIVEAM:IS-FALSE @ fiveam
+-- silent
+(def-test is-false-works ()
+  (is-false (evenp 11))
+  (is-false (find 9 '(1 2 3))))
+(values (results-status (run 'is-false-works)))
+
+== FIVEAM:IS-EVERY @ fiveam
+-- silent
+(def-test is-every-works ()
+  (is-every = (2 (+ 1 1))
+               (6 (* 2 3))
+               (0 (- 4 4))))
+(values (results-status (run 'is-every-works)))
+
+== FIVEAM:SIGNALS @ fiveam
+-- silent
+(def-test signals-works ()
+  (signals division-by-zero (/ 1 0))
+  (signals type-error (car 5)))
+(values (results-status (run 'signals-works)))
+
+== FIVEAM:FINISHES @ fiveam
+-- silent
+(def-test finishes-works ()
+  (finishes (reverse '(1 2 3)))
+  (finishes (parse-integer "42")))
+(values (results-status (run 'finishes-works)))
+
+== FIVEAM:PASS @ fiveam
+-- silent
+(def-test pass-works ()
+  (pass "reached the end"))
+(values (results-status (run 'pass-works)))
+
+== FIVEAM:FAIL @ fiveam
+-- silent
+(def-test fail-works ()
+  (fail "this check always fails"))
+(let ((*test-dribble* (make-broadcast-stream)))
+  (values (results-status (run 'fail-works))))
+-- silent
+(rem-test 'fail-works)
+
+== FIVEAM:SKIP @ fiveam
+-- silent
+(def-test skip-works ()
+  (skip "not ready yet")
+  (is (= 1 1)))
+(values (results-status (run 'skip-works)))
+
+== FIVEAM:FOR-ALL @ fiveam
+-- silent
+(def-test addition-is-commutative ()
+  (for-all ((a (gen-integer :min -100 :max 100))
+            (b (gen-integer :min -100 :max 100)))
+    (is (= (+ a b) (+ b a)))))
+(let ((*num-trials* 5)
+      (*test-dribble* (make-broadcast-stream)))
+  (values (results-status (run 'addition-is-commutative))))
+
+== FIVEAM:FOR-ALL @ fiveam
+-- silent
+(def-test reverse-twice-is-identity ()
+  (for-all ((items (gen-list :length (gen-integer :min 0 :max 8)
+                             :elements (gen-integer :min 0 :max 9))))
+    (is (equal items (reverse (reverse items))))))
+(let ((*num-trials* 5)
+      (*test-dribble* (make-broadcast-stream)))
+  (values (results-status (run 'reverse-twice-is-identity))))
+
+== FIVEAM:FOR-ALL* @ fiveam
+-- silent
+(def-test later-binding-sees-earlier ()
+  (for-all* ((low (gen-integer :min 0 :max 10))
+             (high (gen-integer :min 11 :max 20)))
+    (is (< low high))))
+(let ((*num-trials* 5)
+      (*test-dribble* (make-broadcast-stream)))
+  (values (results-status (run 'later-binding-sees-earlier))))
+
+== FIVEAM:GEN-INTEGER @ fiveam
+(funcall (gen-integer :min 7 :max 7))
+(typep (funcall (gen-integer :min 0 :max 9)) '(integer 0 9))
+
+== FIVEAM:GEN-FLOAT @ fiveam
+(typep (funcall (gen-float :bound 1.0 :type 'single-float)) 'single-float)
+
+== FIVEAM:GEN-CHARACTER @ fiveam
+(funcall (gen-character :code (gen-integer :min 97 :max 97)))
+(alphanumericp (funcall (gen-character :alphanumericp t)))
+
+== FIVEAM:GEN-STRING @ fiveam
+(funcall (gen-string :length (gen-integer :min 3 :max 3)
+                     :elements (gen-character :code (gen-integer :min 120 :max 120))))
+
+== FIVEAM:GEN-LIST @ fiveam
+(funcall (gen-list :length (gen-integer :min 3 :max 3)
+                   :elements (gen-one-element :x)))
+
+== FIVEAM:GEN-ONE-ELEMENT @ fiveam
+(funcall (gen-one-element :only))
+(not (null (member (funcall (gen-one-element :a :b :c)) '(:a :b :c))))
+
+== FIVEAM:GEN-BUFFER @ fiveam
+(length (funcall (gen-buffer :length (gen-integer :min 4 :max 4))))
+(type-of (funcall (gen-buffer :length (gen-integer :min 2 :max 2))))
+
+== FIVEAM:GEN-TREE @ fiveam
+(funcall (gen-tree :size 0 :elements (gen-one-element :leaf)))
+(typep (funcall (gen-tree :size 5 :elements (gen-integer :min 1 :max 9))) '(or integer list))
+
+== FIVEAM:DEF-SUITE @ fiveam
+-- silent
+(def-suite arithmetic-suite :description "Arithmetic checks")
+-- silent
+(in-suite arithmetic-suite)
+-- silent
+(def-test suite-member ()
+  (is (= 6 (* 2 3))))
+(values (run! 'arithmetic-suite))
+
+== FIVEAM:DEF-SUITE* @ fiveam
+-- silent
+(def-suite* string-suite :description "String checks")
+-- silent
+(def-test suite-star-member ()
+  (is (string= "ABC" (string-upcase "abc"))))
+(values (results-status (run 'string-suite)))
+
+== FIVEAM:IN-SUITE @ fiveam
+-- silent
+(def-suite outer-suite)
+-- silent
+(in-suite outer-suite)
+-- silent
+(def-test defined-in-outer ()
+  (is-true t))
+(values (results-status (run 'outer-suite)))
+
+== FIVEAM:IN-SUITE* @ fiveam
+-- silent
+(def-suite outer-for-star)
+-- silent
+(in-suite* inner-for-star :in outer-for-star)
+-- silent
+(def-test defined-in-inner ()
+  (is-true t))
+(values (results-status (run 'outer-for-star)))
+
+== FIVEAM:MAKE-SUITE @ fiveam
+-- silent
+(make-suite 'made-suite :description "Built by a function")
+-- silent
+(def-test made-suite-member (:suite made-suite)
+  (is (= 2 (1+ 1))))
+(values (results-status (run 'made-suite)))
+
+== FIVEAM:RUN @ fiveam
+-- silent
+(def-test run-me ()
+  (is (= 9 (* 3 3))))
+(let ((results (run 'run-me)))
+  (list (listp results)
+        (results-status results)))
+
+== FIVEAM:RUN! @ fiveam
+-- silent
+(def-test run-bang-me ()
+  (is (= 8 (* 2 4)))
+  (is (= 1 (- 3 2))))
+(values (run! 'run-bang-me))
+
+== FIVEAM:RUN-ALL-TESTS @ fiveam
+(sb-introspect:function-lambda-list #'run-all-tests)
+
+== FIVEAM:DEBUG! @ fiveam
+-- silent
+(def-test debug-me ()
+  (is (= 12 (* 3 4))))
+(values (debug! 'debug-me))
+
+== FIVEAM:EXPLAIN! @ fiveam
+-- silent
+(def-test explained-test ()
+  (is (= 4 (+ 2 2))))
+(explain! (run 'explained-test))
+
+== FIVEAM:EXPLAIN @ fiveam
+-- silent
+(def-test explain-generic ()
+  (is (= 4 (+ 2 2))))
+(explain (make-instance 'fiveam::detailed-text-explainer)
+         (run 'explain-generic)
+         *standard-output*)
+
+== FIVEAM:RESULTS-STATUS @ fiveam
+-- silent
+(def-test status-ok ()
+  (is-true t))
+(values (results-status (run 'status-ok)))
+
+== FIVEAM:! @ fiveam
+-- silent
+(def-test bang-first ()
+  (is-true t))
+-- silent
+(run 'bang-first)
+(values (!))
+
+== FIVEAM:!! @ fiveam
+-- silent
+(def-test bang-second ()
+  (is-true t))
+-- silent
+(def-test bang-third ()
+  (is-true t))
+-- silent
+(run 'bang-second)
+-- silent
+(run 'bang-third)
+(values (!!))
+
+== FIVEAM:!!! @ fiveam
+-- silent
+(def-test bang-fourth ()
+  (is-true t))
+-- silent
+(def-test bang-fifth ()
+  (is-true t))
+-- silent
+(def-test bang-sixth ()
+  (is-true t))
+-- silent
+(run 'bang-fourth)
+-- silent
+(run 'bang-fifth)
+-- silent
+(run 'bang-sixth)
+(values (!!!))
+
+== FIVEAM:GET-TEST @ fiveam
+-- silent
+(def-test findable-test ()
+  (is-true t))
+(not (null (get-test 'findable-test)))
+(get-test 'no-such-test :missing)
+
+== FIVEAM:REM-TEST @ fiveam
+-- silent
+(def-test removable-test ()
+  (is-true t))
+(rem-test 'removable-test)
+(get-test 'removable-test :gone)
+
+== FIVEAM:TEST-NAMES @ fiveam
+-- silent
+(def-test named-in-registry ()
+  (is-true t))
+(not (null (member 'named-in-registry (test-names))))
+
+== FIVEAM:DEF-FIXTURE @ fiveam
+-- silent
+(def-fixture with-counter (start)
+  (let ((counter start))
+    (&body)))
+(def-test fixture-test ()
+  (with-fixture with-counter (10)
+    (incf counter 5)
+    (is (= 15 counter))))
+(values (results-status (run 'fixture-test)))
+
+== FIVEAM:WITH-FIXTURE @ fiveam
+-- silent
+(def-fixture with-list (&rest items)
+  (let ((list (copy-list items)))
+    (&body)))
+(with-fixture with-list (1 2 3)
+  (length list))
+
+== FIVEAM:GET-FIXTURE @ fiveam
+-- silent
+(def-fixture known-fixture ()
+  (&body))
+(not (null (get-fixture 'known-fixture)))
+(get-fixture 'unknown-fixture :missing)
+
+== FIVEAM:REM-FIXTURE @ fiveam
+-- silent
+(def-fixture temporary-fixture ()
+  (&body))
+(rem-fixture 'temporary-fixture)
+(get-fixture 'temporary-fixture :gone)
+
+== FIVEAM:*DEBUG-ON-ERROR* @ fiveam
+*debug-on-error*
+
+== FIVEAM:*DEBUG-ON-FAILURE* @ fiveam
+*debug-on-failure*
+
+== FIVEAM:*DEFAULT-TEST-COMPILATION-TIME* @ fiveam
+*default-test-compilation-time*
+
+== FIVEAM:*MAX-TRIALS* @ fiveam
+*max-trials*
+
+== FIVEAM:*NUM-TRIALS* @ fiveam
+*num-trials*
+
+== FIVEAM:*ON-ERROR* @ fiveam
+*on-error*
+
+== FIVEAM:*ON-FAILURE* @ fiveam
+*on-failure*
+
+== FIVEAM:*PRINT-NAMES* @ fiveam
+*print-names*
+
+== FIVEAM:*RUN-TEST-WHEN-DEFINED* @ fiveam
+*run-test-when-defined*
+
+== FIVEAM:*TEST-DRIBBLE* @ fiveam
+(typep *test-dribble* 'stream)
+
+== FIVEAM:*VERBOSE-FAILURES* @ fiveam
+*verbose-failures*
